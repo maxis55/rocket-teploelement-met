@@ -481,7 +481,57 @@ a[class*="_btn"]{
     }
     .main_contacts_info, .main_contacts_form{
       width: 50%;
+      position: relative;
+      padding-top: 20px;
     }
+    .price_list_box{
+      position: absolute;
+      width: 190px;
+      max-width: 220px;
+      right:20px;
+      bottom: 70px;
+      text-align: right;
+    }
+     .price_list_box span{
+      color: #fff;
+      font-size: 16px;
+      margin-bottom: 20px;
+      display: inline-block;
+     }
+     .price_list_box a{
+      display: block;
+      font-size: 13.33px;
+      line-height: 36px;
+      text-transform: uppercase;
+      color: #00bfff;
+      border:2px solid #00bfff;
+      border-radius: 10px;
+      height: 40px;
+      text-align: center;
+     }
+     .contacts_form_inner{
+      width: 450px;
+      padding: 60px 56px 0 130px;
+      background: url(../images/bg_pricelist.png) 50% 0 no-repeat;
+      min-height: 505px;
+      text-align: center;
+     }
+     .contacts_form_title{
+      display: block;
+      font-size: 27.69px;
+      text-transform: uppercase;
+      text-align: center;
+      font-weight: 700;
+      margin-bottom: 20px;
+     }
+      .contacts_form_message{
+        margin-bottom: 20px;
+        display: inline-block;
+      }
+      .contacts_form_title span{
+        display: block;
+        color: #1864b0;
+      }
     .main_news_bl{
       padding-top: 42px;
       background: url(../images/bg_news_bl.jpg) 50% 0 no-repeat;
@@ -586,13 +636,77 @@ a[class*="_btn"]{
    }
    .form_item{
     margin-bottom: 10px;
+    position: relative;
    }
-    .form_item input[type="text"]{
+   .form_item.user input[type="text"]{
+    background: url(../images/icons/user.png) 10px 50% no-repeat #fff;
+   }
+    input[type="radio"], input[type="file"] {
+      display: none;
+    }
+    .form_item input[type="text"], .form_item input[type="search"], .form_item input[type="mail"], .form_item input[type="tel"]{
       width: 100%;
-      height: 40px;
-      padding: 0 10px 0 20px;
+      height: 42px;
+      line-height: 40px;
+      padding: 0 10px 0 45px;
+      -webkit-appearance: none;
+      border:none;
+      outline: none;
+      display: inline-block;
+      border:1px solid #d8d8d8;
     }
     .main_map_info .blue_btn{
+      min-width: 130px;
+    }
+    .form_item textarea{
+      width: 100%;
+      overflow: hidden;
+      padding: 10px 10px 10px 20px;
+      border:none;
+      outline: none;
+      resize: vertical;
+      min-height: 90px;
+      border:1px solid #d8d8d8;
+    }
+    .form_item .label_select_file {
+        width: 120px;
+        text-align: center;
+        display: inline-block;
+        height: 36px;
+        border:2px solid #006cad;
+        border-radius: 10px;
+        vertical-align: top;
+        cursor: pointer;
+    }
+      .file_btn {
+        display:block;
+        text-align: center;
+        line-height:1.25;
+        font-size: 13.33px;
+        text-transform: uppercase;
+        font-weight: 700;
+        color: #006cad;
+        position: relative;
+        }
+    .active.file_btn{
+      line-height: 32px;
+    }
+    .file_select {
+      display: inline-block;
+      margin-top: 5px;
+    }
+    .form_item.flex{
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -ms-flex-wrap:wrap;
+      flex-wrap:nowrap;
+      flex-wrap:nowrap;
+      -webkit-box-pack:justify;
+      -ms-flex-pack:justify;
+      justify-content:space-between;
+    }
+    .form_item.flex .blue_btn{
       min-width: 130px;
     }
 /*-----breadcrumbs----*/
@@ -892,6 +1006,7 @@ body.show_modal{overflow: hidden;height: 100%;margin-right: 17px;}
     left:0;
     margin-top:-17px;
     background:url(../images/icons/bg_main_title.png) 0 0 no-repeat;
+    background-size: 34px 34px;
   }
 .title2{
   font-family: 'Exo 2', sans-serif;
@@ -957,7 +1072,7 @@ p{margin-bottom: 20px;}
 }
 @media (min-width: 1200px) {
   .container{
-    width:1366px;
+    width:1367px;
     padding: 0 15px;
   }
 }

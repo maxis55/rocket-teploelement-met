@@ -83,7 +83,17 @@ if($('.owl-carousel').length){
   });
 }
 });
-
+//---------------input type file-------------------
+if($('#file').length){
+  var inp = $('#file');
+  inp.on('change', function(){
+     $('.file_btn').removeClass('active');
+    var file_name = inp.val().replace( "C:\\fakepath\\", '' );
+    $('.file_text').text( file_name);
+    }).change(function(){
+      $('.file_btn').text('Заменить файл').addClass('active');
+    });
+}
 //--------------modal window------
  $(".modal_btn").on("click", function(){
   var attr = $(this).data('modal');
@@ -110,8 +120,8 @@ if($('.owl-carousel').length){
         return true;
       }
   });
-  function modal_close(t){
-    var attr = $(t).data('close');
+  
+   $(".modal_close").on("click", function(){
     if($("body").hasClass("show_modal")){
       $("body").removeClass("show_modal");
       $("html").removeClass("show_modal");
@@ -120,8 +130,9 @@ if($('.owl-carousel').length){
       $("#menu_overlay").fadeOut();
       $('#' + attr).removeClass('active');
       console.log(t);
-  }
-}
+    }
+  });
+
 
 
 
