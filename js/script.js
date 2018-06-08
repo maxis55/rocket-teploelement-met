@@ -50,88 +50,59 @@ function include(url){
 
 $(document).ready(function(){
  
-  //--owl-carousel--------------------  
-if($('.owl-carousel').length){
-   $(".owl-carousel").owlCarousel({
-      nav:true,
-      items:4,
-      responsiveClass:true,
-      responsive:{
-        0:{
-            items :1, 
-            nav:true
-          },
-      480:{
-            items:2,
-            nav:true
-          },
+  //---------------input type file-------------------
+  if($('#file').length){
+    var inp = $('#file');
+    inp.on('change', function(){
+       $('.file_btn').removeClass('active');
+      var file_name = inp.val().replace( "C:\\fakepath\\", '' );
+      $('.file_select').text( file_name);
+      }).change(function(){
+        $('.file_btn').text('Заменить файл').addClass('active');
+      });
+  }
 
-      768:{
-            items :2,
-            nav:true
-          },      
-      992:{
-            items :3,
-            nav:true
-          },
-         
-      1000:{
-            items : 4,
-            nav:true
-          }
-    }
-  });
-}
-});
-//---------------input type file-------------------
-if($('#file').length){
-  var inp = $('#file');
-  inp.on('change', function(){
-     $('.file_btn').removeClass('active');
-    var file_name = inp.val().replace( "C:\\fakepath\\", '' );
-    $('.file_text').text( file_name);
-    }).change(function(){
-      $('.file_btn').text('Заменить файл').addClass('active');
-    });
-}
+
+
 //--------------modal window------
- $(".modal_btn").on("click", function(){
-  var attr = $(this).data('modal');
-  modal_open($(this), attr);
-});
-
- function modal_open(e, t, r){
-    var template = "<div class='modal_container'></div>";
-    var height = $(window).height();
- 
+   $(".modal_btn").on("click", function(){
+      var template = "<div class='modal_container'></div>";
+      var height = $(window).height();
+      var modal = $(this).data('modal');
+      console.log(height);
     $(template).prependTo('body');
-    console.log(t);
-    if(r == 'request') { $('#' + r).removeClass('active')};
-    $('#' + t).prependTo('.modal_container').addClass('active');
+    $('#' + modal).prependTo('.modal_container').addClass('active');
     $('.modal_container').css('height', height);
     $("body").addClass("show_modal");
     $("html").addClass("show_modal");
-
-  
- };
-  document.addEventListener('touchmove', function(e) {
-      if($("body").hasClass("show_modal")){
-        e.preventDefault();
-        return true;
-      }
-  });
-  
+    
+    document.addEventListener('touchmove', function(e) {
+        if($("body").hasClass("show_modal")){
+          e.preventDefault();
+          return true;
+        }
+      });
+   });
    $(".modal_close").on("click", function(){
-    if($("body").hasClass("show_modal")){
-      $("body").removeClass("show_modal");
-      $("html").removeClass("show_modal");
-      $('.modal').appendTo('body').removeClass('active');
-      $('.modal_container').remove();
-      $("#menu_overlay").fadeOut();
-      $('#' + attr).removeClass('active');
-      console.log(t);
-    }
-  });
+        if($("body").hasClass("show_modal")){
+          $("body").removeClass("show_modal");
+          $("html").removeClass("show_modal");
+          $('.modal').appendTo('body').removeClass('active');
+          $('.modal_container').remove();
+          $("#menu_overlay").fadeOut();
+
+        }
+      $("#menu_overlay").on("click", function(){
+        if($("body").hasClass("show_modal")){
+          $("body").removeClass("show_modal");
+          $("html").removeClass("show_modal");
+          $('.modal').removeClass('active');
+          $(this).fadeOut();
+        }
+    })
+    
+   });
+ });
 
 
 
@@ -175,8 +146,7 @@ if($('#file').length){
         name = currentForm.find('input[name="name"]'),
         phone = currentForm.find('input[name="phone"]'),
         email = currentForm.find('input[name="email"]');
-        theme = currentForm.find('input[name="theme"]');
-        messadge = currentForm.find('textarea.messadge');
+        messadge = currentForm.find('textarea[name="message"]');
     if(email.length){
       if(!email.val().length){
         email.parent().addClass("invalid");
@@ -203,7 +173,7 @@ if($('#file').length){
       }
     }
     if(name.length){
-      if(!name.val().length || name.val() =="Ð’Ð°ÑˆÐµ Ð¸Ð¼Ñ"){
+      if(!name.val().length || name.val() =="ФИО"){
         name.parent().addClass("invalid");
         errors = true;
     }
@@ -211,17 +181,8 @@ if($('#file').length){
         name.parent().removeClass("invalid");
       }
     }
-    if(theme.length){
-      if(!theme.val().length || theme.val() ==" "){
-        theme.parent().addClass("invalid");
-        errors = true;
-    }
-      else{
-        theme.parent().removeClass("invalid");
-      }
-    }
-     if(messadge.length){
-      if(!messadge.val().length || theme.val() ==" "){
+   if(messadge.length){
+      if(!messadge.val().length || messadge.val() ==" "){
         messadge.parent().addClass("invalid");
         errors = true;
     }

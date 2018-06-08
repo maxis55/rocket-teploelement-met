@@ -131,7 +131,32 @@
 										<div class="header_supply_item14">
 											<div class="header_supply_img">
 											</div>
-											<a href="#" class="categories_name">Сетка</a>
+											<div class="categories_open">
+													<a href="#" class="categories_name">Сетка</a>
+													<div class="categories">
+															<ul class="submenu">
+																<li><a href="">сетка сварная</a></li>
+																<li><a href="#" class="submenu_lk">сетка тканая</a>
+																	<ul class="submenu2">
+																		<li><a href="">сетка сварная</a></li>
+																		<li><a href="">сетка тканая</a>
+																		<li><a href="">сетка нержавеющая</a></li>
+																    <li><a href="">сетка плетенная рабица</a></li>
+																	</ul>
+																</li>
+																<li><a href="#" class="submenu_lk">сетка нержавеющая</a>
+																	<ul class="submenu2">
+																		<li><a href="">сетка сварная</a></li>
+																		<li><a href="">сетка тканая</a>
+																		<li><a href="">сетка нержавеющая</a></li>
+																    <li><a href="">сетка плетенная рабица</a></li>
+																	</ul>
+																</li>
+																<li><a href="">сетка плетенная рабица</a></li>
+														 </ul>
+													</div>
+											</div>
+										
 										</div>
 									</div>
 								</div>
@@ -203,13 +228,11 @@
 							<a href="#" class="more_white_btn"><span>Подробнее</span></a>
 							<a href="#" class="blue_btn">Получить цены</a>
 						</div>
-						<div class="main_about_img">
-						</div>
-				</div>
-		
+						<div class="main_about_img"></div>
+				  </div>
+			 </div>
 			</section>
-			<section>
-				
+      <section>
 				<div class="main_services_box">
 				  
 				  <div class="main_services_item">
@@ -286,15 +309,15 @@
 						<div class="contacts_form_inner">
 							<span class="contacts_form_title"><span>Оставить</span>заявку</span>
 							<span class="contacts_form_message">Заполните заявку и в ближайшее время мы с вами свяжемся</span>
-							<form>
+							<form class="formSend">
 								<div class="form_item user">
-									<input type="text" placeholder="ФИО">
+									<input type="text" placeholder="ФИО" name="name">
 								</div>
-								<div class="form_item">
-									<input type="tel" placeholder="Телефон">
+								<div class="form_item phone">
+									<input type="tel" placeholder="Телефон" name="phone">
 								</div>
-								<div class="form_item">
-									<textarea placeholder="Сообщение"></textarea>
+								<div class="form_item mes">
+									<textarea placeholder="Сообщение" name="message"></textarea>
 								</div>
 								<div class="form_item flex">
 									<label for="file" class="label_select_file">
@@ -302,7 +325,7 @@
 										<span class="file_select"></span>
 										<input type="file" name="file" id="file">
 									</label>
-									<button class="blue_btn">Отправить</button>
+									<button class="blue_btn sendBtn">Отправить</button>
 								</div>
 							</form>
 					 </div>
@@ -383,8 +406,8 @@
 								<form>
 									<label>Узнайте, есть ли поставки в ваш город:</label>
 									<div class="form_item">
-											<input type="search" name="" placeholder="Ваш город" results="5" autocomplete list="city">
-											<datalist id="city">
+											<input type="search" name="search" placeholder="Ваш город" autocomplete list="town">
+											<datalist id="town">
 											  <option value="Москва">
 											  <option value="Казань">
 											  <option value="Петербург">
@@ -393,7 +416,7 @@
 											</datalist>
 									</div>
 
-									<button class="blue_btn modal_btn" data-modal="city">Узнать</button>
+									<button class="blue_btn modal_btn sendBtn" data-modal="city">Узнать</button>
 								</form>
 							</div>
 							<h2 class="title1">Карта поставок</h2>
@@ -435,8 +458,11 @@
 						<div class="logo">
 							<a href="index.html"></a>
 						</div>
-						<span class="copiring">Copiring 2018</span>
-						<span>Все права защищены</span>
+						<div class="copyright">
+							<span>Copyright 2018</span>
+							<span>Все права защищены</span>
+						</div>
+					
 					</div>
 				</div>
 			</div>
@@ -449,6 +475,14 @@
         <div class="modal_close"></div>
         <div class="modal_box">
         	<span>Доставка в ваш город будет осуществлена в течении <span>5</span>дней.</span>
+				</div>
+    </div>
+  </div>
+  <div class="modal" id="thanks">
+    <div class="modal_content">
+        <div class="modal_close"></div>
+        <div class="modal_box">
+        	<span>Ваша заявка успешно отправлена</span>
 				</div>
     </div>
   </div>
