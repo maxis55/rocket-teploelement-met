@@ -61,8 +61,18 @@ $(document).ready(function(){
         $('.file_btn').text('Заменить файл').addClass('active');
       });
   }
+ $(".submenu_lk").on("mouseenter", function(e){
+  e.preventDefault();
+  if(!$(this).next('.submenu2').hasClass('active')){
 
-
+   $(this).parent('li').siblings().find('.submenu2').removeClass('active');
+    $(this).next('.submenu2').addClass('active');
+  }
+  else{
+    $(this).next('.submenu2').removeClass('active');
+  
+  }
+});
 
 //--------------modal window------
    $(".modal_btn").on("click", function(){

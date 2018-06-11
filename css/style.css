@@ -1,4 +1,5 @@
-
+article,aside,audio,canvas,command,datalist,details,embed,figcaption,figure,footer,header,hgroup,keygen,meter,nav,output,progress,section,source,video{display:block}mark,rp,rt,ruby,summary,time{display:inline}
+a,abbr,acronym,address,applet,article,aside,audio,b,blockquote,big,body,center,canvas,caption,cite,code,command,datalist,dd,del,details,dfn,dl,div,dt,em,embed,fieldset,figcaption,figure,font,footer,form,h1,h2,h3,h4,h5,h6,header,hgroup,html,i,iframe,img,ins,kbd,keygen,label,legend,li,meter,nav,object,ol,output,p,pre,progress,q,s,samp,section,small,span,source,strike,strong,sub,sup,table,tbody,tfoot,thead,th,tr,tdvideo,tt,u,ul,var{background:transparent;border:0 none;font-size:100%;margin:0;padding:0;border:0;outline:0;vertical-align:top;}ol, ul {list-style:none;}blockquote, q {quotes:none;}table, table td {padding:0;border:none;border-collapse:collapse;}img {vertical-align:top;}embed {vertical-align:top;}input[type=text], textarea{ outline:none;}
 /* Global properties ======================================================== */
 html {width:100%}
 
@@ -506,18 +507,24 @@ a[class*="_btn"]{
      .categories{
         display: none;
         position: absolute;
+        position: absolute;
         background-color: #06457b;
         padding:0 0 10px 0;
         border-bottom-left-radius: 6px;
         border-bottom-right-radius: 6px;
         border-top-right-radius: 6px;
       }
-      .categories ul{
+
+    .categories ul{
         list-style: none;
         margin:0;
         padding: 0;
         text-align: left;
       }
+    .active.categories{
+      display: block;
+    }
+   
        .categories li{
           border-bottom:1px solid #1e5e87;
        }
@@ -536,11 +543,14 @@ a[class*="_btn"]{
           .submenu_lk{
             background:url(../images/icons/submenu_arrow.png) 25px 50% no-repeat;
           }
+  
        .submenu2{
         display: none;
         background-color: #006cad;
        }
-
+      .active.submenu2{
+        display: block;
+      }
         .submenu2 li{
           border-bottom: none;
         }
@@ -553,7 +563,7 @@ a[class*="_btn"]{
         color: #00bfff;
       }
          
-     .categories_name:hover + .categories, .categories:hover {
+     .categories_name:hover + .categories, .categories:hover{
       display: block;
      }
      .categories_open:hover{
@@ -569,17 +579,15 @@ a[class*="_btn"]{
     color: #fff;
  
   }
-  .submenu_lk:hover + .submenu2, .submenu2:hover{
+/*  .submenu_lk:hover + .submenu2, .submenu2:hover{
     display: block;
-  }
+  }*/
 .container {
     width: auto;
     margin: 0 auto;
     padding: 0 10px;
 }
-.container_inner{
-  padding: 0 114px;
-}
+
 /*-----content------------------*/
  .sprite { display: none; }
      .sprite:target { display: inline; 
@@ -778,8 +786,7 @@ a[class*="_btn"]{
     }
   .main_contacts_bl{
       background: url(../images/bg_main_contacts.png) 0 0 repeat-x;
-      min-height: 590px;
-      background-size: cover;
+      min-height: 585px;
   }
   .main_services_info_left .blue_btn, .main_services_info_right .blue_btn{
     min-width: 126px;
@@ -797,7 +804,8 @@ a[class*="_btn"]{
     }
      .main_contacts_box{
       background: url(../images/bg_main_contacts.jpg) 50% 0 no-repeat;
-      min-height: 590px;
+      background-size: cover;
+      min-height: 585px;
     }
     .main_contacts_info, .main_contacts_form{
       width: 50%;
@@ -894,7 +902,7 @@ a[class*="_btn"]{
         color: #1864b0;
       }
     .main_news_bl{
-      padding-top: 42px;
+      padding-top: 50px;
       background: url(../images/bg_news_bl.jpg) 50% 0 no-repeat;
       background-size: cover;
     }
@@ -905,6 +913,12 @@ a[class*="_btn"]{
         position: absolute;
         top:0;
         right:0;
+        font-size: 13.33px;
+        min-width: 185px;
+        height: 42px;
+        margin-top: -10px;
+        margin-right: 9px;
+        line-height: 40px;
       }
       .main_news_title{
         border-bottom: 1px dashed #5e6e81;
@@ -1568,6 +1582,7 @@ p{margin-bottom: 30px;}
     width:1386px;
     padding: 0 10px;
   }
+  .container_inner{padding: 0 114px;}
 }
 @media only screen and (max-width: 1500px) {
   .main_services_item:first-child .main_services_info_left {

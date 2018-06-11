@@ -137,12 +137,13 @@
 															<ul class="submenu">
 																<li><a href="">сетка сварная</a></li>
 																<li><a href="#" class="submenu_lk">сетка тканая</a>
-																	<ul class="submenu2">
+														      <ul class="submenu2">
 																		<li><a href="">сетка сварная</a></li>
 																		<li><a href="">сетка тканая</a>
 																		<li><a href="">сетка нержавеющая</a></li>
 																    <li><a href="">сетка плетенная рабица</a></li>
 																	</ul>
+														
 																</li>
 																<li><a href="#" class="submenu_lk">сетка нержавеющая</a>
 																	<ul class="submenu2">
@@ -311,13 +312,13 @@
 							<span class="contacts_form_message">Заполните заявку и в ближайшее время мы с вами свяжемся</span>
 							<form class="formSend">
 								<div class="form_item user">
-									<input type="text" placeholder="ФИО" name="name">
+									<input type="text" placeholder="ФИО" name="name"  onblur="if(this.placeholder=='') this.placeholder='ФИО'" onfocus="if(this.placeholder =='ФИО'){this.placeholder='';this.addClass='hide';}">
 								</div>
 								<div class="form_item phone">
-									<input type="tel" placeholder="Телефон" name="phone">
+									<input type="tel" placeholder="Телефон" name="phone" onblur="if(this.placeholder=='') this.placeholder='Телефон'" onfocus="if(this.placeholder =='Телефон' ) this.placeholder=''">
 								</div>
 								<div class="form_item mes">
-									<textarea placeholder="Сообщение" name="message"></textarea>
+									<textarea placeholder="Сообщение" name="message" onblur="if(this.placeholder=='') this.placeholder='Сообщение'" onfocus="if(this.placeholder =='Сообщение' ) this.placeholder=''"></textarea>
 								</div>
 								<div class="form_item flex">
 									<label for="file" class="label_select_file">
