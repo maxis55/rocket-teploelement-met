@@ -114,7 +114,15 @@ $(document).ready(function(){
    });
  });
 
-
+//select
+  $(".select select").on("click", function(){
+    if(!$(this).parent().hasClass('active')){
+      $(this).parent().addClass('active');
+    }
+    else{
+      $(this).parent().removeClass('active');
+    }
+  });
 
 
 //------validation form------
