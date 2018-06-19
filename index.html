@@ -326,7 +326,7 @@
 										<span class="file_select"></span>
 										<input type="file" name="file" id="file">
 									</label>
-									<button class="blue_btn sendBtn">Отправить</button>
+									<button class="blue_btn sendBtn" type="submit">Отправить</button>
 								</div>
 							</form>
 					 </div>
@@ -417,7 +417,7 @@
 											</datalist>
 									</div>
 
-									<button class="blue_btn modal_btn sendBtn" data-modal="city">Узнать</button>
+									<button class="blue_btn modal_btn sendBtn" data-modal="request">Узнать</button>
 								</form>
 							</div>
 							<h2 class="title1">Карта поставок</h2>
@@ -469,36 +469,61 @@
 	</footer>
 	<!--FOOTER END-->
 	<!--modal popup  -->
- <div class="modal" id="city">
+ <div class="modal" id="request" style="background:url(images/bg_modal_thanks.jpg) 0 0 no-repeat;background-size: cover;">
     <div class="modal_content">
-        <div class="modal_close"></div>
-        <div class="modal_box">
-        	<span>Доставка в ваш город будет осуществлена в течении <span>5</span>дней.</span>
+    	<div class="modal_content_inner">
+        <div class="modal_close" onclick="modal_close(this)"></div>
+        <div class="modal_box_request">
+        	<h2 class="title3">Оставить заявку</h2>
+        	<span class="modal_request_mess">Заполните заявку, и в ближайшее время мы с вами свяжемся</span>
+        	<form class="formSend form_call">
+        		<div class="form_item user">
+							<input type="text" placeholder="ФИО" name="name"  onblur="if(this.placeholder==''){this.placeholder='ФИО';this.classList.remove('hide');}" onfocus="if(this.placeholder =='ФИО'){this.placeholder='';this.classList.add('hide');}">
+						</div>
+						<div class="form_item phone">
+							<input type="tel" placeholder="Телефон" name="phone" onblur="if(this.placeholder==''){this.placeholder='Телефон';this.classList.remove('hide');}" onfocus="if(this.placeholder =='Телефон' ){this.placeholder='';this.classList.add('hide');}">
+						</div>
+						<div class="form_item mes">
+							<textarea placeholder="Сообщение" name="message" onblur="if(this.placeholder==''){this.placeholder='Сообщение';this.classList.remove('hide');}" onfocus="if(this.placeholder =='Сообщение' ){this.placeholder='';this.classList.add('hide');}"></textarea>
+						</div>
+						<div class="form_item modal_file">
+							<label for="file" class="label_select_file">
+								<span class="file_btn">Прикрепить файл</span>
+								<span class="file_select"></span>
+								<input type="file" name="file" id="file">
+							</label>
+							<button class="blue_btn sendBtn">Отправить</button>
+						</div>
+        	</form>
 				</div>
+			</div>
     </div>
   </div>
-  <div class="modal" id="thanks">
+  <div class="modal" id="thanks" style="background:url(images/bg_modal_thanks.jpg) 0 0 no-repeat;background-size: cover;">
     <div class="modal_content">
-        <div class="modal_close"></div>
-        <div class="modal_box">
-        	<span>Ваша заявка успешно отправлена</span>
+    	<div class="modal_content_inner">
+        <div class="modal_close" onclick=""></div>
+        <div class="modal_box_thanks">
+        	<div class="box_thanks_title">Спасибо</div>
+        	<span>за ваше сообщение, мы ответим Вам в ближайшее время!</span>
 				</div>
+			</div>
     </div>
   </div>
   <div class="modal" id="call" style="background:url(images/bg_modal_call.jpg) 0 0 no-repeat;background-size: cover;">
     <div class="modal_content">
     	<div class="modal_content_inner">
-        <div class="modal_close"></div>
+        <div class="modal_close" onclick=""></div>
         <div class="modal_box_call">
         	<div class="modal_call_logo"></div>
         	<h2 class="title3">Обратный звонок</h2>
-    			<form class="formSend form_call" >
+    			<form class="formSend form_call">
 						<div class="form_item user">
-							<input type="text" placeholder="ФИО" name="name"  onblur="if(this.placeholder=='') this.placeholder='ФИО'" onfocus="if(this.placeholder =='ФИО'){this.placeholder='';this.classList.add('hide');}">
+							<input type="text" placeholder="ФИО" name="name"  onblur="if(this.placeholder==''){this.placeholder='ФИО';this.classList.remove('hide');}" onfocus="if(this.placeholder =='ФИО'){this.placeholder='';this.classList.add('hide');}">
 						</div>
 						<div class="form_item phone">
-							<input type="tel" placeholder="Телефон" name="phone" onblur="if(this.placeholder=='') this.placeholder='Телефон'" onfocus="if(this.placeholder =='Телефон' ) this.placeholder=''">
-						</div>
+							<input type="tel" placeholder="Телефон" name="phone" onblur="if(this.placeholder==''){this.placeholder='Телефон';this.classList.remove('hide');}" onfocus="if(this.placeholder =='Телефон' ){this.placeholder='';this.classList.add('hide');}">
+							</div>
 					 <span class="data_mes">
 							Нажимая на кнопку, Вы даете свое согласие на обработку
 							<a href="#" class="data_mes_lk">персональных данных</a>

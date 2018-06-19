@@ -344,7 +344,7 @@
 									<div class="product_counter_order">
 										<span class="product_order_left"></span>
 										<span class="product_order_right"></span>
-										<button class="blue_btn">Заказать</button>
+										<button class="blue_btn modal_btn" data-modal="basket">Заказать</button>
 									</div>
 								</div>
 								<div class="product_counter_item">
@@ -730,20 +730,128 @@
 	</footer>
 	<!--FOOTER END-->
 	<!--modal popup  -->
- <div class="modal" id="city">
-    <div class="modal_content">
-        <div class="modal_close"></div>
-        <div class="modal_box">
-        	<span>Доставка в ваш город будет осуществлена в течении <span>5</span>дней.</span>
+	<div class="modal" id="order" style="background:url(images/bg_modal_order.jpg) 0 0 no-repeat;background-size: cover;">
+		<div class="modal_content">
+			<div class="modal_content_inner">
+				<div class="modal_close"></div>
+				<div class="modal_box_order">
+					<h2 class="title3">Оформить заказ</h2>
+					<div class="form_item flex">
+						<div class="order_item_box">
+							<span class="order_mes">готово к показу</span>
+							<span class="order_count"><span>2</span>позиции</span>
+						</div>
+						<div class="order_item_box">
+							<span class="order_mes">Итоговая сумма</span>
+							<span class="order_sum">120 000.00 <span> руб.</span></span>
+
+						</div>
+					</div>
+					<form class="formSend form_order">
+							<div class="form_item user">
+								<input type="text" placeholder="ФИО" name="name"  onblur="if(this.placeholder=='') this.placeholder='ФИО'" onfocus="if(this.placeholder =='ФИО'){this.placeholder='';this.classList.add('hide');}">
+							</div>
+							<div class="form_item flex">
+								<div class="form_item_type phone">
+								  <input type="tel" placeholder="Телефон" name="phone" onblur="if(this.placeholder==''){this.placeholder='Телефон';this.classList.remove('hide');}" onfocus="if(this.placeholder =='Телефон' ){this.placeholder='';this.classList.add('hide');}">
+						    </div>
+						    <div class="form_item_type">
+								  <input type="email" placeholder="E-mail" name="email" onblur="if(this.placeholder==''){this.placeholder='E-mail';this.classList.remove('hide');}" onfocus="if(this.placeholder =='E-mail' ){this.placeholder='';this.classList.add('hide');}">
+						    </div>
+							</div>
+							<div class="form_item mes">
+							<textarea placeholder="Сообщение" name="message" onblur="if(this.placeholder==''){this.placeholder='Сообщение';this.classList.remove('hide');}" onfocus="if(this.placeholder =='Сообщение' ){this.placeholder='';this.classList.add('hide');}"></textarea>
+						  </div>
+						  <div class="form_item">
+						  	<a href="#" class="white_btn">Вернуться</a>
+						  	<button class="blue_btn sendBtn">Оформить заказ</button>
+						  </div>
+
+					</form>
 				</div>
-    </div>
+			</div>
+		</div>
+	</div>
+  <div class="modal" id="basket" style="background:url(images/bg_modal_basket.png) 0 0 no-repeat;background-size: cover;">
+    <div class="modal_content_basket">
+       <div class="modal_box_basket">
+        	<div class="box_basket_top">
+        		<span class="basket_top_title">Корзина
+        			<span></span>
+        		</span>
+        		<button class="basket_btn modal_btn" data-modal="order"></button>
+        	</div>
+        	<div class="box_basket">
+        		<table class="basket_tb">
+        			<tbody>
+        				<tr>
+        					<th class="cell1">Наименование</th>
+        					<th class="cell2">Количество</th>
+        					<th class="cell3"></th>
+        				</tr>
+        				<tr>
+        					<td class="cell1">Труба 15х15х1.5 ГОСТ 13663-86 cnfkm 2сп</td>
+        					<td class="cell2">
+        						<div class="counter-wrapper">
+											<div class="counter-box">
+												<button class="counter-minus"></button>
+												<input class="counter-qt" value="1">
+												<button class="counter-plus"></button>
+											</div>
+										</div>
+									</td>
+        					<td class="cell3"><span class="basket_close"></span></td>
+        				</tr>
+        				<tr>
+        					<td class="cell1">Труба 15х15х1.5 ГОСТ 13663-86 cnfkm 2сп</td>
+        					<td class="cell2">
+        						<div class="counter-wrapper">
+											<div class="counter-box">
+												<button class="counter-minus"></button>
+												<input class="counter-qt" value="1">
+												<button class="counter-plus"></button>
+											</div>
+										</div>
+									</td>
+        					<td class="cell3"><span class="basket_close"></span></td>
+        				</tr>
+        				<tr >
+        					<td colspan="3" class="basket_total">
+        						<table class="basket_inner_tb">
+        							<tbody>
+        								<tr>
+			        					<td class="cell1 basket_mes_td">
+			        						<span class="basket_count_mes">готово к показу</span>
+			        						<span class="basket_count">2</span> позиции
+			        					</td>
+			        					<td class="al_right">
+        									<button class="white_btn">Очистить все</button>
+        								</td>
+			        				 </tr>
+			        				</tbody>
+			        			</table>
+        				 </td>
+        					
+        				</tr>
+        			</tbody>
+        		</table>
+        	</div>
+        	<div class="box_basket_bottom">
+        		<a href="index.html" class="white_btn">Продолжить покупки</a>
+        	  <button class="blue_btn">Оформить заказ</button>
+					</div>
+			</div>
+		</div>
   </div>
-  <div class="modal" id="thanks">
+  <div class="modal" id="thanks" style="background:url(images/bg_modal_thanks.jpg) 0 0 no-repeat;background-size: cover;">
     <div class="modal_content">
-        <div class="modal_close"></div>
-        <div class="modal_box">
-        	<span>Ваша заявка успешно отправлена</span>
+    	<div class="modal_content_inner">
+        <div class="modal_close" onclick=""></div>
+        <div class="modal_box_thanks">
+        	<div class="box_thanks_title">Спасибо</div>
+        	<span>за ваше сообщение, мы ответим Вам в ближайшее время!</span>
 				</div>
+			</div>
     </div>
   </div>
   <div class="modal" id="call" style="background:url(images/bg_modal_call.jpg) 0 0 no-repeat;background-size: cover;">

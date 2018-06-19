@@ -75,44 +75,98 @@ $(document).ready(function(){
 });
 
 //--------------modal window------
-   $(".modal_btn").on("click", function(){
-      var template = "<div class='modal_container'></div>";
-      var height = $(window).height();
-      var modal = $(this).data('modal');
-      console.log(height);
-    $(template).prependTo('body');
-    $('#' + modal).prependTo('.modal_container').addClass('active');
-    $('.modal_container').css('height', height);
-    $("body").addClass("show_modal");
-    $("html").addClass("show_modal");
-    
-    document.addEventListener('touchmove', function(e) {
-        if($("body").hasClass("show_modal")){
-          e.preventDefault();
-          return true;
-        }
-      });
-   });
-   $(".modal_close").on("click", function(){
-        if($("body").hasClass("show_modal")){
-          $("body").removeClass("show_modal");
-          $("html").removeClass("show_modal");
-          $('.modal').appendTo('body').removeClass('active');
-          $('.modal_container').remove();
-          $("#menu_overlay").fadeOut();
+//  $(".modal_btn").on("click", function(){
+//   var attr = $(this).data('modal');
+//   modal_open($(this), attr);
+// });
 
-        }
-      $("#menu_overlay").on("click", function(){
-        if($("body").hasClass("show_modal")){
-          $("body").removeClass("show_modal");
-          $("html").removeClass("show_modal");
-          $('.modal').removeClass('active');
-          $(this).fadeOut();
-        }
-    })
-    
-   });
+//  function modal_open(e, t, r){
+//     var template = "<div class='modal_container'></div>";
+//     var height = $(window).height();
+ 
+//     $(template).prependTo('body');
+//     console.log(t);
+//     if(r == 'request') { $('#' + r).removeClass('active')};
+//     $('#' + t).prependTo('.modal_container').addClass('active');
+//     $('.modal_container').css('height', height);
+//     $("body").addClass("show_modal");
+//     $("html").addClass("show_modal");
+
+  
+//  };
+//   document.addEventListener('touchmove', function(e) {
+//       if($("body").hasClass("show_modal")){
+//         e.preventDefault();
+//         return true;
+//       }
+//   });
+//   function modal_close(){
+//     // var attr = $(t).data('close');
+//     if($("body").hasClass("show_modal")){
+//       $("body").removeClass("show_modal");
+//       $("html").removeClass("show_modal");
+//       $('.modal').appendTo('body').removeClass('active');
+//       $('.modal_container').remove();
+//       $("#menu_overlay").fadeOut();
+//       $('#' + attr).removeClass('active');
+//       console.log(t);
+//     }
+//   }
+var modalOpen = function( self ){
+    var template = "<div class='modal_container'></div>";
+    var height = $(window).height();
+    if (!self) {
+      var modal = 'thanks';
+    } else {
+      var modal = self.data('modal');
+    }
+    console.log(modal);
+  modalClose();
+  $(template).prependTo('body');
+  $('#' + modal).prependTo('.modal_container').addClass('active');
+  $('.modal_container').css('height', height);
+  $("body").addClass("show_modal");
+  $("html").addClass("show_modal");
+  
+  document.addEventListener('touchmove', function(e) {
+      if($("body").hasClass("show_modal")){
+        e.preventDefault();
+        return true;
+      }
+    });
+}
+ $(".modal_btn").on("click", function(){
+    modalOpen( $(this) );
  });
+
+ 
+
+function modalClose() {
+  if($("body").hasClass("show_modal")){
+    $("body").removeClass("show_modal");
+    $("html").removeClass("show_modal");
+    $('.modal').appendTo('body').removeClass('active');
+    $('.modal_container').remove();
+    $("#menu_overlay").fadeOut();
+  }
+}
+
+
+
+$(".modal_close").on("click", function(){
+      modalClose();
+}); 
+
+  $("#menu_overlay").on("click", function(){
+    if($("body").hasClass("show_modal")){
+      $("body").removeClass("show_modal");
+      $("html").removeClass("show_modal");
+      $('.modal').removeClass('active');
+      $(this).fadeOut();
+    }
+  });
+
+ 
 
 //select
   $(".select select").on("click", function(){
@@ -123,6 +177,7 @@ $(document).ready(function(){
       $(this).parent().removeClass('active');
     }
   });
+
 
 
 //------validation form------
@@ -154,8 +209,11 @@ $(document).ready(function(){
     }
   }
 
+
+
   $('.sendBtn').click(function(e){
     e.preventDefault();
+
     var btn = this;
     var attr = $(this).data('modal');
     var attr1 = $(this).data('close');
@@ -211,26 +269,10 @@ $(document).ready(function(){
     console.log(errors);
     if(!errors){
        console.log('333');
-        //modal_open(btn, attr, attr1);
+        modalOpen();
 
     }
   });
-$(window).on('load resize', function() {
-    
-    var oldWidth = $(window).data("oldwidth");
-    var newWidth = $(window).width();
-    var widthSm  = 992;
-      if (newWidth != oldWidth) {
-        if (newWidth < widthSm && (!oldWidth || oldWidth >= widthSm)) {
-            
-          console.log(111);
-              
-          }
-        else if (newWidth >= widthSm && (!oldWidth || oldWidth < widthSm)) {
-            
-          console.log(222);
-        }
-     
-        $(window).data("oldwidth", newWidth);
-      }
-  });
+});
+
+
