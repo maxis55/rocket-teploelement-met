@@ -19,7 +19,11 @@
 						<div class="container_inner">
 							<div class="header_top_inner">
 								<div class="logo">
-									<a href="index.html"></a>
+									<a href="index.html" class="logo_lk">
+										<span class="logo_top">
+											<img src="images/icons/logo.svg" alt="">
+										</span>
+									</a>
 								</div>
 						  	<div class="header_nav">
 									<nav>
@@ -245,7 +249,7 @@
 							<h2 class="title1">Отводы ГОСТ 17375-2001 крутоизогнутые типа 3d</h2>
 							<p>В качестве основного элемента соединения в магистральной трубопроводной системы используют отводы стальные ГОСТ 17375, которые имеют крутоизогнутый вид и изменяют траекторию направления потока для вещества во внутренней части трубы. Конструкционные элементы отводов являются незаменимой частью целостной структуры магистрального трубопровода.</p>
 							<div class="inner_description_box">
-								<a href="#" class="blue_btn">Получить цены</a>
+								<a href="#" class="blue_btn modal_btn" data-modal="request">Получить цены</a>
 								<span class="inner_desc_text">Рассчитаем вашу заявку в течении часа</span>
 							</div>
 						</div>
@@ -291,7 +295,7 @@
 							  <p>Отводы ГОСТ 17375-2001 крутоизогнутые типа 3dТехнические условия для изготовления обеих групп отводов должны соответствовать регламенту 17380-2001.</p>
 							  <p>Как видно, ряд технических регламентов предъявляет особые условия для изготовления отводов, в то же время материал для различных групп отводов может иметь одинаковые характеристики. Обратитесь за помощью к нашему менеджеру, и получите профессиональную помощь в вопросах поставки отводов бесшовных для вашего производственного цикла работ. Большие возможности нашей компании помогут решить сложные технические и организационные работы обеспечения необходимыми деталями для трубопроводной системы.</p>
 							  <div class="inner_description_box">
-									<a href="#" class="blue_btn">Получить цены</a>
+									<a href="#" class="blue_btn modal_btn" data-modal="request">Получить цены</a>
 									<span class="inner_desc_text">Рассчитаем вашу заявку в течении часа</span>
 								</div>
 							</div>
@@ -635,7 +639,7 @@
 									<label for="file" class="label_select_file">
 										<span class="file_btn">Прикрепить файл</span>
 										<span class="file_select"></span>
-										<input type="file" name="file" id="file">
+										<input type="file" name="file" id="file" class="file">
 									</label>
 									<button class="blue_btn sendBtn">Отправить</button>
 								</div>
@@ -691,41 +695,95 @@
 	</footer>
 	<!--FOOTER END-->
 	<!--modal popup  -->
- <div class="modal" id="city">
+	 <div class="modal" id="request" style="background:url(images/bg_modal_thanks.jpg) 0 0 no-repeat;background-size: cover;">
     <div class="modal_content">
-        <div class="modal_close"></div>
-        <div class="modal_box">
-        	<span>Доставка в ваш город будет осуществлена в течении <span>5</span>дней.</span>
+    	<div class="modal_content_inner">
+        <div class="modal_close" onclick="modal_close(this)"></div>
+        <div class="modal_box_request">
+        	<h2 class="title3">Оставить заявку</h2>
+        	<span class="modal_request_mess">Заполните заявку, и в ближайшее время мы с вами свяжемся</span>
+        	<form class="formSend form_call">
+        		<div class="form_item user">
+							<input type="text" placeholder="ФИО" name="name"  onblur="if(this.placeholder==''){this.placeholder='ФИО';this.classList.remove('hide');}" onfocus="if(this.placeholder =='ФИО'){this.placeholder='';this.classList.add('hide');}">
+						</div>
+						<div class="form_item phone">
+							<input type="tel" placeholder="Телефон" name="phone" onblur="if(this.placeholder==''){this.placeholder='Телефон';this.classList.remove('hide');}" onfocus="if(this.placeholder =='Телефон' ){this.placeholder='';this.classList.add('hide');}">
+						</div>
+						<div class="form_item mes">
+							<textarea placeholder="Сообщение" name="message" onblur="if(this.placeholder==''){this.placeholder='Сообщение';this.classList.remove('hide');}" onfocus="if(this.placeholder =='Сообщение' ){this.placeholder='';this.classList.add('hide');}"></textarea>
+						</div>
+						<div class="form_item modal_file">
+							<label for="file1" class="label_select_file">
+								<span class="file_btn">Прикрепить файл</span>
+								<span class="file_select"></span>
+								<input type="file" name="file" id="file1" class="file">
+							</label>
+							<button class="blue_btn sendBtn">Отправить</button>
+						</div>
+        	</form>
 				</div>
+			</div>
     </div>
   </div>
-  <div class="modal" id="thanks">
+  <div class="modal" id="request" style="background:url(images/bg_modal_thanks.jpg) 0 0 no-repeat;background-size: cover;">
     <div class="modal_content">
-        <div class="modal_close"></div>
-        <div class="modal_box">
-        	<span>Ваша заявка успешно отправлена</span>
+    	<div class="modal_content_inner">
+        <div class="modal_close" onclick="modal_close(this)"></div>
+        <div class="modal_box_request">
+        	<h2 class="title3">Оставить заявку</h2>
+        	<span class="modal_request_mess">Заполните заявку, и в ближайшее время мы с вами свяжемся</span>
+        	<form class="formSend form_call">
+        		<div class="form_item user">
+							<input type="text" placeholder="ФИО" name="name"  onblur="if(this.placeholder==''){this.placeholder='ФИО';this.classList.remove('hide');}" onfocus="if(this.placeholder =='ФИО'){this.placeholder='';this.classList.add('hide');}">
+						</div>
+						<div class="form_item phone">
+							<input type="tel" placeholder="Телефон" name="phone" onblur="if(this.placeholder==''){this.placeholder='Телефон';this.classList.remove('hide');}" onfocus="if(this.placeholder =='Телефон' ){this.placeholder='';this.classList.add('hide');}">
+						</div>
+						<div class="form_item mes">
+							<textarea placeholder="Сообщение" name="message" onblur="if(this.placeholder==''){this.placeholder='Сообщение';this.classList.remove('hide');}" onfocus="if(this.placeholder =='Сообщение' ){this.placeholder='';this.classList.add('hide');}"></textarea>
+						</div>
+						<div class="form_item modal_file">
+							<label for="file1" class="label_select_file">
+								<span class="file_btn">Прикрепить файл</span>
+								<span class="file_select"></span>
+								<input type="file" name="file" id="file1" class="file">
+							</label>
+							<button class="blue_btn sendBtn">Отправить</button>
+						</div>
+        	</form>
 				</div>
+			</div>
+    </div>
+  </div>
+   <div class="modal" id="thanks" style="background:url(images/bg_modal_thanks.jpg) 0 0 no-repeat;background-size: cover;">
+    <div class="modal_content">
+    	<div class="modal_content_inner">
+        <div class="modal_close"></div>
+        <div class="modal_box_thanks">
+        	<div class="box_thanks_title">Спасибо</div>
+        	<span>за ваше сообщение, мы ответим Вам в ближайшее время!</span>
+				</div>
+			</div>
     </div>
   </div>
   <div class="modal" id="call" style="background:url(images/bg_modal_call.jpg) 0 0 no-repeat;background-size: cover;">
     <div class="modal_content">
     	<div class="modal_content_inner">
-        <div class="modal_close"></div>
+        <div class="modal_close" onclick=""></div>
         <div class="modal_box_call">
         	<div class="modal_call_logo"></div>
         	<h2 class="title3">Обратный звонок</h2>
-    			<form class="formSend form_call" >
+    			<form class="formSend form_call">
 						<div class="form_item user">
-							<input type="text" placeholder="ФИО" name="name"  onblur="if(this.placeholder=='') this.placeholder='ФИО'" onfocus="if(this.placeholder =='ФИО'){this.placeholder='';this.classList.add('hide');}">
+							<input type="text" placeholder="ФИО" name="name"  onblur="if(this.placeholder==''){this.placeholder='ФИО';this.classList.remove('hide');}" onfocus="if(this.placeholder =='ФИО'){this.placeholder='';this.classList.add('hide');}">
 						</div>
 						<div class="form_item phone">
-							<input type="tel" placeholder="Телефон" name="phone" onblur="if(this.placeholder=='') this.placeholder='Телефон'" onfocus="if(this.placeholder =='Телефон' ) this.placeholder=''">
+							<input type="tel" placeholder="Телефон" name="phone" onblur="if(this.placeholder==''){this.placeholder='Телефон';this.classList.remove('hide');}" onfocus="if(this.placeholder =='Телефон' ){this.placeholder='';this.classList.add('hide');}">
+							</div>
+					  <div class="form_item">
+					  	<input type="checkbox" name="" id="agree" name="agree">
+							<label for="agree" class="data_mes_label">Нажимая на кнопку, Вы даете свое согласие на обработку<a href="#" class="data_mes_lk">персональных данных</a></label>
 						</div>
-					 <span class="data_mes">
-							Нажимая на кнопку, Вы даете свое согласие на обработку
-							<a href="#" class="data_mes_lk">персональных данных</a>
-								
-						</span>
 						<div class="form_item al_center">
 							<button class="blue_btn sendBtn" type="submit">Заказать звонок</button>
 						</div>

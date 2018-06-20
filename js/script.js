@@ -51,8 +51,8 @@ function include(url){
 $(document).ready(function(){
  
   //---------------input type file-------------------
-  if($('#file').length){
-    var inp = $('#file');
+  if($('.file').length){
+    var inp = $('.file');
     inp.on('change', function(){
        $('.file_btn').removeClass('active');
       var file_name = inp.val().replace( "C:\\fakepath\\", '' );
@@ -74,44 +74,7 @@ $(document).ready(function(){
   }
 });
 
-//--------------modal window------
-//  $(".modal_btn").on("click", function(){
-//   var attr = $(this).data('modal');
-//   modal_open($(this), attr);
-// });
 
-//  function modal_open(e, t, r){
-//     var template = "<div class='modal_container'></div>";
-//     var height = $(window).height();
- 
-//     $(template).prependTo('body');
-//     console.log(t);
-//     if(r == 'request') { $('#' + r).removeClass('active')};
-//     $('#' + t).prependTo('.modal_container').addClass('active');
-//     $('.modal_container').css('height', height);
-//     $("body").addClass("show_modal");
-//     $("html").addClass("show_modal");
-
-  
-//  };
-//   document.addEventListener('touchmove', function(e) {
-//       if($("body").hasClass("show_modal")){
-//         e.preventDefault();
-//         return true;
-//       }
-//   });
-//   function modal_close(){
-//     // var attr = $(t).data('close');
-//     if($("body").hasClass("show_modal")){
-//       $("body").removeClass("show_modal");
-//       $("html").removeClass("show_modal");
-//       $('.modal').appendTo('body').removeClass('active');
-//       $('.modal_container').remove();
-//       $("#menu_overlay").fadeOut();
-//       $('#' + attr).removeClass('active');
-//       console.log(t);
-//     }
-//   }
 var modalOpen = function( self ){
     var template = "<div class='modal_container'></div>";
     var height = $(window).height();
@@ -136,7 +99,7 @@ var modalOpen = function( self ){
     });
 }
  $(".modal_btn").on("click", function(){
-    modalOpen( $(this) );
+    modalOpen($(this));
  });
 
  

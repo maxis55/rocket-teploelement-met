@@ -19,7 +19,11 @@
 						<div class="container_inner">
 							<div class="header_top_inner">
 								<div class="logo">
-									<a href="index.html"></a>
+									<a href="index.html" class="logo_lk">
+										<span class="logo_top">
+											<img src="images/icons/logo.svg" alt="">
+										</span>
+									</a>
 								</div>
 						  	<div class="header_nav">
 									<nav>
@@ -640,10 +644,7 @@
 			</div>
 		</div>
 	</div>
-
-		
-				
-	<section>
+  <section>
 		<div class="main_contacts_bl">
 			<div class="container">
 				<div class="main_contacts_box">
@@ -674,7 +675,7 @@
 									<label for="file" class="label_select_file">
 										<span class="file_btn">Прикрепить файл</span>
 										<span class="file_select"></span>
-										<input type="file" name="file" id="file">
+										<input type="file" name="file" id="file" class="file">
 									</label>
 									<button class="blue_btn sendBtn">Отправить</button>
 								</div>
@@ -736,16 +737,12 @@
 				<div class="modal_close"></div>
 				<div class="modal_box_order">
 					<h2 class="title3">Оформить заказ</h2>
-					<div class="form_item flex">
-						<div class="order_item_box">
-							<span class="order_mes">готово к показу</span>
-							<span class="order_count"><span>2</span>позиции</span>
-						</div>
-						<div class="order_item_box">
-							<span class="order_mes">Итоговая сумма</span>
-							<span class="order_sum">120 000.00 <span> руб.</span></span>
-
-						</div>
+			    <div class="order_item_box">
+						<span class="order_mes">готово к показу</span>
+						<span class="order_count"><span>2</span>позиции</span>
+					</div>
+					<div class="order_item_trip">
+						<span>* - поля обязательные для заполнения</span>
 					</div>
 					<form class="formSend form_order">
 							<div class="form_item user">
@@ -755,15 +752,19 @@
 								<div class="form_item_type phone">
 								  <input type="tel" placeholder="Телефон" name="phone" onblur="if(this.placeholder==''){this.placeholder='Телефон';this.classList.remove('hide');}" onfocus="if(this.placeholder =='Телефон' ){this.placeholder='';this.classList.add('hide');}">
 						    </div>
-						    <div class="form_item_type">
+						    <div class="form_item_type email">
 								  <input type="email" placeholder="E-mail" name="email" onblur="if(this.placeholder==''){this.placeholder='E-mail';this.classList.remove('hide');}" onfocus="if(this.placeholder =='E-mail' ){this.placeholder='';this.classList.add('hide');}">
 						    </div>
 							</div>
 							<div class="form_item mes">
 							<textarea placeholder="Сообщение" name="message" onblur="if(this.placeholder==''){this.placeholder='Сообщение';this.classList.remove('hide');}" onfocus="if(this.placeholder =='Сообщение' ){this.placeholder='';this.classList.add('hide');}"></textarea>
 						  </div>
-						  <div class="form_item">
-						  	<a href="#" class="white_btn">Вернуться</a>
+						 <span class="data_mes">
+							   Нажимая на кнопку, Вы даете свое согласие на обработку
+							  <a href="#" class="data_mes_lk">персональных данных</a>
+							</span>
+						  <div class="form_item al_center">
+						  	<a href="index.html" class="white_btn">Вернуться</a>
 						  	<button class="blue_btn sendBtn">Оформить заказ</button>
 						  </div>
 
@@ -838,7 +839,7 @@
         	</div>
         	<div class="box_basket_bottom">
         		<a href="index.html" class="white_btn">Продолжить покупки</a>
-        	  <button class="blue_btn">Оформить заказ</button>
+        	  <button class="blue_btn modal_btn" data-modal="order">Оформить заказ</button>
 					</div>
 			</div>
 		</div>
@@ -857,22 +858,21 @@
   <div class="modal" id="call" style="background:url(images/bg_modal_call.jpg) 0 0 no-repeat;background-size: cover;">
     <div class="modal_content">
     	<div class="modal_content_inner">
-        <div class="modal_close"></div>
+        <div class="modal_close" onclick=""></div>
         <div class="modal_box_call">
         	<div class="modal_call_logo"></div>
         	<h2 class="title3">Обратный звонок</h2>
-    			<form class="formSend form_call" >
+    			<form class="formSend form_call">
 						<div class="form_item user">
-							<input type="text" placeholder="ФИО" name="name"  onblur="if(this.placeholder=='') this.placeholder='ФИО'" onfocus="if(this.placeholder =='ФИО'){this.placeholder='';this.classList.add('hide');}">
+							<input type="text" placeholder="ФИО" name="name"  onblur="if(this.placeholder==''){this.placeholder='ФИО';this.classList.remove('hide');}" onfocus="if(this.placeholder =='ФИО'){this.placeholder='';this.classList.add('hide');}">
 						</div>
 						<div class="form_item phone">
-							<input type="tel" placeholder="Телефон" name="phone" onblur="if(this.placeholder=='') this.placeholder='Телефон'" onfocus="if(this.placeholder =='Телефон' ) this.placeholder=''">
+							<input type="tel" placeholder="Телефон" name="phone" onblur="if(this.placeholder==''){this.placeholder='Телефон';this.classList.remove('hide');}" onfocus="if(this.placeholder =='Телефон' ){this.placeholder='';this.classList.add('hide');}">
+							</div>
+					  <div class="form_item">
+					  	<input type="checkbox" name="" id="agree" name="agree">
+							<label for="agree" class="data_mes_label">Нажимая на кнопку, Вы даете свое согласие на обработку<a href="#" class="data_mes_lk">персональных данных</a></label>
 						</div>
-					 <span class="data_mes">
-							Нажимая на кнопку, Вы даете свое согласие на обработку
-							<a href="#" class="data_mes_lk">персональных данных</a>
-								
-						</span>
 						<div class="form_item al_center">
 							<button class="blue_btn sendBtn" type="submit">Заказать звонок</button>
 						</div>
