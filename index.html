@@ -146,6 +146,7 @@
 																		<li><a href="">сетка тканая</a>
 																		<li><a href="">сетка нержавеющая</a></li>
 																    <li><a href="">сетка плетенная рабица</a></li>
+																    <li><a href="">сетка тканая</a>
 																	</ul>
 														
 																</li>
@@ -154,8 +155,7 @@
 																		<li><a href="">сетка сварная</a></li>
 																		<li><a href="">сетка тканая</a>
 																		<li><a href="">сетка нержавеющая</a></li>
-																    <li><a href="">сетка плетенная рабица</a></li>
-																	</ul>
+																  </ul>
 																</li>
 																<li><a href="">сетка плетенная рабица</a></li>
 														 </ul>
@@ -231,7 +231,7 @@
 						<p>Полный ассортимент компании ООО «ТеплоЭлемент» насчитывает более 3000 наименований, что позволяет нашим заказчикам закрывать любые потребности в кратчайшие сроки. </p>
 						<div class="main_about_info">
 							<a href="#" class="more_white_btn"><span>Подробнее</span></a>
-							<a href="#" class="blue_btn modal_btn" data-modal="request">Получить цены</a>
+							<a href="#" class="add_btn modal_btn" data-modal="request">Получить цены</a>
 						</div>
 						<div class="main_about_img"></div>
 				  </div>
@@ -245,7 +245,7 @@
 				  		<div class="main_services_title"><h2 class="title1">Наши услуги</h2></div>
 				  		<h3 class="title2">Резка<span>металла</span></h3>
 				  		<p>Это пример текста, создан для того, чтобы было понятно, где будет текст. Это пример текста, создан для того, чтобы было понятно, где будет текст. </p>
-				  		<button class="blue_btn">Подробнее</button>
+				  		<button class="add_btn">Подробнее</button>
 				  	</div>
 				  	<div class="main_services_img">
 				  		<img src="images/services_img1.png" alt="">
@@ -258,14 +258,14 @@
 				   	<div class="main_services_info_right">
 				  		<h3 class="title2">Сварка<span>металла</span></h3>
 				  		<p>Это пример текста, создан для того, чтобы было понятно, где будет текст. Это пример текста, создан для того, чтобы было понятно, где будет текст. </p>
-				  		<button class="blue_btn">Подробнее</button>
+				  		<button class="add_btn">Подробнее</button>
 				  	</div>
 				   </div>
 				   <div class="main_services_item">
 				  	<div class="main_services_info_left">
 				  		<h3 class="title2">Изоляция<span>металла</span></h3>
 				  		<p>Это пример текста, создан для того, чтобы было понятно, где будет текст. Это пример текста, создан для того, чтобы было понятно, где будет текст. </p>
-				  		<button class="blue_btn">Подробнее</button>
+				  		<button class="add_btn">Подробнее</button>
 				  	</div>
 				  	<div class="main_services_img">
 				  		<img src="images/services_img3.png" alt="">
@@ -278,14 +278,14 @@
 				   	<div class="main_services_info_right">
 				  		<h3 class="title2">Гибка<span>металла</span></h3>
 				  		<p>Это пример текста, создан для того, чтобы было понятно, где будет текст. Это пример текста, создан для того, чтобы было понятно, где будет текст. </p>
-				  		<button class="blue_btn">Подробнее</button>
+				  		<button class="add_btn">Подробнее</button>
 				  	</div>
 				  </div>
 				  <div class="main_services_item">
 				  	<div class="main_services_info_left">
 				  		<h3 class="title2">Вальцовка<span>металла</span></h3>
 				  		<p>Это пример текста, создан для того, чтобы было понятно, где будет текст. Это пример текста, создан для того, чтобы было понятно, где будет текст. </p>
-				  		<button class="blue_btn">Подробнее</button>
+				  		<button class="add_btn">Подробнее</button>
 				  	</div>
 				  	<div class="main_services_img">
 				  		<img src="images/services_img5.png" alt="">
@@ -330,7 +330,7 @@
 										<span class="file_select"></span>
 										<input type="file" name="file" id="file" class="file">
 									</label>
-									<button class="blue_btn sendBtn" type="submit">Отправить</button>
+									<button class="send_btn sendBtn" type="submit">Отправить</button>
 								</div>
 							</form>
 					 </div>
@@ -408,9 +408,9 @@
 				<div class="container">
 					<div class="main_map_block">
 							<div class="main_map_info">
-								<form>
+						
 									<label>Узнайте, есть ли поставки в ваш город:</label>
-									<div class="form_item">
+									<div class="form_item search">
 											<input type="search" name="search" placeholder="Ваш город" autocomplete list="town">
 											<datalist id="town">
 											  <option value="Москва">
@@ -421,8 +421,8 @@
 											</datalist>
 									</div>
 
-									<button class="blue_btn modal_btn" data-modal="request">Узнать</button>
-								</form>
+									<button class="blue_btn modal_btn" data-modal="city">Узнать</button>
+							
 							</div>
 							<h2 class="title1">Карта поставок</h2>
 					</div>
@@ -477,7 +477,15 @@
 	</footer>
 	<!--FOOTER END-->
 	<!--modal popup  -->
- <div class="modal" id="request" style="background:url(images/bg_modal_thanks.jpg) 0 0 no-repeat;background-size: cover;">
+	<div class="modal" id="city" style="background:url(images/bg_modal_thanks.jpg) 0 0 no-repeat;background-size: cover;">
+		 <div class="modal_content">
+		 	 <div class="modal_close" onclick="modal_close(this)"></div>
+		 	  <div class="modal_box_city">
+		 	  	<span>Доставка в ваш город осуществляется <span class="delivery_time">7</span> рабочих дней.</span>
+		 	  </div>
+		 </div>
+	</div>
+  <div class="modal" id="request" style="background:url(images/bg_modal_thanks.jpg) 0 0 no-repeat;background-size: cover;">
     <div class="modal_content">
     	<div class="modal_content_inner">
         <div class="modal_close" onclick="modal_close(this)"></div>
@@ -533,7 +541,7 @@
 							<input type="tel" placeholder="Телефон" name="phone" onblur="if(this.placeholder==''){this.placeholder='Телефон';this.classList.remove('hide');}" onfocus="if(this.placeholder =='Телефон' ){this.placeholder='';this.classList.add('hide');}">
 							</div>
 					  <div class="form_item">
-					  	<input type="checkbox" name="" id="agree" name="agree">
+					  	<input type="checkbox" id="agree" name="agree">
 							<label for="agree" class="data_mes_label">Нажимая на кнопку, Вы даете свое согласие на обработку<a href="#" class="data_mes_lk">персональных данных</a></label>
 						</div>
 						<div class="form_item al_center">
@@ -544,6 +552,48 @@
 			</div>
     </div>
   </div>
+ 	<div class="modal" id="order" style="background:url(images/bg_modal_order.jpg) 0 0 no-repeat;background-size: cover;">
+		<div class="modal_content">
+			<div class="modal_content_inner">
+				<div class="modal_close"></div>
+				<div class="modal_box_order">
+					<h2 class="title3">Оформить заказ</h2>
+			    <div class="order_item_box">
+						<span class="order_mes">готово к показу</span>
+						<span class="order_count"><span>2</span> позиции</span>
+					</div>
+					<div class="order_item_trip">
+						<span>* - поля обязательные для заполнения</span>
+					</div>
+					<form class="formSend form_order">
+							<div class="form_item user">
+								<input type="text" placeholder="ФИО" name="name"  onblur="if(this.placeholder=='') this.placeholder='ФИО'" onfocus="if(this.placeholder =='ФИО'){this.placeholder='';this.classList.add('hide');}">
+							</div>
+							<div class="form_item flex">
+								<div class="form_item_type phone">
+								  <input type="tel" placeholder="Телефон" name="phone" onblur="if(this.placeholder==''){this.placeholder='Телефон';this.classList.remove('hide');}" onfocus="if(this.placeholder =='Телефон' ){this.placeholder='';this.classList.add('hide');}">
+						    </div>
+						    <div class="form_item_type email">
+								  <input type="email" placeholder="E-mail" name="email" onblur="if(this.placeholder==''){this.placeholder='E-mail';this.classList.remove('hide');}" onfocus="if(this.placeholder =='E-mail' ){this.placeholder='';this.classList.add('hide');}">
+						    </div>
+							</div>
+							<div class="form_item mes">
+							<textarea placeholder="Сообщение" name="message" onblur="if(this.placeholder==''){this.placeholder='Сообщение';this.classList.remove('hide');}" onfocus="if(this.placeholder =='Сообщение' ){this.placeholder='';this.classList.add('hide');}"></textarea>
+						  </div>
+							<div class="form_item">
+						  	<input type="checkbox" name="agree" id="agree1">
+								<label for="agree1" class="data_mes_label">Нажимая на кнопку, Вы даете свое согласие на обработку <a href="#" class="data_mes_lk"> персональных данных</a></label>
+							</div>
+						  <div class="form_item al_center">
+						  	<a href="index.html" class="white_btn">Вернуться</a>
+						  	<button class="blue_btn sendBtn">Оформить заказ</button>
+						  </div>
+
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
 	<!--TMP END  -->
 	<script src="js/jquery-3.2.1.min.js"></script>
 	<script src="js/jquery-migrate-1.2.1.min.js"></script>

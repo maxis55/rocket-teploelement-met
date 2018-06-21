@@ -113,25 +113,16 @@ function modalClose() {
     $("#menu_overlay").fadeOut();
   }
 }
-
-
-
-$(".modal_close").on("click", function(){
-      modalClose();
+$(".modal_close, .modal_close_type").on("click", function(){
+  modalClose();
 }); 
 
-  $("#menu_overlay").on("click", function(){
-    if($("body").hasClass("show_modal")){
-      $("body").removeClass("show_modal");
-      $("html").removeClass("show_modal");
-      $('.modal').removeClass('active');
-      $(this).fadeOut();
-    }
-  });
+$(window).on('click', function(e){
+  var modal = [].slice.call(document.body.getElementsByClassName('modal_container'));
+  if ( e.target == modal[0] ) modalClose();
+});
 
- 
-
-//select
+//----for style select--------------
   $(".select select").on("click", function(){
     if(!$(this).parent().hasClass('active')){
       $(this).parent().addClass('active');
@@ -184,8 +175,16 @@ $(".modal_close").on("click", function(){
         var currentForm = $(this).closest("form.formSend"),
         name = currentForm.find('input[name="name"]'),
         phone = currentForm.find('input[name="phone"]'),
-        email = currentForm.find('input[name="email"]');
-        messadge = currentForm.find('textarea[name="message"]');
+        email = currentForm.find('input[name="email"]'),
+       messadge = currentForm.find('textarea[name="message"]');
+
+    if($("input[name='agree']").prop('checked')==false){
+        $("#agree").parent().addClass("invalid");
+        errors = true;
+    }
+    else{
+      $("#agree").parent().removeClass("invalid");
+    }
     if(email.length){
       if(!email.val().length){
         email.parent().addClass("invalid");
