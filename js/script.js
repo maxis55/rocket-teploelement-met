@@ -132,8 +132,21 @@ $(window).on('click', function(e){
     }
   });
 
+//----for open news content--------------
+$(".news_content").on("click", function(){
+  $(this).parents('.main_news_item').siblings().find('.news_content_inner').removeClass('active');
+  $(this).parents('.main_news_item').find('.news_content_inner').toggleClass('active');
+  $(this).toggleClass('open');
+});
 
+ $(document).on("click ontouchstart", function(event){
+    if($(event.target).closest('.news_flex').length)return;
+      $(".news_content_inner").removeClass("active");
+  
+     
+      event.stopPropagation()
 
+  })
 //------validation form------
   function checkEmail(currInput){
     var pattern=/^([a-zA-Z0-9_-]+\.)*[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)*\.[a-zA-Z]{2,4}$/;
