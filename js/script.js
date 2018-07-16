@@ -46,10 +46,78 @@ document.write('<meta name="viewport" content="width=device-width,initial-scale=
 function include(url){ 
   document.write('<script src="'+ url + '"></script>'); 
 }
-
+if($(".owl-carousel").length){
+   include("js/owl.carousel.min.js");
+ }
 
 $(document).ready(function(){
- 
+ //--owl-carousel--------------------  
+  if($('.owl-carousel').length){
+     $(".owl-carousel").owlCarousel({
+       nav:true,
+          items:5,
+          responsiveClass:true,
+          responsive : {
+          
+            0 : {
+                  items :1, 
+                  nav:true
+             },
+          
+            480 : {
+                  items:2,
+                  nav:true
+              },
+          
+            992 : {
+                items : 3,
+                nav:true
+              },
+       
+            1000 : {
+                items : 4,
+                nav:true
+              }
+          }
+     });
+  }
+  //---------for open categories responsive from 768-----
+if($(window).width() < 768){
+    var item = $("[class*=header_supply_item]");
+   item.slice(8).addClass('hidden');
+    $('.header_supply_btn').on('click', function(){
+    if(!$(this).hasClass('active')){
+        $(this).text('Скрыть').addClass('active');
+        item.removeClass('hidden');
+      }
+      else{
+        $(this).text('Показать еще').removeClass('active');
+         item.slice(8).addClass('hidden');
+        details.removeClass('hidden');
+      }
+   
+    });
+  }
+  if($(window).width() < 480){
+
+      var item = $("[class*=header_supply_item]");
+      var details = $("[class*=header_details_item]");
+      item.slice(6).addClass('hidden');
+      details.slice(6).addClass('hidden');
+      $('.header_supply_btn').on('click', function(){
+        if(!$(this).hasClass('active')){
+               console.log(44444);
+          $(this).text('Скрыть').addClass('active');
+          item.removeClass('hidden');
+          details.removeClass('hidden');
+        }
+      else{
+        $(this).text('Показать еще').removeClass('active');
+         item.slice(6).addClass('hidden');
+        details.slice(6).addClass('hidden');
+       }
+      });
+  }
   //---------------input type file-------------------
   if($('.file').length){
     var inp = $('.file');
@@ -247,6 +315,10 @@ $(".news_content").on("click", function(){
         modalOpen();
 
     }
+  });
+/*-------open categories responsive---*/
+  $(".header_supply_open").on("click", function(){
+    $(this).toggleClass('active').next().slideToggle();
   });
 });
 
