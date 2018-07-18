@@ -52,7 +52,6 @@ if($(".owl-carousel").length){
 
 $(document).ready(function(){
  //--owl-carousel--------------------  
- if($(window).width() > 480){
   if($('.owl-carousel').length){
      $(".owl-carousel").owlCarousel({
        nav:true,
@@ -64,6 +63,10 @@ $(document).ready(function(){
                   items :1, 
                   nav:true
              },
+            320 : {
+                  items:1,
+                  nav:true
+              },
           
             480 : {
                   items:2,
@@ -82,45 +85,7 @@ $(document).ready(function(){
           }
      });
   }
-}
-  //---------for open categories responsive from 768-----
-if($(window).width() < 768){
-    var item = $("[class*=header_supply_item]");
-   item.slice(8).addClass('hidden');
-    $('.header_supply_btn').on('click', function(){
-    if(!$(this).hasClass('active')){
-        $(this).text('Скрыть').addClass('active');
-        item.removeClass('hidden');
-      }
-      else{
-        $(this).text('Показать еще').removeClass('active');
-         item.slice(8).addClass('hidden');
-        details.removeClass('hidden');
-      }
-   
-    });
-  }
-  if($(window).width() < 480){
-
-      var item = $("[class*=header_supply_item]");
-      var details = $("[class*=header_details_item]");
-      item.slice(6).addClass('hidden');
-      details.slice(6).addClass('hidden');
-      $('.header_supply_btn').on('click', function(){
-        if(!$(this).hasClass('active')){
-               console.log(44444);
-          $(this).text('Скрыть').addClass('active');
-          item.removeClass('hidden');
-          details.removeClass('hidden');
-        }
-      else{
-        $(this).text('Показать еще').removeClass('active');
-         item.slice(6).addClass('hidden');
-        details.slice(6).addClass('hidden');
-       }
-      });
-  }
-  //---------------input type file-------------------
+//---------------input type file-------------------
   if($('.file').length){
     var inp = $('.file');
     inp.on('change', function(){
@@ -132,17 +97,17 @@ if($(window).width() < 768){
       });
   }
  $(".submenu_lk").on("mouseenter", function(e){
-  e.preventDefault();
-  if(!$(this).next('.submenu2').hasClass('active')){
+    e.preventDefault();
+    if(!$(this).next('.submenu2').hasClass('active')){
 
-   $(this).parent('li').siblings().find('.submenu2').removeClass('active');
-    $(this).next('.submenu2').addClass('active');
-  }
-  else{
-    $(this).next('.submenu2').removeClass('active');
-  
-  }
-});
+     $(this).parent('li').siblings().find('.submenu2').removeClass('active');
+      $(this).next('.submenu2').addClass('active');
+    }
+    else{
+      $(this).next('.submenu2').removeClass('active');
+    
+    }
+  });
 
 /*------modal window------*/
 var modalOpen = function( self ){
@@ -209,14 +174,11 @@ $(".news_content").on("click", function(){
   $(this).toggleClass('open');
 });
 
- $(document).on("click ontouchstart", function(event){
+$(document).on("click ontouchstart", function(event){
     if($(event.target).closest('.news_flex').length)return;
-      $(".news_content_inner").removeClass("active");
-  
-     
-      event.stopPropagation()
-
-  })
+    $(".news_content_inner").removeClass("active");
+    event.stopPropagation()
+})
 /*-------------open sub_menu responsive-----*/
 if($(window).width() < 768){
   $('.sub_menu_lk').on('click', function(e){
@@ -342,10 +304,99 @@ if($(window).width() < 768){
 
     }
   });
+    /*-------------main_news_box for 480------*/
+    if($('.main_news_box_inner').length){
+      var news = $('.owl-carousel').find('.main_news_item').eq(0).clone();
+      var news2 = $('.owl-carousel').find('.main_news_item').eq(1).clone();
+      news.appendTo('.owl-carousel-resp');
+      news2.appendTo('.owl-carousel-resp');
+    }
+    if($(window).width() < 992){
+        $('.breadcrumbs_box').appendTo('#content');
+      console.log($('.breadcrumbs_box'));
+    }
+    /*------Crop text for catalog_item_content---*/
+    function ContentItemCrop(){
+      $('.catalog_item_content p').text(function(index, text){
+      var content = text.substr(0,350);
+      if($(window).width() < 992){
+        content= text.substr(0,159);
+      }
+        $('.catalog_item_content p').text(content);
+      });
+    }
+    ContentItemCrop();
 /*-------open categories responsive---*/
   $(".header_supply_open").on("click", function(){
     $(this).toggleClass('active').next().slideToggle();
   });
 });
+
+
+
+function categoriesOpen(){
+  var item = $("[class*=header_supply_item]");
+  item.removeClass('hidden');
+  item.slice(8).addClass('hidden');
+  $('.header_supply_btn').text('Показать еще').removeClass('active');
+
+}
+function categoriesOpenSx(){
+      var item = $("[class*=header_supply_item]");
+      var details = $("[class*=header_details_item]");
+       $('.header_supply_btn').text('Показать еще').removeClass('active');
+      item.removeClass('hidden');
+      details.removeClass('hidden');
+      item.slice(6).addClass('hidden');
+      details.slice(6).addClass('hidden');
+}
+function categoriesOpenButton( self ){
+  var item = $("[class*=header_supply_item]");
+  if(!self.hasClass('active')){
+      self.text('Скрыть').addClass('active');
+      item.removeClass('hidden');
+      console.log(11111);
+    }
+    else{
+      self.text('Показать еще').removeClass('active');
+       item.slice(8).addClass('hidden');
+       console.log(22222);
+  }
+}
+function categoriesOpenSxButton( self ){
+  var item = $("[class*=header_supply_item]");
+  var details = $("[class*=header_details_item]");
+    if(!(self.hasClass('active'))){
+    console.log(44444);
+      self.text('Скрыть').addClass('active');
+      self.parents('.header_supply').find(item).removeClass('hidden');
+      self.parent('.header_details').find(details).removeClass('hidden');
+    } else{
+      console.log(55555);
+      self.text('Показать еще').removeClass('active');
+       item.slice(6).addClass('hidden');
+      details.slice(6).addClass('hidden');
+     }
+    
+}
+
+$('.header_supply_btn').on('click', function(e){
+  if($(window).width() < 768 && $(window).width() >= 480){
+    categoriesOpenButton( $(this) );
+  } else if($(window).width() < 480){
+    categoriesOpenSxButton( $(this) );
+  }
+});
+  $(window).on('load resize', function() {
+    if($(window).width() < 768 || $(window).width() >= 480){
+      categoriesOpen();
+    }
+  });
+  $(window).on('load resize', function() {
+    if($(window).width() < 480){
+      categoriesOpenSx();
+    }
+  });
+
 
 
