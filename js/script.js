@@ -313,7 +313,6 @@ if($(window).width() < 768){
     }
     if($(window).width() < 992){
         $('.breadcrumbs_box').appendTo('#content');
-      console.log($('.breadcrumbs_box'));
     }
     /*------Crop text for catalog_item_content---*/
     function ContentItemCrop(){
@@ -330,6 +329,40 @@ if($(window).width() < 768){
   $(".header_supply_open").on("click", function(){
     $(this).toggleClass('active').next().slideToggle();
   });
+/*-----------for responsive page product----*/
+  if($(window).width() < 620){
+      $('.product_counter_box').appendTo('.product_info_inner');
+  }
+  //--------------carousel for responsive table .offers_table------------------------------
+    if($(".inner_offers_carousel").length){
+
+    
+      if($(window).innerWidth() < 620){
+          
+        var i = 0;
+        $('.product_prev_btn').on('click', function(){
+            var carousel_item = $(this).parent('.inner_offers_carousel').find('table.offers_table .offers_lk');
+          console.log(carousel_item);
+          $(carousel_item[i]).removeClass('active');
+          i--;
+          if(i < 0){
+            i = carousel_item.length - 1;
+          }
+          $(carousel_item[i]).addClass('active');
+        });
+
+        $('.product_next_btn').on('click', function(){
+          var carousel_item = $(this).parent('.inner_offers_carousel').find('table.offers_table .offers_lk');
+             console.log(carousel_item);
+          $(carousel_item[i]).removeClass('active');
+          i++;
+          if(i >= carousel_item.length){
+            i = 0;
+          }
+          $(carousel_item[i]).addClass('active');
+        });
+      }
+    }
 });
 
 
