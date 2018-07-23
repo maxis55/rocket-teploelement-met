@@ -26,17 +26,42 @@
 									</a>
 								</div>
 						  	<div class="header_nav">
+						  		<button class="menu_resp"></button>
 									<nav>
 										<ul class="menu">
-											<li class="menu_item_1"><a href="">Продукция</a></li>
+											<li class="menu_item_1"><a href="#" class="sub_menu_lk">Продукция</a>
+												<ul class="sub_menu">
+													<li><a href="#">cетка сварная</a></li>
+													<li><a href="#">cетка тканная</a></li>
+													<li><a href="#" class="sub_menu_lk">cетка нержавеющая
+														<span class="sub_menu_pat"></span>
+													</a>
+														<ul class="sub_menu2">
+															<li><a href="#">трубы</a></li>
+															<li><a href="#">листы</a></li>
+															<li><a href="#">швеллера</a>
+														</ul>
+													</li>
+													<li><a href="#">cетка плетенная рабица</a></li>
+													<li><a href="#">cетка плетенная рабица</a></li>
+													<li><a href="#">cетка тканная</a></li>
+												</ul>
+											</li>
 											<li class="menu_item_2"><a href="">Доставка</a></li>
-											<li class="menu_item_3"><a href="">Информация</a></li>
+											<li class="menu_item_3"><a href="#" class="sub_menu_lk">Информация</a>
+												<ul class="sub_menu">
+													<li><a href="#">новости</a></li>
+													<li><a href="#">статьи</a></li>
+												</ul>
+											</li>
 											<li class="menu_item_4"><a href="">Контакты</a></li>
 										</ul>
 									</nav>
 									<div class="header_info_sub">
-										<span>Минимальные сроки</span>
-										<span>Отличные цены</span>
+										<div class="header_info_sub_box">
+											<span>Минимальные сроки</span>
+											<span>Отличные цены</span>
+										</div>
 										<a href="mailto:zakaz@teploment.ru" class="info_sub_lk">zakaz@teploment.ru</a>
 									</div>
 								</div>
@@ -45,6 +70,7 @@
 									<a href="tel:+7(951)2239392" class="header_info_lk"><span>+7(951)</span>779-33-77</a>
 									<div class="header_call">
 										<button class="blue_btn modal_btn" data-modal="call">Заказать звонок</button>
+										<button class="orange_btn modal_btn" data-modal="call"></button>
 									</div>
 								</div>
 							</div>
@@ -68,24 +94,18 @@
 			<div class="container">
 				<div class="container_inner">
 					<ul class="breadcrumbs">
-						<li>
-		          <a class="breadcrumbs_main" href="#">Главная</a>/
-		        </li>
-		        <li>
-		          <a class="breadcrumbs_main" href="#">Каталог</a>/
-		        </li>
-		        <li>
-		          <a class="breadcrumbs_main" href="#">Отводы</a>/
-		        </li>
-		        <li>
-		          <span class="breadcrumbs_current">Отводы ГОСТ 17375-2001 крутоизогнутые типа 3d</span>
-		        </li>
-		      </ul>
-		    </div>
-	     </div>
-    </div>
-  </div>
-	<div id="content">
+					    <li>
+				          <a class="breadcrumbs_main" href="#">Главная</a>/
+				        </li>
+				        <li>
+				          <span class="breadcrumbs_current">Контакты</span>
+				        </li>
+		      		</ul>
+		    	</div>
+	     	</div>
+    	</div>
+  	</div>
+	<div id="content" class="type">
 		<div class="container">
 			<div class="container_inner">
 				<div class="contacts_bl">
@@ -148,7 +168,7 @@
 			</div>
 		</div>
 	</div>
-  <section>
+    <section>
 		<div class="main_contacts_bl">
 			<div class="container">
 				<div class="main_contacts_box">
@@ -221,7 +241,11 @@
 				<div class="footer_info_logo">
 					<div class="footer_logo_box">
 						<div class="logo">
-							<a href="index.html"></a>
+							<a href="index.html" class="logo_lk">
+								<span class="logo_top">
+									<img src="images/icons/logo.svg" alt="">
+								</span>
+							</a>
 						</div>
 						<div class="copyright">
 							<span>Copyright 2018</span>
@@ -231,7 +255,7 @@
 					</div>
 				</div>
 			</div>
-    </div>
+    	</div>
 	</footer>
 	<!--FOOTER END-->
 	<!--modal popup  -->
