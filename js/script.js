@@ -330,8 +330,9 @@ if($(window).width() < 768){
     $(this).toggleClass('active').next().slideToggle();
   });
 /*-----------for responsive page product----*/
-  if($(window).width() < 620){
+  if($(window).width() < 760){
       $('.product_counter_box').appendTo('.product_info_inner');
+      console.log(333);
   }
   //--------------carousel for responsive table .offers_table------------------------------
     if($(".inner_offers_carousel").length){
