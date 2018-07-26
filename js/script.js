@@ -194,7 +194,14 @@ if($(window).width() < 768){
 
   });
 }
-
+/*---for responsive header nav movie---*/
+if($(window).width() < 768){
+  $('.header_nav nav').insertAfter('.header_top');
+  // $('.header_top_inner').insertAfter('.header');
+}
+if($(window).width() < 768){
+  $('.inner_description_img').insertAfter('.inner_description_text p');
+}
 /*------open menu gamber-------*/
    $('.menu_resp').on('click', function(){
     $("body").toggleClass("show_menu");
