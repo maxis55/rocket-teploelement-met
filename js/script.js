@@ -51,6 +51,23 @@ if($(".owl-carousel").length){
  }
 
 $(document).ready(function(){
+//-------Arrow up-------
+    function goUp(){
+      var windowHeight = $(window).height(),
+        windowScroll = $(window).scrollTop();
+        if(windowScroll>windowHeight/2){
+          $('.arrow_up').addClass('active');
+        }
+        else{
+          $('.arrow_up').removeClass('active');
+        }
+    }
+    goUp();
+    $(window).on('scroll',goUp);
+    $('.arrow_up').on('click',function () {
+      $('html,body').animate( { scrollTop: 0}, 1100 );
+        return false;
+    });
  //--owl-carousel--------------------  
   if($('.owl-carousel').length){
      $(".owl-carousel").owlCarousel({
