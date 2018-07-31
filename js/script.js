@@ -213,7 +213,7 @@ if($(window).width() < 768){
 }
 /*---for responsive header nav movie---*/
 if($(window).width() < 760){
-  $('.header_nav').insertAfter('.header');
+
   console.log(111);
 }
 if($(window).width() < 760){
@@ -335,9 +335,7 @@ if($(window).width() < 760){
       news.appendTo('.owl-carousel-resp');
       news2.appendTo('.owl-carousel-resp');
     }
-    if($(window).width() < 1200){
-        $('.breadcrumbs_box').prependTo('#content');
-    }
+    
     /*------Crop text for catalog_item_content---*/
     function ContentItemCrop(){
       $('.catalog_item_content p').text(function(index, text){
@@ -353,11 +351,8 @@ if($(window).width() < 760){
   $(".header_supply_open").on("click", function(){
     $(this).toggleClass('active').next().slideToggle();
   });
-/*-----------for responsive page product----*/
-  if($(window).width() < 760){
-      $('.product_counter_box').appendTo('.product_info_inner');
-   
-  }
+
+
   //--------------carousel for responsive table .offers_table------------------------------
     if($(".inner_offers_carousel").length){
 
@@ -458,9 +453,17 @@ $('.header_supply_btn').on('click', function(e){
 $(window).on('load resize', function() {
     var oldWidth = $(window).data("oldwidth");
     var newWidth = $(window).width();
+    var widthMd  = 1200;
     var widthSm  = 992;
     var widthXs  = 760;
     if (newWidth != oldWidth) {
+      if (newWidth < widthMd && (!oldWidth || oldWidth >= widthMd)) {
+        $('.breadcrumbs_box').prependTo('#content');
+      }
+      else if (newWidth >= widthMd && (!oldWidth || oldWidth < widthMd)) {
+        $('.breadcrumbs_box').prependTo('.catalog_bl');
+     
+      }
       if (newWidth < widthSm && (!oldWidth || oldWidth >= widthSm)) {
         $('.footer_info_sub .info_sub_lk').insertAfter('.footer_info .header_call');
       }
@@ -470,11 +473,12 @@ $(window).on('load resize', function() {
       }
       if (newWidth < widthXs && (!oldWidth || oldWidth >= widthXs)) {
         $('.footer_info .info_sub_lk').insertAfter('.footer_info_sub_box');
-     
-            
-        }
+        $('.header_nav').insertAfter('.header');
+      }
       else if (newWidth >= widthXs && (!oldWidth || oldWidth < widthXs)) {
          $('.footer_info_sub .info_sub_lk').insertAfter('.footer_info_sub_box');
+         $('.header_nav').insertAfter('.header_top_inner .menu_resp');
+
       
       }
    
