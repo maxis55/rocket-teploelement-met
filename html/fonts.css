@@ -1,0 +1,22 @@
+@font-face {
+    font-family: 'PT Sans';
+    src: url('fonts/PTSans/PTSans-Regular.woff2') format('woff2'),
+        url('fonts/PTSans/PTSans-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Exo 2';
+    src: url('fonts/exo2/Exo2-Regular.woff2') format('woff2'),
+        url('fonts/exo2/Exo2-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Exo 2';
+    src: url('fonts/exo2/Exo2-Bold.woff2') format('woff2'),
+        url('fonts/exo2/Exo2-Bold.woff') format('woff');
+    font-weight: bold;
+    font-style: normal;
+}
