@@ -26,10 +26,10 @@ class SiteController extends Controller
     }
 
     /**
-     * Displays about page.
+     * Displays delivery page.
      */
-    public function actionAbout()
+    public function actionDelivery()
     {
-        return $this->render('about');
+        return $this->render('delivery');
     }
 }
