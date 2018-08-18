@@ -5,6 +5,7 @@
 
 use yii\helpers\Html;
 use yii\web\View;
+use yii\widgets\Menu;
 use app\assets\AppAsset;
 
 AppAsset::register($this);
@@ -45,37 +46,32 @@ AppAsset::register($this);
 									</a>
 								</div>
 								<button class="menu_resp"></button>
-						  	<div class="header_nav">
-						  		
-									<nav>
-										<ul class="menu">
-											<li class="menu_item_1"><a href="#" class="sub_menu_lk">Продукция</a>
-												<ul class="sub_menu">
-													<li><a href="#">cетка сварная</a></li>
-													<li><a href="#">cетка тканная</a></li>
-													<li><a href="#" class="sub_menu_lk">cетка нержавеющая
-														<span class="sub_menu_pat"></span>
-													</a>
-														<ul class="sub_menu2">
-															<li><a href="#">трубы</a></li>
-															<li><a href="#">листы</a></li>
-															<li><a href="#">швеллера</a>
-														</ul>
-													</li>
-													<li><a href="#">cетка плетенная рабица</a></li>
-													<li><a href="#">cетка плетенная рабица</a></li>
-													<li><a href="#">cетка тканная</a></li>
-												</ul>
-											</li>
-											<li class="menu_item_2"><a href="">Доставка</a></li>
-											<li class="menu_item_3"><a href="#" class="sub_menu_lk">Информация</a>
-												<ul class="sub_menu">
-													<li><a href="#">новости</a></li>
-													<li><a href="#">статьи</a></li>
-												</ul>
-											</li>
-											<li class="menu_item_4"><a href="">Контакты</a></li>
-										</ul>
+						  		<div class="header_nav">
+						  			<nav>
+										<?php echo Menu::widget([
+										    'items' => [
+										        ['label' => 'Продукция', 'url' => ['site/index'], 'items' => [
+										            ['label' => 'cетка сварная', 'url' => ['site/index']],
+										            ['label' => 'cетка тканная', 'url' => ['site/index']],
+										            ['label' => 'cетка нержавеющая', 'url' => ['site/index'], 'items' => [
+												            ['label' => 'трубы', 'url' => ['site/index']],
+												            ['label' => 'листы', 'url' => ['site/index']],
+												            ['label' => 'швеллера', 'url' => ['site/index']],
+												        ]
+												    ],
+										            ['label' => 'cетка плетенная рабица', 'url' => ['site/index']],
+										            ['label' => 'cетка тканная', 'url' => ['site/index']],
+										        ]],
+										        ['label' => 'Доставка', 'url' => ['site/delivery']],
+										        ['label' => 'Информация', 'url' => ['site/index'], 'items' => [
+										            ['label' => 'новости', 'url' => ['site/index']],
+										            ['label' => 'статьи', 'url' => ['site/index']],
+										        ]],
+										        ['label' => 'Контакты', 'url' => ['site/contact']],
+										    ],
+											'submenuTemplate' => "\n<ul class='sub_menu'>\n{items}\n</ul>\n",
+										    'options'=>['class'=>'menu'],
+										]); ?>
 									</nav>
 									<div class="header_info_sub">
 										<div class="header_info_sub_box">
