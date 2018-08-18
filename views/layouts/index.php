@@ -10,6 +10,7 @@ use app\assets\AppAsset;
 
 AppAsset::register($this);
 ?>
+
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
 <html lang="<?= Yii::$app->language ?>">
@@ -47,32 +48,7 @@ AppAsset::register($this);
 								</div>
 								<button class="menu_resp"></button>
 						  		<div class="header_nav">
-						  			<nav>
-										<?php echo Menu::widget([
-										    'items' => [
-										        ['label' => 'Продукция', 'url' => ['site/index'], 'items' => [
-										            ['label' => 'cетка сварная', 'url' => ['site/index']],
-										            ['label' => 'cетка тканная', 'url' => ['site/index']],
-										            ['label' => 'cетка нержавеющая', 'url' => ['site/index'], 'items' => [
-												            ['label' => 'трубы', 'url' => ['site/index']],
-												            ['label' => 'листы', 'url' => ['site/index']],
-												            ['label' => 'швеллера', 'url' => ['site/index']],
-												        ]
-												    ],
-										            ['label' => 'cетка плетенная рабица', 'url' => ['site/index']],
-										            ['label' => 'cетка тканная', 'url' => ['site/index']],
-										        ]],
-										        ['label' => 'Доставка', 'url' => ['site/delivery']],
-										        ['label' => 'Информация', 'url' => ['site/index'], 'items' => [
-										            ['label' => 'новости', 'url' => ['site/index']],
-										            ['label' => 'статьи', 'url' => ['site/index']],
-										        ]],
-										        ['label' => 'Контакты', 'url' => ['site/contact']],
-										    ],
-											'submenuTemplate' => "\n<ul class='sub_menu'>\n{items}\n</ul>\n",
-										    'options'=>['class'=>'menu'],
-										]); ?>
-									</nav>
+						  			<nav><?php echo $this->params['header_nav']; ?></nav>
 									<div class="header_info_sub">
 										<div class="header_info_sub_box">
 											<span>Минимальные сроки</span>
@@ -280,17 +256,7 @@ AppAsset::register($this);
 			    </div>
 	 	  	</div>
 				<div class="footer_nav">
-					<nav>
-						<?php echo Menu::widget([
-							'items' => [
-								['label' => 'Продукция', 'url' => ['site/index']],
-								['label' => 'Доставка', 'url' => ['site/delivery']],
-								['label' => 'Информация', 'url' => ['site/index']],
-								['label' => 'Контакты', 'url' => ['site/contact']],
-							],
-							'options'=>['class'=>'menu'],
-						]); ?>
-					</nav>
+					<nav><?php echo $this->params['footer_nav']; ?></nav>
 					<div class="footer_info_sub">
 						<div class="footer_info_sub_box">
 							<span>Минимальные сроки</span>

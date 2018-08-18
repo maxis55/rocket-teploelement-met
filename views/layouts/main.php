@@ -9,6 +9,7 @@ use app\assets\AppAsset;
 
 AppAsset::register($this);
 ?>
+
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
 <html lang="<?= Yii::$app->language ?>">
@@ -46,37 +47,7 @@ AppAsset::register($this);
 								</div>
 								<button class="menu_resp"></button>
 						  	<div class="header_nav">
-						  		
-									<nav>
-										<ul class="menu">
-											<li class="menu_item_1"><a href="#" class="sub_menu_lk">Продукция</a>
-												<ul class="sub_menu">
-													<li><a href="#">cетка сварная</a></li>
-													<li><a href="#">cетка тканная</a></li>
-													<li><a href="#" class="sub_menu_lk">cетка нержавеющая
-														<span class="sub_menu_pat"></span>
-													</a>
-														<ul class="sub_menu2">
-															<li><a href="#">трубы</a></li>
-															<li><a href="#">листы</a></li>
-															<li><a href="#">швеллера</a>
-														</ul>
-													</li>
-													<li><a href="#">cетка плетенная рабица</a></li>
-													<li><a href="#">cетка плетенная рабица</a></li>
-													<li><a href="#">cетка тканная</a></li>
-												</ul>
-											</li>
-											<li class="menu_item_2"><a href="">Доставка</a></li>
-											<li class="menu_item_3"><a href="#" class="sub_menu_lk">Информация</a>
-												<ul class="sub_menu">
-													<li><a href="#">новости</a></li>
-													<li><a href="#">статьи</a></li>
-												</ul>
-											</li>
-											<li class="menu_item_4"><a href="">Контакты</a></li>
-										</ul>
-									</nav>
+									<nav><?php echo $this->params['header_nav']; ?></nav>
 									<div class="header_info_sub">
 										<div class="header_info_sub_box">
 											<span>Минимальные сроки</span>
@@ -117,13 +88,7 @@ AppAsset::register($this);
 		<div class="container">
 			<div class="footer_inner">
 				<div class="footer_nav">
-					<nav>
-						<ul class="menu">
-							<li class="menu_item_1"><a href="">Продукция</a></li>
-							<li class="menu_item_2"><a href="">Доставка</a></li>
-							<li class="menu_item_3"><a href="">Информация</a></li>
-							<li class="menu_item_4"><a href="">Контакты</a></li>
-						</ul>
+					<nav><?php echo $this->params['footer_nav']; ?></nav>
 					</nav>
 					<div class="footer_info_sub">
 						<div class="footer_info_sub_box">
