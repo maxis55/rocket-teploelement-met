@@ -39,7 +39,7 @@ AppAsset::register($this);
 						<div class="container_inner">
 							<div class="header_top_inner">
 								<div class="logo">
-									<a href="index.html" class="logo_lk">
+									<a href="/" class="logo_lk">
 										<span class="logo_top">
 											<img src="images/icons/logo.svg" alt="">
 										</span>
@@ -281,12 +281,15 @@ AppAsset::register($this);
 	 	  	</div>
 				<div class="footer_nav">
 					<nav>
-						<ul class="menu">
-							<li class="menu_item_1"><a href="">Продукция</a></li>
-							<li class="menu_item_2"><a href="">Доставка</a></li>
-							<li class="menu_item_3"><a href="">Информация</a></li>
-							<li class="menu_item_4"><a href="">Контакты</a></li>
-						</ul>
+						<?php echo Menu::widget([
+							'items' => [
+								['label' => 'Продукция', 'url' => ['site/index']],
+								['label' => 'Доставка', 'url' => ['site/delivery']],
+								['label' => 'Информация', 'url' => ['site/index']],
+								['label' => 'Контакты', 'url' => ['site/contact']],
+							],
+							'options'=>['class'=>'menu'],
+						]); ?>
 					</nav>
 					<div class="footer_info_sub">
 						<div class="footer_info_sub_box">
