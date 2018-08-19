@@ -35,15 +35,12 @@ class ContactForm extends Model
     public function contact()
     {
         if ($this->validate()) {
-            echo 'sent';
-            print_r($this);
-            die;
-            // Yii::$app->mailer->compose()
-            //     ->setTo($email)
-            //     ->setFrom([$this->email => $this->name])
-            //     ->setSubject($this->subject)
-            //     ->setTextBody($this->body)
-            //     ->send();
+            Yii::$app->mailer->compose()
+                ->setTo('nicolaypetrovich@icloud.com')
+                ->setFrom(['no-reply@mail.com' => $this->name])
+                ->setSubject('Заявка с сайта')
+                ->setTextBody($this->phone.'\n\r'.$this->message)
+                ->send();
 
             return true;
         }

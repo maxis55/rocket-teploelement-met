@@ -62,6 +62,8 @@ class SiteController extends Controller
 
         // main contact form
         $this->view->params['contact_form'] = new ContactForm();
+        if ($this->view->params['contact_form']->load(Yii::$app->request->post()) && $this->view->params['contact_form']->contact(Yii::$app->params['adminEmail']))
+            return $this->refresh();
 
         return true;
     }

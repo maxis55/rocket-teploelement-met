@@ -115,7 +115,6 @@ use yii\captcha\Captcha;
                             <span class="contacts_form_message">Заполните заявку и в ближайшее время мы с вами свяжемся</span>
 
                             
-                            <?php //print_r($this->params['contact_form']); //die; ?>
                             <?php $form = ActiveForm::begin(['options' => ['class' => 'formSend']]); ?>
                                 <?= $form->field($this->params['contact_form'], 'name', ['options' => ['class' => 'form_item']])->textInput()->label(false) ?>
                                 <?= $form->field($this->params['contact_form'], 'phone', ['options' => ['class' => 'form_item']])->textInput()->label(false) ?>
