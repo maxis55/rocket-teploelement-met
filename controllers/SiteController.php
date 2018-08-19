@@ -6,6 +6,7 @@ use Yii;
 use yii\web\Controller;
 use yii\widgets\Menu;
 use app\models\Settings;
+use app\models\News;
 
 class SiteController extends Controller
 {
@@ -113,7 +114,9 @@ class SiteController extends Controller
      */
     public function actionNews()
     {
-        return $this->render('news');
+        $news = News::getFirstArchiveNews();
+        
+        return $this->render('news', compact('news'));
     }
 
 

@@ -33,7 +33,7 @@ class m180819_070329_update_settings extends Migration
         $this->insert('settings', [
             'id' => $i++,
             'key' => 'email',
-            'value' => "zakaz@teploment.ru",
+            'value' => "zakaz@teploelement.ru",
         ]);
 
         $this->insert('settings', [
@@ -48,13 +48,19 @@ class m180819_070329_update_settings extends Migration
             'value' => "+7(951)779-33-77",
         ]);
 
+        $this->insert('settings', [
+            'id' => $i++,
+            'key' => 'news_per_page',
+            'value' => 4,
+        ]);
+
         return true;
     }
 
     public function down()
     {
 
-        $this->delete('settings', ['id' => '<=15']);
+        $this->delete('settings', ['id' => '<=4']);
 
         return true;
     }
