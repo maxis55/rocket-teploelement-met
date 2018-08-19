@@ -5,6 +5,7 @@ namespace app\controllers;
 use Yii;
 use yii\web\Controller;
 use yii\widgets\Menu;
+use app\models\Settings;
 
 class SiteController extends Controller
 {
@@ -53,6 +54,9 @@ class SiteController extends Controller
             ],
             'options'=>['class'=>'menu'],
         ]);
+
+        // cross pages data
+        $this->view->params['cross_pages_data'] = Settings::getCrossPagesData();
 
         return true;
     }
@@ -103,5 +107,5 @@ class SiteController extends Controller
     }
 
 
-    
+
 }

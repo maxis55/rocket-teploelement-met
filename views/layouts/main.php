@@ -53,12 +53,12 @@ AppAsset::register($this);
 											<span>Минимальные сроки</span>
 											<span>Отличные цены</span>
 										</div>
-										<a href="mailto:zakaz@teploment.ru" class="info_sub_lk">zakaz@teploment.ru</a>
+										<a href="mailto:<?php echo $this->params['cross_pages_data']['email']; ?>" class="info_sub_lk"><?php echo $this->params['cross_pages_data']['email']; ?></a>
 									</div>
 								</div>
 								<div class="header_info">
-									<a href="tel:+7(351)2239392" class="header_info_lk"><span>+7(351)</span>223-93-92</a>
-									<a href="tel:+7(951)2239392" class="header_info_lk"><span>+7(951)</span>779-33-77</a>
+									<a href="tel:+7(351)2239392" class="header_info_lk"><?php echo $this->params['cross_pages_data']['phone1']; ?></a>
+									<a href="tel:+7(951)2239392" class="header_info_lk"><?php echo $this->params['cross_pages_data']['phone2']; ?></a>
 									<div class="header_call">
 										<button class="blue_btn modal_btn" data-modal="call">Заказать звонок</button>
 										<button class="orange_btn modal_btn" data-modal="call"></button>
@@ -95,13 +95,13 @@ AppAsset::register($this);
 							<span>Минимальные сроки</span>
 							<span>Отличные цены</span>
 						</div>
-						<a href="mailto:zakaz@teploment.ru" class="info_sub_lk">zakaz@teploment.ru</a>
+						<a href="mailto:<?php echo $this->params['cross_pages_data']['email']; ?>" class="info_sub_lk"><?php echo $this->params['cross_pages_data']['email']; ?></a>
 					</div>
 				</div>
 				<div class="footer_info">
 					<div class="footer_info_title">Наш телефон:</div>
-					<a href="tel:+7(351)2239392" class="header_info_lk"><span>+7(351)</span>223-93-92</a>
-					<a href="tel:+7(951)2239392" class="header_info_lk"><span>+7(951)</span>779-33-77</a>
+					<a href="tel:+7(351)2239392" class="header_info_lk"><?php echo $this->params['cross_pages_data']['phone1']; ?></a>
+					<a href="tel:+7(951)2239392" class="header_info_lk"><?php echo $this->params['cross_pages_data']['phone2']; ?></a>
 					<div class="header_call">
 						<button class="blue_btn modal_btn" data-modal="call">Заказать звонок</button>
 					</div>
