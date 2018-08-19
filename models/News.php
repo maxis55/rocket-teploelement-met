@@ -25,4 +25,13 @@ class News extends ActiveRecord{
 	}
 
 
+    /**
+     * content for news page
+     */
+	public function getSingleNews($slug){
+
+		return News::find()->select(['title','keywords','description','name','content'])->where(['slug' => $slug])->asArray()->one();
+	}
+
+
 }

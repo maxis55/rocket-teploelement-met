@@ -115,7 +115,7 @@ class SiteController extends Controller
     public function actionNews()
     {
         $news = News::getFirstArchiveNews();
-        
+
         return $this->render('news', compact('news'));
     }
 
@@ -126,7 +126,9 @@ class SiteController extends Controller
      */
     public function actionNewsPage($slug)
     {
-        return $this->render('news_page');
+        $news = News::getSingleNews($slug);
+
+        return $this->render('news_page', compact('news'));
     }
 
 
