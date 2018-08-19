@@ -12,9 +12,9 @@ class SiteController extends Controller
 
 
     /**
-     * cross pages actions
+     * Cross pages actions
      */
-    public function actions()
+    public function beforeAction()
     {
 
         // header navigation
@@ -54,7 +54,16 @@ class SiteController extends Controller
             'options'=>['class'=>'menu'],
         ]);
 
-        // return settings
+        return true;
+    }
+
+
+
+    /**
+     * External actions
+     */
+    public function actions()
+    {
         return [
             'error' => [
                 'class' => 'yii\web\ErrorAction',
@@ -92,4 +101,7 @@ class SiteController extends Controller
     {
         return $this->render('delivery');
     }
+
+
+    
 }
