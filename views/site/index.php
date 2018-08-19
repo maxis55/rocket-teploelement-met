@@ -1,3 +1,11 @@
+<?php 
+
+use yii\helpers\Html;
+use yii\bootstrap\ActiveForm;
+use yii\captcha\Captcha;
+
+?>
+
 <!-- MAIN CONTENT Start-->
     <div id="content">
         <div class="container">
@@ -105,6 +113,17 @@
                         <div class="contacts_form_inner">
                             <span class="contacts_form_title"><span>Оставить</span>заявку</span>
                             <span class="contacts_form_message">Заполните заявку и в ближайшее время мы с вами свяжемся</span>
+
+                            
+                            <?php //print_r($this->params['contact_form']); //die; ?>
+                            <?php $form = ActiveForm::begin(['options' => ['class' => 'formSend']]); ?>
+                                <?= $form->field($this->params['contact_form'], 'name', ['options' => ['class' => 'form_item']])->textInput()->label(false) ?>
+                                <?= $form->field($this->params['contact_form'], 'phone', ['options' => ['class' => 'form_item']])->textInput()->label(false) ?>
+                                <?= $form->field($this->params['contact_form'], 'message', ['options' => ['class' => 'form_item']])->textarea()->label(false) ?>
+                                <?= Html::submitButton('Отправить', ['class' => 'send_btn']) ?>
+                            <?php ActiveForm::end(); ?>
+
+
                             <form class="formSend">
                                 <div class="form_item user">
                                     <input type="text" placeholder="ФИО" name="name"  onblur="if(this.placeholder==''){this.placeholder='ФИО';this.classList.remove('hide');}" onfocus="if(this.placeholder =='ФИО'){this.placeholder='';this.classList.add('hide');}">

@@ -7,6 +7,7 @@ use yii\web\Controller;
 use yii\widgets\Menu;
 use app\models\Settings;
 use app\models\News;
+use app\models\ContactForm;
 
 class SiteController extends Controller
 {
@@ -58,6 +59,9 @@ class SiteController extends Controller
 
         // cross pages data
         $this->view->params['cross_pages_data'] = Settings::getCrossPagesData();
+
+        // main contact form
+        $this->view->params['contact_form'] = new ContactForm();
 
         return true;
     }
