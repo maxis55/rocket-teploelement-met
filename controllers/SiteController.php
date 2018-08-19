@@ -108,4 +108,24 @@ class SiteController extends Controller
 
 
 
+    /**
+     * Displays news archive page.
+     */
+    public function actionNews()
+    {
+        return $this->render('news');
+    }
+
+
+
+    /**
+     * Displays single news page.
+     */
+    public function actionNewsPage($slug)
+    {
+        return $this->render('news_page');
+    }
+
+
+
 }

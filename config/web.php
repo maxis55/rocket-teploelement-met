@@ -48,6 +48,7 @@ $config = [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+                'news/<slug>' => 'site/news-page',
                 '<action>' => 'site/<action>',
             ],
         ],

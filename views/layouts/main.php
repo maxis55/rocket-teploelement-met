@@ -41,7 +41,7 @@ AppAsset::register($this);
 								<div class="logo">
 									<a href="index.html" class="logo_lk">
 										<span class="logo_top">
-											<img src="images/icons/logo.svg" alt="">
+											<img src="<?= Yii::$app->request->baseUrl ?>/images/icons/logo.svg" alt="">
 										</span>
 									</a>
 								</div>
@@ -111,7 +111,7 @@ AppAsset::register($this);
 						<div class="logo">
 							<a href="index.html" class="logo_lk">
 								<span class="logo_top">
-									<img src="images/icons/logo.svg" alt="">
+									<img src="<?= Yii::$app->request->baseUrl ?>/images/icons/logo.svg" alt="">
 								</span>
 							</a>
 						</div>
@@ -127,7 +127,7 @@ AppAsset::register($this);
 	</footer>
 	<!--FOOTER END-->
 	<!--modal popup  -->
-	<div class="modal" id="order" style="background:url(images/bg_modal_order.jpg) 0 0 no-repeat;background-size: cover;">
+	<div class="modal" id="order" style="background:url(<?= Yii::$app->request->baseUrl ?>/images/bg_modal_order.jpg) 0 0 no-repeat;background-size: cover;">
 		<div class="modal_content">
 			<div class="modal_content_inner">
 				<div class="modal_close"></div>
@@ -169,7 +169,7 @@ AppAsset::register($this);
 			</div>
 		</div>
 	</div>
-  <div class="modal" id="basket" style="background:url(images/bg_modal_basket.png) 0 0 no-repeat;background-size: cover;">
+  <div class="modal" id="basket" style="background:url(<?= Yii::$app->request->baseUrl ?>/images/bg_modal_basket.png) 0 0 no-repeat;background-size: cover;">
     <div class="modal_content_basket">
        <div class="modal_box_basket">
         	<div class="box_basket_top">
@@ -240,7 +240,7 @@ AppAsset::register($this);
 			</div>
 		</div>
   </div>
-  <div class="modal" id="thanks" style="background:url(images/bg_modal_thanks.jpg) 0 0 no-repeat;background-size: cover;">
+  <div class="modal" id="thanks" style="background:url(<?= Yii::$app->request->baseUrl ?>/images/bg_modal_thanks.jpg) 0 0 no-repeat;background-size: cover;">
     <div class="modal_content">
     	<div class="modal_content_inner">
         <div class="modal_close" onclick=""></div>
@@ -251,7 +251,7 @@ AppAsset::register($this);
 			</div>
     </div>
   </div>
-  <div class="modal" id="call" style="background:url(images/bg_modal_call.jpg) 0 0 no-repeat;background-size: cover;">
+  <div class="modal" id="call" style="background:url(<?= Yii::$app->request->baseUrl ?>/images/bg_modal_call.jpg) 0 0 no-repeat;background-size: cover;">
     <div class="modal_content">
     	<div class="modal_content_inner">
         <div class="modal_close" onclick=""></div>
