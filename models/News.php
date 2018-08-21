@@ -17,7 +17,7 @@ class News extends ActiveRecord{
 
 
     /**
-     * Cross pages data, header footer and others
+     * First group of news for news archive page
      */
 	public function getFirstArchiveNews(){
 
@@ -26,11 +26,20 @@ class News extends ActiveRecord{
 
 
     /**
-     * content for news page
+     * Content for news page
      */
 	public function getSingleNews($slug){
 
 		return News::find()->select(['title','keywords','description','name','content'])->where(['slug' => $slug])->asArray()->one();
+	}
+
+
+    /**
+     * Select list of news for main page
+     */
+	public function getNewsForMain(){
+
+		return News::find()->select(['shortdesc','date','name','slug'])->limit(8)->asArray()->all();
 	}
 
 

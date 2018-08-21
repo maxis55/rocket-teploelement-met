@@ -89,8 +89,10 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
+        $news = News::getNewsForMain();
+
         $this->layout = 'index';
-        return $this->render('index');
+        return $this->render('index', compact('news'));
     }
 
 
