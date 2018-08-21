@@ -60,7 +60,7 @@ class m180819_070329_update_settings extends Migration
     public function down()
     {
 
-        $this->delete('settings', ['id' => '<=4']);
+        $this->delete('settings');
 
         return true;
     }

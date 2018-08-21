@@ -59,7 +59,7 @@ class m180819_102344_update_news extends Migration
 
     public function down()
     {
-        $this->delete('news', 'id<=10');
+        $this->delete('news');
 
         return true;
     }

@@ -4,6 +4,7 @@ namespace app\models;
 
 use Yii;
 use yii\base\Model;
+use app\models\Messages;
 
 
 /**
@@ -35,6 +36,11 @@ class ContactForm extends Model
     public function contact()
     {
         if ($this->validate()) {
+
+            // saving in admin panel
+            Messages::addMessage($this, 1);
+
+            // sending mail
             Yii::$app->mailer->compose()
                 ->setTo('nicolaypetrovich@icloud.com')
                 ->setFrom(['no-reply@mail.com' => $this->name])
