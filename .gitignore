@@ -9,6 +9,9 @@ ehthumbs.db
 Thumbs.db
 *.map
 
+# yii2
+web/uploads
+
 # php storm
 .idea
 

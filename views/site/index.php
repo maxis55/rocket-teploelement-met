@@ -114,10 +114,11 @@ use yii\bootstrap\ActiveForm;
                             <span class="contacts_form_message">Заполните заявку и в ближайшее время мы с вами свяжемся</span>
 
                             
-                            <?php $form = ActiveForm::begin(['options' => ['class' => 'formSend']]); ?>
+                            <?php $form = ActiveForm::begin(['options' => ['class' => 'formSend', 'enctype' => 'multipart/form-data']]); ?>
                                 <?= $form->field($this->params['contact_form'], 'name', ['options' => ['class' => 'form_item']])->textInput()->label(false) ?>
                                 <?= $form->field($this->params['contact_form'], 'phone', ['options' => ['class' => 'form_item']])->textInput()->label(false) ?>
                                 <?= $form->field($this->params['contact_form'], 'message', ['options' => ['class' => 'form_item']])->textarea()->label(false) ?>
+                                <?= $form->field($this->params['contact_form'], 'file')->fileInput()->label(false) ?>
                                 <?= Html::submitButton('Отправить', ['class' => 'send_btn']) ?>
                             <?php ActiveForm::end(); ?>
 

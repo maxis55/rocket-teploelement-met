@@ -33,6 +33,7 @@ class m180821_170442_create_messages extends Migration
             'form' => $this->integer(),
             'name' => $this->string(255),
             'phone' => $this->string(255),
+            'file' => $this->boolean()->notNull(),
             'message' => $this->text()->notNull(),
             'date' => $this->timestamp()->notNull()->defaultExpression('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'),
         ]);

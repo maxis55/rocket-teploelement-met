@@ -1785,7 +1785,7 @@ input[type=checkbox], input[type=radio] {
 }
 
 input[type=radio], input[type=file] {
-  display: none;
+  /*display: none;*/
 }
 
 .form_item input[type=text], .form_item input[type=search], .form_item input[type=email], .form_item input[type=tel] {

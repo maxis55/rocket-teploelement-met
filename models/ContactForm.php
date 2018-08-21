@@ -4,6 +4,7 @@ namespace app\models;
 
 use Yii;
 use yii\base\Model;
+use yii\web\UploadedFile;
 use app\models\Messages;
 
 
@@ -16,6 +17,7 @@ class ContactForm extends Model
     public $name;
     public $phone;
     public $message;
+    public $file;
 
 
     /**
@@ -25,6 +27,7 @@ class ContactForm extends Model
     {
         return [
             [['name', 'phone', 'message'], 'required', 'message' => 'Поле должно быть заполнено'],
+            [['file'], 'file', 'message' => 'Поле должно быть заполнено'],
             ['phone', 'match', 'pattern' => '/(\(?\d{3}\)?[\- ]?)?[\d\- ]{4,10}$/', 'message' => 'Неверный формат телефона'],
         ];
     }
@@ -36,9 +39,15 @@ class ContactForm extends Model
     public function contact()
     {
         if ($this->validate()) {
+            $file = UploadedFile::getInstance($this, 'file');
 
             // saving in admin panel
-            Messages::addMessage($this, 1);
+            $f = 0;
+            if($file->size) $f = 1;
+            $id = Messages::addMessage($this, 1, $f);
+
+            // saving file
+            if ($id && $file->size) $file->saveAs('uploads/'.$id.'.'.$file->extension);
 
             // sending mail
             Yii::$app->mailer->compose()
