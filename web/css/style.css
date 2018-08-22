@@ -1757,7 +1757,7 @@ header {
 }
 
 input[type=checkbox], input[type=radio] {
-  display: none;
+  /*display: none;*/
 }
 
 .form_item.user input[type=text], .form_item.search input[type=search] {

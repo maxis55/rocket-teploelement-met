@@ -8,6 +8,7 @@ use yii\widgets\Menu;
 use app\models\Settings;
 use app\models\News;
 use app\models\ContactForm;
+use app\models\ModalCall;
 
 class SiteController extends Controller
 {
@@ -62,7 +63,12 @@ class SiteController extends Controller
 
         // main contact form
         $this->view->params['contact_form'] = new ContactForm();
-        if ($this->view->params['contact_form']->load(Yii::$app->request->post()) && $this->view->params['contact_form']->contact(Yii::$app->params['adminEmail']))
+        if ($this->view->params['contact_form']->load(Yii::$app->request->post()) && $this->view->params['contact_form']->contact())
+            return $this->refresh();
+
+        // modal contact form
+        $this->view->params['modal_call'] = new ModalCall();
+        if ($this->view->params['modal_call']->load(Yii::$app->request->post()) && $this->view->params['modal_call']->contact())
             return $this->refresh();
 
         return true;

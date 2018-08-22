@@ -343,32 +343,7 @@ AppAsset::register($this);
 			</div>
     </div>
   </div>
-  <div class="modal" id="call" style="background:url(<?= Yii::$app->request->baseUrl ?>/images/bg_modal_call.jpg) 0 0 no-repeat;background-size: cover;">
-    <div class="modal_content">
-    	<div class="modal_content_inner">
-        <div class="modal_close" onclick=""></div>
-        <div class="modal_box_call">
-        	<div class="modal_call_logo"></div>
-        	<h2 class="title3">Обратный звонок</h2>
-    			<form class="formSend form_call">
-						<div class="form_item user">
-							<input type="text" placeholder="ФИО" name="name"  onblur="if(this.placeholder==''){this.placeholder='ФИО';this.classList.remove('hide');}" onfocus="if(this.placeholder =='ФИО'){this.placeholder='';this.classList.add('hide');}">
-						</div>
-						<div class="form_item phone">
-							<input type="tel" placeholder="Телефон" name="phone" onblur="if(this.placeholder==''){this.placeholder='Телефон';this.classList.remove('hide');}" onfocus="if(this.placeholder =='Телефон' ){this.placeholder='';this.classList.add('hide');}">
-							</div>
-					  <div class="form_item">
-					  	<input type="checkbox" id="agree" name="agree">
-							<label for="agree" class="data_mes_label">Нажимая на кнопку, Вы даете свое согласие на обработку<a href="#" class="data_mes_lk">персональных данных</a></label>
-						</div>
-						<div class="form_item al_center">
-							<button class="blue_btn sendBtn" type="submit">Заказать звонок</button>
-						</div>
-					</form>
-        </div>
-			</div>
-    </div>
-  </div>
+	<?php include('modal_call.php') ?>
  	<div class="modal" id="order" style="background:url(<?= Yii::$app->request->baseUrl ?>/images/bg_modal_order.jpg) 0 0 no-repeat;background-size: cover;">
 		<div class="modal_content">
 			<div class="modal_content_inner">

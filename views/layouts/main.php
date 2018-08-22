@@ -126,49 +126,7 @@ AppAsset::register($this);
     	</div>
 	</footer>
 	<!--FOOTER END-->
-	<!--modal popup  -->
-	<div class="modal" id="order" style="background:url(<?= Yii::$app->request->baseUrl ?>/images/bg_modal_order.jpg) 0 0 no-repeat;background-size: cover;">
-		<div class="modal_content">
-			<div class="modal_content_inner">
-				<div class="modal_close"></div>
-				<div class="modal_box_order">
-					<h2 class="title3">Оформить заказ</h2>
-			    <div class="order_item_box">
-						<span class="order_mes">готово к показу</span>
-						<span class="order_count"><span>2</span> позиции</span>
-					</div>
-					<div class="order_item_trip">
-						<span>* - поля обязательные для заполнения</span>
-					</div>
-					<form class="formSend form_order">
-							<div class="form_item user">
-								<input type="text" placeholder="ФИО" name="name"  onblur="if(this.placeholder=='') this.placeholder='ФИО'" onfocus="if(this.placeholder =='ФИО'){this.placeholder='';this.classList.add('hide');}">
-							</div>
-							<div class="form_item flex">
-								<div class="form_item_type phone">
-								  <input type="tel" placeholder="Телефон" name="phone" onblur="if(this.placeholder==''){this.placeholder='Телефон';this.classList.remove('hide');}" onfocus="if(this.placeholder =='Телефон' ){this.placeholder='';this.classList.add('hide');}">
-						    </div>
-						    <div class="form_item_type email">
-								  <input type="email" placeholder="E-mail" name="email" onblur="if(this.placeholder==''){this.placeholder='E-mail';this.classList.remove('hide');}" onfocus="if(this.placeholder =='E-mail' ){this.placeholder='';this.classList.add('hide');}">
-						    </div>
-							</div>
-							<div class="form_item mes">
-							<textarea placeholder="Сообщение" name="message" onblur="if(this.placeholder==''){this.placeholder='Сообщение';this.classList.remove('hide');}" onfocus="if(this.placeholder =='Сообщение' ){this.placeholder='';this.classList.add('hide');}"></textarea>
-						  </div>
-							<div class="form_item">
-						  	<input type="checkbox" name="agree" id="agree">
-								<label for="agree" class="data_mes_label">Нажимая на кнопку, Вы даете свое согласие на обработку <a href="#" class="data_mes_lk"> персональных данных</a></label>
-							</div>
-						  <div class="form_item al_center">
-						  	<a href="index.html" class="white_btn">Вернуться</a>
-						  	<button class="blue_btn sendBtn">Оформить заказ</button>
-						  </div>
-
-					</form>
-				</div>
-			</div>
-		</div>
-	</div>
+	<?php include('modal_call.php') ?>
   <div class="modal" id="basket" style="background:url(<?= Yii::$app->request->baseUrl ?>/images/bg_modal_basket.png) 0 0 no-repeat;background-size: cover;">
     <div class="modal_content_basket">
        <div class="modal_box_basket">

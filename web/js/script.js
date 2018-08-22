@@ -258,76 +258,76 @@ if($(window).width() < 760){
 
 
 
-  $('.sendBtn').click(function(e){
-    e.preventDefault();
+  // $('.sendBtn').click(function(e){
+  //   e.preventDefault();
 
-    var btn = this;
-    var attr = $(this).data('modal');
-    var attr1 = $(this).data('close');
-    var errors = false;
-        var currentForm = $(this).closest("form.formSend"),
-        name = currentForm.find('input[name="name"]'),
-        phone = currentForm.find('input[name="phone"]'),
-        email = currentForm.find('input[name="email"]'),
-       messadge = currentForm.find('textarea[name="message"]');
+  //   var btn = this;
+  //   var attr = $(this).data('modal');
+  //   var attr1 = $(this).data('close');
+  //   var errors = false;
+  //       var currentForm = $(this).closest("form.formSend"),
+  //       name = currentForm.find('input[name="name"]'),
+  //       phone = currentForm.find('input[name="phone"]'),
+  //       email = currentForm.find('input[name="email"]'),
+  //      messadge = currentForm.find('textarea[name="message"]');
 
-    if($("input[name='agree']").prop('checked')==false){
-        $("#agree").parent().addClass("invalid");
-        errors = true;
-    }
-    else{
-      $("#agree").parent().removeClass("invalid");
-    }
-    if(email.length){
-      if(!email.val().length){
-        email.parent().addClass("invalid");
-        errors = true;
-      }
-      else{
-        email.parent().removeClass("invalid");
-      }
-      if(email.val().length && !checkEmail(email)){
-        email.parent().addClass("invalid1");
-        errors = true;
-      }
-      else{
-        email.parent().removeClass("invalid1");
-      }
-    }
-    if(phone.length){
-      if(!phone.val().length || !checkPhone(phone)){
-        phone.parent().addClass("invalid");
-        errors = true;
-      }
-      else{
-        phone.parent().removeClass("invalid");
-      }
-    }
-    if(name.length){
-      if(!name.val().length || name.val() =="ФИО"){
-        name.parent().addClass("invalid");
-        errors = true;
-    }
-      else{
-        name.parent().removeClass("invalid");
-      }
-    }
-   if(messadge.length){
-      if(!messadge.val().length || messadge.val() ==" "){
-        messadge.parent().addClass("invalid");
-        errors = true;
-    }
-      else{
-        messadge.parent().removeClass("invalid");
-      }
-    }
-    console.log(errors);
-    if(!errors){
-       console.log('333');
-        modalOpen();
+  //   if($("input[name='agree']").prop('checked')==false){
+  //       $("#agree").parent().addClass("invalid");
+  //       errors = true;
+  //   }
+  //   else{
+  //     $("#agree").parent().removeClass("invalid");
+  //   }
+  //   if(email.length){
+  //     if(!email.val().length){
+  //       email.parent().addClass("invalid");
+  //       errors = true;
+  //     }
+  //     else{
+  //       email.parent().removeClass("invalid");
+  //     }
+  //     if(email.val().length && !checkEmail(email)){
+  //       email.parent().addClass("invalid1");
+  //       errors = true;
+  //     }
+  //     else{
+  //       email.parent().removeClass("invalid1");
+  //     }
+  //   }
+  //   if(phone.length){
+  //     if(!phone.val().length || !checkPhone(phone)){
+  //       phone.parent().addClass("invalid");
+  //       errors = true;
+  //     }
+  //     else{
+  //       phone.parent().removeClass("invalid");
+  //     }
+  //   }
+  //   if(name.length){
+  //     if(!name.val().length || name.val() =="ФИО"){
+  //       name.parent().addClass("invalid");
+  //       errors = true;
+  //   }
+  //     else{
+  //       name.parent().removeClass("invalid");
+  //     }
+  //   }
+  //  if(messadge.length){
+  //     if(!messadge.val().length || messadge.val() ==" "){
+  //       messadge.parent().addClass("invalid");
+  //       errors = true;
+  //   }
+  //     else{
+  //       messadge.parent().removeClass("invalid");
+  //     }
+  //   }
+  //   console.log(errors);
+  //   if(!errors){
+  //      console.log('333');
+  //       modalOpen();
 
-    }
-  });
+  //   }
+  // });
     /*-------------main_news_box for 480------*/
     if($('.main_news_box_inner').length){
       var news = $('.owl-carousel').find('.main_news_item').eq(0).clone();
