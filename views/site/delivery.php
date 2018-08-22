@@ -6,16 +6,10 @@
 				<div class="container_inner">
 					<ul class="breadcrumbs">
 						<li>
-		          <a class="breadcrumbs_main" href="#">Главная</a>/
+		          <a class="breadcrumbs_main" href="/">Главная</a>/
 		        </li>
 		        <li>
-		          <a class="breadcrumbs_main" href="#">Каталог</a>/
-		        </li>
-		        <li>
-		          <a class="breadcrumbs_main" href="#">Отводы</a>/
-		        </li>
-		        <li>
-		          <span class="breadcrumbs_current">Отводы ГОСТ 17375-2001 крутоизогнутые типа 3d</span>
+		          <span class="breadcrumbs_current">Доставка</span>
 		        </li>
 		      </ul>
 		    </div>

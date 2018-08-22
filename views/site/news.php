@@ -11,7 +11,7 @@ use yii\helpers\Url;
 				<div class="container_inner">
 					<ul class="breadcrumbs">
 						<li>
-		          			<a class="breadcrumbs_main" href="#">Главная</a>/
+		          			<a class="breadcrumbs_main" href="/">Главная</a>/
 		        		</li>
 		     
 				        <li>

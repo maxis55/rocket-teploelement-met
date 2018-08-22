@@ -5,7 +5,7 @@
                 <div class="container_inner">
                     <ul class="breadcrumbs">
                         <li>
-                          <a class="breadcrumbs_main" href="#">Главная</a>/
+                          <a class="breadcrumbs_main" href="/">Главная</a>/
                         </li>
                         <li>
                           <span class="breadcrumbs_current">Контакты</span>
