@@ -143,11 +143,9 @@ use yii\helpers\Url;
                                     <div class="form_item search">
                                             <input type="search" name="search" placeholder="Ваш город" autocomplete list="town">
                                             <datalist id="town">
-                                              <option value="Москва">
-                                              <option value="Казань">
-                                              <option value="Петербург">
-                                              <option value="Воронеж">
-                                              <option value="Хабаровск">
+                                                <?php foreach ($delivery as $order => $city) { ?>
+                                                  <option value="<?= $city['city'] ?>" data-message="<?= $city['text'] ?>">
+                                                <?php } ?>
                                             </datalist>
                                     </div>
 

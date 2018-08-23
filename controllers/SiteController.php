@@ -7,6 +7,7 @@ use yii\web\Controller;
 use yii\widgets\Menu;
 use app\models\Settings;
 use app\models\News;
+use app\models\Delivery;
 use app\models\ContactForm;
 use app\models\ModalCall;
 
@@ -96,9 +97,10 @@ class SiteController extends Controller
     public function actionIndex()
     {
         $news = News::getNewsForMain();
+        $delivery = Delivery::getAllDelivery();
 
         $this->layout = 'index';
-        return $this->render('index', compact('news'));
+        return $this->render('index', compact('news','delivery'));
     }
 
 
