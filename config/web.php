@@ -48,6 +48,10 @@ $config = [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+                'catalog/<category>/<subcategory>/<subsubcategory>' => 'site/catalog-sub-subcategory',
+                'catalog/<category>/<subcategory>' => 'site/catalog-subcategory',
+                'catalog/<category>' => 'site/catalog-category',
+                'product/<slug>' => 'site/product',
                 'news/<slug>' => 'site/news-page',
                 '<action>' => 'site/<action>',
             ],

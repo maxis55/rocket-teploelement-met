@@ -149,4 +149,44 @@ class SiteController extends Controller
 
 
 
+    /**
+     * Displays product page.
+     */
+    public function actionProduct($slug)
+    {
+        return $this->render('product');
+    }
+
+
+
+    /**
+     * Displays catalog category page.
+     */
+    public function actionCatalogCategory($category)
+    {
+        return $this->render('category');
+    }
+
+
+
+    /**
+     * Displays catalog subcategory page.
+     */
+    public function actionCatalogSubcategory($category, $subcategory)
+    {
+        return $this->render('sub_category');
+    }
+
+
+
+    /**
+     * Displays catalog sub-subcategory page.
+     */
+    public function actionCatalogSubSubcategory($category, $subcategory, $subsubcategory)
+    {
+        return $this->render('sub_category');
+    }
+
+
+
 }
