@@ -14,7 +14,7 @@ use yii\helpers\Url;
 		          			<a class="breadcrumbs_main" href="/">Главная</a>/
 		        		</li>
 				        <li>
-				          <a class="breadcrumbs_main" href="<?= Url::toRoute(['site/news']) ?>">Каталог</a>/
+				          <a class="breadcrumbs_main" href="<?= Url::toRoute(['site/news']) ?>">Новости</a>/
 				        </li>
 				        <li>
 				          <span class="breadcrumbs_current"><?= $news['name'] ?></span>

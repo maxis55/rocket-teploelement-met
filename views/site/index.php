@@ -2,7 +2,12 @@
 
 use yii\helpers\Url;
 
+
 ?>
+
+    <div class="catalog_bl">
+        <?php include('catalog_bl.php'); ?>
+    </div>
 
 <!-- MAIN CONTENT Start-->
     <div id="content">

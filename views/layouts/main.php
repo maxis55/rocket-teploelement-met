@@ -39,7 +39,7 @@ AppAsset::register($this);
 						<div class="container_inner">
 							<div class="header_top_inner">
 								<div class="logo">
-									<a href="index.html" class="logo_lk">
+									<a href="/" class="logo_lk">
 										<span class="logo_top">
 											<img src="<?= Yii::$app->request->baseUrl ?>/images/icons/logo.svg" alt="">
 										</span>
@@ -109,7 +109,7 @@ AppAsset::register($this);
 				<div class="footer_info_logo">
 					<div class="footer_logo_box">
 						<div class="logo">
-							<a href="index.html" class="logo_lk">
+							<a href="/" class="logo_lk">
 								<span class="logo_top">
 									<img src="<?= Yii::$app->request->baseUrl ?>/images/icons/logo.svg" alt="">
 								</span>
