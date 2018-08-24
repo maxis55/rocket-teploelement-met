@@ -14,7 +14,7 @@
 		          <a class="breadcrumbs_main" href="#">Отводы</a>/
 		        </li>
 		        <li>
-		          <span class="breadcrumbs_current">Отводы ГОСТ 17375-2001 крутоизогнутые типа 3d</span>
+		          <span class="breadcrumbs_current"><?= $product['name'] ?></span>
 		        </li>
 		      </ul>
 		    </div>
@@ -196,86 +196,15 @@
 								<div class="product_info_char">
 									<h4 class="title6">Характеристики</h4>
 									<dl class="product_char_list">
-										<div class="product_char_item">
-											<dt>Вес погонного метра</dt>
-											<dd>0.148 кг.</dd>
-										</div>
-										<div class="product_char_item">
-											<dt>Материал</dt>
-											<dd>стальная</dd>
-									  </div>
-									  <div class="product_char_item">
-											<dt>Марка стали или сплава</dt>
-											<dd>Ст20</dd>
-										</div>
-										<div class="product_char_item">
-											<dt>Способ производства</dt>
-											<dd>бесшовная</dd>
-										</div>
-										<div class="product_char_item">
-											<dt>Тип производства</dt>
-											<dd>холоднодеформированная</dd>
-										</div>
-										<div class="product_char_item">
-											<dt>Тип сечения</dt>
-											<dd>круглое</dd>
-										</div>
-										<div class="product_char_item">
-											<dt>Диаметр</dt>
-											<dd>7 мм.</dd>
-										</div>
-										<div class="product_char_item">
-											<dt>Толщина стенки</dt>
-											<dd>1 мм.</dd>
-										</div>
-										<div class="product_char_item">
-											<dt>Длина</dt>
-											<dd>12000 мм.</dd>
-										</div>
+										<?php foreach ($characteristics as $order => $characteristic) { ?>
+											<div class="product_char_item">
+												<dt><?= $characteristic['name'] ?></dt>
+												<dd><?= $characteristic['value'] ?></dd>
+											</div>
+										<?php } ?>
 									</dl>
 								</div>
-								<div class="product_counter_box">
-									<div class="product_counter_item">
-										<div class="counter_item_inner">
-											<span>Марка стали</span>
-											<label for="mark_" class="select">
-												<select id="mark_">
-													<option>Выбрать марку</option>
-													<option>марка2</option>
-													<option>марка3</option>
-													<option>марка4</option>
-												</select>
-											</label>
-										</div>
-									</div>
-									<div class="product_counter_item">
-											<div class="counter_item_inner">
-											<span>Количество метров</span>
-											<div class="counter-wrapper">
-												<div class="counter-box">
-													<button class="counter-minus"></button>
-													<input class="counter-qt" value="1">
-													<button class="counter-plus"></button>
-												</div>
-											</div>
-										</div>
-									</div>
-									<div class="product_counter_item">
-										<div class="product_counter_mes">
-											Чем больше покупка - тем выгоднее цена!
-										</div>
-									</div>
-									<div class="product_counter_item">
-										<div class="product_counter_order">
-											<span class="product_order_left"></span>
-											<span class="product_order_right"></span>
-											<button class="blue_btn modal_btn" data-modal="basket">Заказать</button>
-										</div>
-									</div>
-									<div class="product_counter_item">
-										<span class="product_counter_text">Цена за тонну: узнавайте у менеджера</span>
-									</div>
-								</div>
+								<?php include('product_counter_box.php'); ?>
 							</div>
 							<div class="product_desc">
 								<h3 class="title4">Описание</h3>
@@ -284,48 +213,7 @@
 						
 						</div>
 						<div class="product_assets">
-							<div class="product_counter_box">
-								<div class="product_counter_item">
-									<div class="counter_item_inner">
-										<span>Марка стали</span>
-										<label for="mark_" class="select">
-											<select id="mark_">
-												<option>Выбрать марку</option>
-												<option>марка2</option>
-												<option>марка3</option>
-												<option>марка4</option>
-											</select>
-										</label>
-									</div>
-								</div>
-								<div class="product_counter_item">
-										<div class="counter_item_inner">
-										<span>Количество метров</span>
-										<div class="counter-wrapper">
-											<div class="counter-box">
-												<button class="counter-minus"></button>
-												<input class="counter-qt" value="1">
-												<button class="counter-plus"></button>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="product_counter_item">
-									<div class="product_counter_mes">
-										Чем больше покупка - тем выгоднее цена!
-									</div>
-								</div>
-								<div class="product_counter_item">
-									<div class="product_counter_order">
-										<span class="product_order_left"></span>
-										<span class="product_order_right"></span>
-										<button class="blue_btn modal_btn" data-modal="basket">Заказать</button>
-									</div>
-								</div>
-								<div class="product_counter_item">
-									<span class="product_counter_text">Цена за тонну: узнавайте у менеджера</span>
-								</div>
-							</div>
+								<?php include('product_counter_box.php'); ?>
 							<div class="product_banner">
 								<img src="<?= Yii::$app->request->baseUrl ?>/images/banner.jpg" alt="">
 							</div>

@@ -9,6 +9,8 @@ use app\models\Settings;
 use app\models\News;
 use app\models\Delivery;
 use app\models\Products;
+use app\models\Products_characteristics;
+use app\models\Steel;
 use app\models\ContactForm;
 use app\models\ModalCall;
 
@@ -156,8 +158,10 @@ class SiteController extends Controller
     public function actionProduct($slug)
     {
         $product = Products::getProduct($slug);
+        $characteristics = Products_characteristics::getCharacteristics($product['id']);
+        $steel = Steel::getSteel($product['id']);
 
-        return $this->render('product', compact('product'));
+        return $this->render('product', compact('product','characteristics','steel'));
     }
 
 

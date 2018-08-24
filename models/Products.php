@@ -12,7 +12,7 @@ class Products extends ActiveRecord{
      */
 	public function getProduct($slug){
 
-		return Products::find()->select(['name','text'])->where(['slug' => $slug])->asArray()->one();
+		return Products::find()->select(['id','name','text'])->where(['slug' => $slug])->asArray()->one();
 	}
 
 

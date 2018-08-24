@@ -44,6 +44,8 @@ class m180819_102332_create_news extends Migration
             'slug'
         );
 
+        return true;
+
     }
 
     public function down()

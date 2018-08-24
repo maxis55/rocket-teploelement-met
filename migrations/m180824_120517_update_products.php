@@ -52,6 +52,8 @@ class m180824_120517_update_products extends Migration
                 'slug' => 'test-product-'.$i
             ]);
         }
+
+        return true;
     }
 
     public function down()

@@ -55,6 +55,8 @@ class m180819_102344_update_news extends Migration
                 'media_id' => $i,
             ]);
         }
+
+        return true;
     }
 
     public function down()

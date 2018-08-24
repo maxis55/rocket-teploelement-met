@@ -3,9 +3,9 @@
 use yii\db\Migration;
 
 /**
- * Class m180824_120506_create_products
+ * Class m180824_132203_create_steel
  */
-class m180824_120506_create_products extends Migration
+class m180824_132203_create_steel extends Migration
 {
     /**
      * {@inheritdoc}
@@ -20,24 +20,23 @@ class m180824_120506_create_products extends Migration
      */
     public function safeDown()
     {
-        echo "m180824_120506_create_products cannot be reverted.\n";
+        echo "m180824_132203_create_steel cannot be reverted.\n";
 
         return false;
     }
 
     public function up()
     {
-        $this->createTable('products', [
+        $this->createTable('steel', [
             'id' => $this->primaryKey(),
-            'slug' => $this->string(50)->unique()->notNull(),
+            'product' => $this->integer(),
             'name' => $this->string(255)->notNull(),
-            'text' => $this->text()->notNull()
         ]);
 
         $this->createIndex(
-            'idx-products-slug',
-            'products',
-            'slug'
+            'idx-steel-product',
+            'steel',
+            'product'
         );
 
         return true;
@@ -45,7 +44,7 @@ class m180824_120506_create_products extends Migration
 
     public function down()
     {
-        $this->dropTable('products');
+        $this->dropTable('steel');
         return true;
     }
 }
