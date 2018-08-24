@@ -10,6 +10,7 @@ use app\models\News;
 use app\models\Delivery;
 use app\models\Products;
 use app\models\Products_characteristics;
+use app\models\Category;
 use app\models\Steel;
 use app\models\ContactForm;
 use app\models\ModalCall;
@@ -171,7 +172,9 @@ class SiteController extends Controller
      */
     public function actionCatalogCategory($category)
     {
-        return $this->render('category');
+        $category = Category::getCategory($category);
+        
+        return $this->render('category', compact('category'));
     }
 
 
