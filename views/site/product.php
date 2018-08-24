@@ -5,7 +5,7 @@
 				<div class="container_inner">
 					<ul class="breadcrumbs">
 						<li>
-		          <a class="breadcrumbs_main" href="#">Главная</a>/
+		          <a class="breadcrumbs_main" href="/">Главная</a>/
 		        </li>
 		        <li>
 		          <a class="breadcrumbs_main" href="#">Каталог</a>/
@@ -188,10 +188,10 @@
 			
 				<div class="product_box">
 						<div class="product_info">
-							<h2 class="title1">Труба бесшовная 7х1 х/д</h2>
+							<h2 class="title1"><?= $product['name'] ?></h2>
 							<div class="product_info_inner">
 								<div class="product_info_img">
-									<img src="images/product.jpg" alt="">
+									<img src="<?= Yii::$app->request->baseUrl ?>/images/product.jpg" alt="">
 								</div>
 								<div class="product_info_char">
 									<h4 class="title6">Характеристики</h4>
@@ -279,24 +279,7 @@
 							</div>
 							<div class="product_desc">
 								<h3 class="title4">Описание</h3>
-								<p>Цена трубы бесшовной 7х1 указана за 1 метр погонный. На оптовые поставки со склада действует система скидок, которую Вы можете уточнить у нашего менеджера. На транзитные позиции с завода-производителя стоимость Труба бесшовная 7х1 х/д зависит от марки стали, диаметра, толщины стенки и особых требований покупателя к данному товару. На объем заказа менее 1 тонны (розничный заказ) возможно применение наценки. Окончательную цену за метр и тонну на трубу бесшовную 7х1 Вы можете получить, запросив  коммерческое предложение или счет у нашего менеджера. При расчёте проекта для вашего удобства в нашей компании предусмотрен перерасчет цен</p>
-								<p>Стальная Труба бесшовная 7х1 х/д производится в соответствии с ГОСТом 8733-74 и ГОСТом 8734-78, разработанным в институте сертификации. На всю трубу бесшовную имеются сертификаты качества, которые выдаются после получения товара. Купить трубы бесшовная 7х1 Вы можете купить на одном из наших складов оптом и в розницу. Минимальная партия от одной штуки. На нашем предприятии есть возможность отгружать трубу бесшовную различного размера от 1 метра при наличии остатков от производства конструкций. Чтобы ознакомиться со всем сортаментом, и размерами, указанными в таблице, Вы можете перейти в соответствующий раздел или каталог.</p>
-								
-							</div>
-							<div class="product_advantages">
-								<h3 class="title6">Купить Трубу бесшовную 7х1 от Сталь-Про - это лучший Ваш выбор! </h3>
-								<span class="product_adv_text">Хотите узнать стоимость Труба бесшовная 7х1 х/д – звоните!</span>
-								<div class="product_adv_box">
-									<span>При обращении в нашу компанию Вы получаете:</span>
-									<ul class='product_adv_list'>
-										<li>Лучший сервис в нашей отрасли</li>
-										<li>Оперативный ответ на Ваше обращение</li>
-										<li>Профессиональные консультации от менеджера до конструктора и технолога</li>
-										<li>Качественный металлопрокат и изделия из бесшовной трубы</li>
-										<li>Услуги по металлообработке</li>
-										<li>Поставки точно в срок в любую точку России всеми видами транспорта.</li>
-									</ul>
-								</div>
+								<?= $product['text'] ?>
 							</div>
 						
 						</div>
@@ -344,7 +327,7 @@
 								</div>
 							</div>
 							<div class="product_banner">
-								<img src="images/banner.jpg" alt="">
+								<img src="<?= Yii::$app->request->baseUrl ?>/images/banner.jpg" alt="">
 							</div>
 						</div>
 				</div>
@@ -375,7 +358,7 @@
 								  			<tr>
 								  				<td class="cell1">	
 														<a href="#" class="offers_img">
-															<img src="images/offers.jpg" alt="">
+															<img src="<?= Yii::$app->request->baseUrl ?>/images/offers.jpg" alt="">
 													 </a>
 									 			 	</td>
 													<td class="cell2"><div class="offers_name"><a href="#">Труба бесшовная 7X1 x/д</a></div></td>
@@ -412,7 +395,7 @@
 								  			<tr>	
 												 <td class="cell1">
 													<a href="#" class="offers_img">
-														<img src="images/offers.jpg" alt="">
+														<img src="<?= Yii::$app->request->baseUrl ?>/images/offers.jpg" alt="">
 													</a>
 												  </td>
 													<td class="cell2"><div class="offers_name"><a href="#">Швеллер бесшовный</a></div></td>
@@ -449,7 +432,7 @@
 								  			<tr>	
 												 <td class="cell1">
 													<a href="#" class="offers_img">
-														<img src="images/offers.jpg" alt="">
+														<img src="<?= Yii::$app->request->baseUrl ?>/images/offers.jpg" alt="">
 													</a>
 												  </td>
 													<td class="cell2"><div class="offers_name"><a href="#">Труба бесшовная 7X1 x/д</a></div></td>
@@ -486,7 +469,7 @@
 								  			<tr>	
 												 <td class="cell1">
 														<a href="#" class="offers_img">
-															<img src="images/offers.jpg" alt="">
+															<img src="<?= Yii::$app->request->baseUrl ?>/images/offers.jpg" alt="">
 														</a>
 												  </td>
 													<td class="cell2"><div class="offers_name"><a href="#">Труба бесшовная 7X1 x/д</a></div></td>
@@ -523,7 +506,7 @@
 								  			<tr>	
 												 <td class="cell1">
 														<a href="#" class="offers_img">
-															<img src="images/offers.jpg" alt="">
+															<img src="<?= Yii::$app->request->baseUrl ?>/images/offers.jpg" alt="">
 														</a>
 												  </td>
 													<td class="cell2"><div class="offers_name"><a href="#">Труба бесшовная 7X1 x/д</a></div></td>
@@ -560,7 +543,7 @@
 								  			<tr>	
 												 <td class="cell1">
 														<a href="#" class="offers_img">
-															<img src="images/offers.jpg" alt="">
+															<img src="<?= Yii::$app->request->baseUrl ?>/images/offers.jpg" alt="">
 														</a>
 												  </td>
 													<td class="cell2"><div class="offers_name"><a href="#">Труба бесшовная 7X1 x/д</a></div></td>
@@ -597,7 +580,7 @@
 								  			<tr>	
 												 <td class="cell1">
 														<a href="#" class="offers_img">
-															<img src="images/offers.jpg" alt="">
+															<img src="<?= Yii::$app->request->baseUrl ?>/images/offers.jpg" alt="">
 														</a>
 												  </td>
 													<td class="cell2"><div class="offers_name"><a href="#">Труба бесшовная 7X1 x/д</a></div></td>
@@ -650,46 +633,5 @@
 			</div>
 		</div>
   </div>
-  <section>
-		<div class="main_contacts_bl">
-			<div class="container">
-				<div class="main_contacts_box">
-					<div class="main_contacts_info">
-						<div class="main_contacts_img">
-							<img src="images/main_contats_pattern.png" alt="">
-						</div>
-						<div class="price_list_box">
-							<span>Полный прайс-лист на товары и услуги</span>
-							<a href="price-list.txt" target="_blank">Скачать прайс-лист</a>
-						</div>
-					</div>
-					<div class="main_contacts_form">
-						<div class="contacts_form_inner">
-							<span class="contacts_form_title"><span>Оставить</span>заявку</span>
-							<span class="contacts_form_message">Заполните заявку и в ближайшее время мы с вами свяжемся</span>
-							<form class="formSend">
-								<div class="form_item user">
-									<input type="text" placeholder="ФИО" name="name"  onblur="if(this.placeholder==''){this.placeholder='ФИО';this.classList.remove('hide');}" onfocus="if(this.placeholder =='ФИО'){this.placeholder='';this.classList.add('hide');}">
-								</div>
-								<div class="form_item phone">
-									<input type="tel" placeholder="Телефон" name="phone" onblur="if(this.placeholder==''){this.placeholder='Телефон';this.classList.remove('hide');}" onfocus="if(this.placeholder =='Телефон' ){this.placeholder='';this.classList.add('hide');}">
-								</div>
-								<div class="form_item mes">
-									<textarea placeholder="Сообщение" name="message" onblur="if(this.placeholder==''){this.placeholder='Сообщение';this.classList.remove('hide');}" onfocus="if(this.placeholder =='Сообщение' ){this.placeholder='';this.classList.add('hide');}"></textarea>
-								</div>
-								<div class="form_item flex">
-									<label for="file" class="label_select_file">
-										<span class="file_btn">Прикрепить файл</span>
-										<span class="file_select"></span>
-										<input type="file" name="file" id="file" class="file">
-									</label>
-									<button class="send_btn sendBtn">Отправить</button>
-								</div>
-							</form>
-					 </div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
+	<?php include('contact_form.php'); ?>
 

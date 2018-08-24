@@ -8,6 +8,7 @@ use yii\widgets\Menu;
 use app\models\Settings;
 use app\models\News;
 use app\models\Delivery;
+use app\models\Products;
 use app\models\ContactForm;
 use app\models\ModalCall;
 
@@ -154,7 +155,9 @@ class SiteController extends Controller
      */
     public function actionProduct($slug)
     {
-        return $this->render('product');
+        $product = Products::getProduct($slug);
+
+        return $this->render('product', compact('product'));
     }
 
 
