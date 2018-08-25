@@ -31,7 +31,8 @@ class m180824_120506_create_products extends Migration
             'id' => $this->primaryKey(),
             'slug' => $this->string(50)->unique()->notNull(),
             'name' => $this->string(255)->notNull(),
-            'text' => $this->text()->notNull()
+            'text' => $this->text()->notNull(),
+            'media' => $this->integer(),
         ]);
 
         $this->createIndex(

@@ -81,9 +81,6 @@ class SiteController extends Controller
         // categories list for main navigation
         $this->view->params['navCategories'] = Category::getSubCategories();
 
-        // media library url
-        $this->view->params['mediaUrl']= Yii::$app->request->baseUrl.'/media/';
-
         return true;
     }
 
@@ -143,7 +140,6 @@ class SiteController extends Controller
     public function actionNews()
     {
         $news = News::getFirstArchiveNews();
-        //print_r($news); die;
 
         return $this->render('news', compact('news'));
     }

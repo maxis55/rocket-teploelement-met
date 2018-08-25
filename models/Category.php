@@ -12,7 +12,12 @@ class Category extends ActiveRecord{
      */
 	public function getCategory($slug){
 
-		return Category::find()->select(['id','name','content'])->where(['slug' => $slug])->asArray()->one();
+		return Category::find()
+			->select(['category.id','category.name','category.content','media.image'])
+			->leftJoin('media', 'category.media = media.id')
+			->where(['category.slug' => $slug])
+			->asArray()
+			->one();
 	}
 
 
@@ -21,7 +26,12 @@ class Category extends ActiveRecord{
      */
 	public function getSubCategory($parent){
 
-		return Category::find()->select(['slug','name','shortdesc'])->where(['parent' => $parent])->asArray()->all();
+		return Category::find()
+			->select(['category.slug','category.name','category.shortdesc','media.image'])
+			->leftJoin('media', 'category.media = media.id')
+			->where(['category.parent' => $parent])
+			->asArray()
+			->all();
 	}
 
 

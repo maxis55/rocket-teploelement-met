@@ -48,6 +48,7 @@ class m180824_171800_update_category extends Migration
                 'name' => $i.' название категории',
                 'slug' => $slugs[$i],
                 'content' => $i.$content,
+                'media' => rand(1, 10),
             ]);
             $c1 = Yii::$app->db->getLastInsertID();
 
@@ -58,6 +59,7 @@ class m180824_171800_update_category extends Migration
                     'slug' => 'pcat'.$i.$z,
                     'shortdesc' => $shortdesc,
                     'content' => $i.$z.$content,
+                    'media' => rand(1, 10),
                 ]);
 
                 $c2 = Yii::$app->db->getLastInsertID();
@@ -69,6 +71,7 @@ class m180824_171800_update_category extends Migration
                         'slug' => 'ppcat'.$i.$z.$t,
                         'shortdesc' => $shortdesc,
                         'content' => $i.$z.$t.$content,
+                        'media' => rand(1, 10),
                     ]);
                 }
             }

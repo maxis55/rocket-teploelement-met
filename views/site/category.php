@@ -1,6 +1,7 @@
 <?php 
 
 use yii\helpers\Url;
+use app\models\ImageHandler;
 
 ?>
 
@@ -28,12 +29,13 @@ use yii\helpers\Url;
 				<div class="catalog_inner_wrap">
 					<div class="catalog_inner">
 					    <h2 class="title8"><span><?= $category['name'] ?></span></h2>
+					    <?php $subCategory_image = new ImageHandler ([ "width" => 168, "height" => 136 ]); ?>
 					    <?php foreach ($subCategory as $order => $sub) { ?>
 				  		<div class="catalog_inner_item">
 				  			<span class="catalog_desc_pat"></span>
 				  			<span class="catalog_inner_pattern"></span>
 				  			<div class="catalog_item_img">
-				  				<img src="<?= Yii::$app->request->baseUrl ?>/images/product1.png" alt="">
+				  				<img src="<?= Yii::$app->request->baseUrl ?>/<?= $subCategory_image -> showLink ($sub['image']); ?>">
 				  			</div>
 				  			<div class="catalog_item_content">
 				  				<h4 class="title9"><a href="<?= Url::toRoute(['site/catalog-subcategory', 'category' => $slug, 'subcategory' => $sub['slug']]) ?>"><?= $sub['name'] ?></a></h4>

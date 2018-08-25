@@ -34,6 +34,7 @@ class m180824_171751_create_category extends Migration
             'name' => $this->string(255)->notNull(),
             'shortdesc' => $this->string(255)->notNull(),
             'content' => $this->text()->notNull(),
+            'media' => $this->integer(),
         ]);
 
         $this->createIndex(

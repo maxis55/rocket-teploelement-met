@@ -1,6 +1,7 @@
 <?php 
 
 use yii\helpers\Url;
+use app\models\ImageHandler;
 
 ?>
 
@@ -38,7 +39,8 @@ use yii\helpers\Url;
 					<div class="inner_description_flex">
 						<div class="inner_description_img">
 							<div class="inner_description_img_box">
-								<img src="<?= Yii::$app->request->baseUrl ?>/images/product.jpg" alt="">
+								<?php $subCategory_image = new ImageHandler ([ "width" => 310, "height" => 310 ]); ?>
+								<img src="<?= Yii::$app->request->baseUrl ?>/<?= $subCategory_image -> showLink ($category['image']); ?>">
 							</div>
 						</div>
 						<div class="inner_description_text">

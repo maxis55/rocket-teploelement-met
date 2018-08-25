@@ -1,3 +1,9 @@
+<?php 
+
+use app\models\ImageHandler;
+
+?>
+
 	<!-- MAIN CONTENT Start-->
 	<div class="catalog_bl">
 		<div class="breadcrumbs_box">
@@ -25,7 +31,8 @@
 							<h2 class="title1"><?= $product['name'] ?></h2>
 							<div class="product_info_inner">
 								<div class="product_info_img">
-									<img src="<?= Yii::$app->request->baseUrl ?>/images/product.jpg" alt="">
+									<?php $product_image = new ImageHandler ([ "width" => 310, "height" => 300 ]); ?>
+									<img src="<?= Yii::$app->request->baseUrl ?>/<?= $product_image -> showLink ($product['image']); ?>">
 								</div>
 								<div class="product_info_char">
 									<h4 class="title6">Характеристики</h4>

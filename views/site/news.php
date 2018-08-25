@@ -46,7 +46,8 @@ use app\models\ImageHandler;
 						  	<div class="main_news_item">
 								<figure>
 									<a href="<?= Url::toRoute(['site/news-page', 'slug' => $single['slug']]) ?>" class="news_img">
-										<?= $news_image -> showImage ($single['image']); ?>
+										<img src="<?= Yii::$app->request->baseUrl ?>/<?= $news_image -> showLink ($single['image']); ?>">
+										
 									</a>
 									<figcaption>
 										<time datetime="2012-12">
