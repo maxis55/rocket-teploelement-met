@@ -21,7 +21,12 @@ class News extends ActiveRecord{
      */
 	public function getFirstArchiveNews(){
 
-		return News::find()->select(['media_id','shortdesc','date','name','slug'])->limit( News::getNewsPerPage() )->asArray()->all();
+		return News::find()
+			->select(['news.shortdesc','news.date','news.name','news.slug','news.name','media.image'])
+			->leftJoin('media', 'news.media = media.id')
+			->limit( News::getNewsPerPage() )
+			->asArray()
+			->all();
 	}
 
 

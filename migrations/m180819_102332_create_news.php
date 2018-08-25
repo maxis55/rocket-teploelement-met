@@ -35,7 +35,7 @@ class m180819_102332_create_news extends Migration
             'date' => $this->timestamp()->notNull()->defaultExpression('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'),
             'shortdesc' => $this->string(255)->notNull(),
             'slug' => $this->string(20)->notNull()->unique(),
-            'media_id' => $this->integer(),
+            'media' => $this->integer(),
         ]);
 
         $this->createIndex(

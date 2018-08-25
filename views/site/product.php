@@ -8,12 +8,6 @@
 		          <a class="breadcrumbs_main" href="/">Главная</a>/
 		        </li>
 		        <li>
-		          <a class="breadcrumbs_main" href="#">Каталог</a>/
-		        </li>
-		        <li>
-		          <a class="breadcrumbs_main" href="#">Отводы</a>/
-		        </li>
-		        <li>
 		          <span class="breadcrumbs_current"><?= $product['name'] ?></span>
 		        </li>
 		      </ul>

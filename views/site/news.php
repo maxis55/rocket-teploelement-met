@@ -1,6 +1,7 @@
 <?php 
 
 use yii\helpers\Url;
+use app\models\Media;
 
 ?>
 
@@ -44,7 +45,7 @@ use yii\helpers\Url;
 						  	<div class="main_news_item">
 								<figure>
 									<a href="<?= Url::toRoute(['site/news-page', 'slug' => $single['slug']]) ?>" class="news_img">
-										<img src="images/news1.jpg" alt="News Image">
+										<img src="<?= $this->params['mediaUrl'].$single['image'] ?>" alt="News Image">
 									</a>
 									<figcaption>
 										<time datetime="2012-12">

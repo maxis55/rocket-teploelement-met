@@ -51,7 +51,7 @@ class m180819_070329_update_settings extends Migration
         $this->insert('settings', [
             'id' => $i++,
             'key' => 'news_per_page',
-            'value' => 4,
+            'value' => 7,
         ]);
 
         return true;
