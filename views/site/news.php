@@ -1,7 +1,7 @@
 <?php 
 
 use yii\helpers\Url;
-use app\models\Media;
+use app\models\ImageHandler;
 
 ?>
 
@@ -41,11 +41,12 @@ use app\models\Media;
 					  </label>
 					</div>
 					<div class="news_flex">
+						<?php $news_image = new ImageHandler ([ "width" => 265, "height" => 222 ]); ?>
 						<?php foreach ($news as $order => $single) { ?>
 						  	<div class="main_news_item">
 								<figure>
 									<a href="<?= Url::toRoute(['site/news-page', 'slug' => $single['slug']]) ?>" class="news_img">
-										<img src="<?= $this->params['mediaUrl'].$single['image'] ?>" alt="News Image">
+										<?= $news_image -> showImage ($single['image']); ?>
 									</a>
 									<figcaption>
 										<time datetime="2012-12">
