@@ -16,4 +16,22 @@ class Category extends ActiveRecord{
 	}
 
 
+    /**
+     * Content for subcategories
+     */
+	public function getSubCategory($parent){
+
+		return Category::find()->select(['slug','name','shortdesc'])->where(['parent' => $parent])->asArray()->all();
+	}
+
+
+    /**
+     * Get all subcategories
+     */
+	public function getSubCategories(){
+
+		return Category::find()->select(['id','parent','slug','name'])->orderBy(['parent' => SORT_ASC])->asArray()->all();
+	}
+
+
 }

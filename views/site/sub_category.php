@@ -1,3 +1,9 @@
+<?php 
+
+use yii\helpers\Url;
+
+?>
+
 	<!-- MAIN CONTENT Start-->
 	<div class="catalog_bl">
 		<div class="breadcrumbs_box">
@@ -7,14 +13,16 @@
 						<li>
 		          <a class="breadcrumbs_main" href="/">Главная</a>/
 		        </li>
+							<li>
+					          <a class="breadcrumbs_main" href="<?= Url::toRoute(['site/catalog-category', 'category' => $breadcrumbs[0][1]]) ?>"><?= $breadcrumbs[0][0] ?></a>/
+					        </li>
+				        <?php if (isset($breadcrumbs[1])) { ?>
+							<li>
+					          <a class="breadcrumbs_main" href="<?= Url::toRoute(['site/catalog-subcategory', 'category' => $breadcrumbs[0][1], 'subcategory' => $breadcrumbs[1][1]]) ?>"><?= $breadcrumbs[1][0] ?></a>/
+					        </li>
+				        <?php } ?>
 		        <li>
-		          <a class="breadcrumbs_main" href="#">Каталог</a>/
-		        </li>
-		        <li>
-		          <a class="breadcrumbs_main" href="#">Отводы</a>/
-		        </li>
-		        <li>
-		          <span class="breadcrumbs_current">Отводы ГОСТ 17375-2001 крутоизогнутые типа 3d</span>
+		          <span class="breadcrumbs_current"><?= $category['name'] ?></span>
 		        </li>
 		      </ul>
 		    </div>
@@ -30,12 +38,12 @@
 					<div class="inner_description_flex">
 						<div class="inner_description_img">
 							<div class="inner_description_img_box">
-								<img src="images/product.jpg" alt="">
+								<img src="<?= Yii::$app->request->baseUrl ?>/images/product.jpg" alt="">
 							</div>
 						</div>
 						<div class="inner_description_text">
-							<h2 class="title1"><span>Отводы ГОСТ 17375-2001 крутоизогнутые типа 3d</span></h2>
-							<p>В качестве основного элемента соединения в магистральной трубопроводной системы используют отводы стальные ГОСТ 17375, которые имеют крутоизогнутый вид и изменяют траекторию направления потока для вещества во внутренней части трубы. Конструкционные элементы отводов являются незаменимой частью целостной структуры магистрального трубопровода.</p>
+							<h2 class="title1"><span><?= $category['name'] ?></span></h2>
+							<?= $category['content'] ?>
 							<div class="inner_description_box">
 								<a href="#" class="add_btn modal_btn" data-modal="request">Получить цены</a>
 								<span class="inner_desc_text">Рассчитаем вашу заявку в течении часа</span>
@@ -63,13 +71,13 @@
 								</div>
 								<div class="inner_feature_img">
 									<div class="inner_feature_img_item">
-										<img src="images/chart1.png" alt="">
+										<img src="<?= Yii::$app->request->baseUrl ?>/images/chart1.png" alt="">
 									</div>
 									<div class="inner_feature_img_item">
-										<img src="images/chart2.png" alt="">
+										<img src="<?= Yii::$app->request->baseUrl ?>/images/chart2.png" alt="">
 									</div>
 									<div class="inner_feature_img_item">
-										<img src="images/chart3.png" alt="">
+										<img src="<?= Yii::$app->request->baseUrl ?>/images/chart3.png" alt="">
 									</div>
 								</div>
 							</div>
@@ -117,7 +125,7 @@
 								  			<tr>
 								  				<td class="cell1">	
 														<a href="#" class="offers_img">
-															<img src="images/offers.jpg" alt="">
+															<img src="<?= Yii::$app->request->baseUrl ?>/images/offers.jpg" alt="">
 													 </a>
 									 			 	</td>
 													<td class="cell2"><div class="offers_name"><a href="#">Труба бесшовная 7X1 x/д</a></div></td>
@@ -154,7 +162,7 @@
 								  			<tr>	
 												 <td class="cell1">
 													<a href="#" class="offers_img">
-														<img src="images/offers.jpg" alt="">
+														<img src="<?= Yii::$app->request->baseUrl ?>/images/offers.jpg" alt="">
 													</a>
 												  </td>
 													<td class="cell2"><div class="offers_name"><a href="#">Швеллер бесшовный</a></div></td>
@@ -191,7 +199,7 @@
 								  			<tr>	
 												 <td class="cell1">
 													<a href="#" class="offers_img">
-														<img src="images/offers.jpg" alt="">
+														<img src="<?= Yii::$app->request->baseUrl ?>/images/offers.jpg" alt="">
 													</a>
 												  </td>
 													<td class="cell2"><div class="offers_name"><a href="#">Труба бесшовная 7X1 x/д</a></div></td>
@@ -228,7 +236,7 @@
 								  			<tr>	
 												 <td class="cell1">
 														<a href="#" class="offers_img">
-															<img src="images/offers.jpg" alt="">
+															<img src="<?= Yii::$app->request->baseUrl ?>/images/offers.jpg" alt="">
 														</a>
 												  </td>
 													<td class="cell2"><div class="offers_name"><a href="#">Труба бесшовная 7X1 x/д</a></div></td>
@@ -265,7 +273,7 @@
 								  			<tr>	
 												 <td class="cell1">
 														<a href="#" class="offers_img">
-															<img src="images/offers.jpg" alt="">
+															<img src="<?= Yii::$app->request->baseUrl ?>/images/offers.jpg" alt="">
 														</a>
 												  </td>
 													<td class="cell2"><div class="offers_name"><a href="#">Труба бесшовная 7X1 x/д</a></div></td>
@@ -302,7 +310,7 @@
 								  			<tr>	
 												 <td class="cell1">
 														<a href="#" class="offers_img">
-															<img src="images/offers.jpg" alt="">
+															<img src="<?= Yii::$app->request->baseUrl ?>/images/offers.jpg" alt="">
 														</a>
 												  </td>
 													<td class="cell2"><div class="offers_name"><a href="#">Труба бесшовная 7X1 x/д</a></div></td>
@@ -339,7 +347,7 @@
 								  			<tr>	
 												 <td class="cell1">
 														<a href="#" class="offers_img">
-															<img src="images/offers.jpg" alt="">
+															<img src="<?= Yii::$app->request->baseUrl ?>/images/offers.jpg" alt="">
 														</a>
 												  </td>
 													<td class="cell2"><div class="offers_name"><a href="#">Труба бесшовная 7X1 x/д</a></div></td>

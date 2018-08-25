@@ -39,161 +39,41 @@ class m180824_171800_update_category extends Migration
 
 Например, отводы ГОСТ 17375-2001 допускается использовать как для прокладки магистрали в вертикальном, так и в горизонтальном направлении. Так же в документах указано, какими характеристиками обладают соединительные детали.';
 
-        $i=1;
+        $shortdesc = 'Это пример текста новости, сделан для того, чтобы было понятно, где будет текст. Это пример текста новости, сделан для того, чтобы было понятно, где будет текст';
 
-        $this->insert('category', [
-            'id' => $i++,
-            'name' => $i.' название категории',
-            'slug' => 'truby',
-            'content' => $i.$content,
-        ]);
+        $slugs =['','truby','listy','shvellera','ugolok','balka','armatura','provoloka','krug','shestigrannik','kvadrat','polosa','relsy','pokovka','setka','otvody','perexody','trojniki','zaglushki','flancy','opory','sgony','mufty'];
 
-        $this->insert('category', [
-            'id' => $i++,
-            'name' => $i.' название категории',
-            'slug' => 'listy',
-            'content' => $i.$content,
-        ]);
+        for ($i = 1; $i <count($slugs); $i++) {
+            $this->insert('category', [
+                'name' => $i.' название категории',
+                'slug' => $slugs[$i],
+                'content' => $i.$content,
+            ]);
+            $c1 = Yii::$app->db->getLastInsertID();
 
-        $this->insert('category', [
-            'id' => $i++,
-            'name' => $i.' название категории',
-            'slug' => 'shvellera',
-            'content' => $i.$content,
-        ]);
+            for ($z = 1; $z <=rand(1, 10); $z++) {
+                $this->insert('category', [
+                    'name' => $i.$z.' подкатегория',
+                    'parent' => $c1,
+                    'slug' => 'pcat'.$i.$z,
+                    'shortdesc' => $shortdesc,
+                    'content' => $i.$z.$content,
+                ]);
 
-        $this->insert('category', [
-            'id' => $i++,
-            'name' => $i.' название категории',
-            'slug' => 'ugolok',
-            'content' => $i.$content,
-        ]);
+                $c2 = Yii::$app->db->getLastInsertID();
 
-        $this->insert('category', [
-            'id' => $i++,
-            'name' => $i.' название категории',
-            'slug' => 'balka',
-            'content' => $i.$content,
-        ]);
+                for ($t = 1; $t <=rand(1, 5); $t++) {
+                    $this->insert('category', [
+                        'name' => $i.$z.$t.' подподкатегория',
+                        'parent' => $c2,
+                        'slug' => 'ppcat'.$i.$z.$t,
+                        'shortdesc' => $shortdesc,
+                        'content' => $i.$z.$t.$content,
+                    ]);
+                }
+            }
+        }
 
-        $this->insert('category', [
-            'id' => $i++,
-            'name' => $i.' название категории',
-            'slug' => 'armatura',
-            'content' => $i.$content,
-        ]);
-
-        $this->insert('category', [
-            'id' => $i++,
-            'name' => $i.' название категории',
-            'slug' => 'provoloka',
-            'content' => $i.$content,
-        ]);
-
-        $this->insert('category', [
-            'id' => $i++,
-            'name' => $i.' название категории',
-            'slug' => 'krug',
-            'content' => $i.$content,
-        ]);
-
-        $this->insert('category', [
-            'id' => $i++,
-            'name' => $i.' название категории',
-            'slug' => 'shestigrannik',
-            'content' => $i.$content,
-        ]);
-
-        $this->insert('category', [
-            'id' => $i++,
-            'name' => $i.' название категории',
-            'slug' => 'kvadrat',
-            'content' => $i.$content,
-        ]);
-
-        $this->insert('category', [
-            'id' => $i++,
-            'name' => $i.' название категории',
-            'slug' => 'polosa',
-            'content' => $i.$content,
-        ]);
-
-        $this->insert('category', [
-            'id' => $i++,
-            'name' => $i.' название категории',
-            'slug' => 'relsy',
-            'content' => $i.$content,
-        ]);
-
-        $this->insert('category', [
-            'id' => $i++,
-            'name' => $i.' название категории',
-            'slug' => 'pokovka',
-            'content' => $i.$content,
-        ]);
-
-        $this->insert('category', [
-            'id' => $i++,
-            'name' => $i.' название категории',
-            'slug' => 'setka',
-            'content' => $i.$content,
-        ]);
-
-        $this->insert('category', [
-            'id' => $i++,
-            'name' => $i.' название категории',
-            'slug' => 'otvody',
-            'content' => $i.$content,
-        ]);
-
-        $this->insert('category', [
-            'id' => $i++,
-            'name' => $i.' название категории',
-            'slug' => 'perexody',
-            'content' => $i.$content,
-        ]);
-
-        $this->insert('category', [
-            'id' => $i++,
-            'name' => $i.' название категории',
-            'slug' => 'trojniki',
-            'content' => $i.$content,
-        ]);
-
-        $this->insert('category', [
-            'id' => $i++,
-            'name' => $i.' название категории',
-            'slug' => 'zaglushki',
-            'content' => $i.$content,
-        ]);
-
-        $this->insert('category', [
-            'id' => $i++,
-            'name' => $i.' название категории',
-            'slug' => 'flancy',
-            'content' => $i.$content,
-        ]);
-
-        $this->insert('category', [
-            'id' => $i++,
-            'name' => $i.' название категории',
-            'slug' => 'opory',
-            'content' => $i.$content,
-        ]);
-
-        $this->insert('category', [
-            'id' => $i++,
-            'name' => $i.' название категории',
-            'slug' => 'sgony',
-            'content' => $i.$content,
-        ]);
-
-        $this->insert('category', [
-            'id' => $i++,
-            'name' => $i.' название категории',
-            'slug' => 'mufty',
-            'content' => $i.$content,
-        ]);
 
         return true;
     }

@@ -15,6 +15,8 @@ use app\models\Steel;
 use app\models\ContactForm;
 use app\models\ModalCall;
 
+
+
 class SiteController extends Controller
 {
 
@@ -75,6 +77,9 @@ class SiteController extends Controller
         $this->view->params['modal_call'] = new ModalCall();
         if ($this->view->params['modal_call']->load(Yii::$app->request->post()) && $this->view->params['modal_call']->contact())
             return $this->refresh();
+
+        // categories list for main navigation
+        $this->view->params['navCategories']= Category::getSubCategories();
 
         return true;
     }
@@ -172,29 +177,31 @@ class SiteController extends Controller
      */
     public function actionCatalogCategory($category)
     {
-        $category = Category::getCategory($category);
-        
-        return $this->render('category', compact('category'));
+        $slug = $category;
+        $category = Category::getCategory($slug);
+        $subCategory = Category::getSubCategory($category['id']);
+
+        return $this->render('category', compact('category','subCategory','slug'));
     }
 
 
 
     /**
-     * Displays catalog subcategory page.
+     * Displays catalog subcategory and sub-subcategory page.
      */
-    public function actionCatalogSubcategory($category, $subcategory)
+    public function actionCatalogSubcategory($category, $subcategory, $subsubcategory=null)
     {
-        return $this->render('sub_category');
-    }
+        $slug = $category;
 
+        // category data
+        if ($subsubcategory) $category = Category::getCategory($subsubcategory);
+        else $category = Category::getCategory($subcategory);
 
+        // breadcrumbs data
+        $breadcrumbs = [['cat',$slug]];
+        if ($subsubcategory) $breadcrumbs[] = ['sub',$subcategory];
 
-    /**
-     * Displays catalog sub-subcategory page.
-     */
-    public function actionCatalogSubSubcategory($category, $subcategory, $subsubcategory)
-    {
-        return $this->render('sub_category');
+        return $this->render('sub_category', compact('category','slug','breadcrumbs'));
     }
 
 

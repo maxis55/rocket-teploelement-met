@@ -27,7 +27,7 @@ class m180824_120517_update_products extends Migration
 
     public function up()
     {
-        for ($i = 1; $i <= 10; $i++) {
+        for ($i = 1; $i <= 66; $i++) {
 
 
             $this->insert('products', [
