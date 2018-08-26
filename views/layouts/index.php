@@ -51,8 +51,8 @@ AppAsset::register($this);
 						  			<nav><?php echo $this->params['header_nav']; ?></nav>
 									<div class="header_info_sub">
 										<div class="header_info_sub_box">
-											<span>Минимальные сроки</span>
-											<span>Отличные цены</span>
+											<span><?php echo $this->params['cross_pages_data']['header_text_1']; ?></span>
+											<span><?php echo $this->params['cross_pages_data']['header_text_2']; ?></span>
 									  </div>
 										<a href="mailto:<?php echo $this->params['cross_pages_data']['email']; ?>" class="info_sub_lk"><?php echo $this->params['cross_pages_data']['email']; ?></a>
 									</div>
@@ -73,7 +73,7 @@ AppAsset::register($this);
 			<div class="header_middle">
 				<div class="container">
 					<div class="container_inner">
-						<div class="header_messadge">Комплексные поставки<br><span>металлопроката</span><span> и деталей трубопровода</span></div>
+						<div class="header_messadge"><?php echo $this->params['cross_pages_data']['header_text_3']; ?><br><span><?php echo $this->params['cross_pages_data']['header_text_4']; ?></span><span><?php echo $this->params['cross_pages_data']['header_text_5']; ?></span></div>
 					</div>
 				</div>
 			</div>
@@ -98,8 +98,8 @@ AppAsset::register($this);
 					<nav><?php echo $this->params['footer_nav']; ?></nav>
 					<div class="footer_info_sub">
 						<div class="footer_info_sub_box">
-							<span>Минимальные сроки</span>
-							<span>Отличные цены</span>
+							<span><?php echo $this->params['cross_pages_data']['header_text_1']; ?></span>
+							<span><?php echo $this->params['cross_pages_data']['header_text_2']; ?></span>
 						</div>
 						<a href="mailto:<?php echo $this->params['cross_pages_data']['email']; ?>" class="info_sub_lk"><?php echo $this->params['cross_pages_data']['email']; ?></a>
 					</div>
@@ -122,8 +122,7 @@ AppAsset::register($this);
 									</a>
 								</div>
 						<div class="copyright">
-							<span>Copyright 2018</span>
-							<span>Все права защищены</span>
+							<span><?php echo $this->params['cross_pages_data']['copyright']; ?></span>
 						</div>
 					
 					</div>

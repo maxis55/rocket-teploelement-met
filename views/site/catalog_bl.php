@@ -7,10 +7,10 @@ use yii\helpers\Url;
     
             <div class="container">
                 <div class="container_inner">
-                    <h2 class="title1"><span>Мы предлагаем</span></h2>
+                    <h2 class="title1"><span><?php echo $this->params['cross_pages_data']['catalog_bl_text_1']; ?></span></h2>
                     <div class="header_offers">
                         <div class="header_supply_box">
-                            <div class="header_offers_title"><h3 class="title2">Поставки<span>металлопроката</span></h3></div>
+                            <div class="header_offers_title"><h3 class="title2"><?php echo $this->params['cross_pages_data']['catalog_bl_text_2']; ?></h3></div>
                             <span class="header_supply_open"></span>
                             <div class="header_supply">
                                 <?php $slugs =['','truby','listy','shvellera','ugolok','balka','armatura','provoloka','krug','shestigrannik','kvadrat','polosa','relsy','pokovka','setka','otvody','perexody','trojniki','zaglushki','flancy','opory','sgony','mufty']; ?>
@@ -56,7 +56,7 @@ use yii\helpers\Url;
                             </div>
                         </div>
                         <div class="header_details_box">
-                            <div class="header_offers_title"><h3 class="title2">Детали <span>трубопровода</span></h3></div>
+                            <div class="header_offers_title"><h3 class="title2"><?php echo $this->params['cross_pages_data']['catalog_bl_text_3']; ?></h3></div>
                             <span class="header_supply_open"></span>
                             <div class="header_details">
                                 <?php $d = 1; ?>
