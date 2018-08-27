@@ -151,8 +151,13 @@ var modalOpen = function( self ){
     });
 }
  $(".modal_btn").on("click", function(){
-    modalOpen($(this));
+    var townSelect = $('.town :selected');
+    // modalOpen($(this));
+    alert(townSelect.val());
+    // $(".delivery_time").text();
  });
+
+ // ---------------------------------------------------------------------------------------------------------------------------------------------------------------
 
  
 
@@ -485,6 +490,7 @@ $(window).on('load resize', function() {
       $(window).data("oldwidth", newWidth);
     }
   });
+
 
 
 

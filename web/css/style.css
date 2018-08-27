@@ -6705,3 +6705,96 @@ p {
 }
 
 /*# sourceMappingURL=style.css.map */
+
+
+/* contact form fixed */
+
+.contacts_form_inner {
+  position: relative;
+}
+
+.contacts_form_inner #contactform-file {
+  position:relative;
+    color: transparent;
+    background: transparent;
+    margin-left: 10px;
+}
+/*.contacts_form_inner #contactform-fil  {
+  user-select: none !important;
+  outline: none !important;
+}
+.contacts_form_inner #contactform-fil:focus {
+  user-select: none !important;
+  outline: none !important;
+}*/
+.contacts_form_inner #contactform-file:before{
+    position:absolute;
+    left:-10px;
+    content:"Заменить файл";
+    text-transform: uppercase;
+    padding: 9px 5px;
+    text-align: center;
+    display: inline-block;
+    border: 2px solid #006cad;
+    color: #006cad;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-right: 5px;
+    font-size: 13.33px;
+    background: #fff;
+    font-weight: 700;
+}
+
+/*.contacts_form_inner #contactform-file:before:hover {
+    border: 2px solid #054c7a;
+}
+*/
+/*.contacts_form_inner p.help-block.help-block-error {
+  display: none !important;
+}
+*/
+/*.contacts_form_inner button.send_btn {
+    position: absolute;
+    bottom: 96px;
+    right: 61px;
+
+}
+*/
+
+.main_about_box:before {
+      top: 97px;
+    right: 17%;
+    z-index: 0;
+}
+
+
+@media (max-width: 1200px) {
+  .main_about_box:before {
+    top: 102px;
+    right: 5%;
+  }
+}
+
+@media (max-width: 991px) {
+  .main_about_box:before {
+    top: 110px;
+    right: 8%;
+  }
+}
+
+@media (max-width: 768px) {
+  .main_about_box:before {
+      top: 120px;
+      right: 8%;
+  }
+}
+
+@media (max-width: 480px) {
+  .main_about_box:before {
+      top: 125px;
+      right: 0%;
+  }
+
+
+/* contact form fixed end*/
+
