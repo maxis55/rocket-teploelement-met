@@ -149,13 +149,22 @@ var modalOpen = function( self ){
         return true;
       }
     });
+   // modalOpen($(this));
 }
+
+
  $(".modal_btn").on("click", function(){
-    var townSelect = $('.town :selected');
+
+    // var townSelect = $('.town :selected').val();
+    // alert(townSelect);
+
     // modalOpen($(this));
-    alert(townSelect.val());
-    // $(".delivery_time").text();
+// $(".delivery_time").text();
  });
+
+ $("#town").change(function(){
+  alert($('#town option').attr("data-message"));
+  });
 
  // ---------------------------------------------------------------------------------------------------------------------------------------------------------------
 
