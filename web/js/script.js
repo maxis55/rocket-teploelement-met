@@ -149,7 +149,6 @@ var modalOpen = function( self ){
         return true;
       }
     });
-   // modalOpen($(this));
 }
 
 
@@ -158,12 +157,21 @@ var modalOpen = function( self ){
     // var townSelect = $('.town :selected').val();
     // alert(townSelect);
 
-    modalOpen($(this));
+    // modalOpen($(this));
 // $(".delivery_time").text();
  });
 
- $("#town").change(function(){
-  alert($('#town option').attr("data-message"));
+  $(".main_map_info button").click(function() {
+
+      var val     = $(".main_map_info input").val();
+      var message = $(".main_map_info option").filter(function() {
+        return this.value == val;
+      }).data('message');
+
+      var output = message ? message : 'No Match';
+
+    alert(output);
+
   });
 
  // ---------------------------------------------------------------------------------------------------------------------------------------------------------------
