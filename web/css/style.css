@@ -746,14 +746,32 @@ header {
   display: none;
 }
 
-.header_info_lk span {
+/*.header_info_lk span {
   font-size: 14.56px;
   font-family: "Exo 2", sans-serif;
   font-weight: 700;
   color: #8d98a5;
   margin-right: 5px;
   vertical-align: top;
-}
+}*/
+
+.header_info_lk span:first-child,
+  .header_info_lk span:nth-child(2),
+  .header_info_lk span:nth-child(3),
+  .header_info_lk span:nth-child(4),
+  .header_info_lk span:nth-child(5),
+  .header_info_lk span:nth-child(6),
+  .header_info_lk span:nth-child(7) {
+      font-size: 14.56px;
+      font-family: "Exo 2", sans-serif;
+      font-weight: 700;
+      color: #8d98a5;
+      vertical-align: top;    
+  }
+
+  .header_info_lk span:nth-child(7) {
+    margin-right: 5px;
+  }
 
 .logo {
   position: absolute;
@@ -6807,6 +6825,7 @@ p {
       top: 125px;
       right: 0%;
   }
+
 
 
 /* contact form fixed end*/

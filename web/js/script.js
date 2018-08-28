@@ -153,12 +153,12 @@ var modalOpen = function( self ){
 }
 
 
- $(".modal_btn").on("click", function(){
+ $(".modal_btn").click(function(){
 
     // var townSelect = $('.town :selected').val();
     // alert(townSelect);
 
-    // modalOpen($(this));
+    modalOpen($(this));
 // $(".delivery_time").text();
  });
 
@@ -499,6 +499,19 @@ $(window).on('load resize', function() {
       $(window).data("oldwidth", newWidth);
     }
   });
+
+$(function() {
+    var title = $('.header_info_lk:contains(")")');
+    var txt = title.html().split("");
+    var output = ""
+
+    for(var i=0; i<txt.length; i++) {
+      output = output + "<span>"+txt[i]+"</span>"
+    }
+    title.html(output);
+});
+
+
 
 
 
