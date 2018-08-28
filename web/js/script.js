@@ -157,7 +157,7 @@ var modalOpen = function( self ){
     // var townSelect = $('.town :selected').val();
     // alert(townSelect);
 
-    // modalOpen($(this));
+    modalOpen($(this));
 // $(".delivery_time").text();
  });
 
@@ -170,7 +170,10 @@ var modalOpen = function( self ){
 
       var output = message ? message : 'No Match';
 
-    alert(output);
+    // alert(output);
+    
+    $(".modal_box_city").text(output);
+    console.log(true);
 
   });
 

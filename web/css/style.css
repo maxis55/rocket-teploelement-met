@@ -3898,6 +3898,7 @@ body.show_modal {
   min-height: 60px;
   padding-top: 16px;
   text-align: center;
+  color: #fff;
 }
 
 .modal_box_city span {
