@@ -109,6 +109,16 @@ class m180819_070329_update_settings extends Migration
             'value' => 'Полный прайс-лист на товары и услуги',
         ]);
 
+        $this->insert('settings', [
+            'key' => 'admin_username',
+            'value' => 'tadmin',
+        ]);
+
+        $this->insert('settings', [
+            'key' => 'admin_password',
+            'value' => md5('admin123'),
+        ]);
+
         return true;
     }
 

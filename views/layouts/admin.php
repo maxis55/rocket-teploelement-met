@@ -3,6 +3,7 @@
 /* @var $this \yii\web\View */
 /* @var $content string */
 
+use yii\helpers\Url;
 use app\assets\AdminAsset;
 
 AdminAsset::register($this);
@@ -91,7 +92,7 @@ AdminAsset::register($this);
           </li>
           <!-- User Account: style can be found in dropdown.less -->
           <li class="dropdown user user-menu">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            <a href="<?= Url::toRoute(['admin/logout']) ?>">
               <img src="<?= Yii::$app->request->baseUrl ?>/admin_assets/dist/img/avatar5.png" class="user-image" alt="User Image">
               <span class="hidden-xs">выход</span>
             </a>

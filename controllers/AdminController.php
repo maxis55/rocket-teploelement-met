@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use Yii;
 use yii\web\Controller;
+use app\models\AdminLoginForm;
 
 
 
@@ -12,33 +13,69 @@ class AdminController extends Controller
 
     public $layout = 'admin';
 
+
     /**
-     * Displays homepage.
+     * actions before page load
+     */
+    public function beforeAction($action)
+    {
+        $session = Yii::$app->session;
+
+        // cheking autorization
+        if ( $session->get('admin')!=true && $action->id!='login' )
+            return $this->redirect(['admin/login']);
+
+        return true;
+    }
+
+
+    /**
+     * displays login page
      */
     public function actionLogin()
     {
-        $this->layout = 'admin_logout';
-        return $this->render('login');
+        $this->layout = 'admin_login';
+
+        // login check
+        $model = new AdminLoginForm();
+        if ($model->load(Yii::$app->request->post()) && $model->login())
+            return $this->redirect(['admin/index']);
+
+        return $this->render('login', compact('model'));
     }
 
+
     /**
-     * Displays homepage.
+     * logout action
+     */
+    public function actionLogout()
+    {
+        Yii::$app->session->set('admin', false);
+
+        return $this->redirect(['admin/login']);
+    }
+
+
+    /**
+     * displays homepage
      */
     public function actionIndex()
     {
         return $this->redirect(['admin/delivery']);
     }
 
+
     /**
-     * Displays delivery page
+     * displays delivery page
      */
     public function actionDelivery()
     {
         return $this->render('delivery');
     }
 
+
     /**
-     * Displays characteristics page
+     * displays characteristics page
      */
     public function actionCharacteristics()
     {

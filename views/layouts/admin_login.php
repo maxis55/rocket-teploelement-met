@@ -3,6 +3,7 @@
 /* @var $this \yii\web\View */
 /* @var $content string */
 
+use yii\helpers\Url;
 use app\assets\AdminAsset;
 
 AdminAsset::register($this);
@@ -20,7 +21,7 @@ AdminAsset::register($this);
 <body class="hold-transition login-page">
 <div class="login-box">
   <div class="login-logo">
-    <a href="../../index2.html"><b>Панель</b> Администратора</a>
+    <a href="<?= Url::toRoute(['admin/index']) ?>"><b>Панель</b> Администратора</a>
   </div>
   
   <?= $content ?>
