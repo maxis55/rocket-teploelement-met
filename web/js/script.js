@@ -153,12 +153,7 @@ var modalOpen = function( self ){
 
 
  $(".modal_btn").click(function(){
-
-    // var townSelect = $('.town :selected').val();
-    // alert(townSelect);
-
     modalOpen($(this));
-// $(".delivery_time").text();
  });
 
   $(".main_map_info button").click(function() {
@@ -170,10 +165,7 @@ var modalOpen = function( self ){
 
       var output = message ? message : 'No Match';
 
-    // alert(output);
-    
     $(".modal_box_city").text(output);
-    console.log(true);
 
   });
 

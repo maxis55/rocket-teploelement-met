@@ -6828,6 +6828,28 @@ p {
   }
 
 
+/* popup form fix */
+
+#modalcall-permission .checkbox label {
+  color: #fff;
+}
+.help-block.help-block-error {
+  color: #fff;
+}
+
+.form_item.field-modalcall-name.required.has-error input.form-control {
+  background: url(../images/icons/icon.svg) no-repeat;
+    background-color: #fff;
+    background-size: 774px;
+    background-position: -590px -327px;
+}
+
+.form_item.field-modalcall-phone.required.has-error input.form-control {
+    background: url(../images/icons/icon.svg) no-repeat #fff;
+    background-size: 774px;
+    background-position: -590px -384px;
+}
+
 
 /* contact form fixed end*/
 
