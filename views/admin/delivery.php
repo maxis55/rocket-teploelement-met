@@ -1,3 +1,8 @@
+<?php
+
+use yii\helpers\Url;
+
+?>
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
@@ -5,7 +10,7 @@
     <section class="content-header">
       <h1>
         Время доставки
-        <small>список городов и сроков доставки</small>
+        <small>список городов и сроки доставки</small>
       </h1>
       <ol class="breadcrumb">
         <li class="active">Расположение</li>
@@ -15,44 +20,37 @@
 
     <!-- Main content -->
     <section class="content">
+      <form action="<?= Url::toRoute(['admin/delivery']) ?>" method="post">
       <!-- /.row -->
       <div class="row">
         <div class="col-xs-12">
           <div class="box">
             <div class="box-header">
               <h3 class="box-title">
-                  <button type="button" class="btn btn-block btn-success">Сохранить</button>
+                  <button type="submit" class="btn btn-block btn-success">Сохранить</button>
               </h3>
 
               <div class="box-tools">
                 <div class="input-group input-group-sm">
-                <button type="button" class="btn btn-block btn-primary">Добавить</button>
+                <button type="button" class="btn btn-block btn-primary" onclick="addRow()">Добавить</button>
                 </div>
               </div>
             </div>
             <!-- /.box-header -->
             <div class="box-body table-responsive no-padding">
-              <table class="table table-hover">
+              <table class="table table-hover table-append">
                 <tr>
                   <th style="width: 20%">Город</th>
                   <th>Сообщение</th>
                   <th style="width: 5%"></th>
                 </tr>
+                <?php foreach ($delivery as $order => $city) { ?>
                 <tr>
-                  <td><input type="text" class="form-control" placeholder="Город ..." value="Барановка"></td>
-                  <td><textarea class="form-control" rows="2" placeholder="Сообщение ...">Со скоростью голубиного помета</textarea></td>
-                  <th><button type="button" class="btn btn-block btn-danger btn-xs">Удалить</button></th>
+                  <td><input type="text" class="form-control" name="city[]" placeholder="Город ..." value="<?= $city['city'] ?>"></td>
+                  <td><textarea class="form-control" rows="2" name="text[]" placeholder="Сообщение ..."><?= $city['text'] ?></textarea></td>
+                  <th><button type="button" class="btn btn-block btn-danger btn-xs" onclick="$(this).parent().parent().remove();">Удалить</button></th>
                 </tr>
-                <tr>
-                  <td><input type="text" class="form-control" placeholder="Город ..." value="Нижние Орлы"></td>
-                  <td><textarea class="form-control" rows="2" placeholder="Сообщение ...">3-69 дней</textarea></td>
-                  <th><button type="button" class="btn btn-block btn-danger btn-xs">Удалить</button></th>
-                </tr>
-                <tr>
-                  <td><input type="text" class="form-control" placeholder="Город ..."></td>
-                  <td><textarea class="form-control" rows="2" placeholder="Сообщение ..."></textarea></td>
-                  <th><button type="button" class="btn btn-block btn-danger btn-xs">Удалить</button></th>
-                </tr>
+              <?php } ?>
               </table>
             </div>
             <!-- /.box-body -->
@@ -60,7 +58,13 @@
           <!-- /.box -->
         </div>
       </div>
+      </form>
     </section>
+    <script>
+      function addRow(){
+        $( ".table-append" ).append( '<tr><td><input type="text" class="form-control" name="city[]" placeholder="Город ..."></td> <td><textarea class="form-control" rows="2" name="text[]" placeholder="Сообщение ..."></textarea></td> <th><button type="button" class="btn btn-block btn-danger btn-xs" onclick="$(this).parent().parent().remove();">Удалить</button></th> </tr>' );
+      }
+    </script>
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->

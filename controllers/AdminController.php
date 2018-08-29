@@ -5,6 +5,7 @@ namespace app\controllers;
 use Yii;
 use yii\web\Controller;
 use app\models\AdminLoginForm;
+use app\models\Delivery;
 
 
 
@@ -70,7 +71,14 @@ class AdminController extends Controller
      */
     public function actionDelivery()
     {
-        return $this->render('delivery');
+
+        // saving updates
+        if (Yii::$app->request->post())
+            Delivery::updateAllDelivery(Yii::$app->request->post());
+
+        $delivery = Delivery::getAllDelivery();
+
+        return $this->render('delivery', compact('delivery'));
     }
 
 
