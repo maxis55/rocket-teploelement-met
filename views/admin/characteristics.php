@@ -1,4 +1,10 @@
-<!-- Content Wrapper. Contains page content -->
+<?php
+
+use yii\helpers\Url;
+
+?>
+
+  <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
@@ -10,13 +16,14 @@
 
     <!-- Main content -->
     <section class="content">
+      <form action="<?= Url::toRoute(['admin/characteristics']) ?>" method="post">
       <!-- /.row -->
       <div class="row">
         <div class="col-xs-12">
           <div class="box">
             <div class="box-header">
               <h3 class="box-title">
-                  <button type="button" class="btn btn-block btn-success">Сохранить</button>
+                  <button type="submit" class="btn btn-block btn-success">Сохранить</button>
               </h3>
 
               <div class="box-tools">
@@ -32,18 +39,14 @@
                   <th>Характеристика</th>
                   <th style="width: 5%"></th>
                 </tr>
+                <?php foreach ($characteristics as $order => $characteristic) { ?>
                 <tr>
-                  <td><input type="text" class="form-control" placeholder="Характеристика ..." value="Срабатывание пипетки"></td>
+                  <td>
+                    <input type="text" class="form-control" name="characteristic[<?= $characteristic['id'] ?>]" placeholder="Характеристика ..." value="<?= $characteristic['name'] ?>">
+                  </td>
                   <th><button type="button" class="btn btn-block btn-danger btn-xs">Удалить</button></th>
                 </tr>
-                <tr>
-                  <td><input type="text" class="form-control" placeholder="Характеристика ..." value="Размер иглы"></td>
-                  <th><button type="button" class="btn btn-block btn-danger btn-xs">Удалить</button></th>
-                </tr>
-                <tr>
-                  <td><input type="text" class="form-control" placeholder="Характеристика ..."></td>
-                  <th><button type="button" class="btn btn-block btn-danger btn-xs">Удалить</button></th>
-                </tr>
+                <?php } ?>
               </table>
             </div>
             <!-- /.box-body -->
@@ -51,6 +54,7 @@
           <!-- /.box -->
         </div>
       </div>
+      </form>
     </section>
     <!-- /.content -->
   </div>

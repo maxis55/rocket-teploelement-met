@@ -27,22 +27,18 @@ class m180822_102724_update_delivery extends Migration
 
     public function up()
     {
-        $i=1;
 
         $this->insert('delivery', [
-            'id' => $i++,
             'city' => 'Москва',
             'text' => "Доставка в ваш город осуществляется 3 рабочих дней.",
         ]);
 
         $this->insert('delivery', [
-            'id' => $i++,
             'city' => 'Петербург',
             'text' => "Доставка в ваш город осуществляется 7 рабочих дней.",
         ]);
 
         $this->insert('delivery', [
-            'id' => $i++,
             'city' => 'Тимбукту',
             'text' => "Доставка в ваш город осуществляется 666 рабочих дней.",
         ]);

@@ -6,6 +6,7 @@ use Yii;
 use yii\web\Controller;
 use app\models\AdminLoginForm;
 use app\models\Delivery;
+use app\models\Characteristics;
 
 
 
@@ -87,7 +88,14 @@ class AdminController extends Controller
      */
     public function actionCharacteristics()
     {
-        return $this->render('characteristics');
+
+        // saving updates
+        if (Yii::$app->request->post())
+            Characteristics::updateAllCharacteristics(Yii::$app->request->post()['characteristic']);
+
+        $characteristics = Characteristics::getAllCharacteristics();
+
+        return $this->render('characteristics', compact('characteristics'));
     }
 
 

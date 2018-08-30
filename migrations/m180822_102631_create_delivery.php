@@ -28,7 +28,6 @@ class m180822_102631_create_delivery extends Migration
     public function up()
     {
         $this->createTable('delivery', [
-            'id' => $this->primaryKey(),
             'city' => $this->string(255),
             'text' => $this->text()->notNull(),
         ]);
