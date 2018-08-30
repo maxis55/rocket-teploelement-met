@@ -28,13 +28,13 @@ use yii\helpers\Url;
 
               <div class="box-tools">
                 <div class="input-group input-group-sm">
-                <button type="button" class="btn btn-block btn-primary">Добавить</button>
+                <button type="button" class="btn btn-block btn-primary" onclick="addRow()">Добавить</button>
                 </div>
               </div>
             </div>
             <!-- /.box-header -->
             <div class="box-body table-responsive no-padding">
-              <table class="table table-hover">
+              <table class="table table-hover table-append">
                 <tr>
                   <th>Характеристика</th>
                   <th style="width: 5%"></th>
@@ -44,7 +44,7 @@ use yii\helpers\Url;
                   <td>
                     <input type="text" class="form-control" name="characteristic[<?= $characteristic['id'] ?>]" placeholder="Характеристика ..." value="<?= $characteristic['name'] ?>">
                   </td>
-                  <th><button type="button" class="btn btn-block btn-danger btn-xs">Удалить</button></th>
+                  <th><button type="button" class="btn btn-block btn-danger btn-xs" onclick="$(this).parent().parent().remove();">Удалить</button></th>
                 </tr>
                 <?php } ?>
               </table>
@@ -56,6 +56,11 @@ use yii\helpers\Url;
       </div>
       </form>
     </section>
+    <script>
+      function addRow(){
+        $( ".table-append" ).append( '<tr><td><input type="text" class="form-control" name="characteristic[]" placeholder="Характеристика ..."></td><th><button type="button" class="btn btn-block btn-danger btn-xs" onclick="$(this).parent().parent().remove();">Удалить</button></th></tr>' );
+      }
+    </script>
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->

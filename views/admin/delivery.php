@@ -14,7 +14,7 @@ use yii\helpers\Url;
       </h1>
       <ol class="breadcrumb">
         <li class="active">Расположение</li>
-        <li><a href="/">На главной (блок с картой)</a></li>
+        <li><a href="/" target="_blank">На главной (блок с картой)</a></li>
       </ol>
     </section>
 
