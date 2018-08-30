@@ -132,6 +132,12 @@ AdminAsset::register($this);
             <i class="fa fa-th"></i> <span>Характеристики</span>
           </a>
         </li>
+        <li class="header">Сообщения</li>
+        <li>
+          <a href="<?= Yii::$app->request->baseUrl ?>/admin/messages">
+            <i class="fa fa-envelope"></i> <span>Сообщения</span>
+          </a>
+        </li>
 
 
 

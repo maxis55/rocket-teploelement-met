@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use Yii;
 use yii\web\Controller;
+use yii\data\Pagination;
 use app\models\AdminLoginForm;
 use app\models\Delivery;
 use app\models\Characteristics;
@@ -100,6 +101,18 @@ class AdminController extends Controller
         $characteristics = Characteristics::getAllCharacteristics();
 
         return $this->render('characteristics', compact('characteristics'));
+    }
+
+
+    /**
+     * displays messages page
+     */
+    public function actionMessages()
+    {
+        $pages = new Pagination(['totalCount' => Messages::getTotalCount()]);
+        $messages = Messages::getMessages($pages);
+
+        return $this->render('messages', compact('messages', 'pages'));
     }
 
 

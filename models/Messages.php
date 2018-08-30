@@ -3,6 +3,7 @@
 namespace app\models;
 
 use yii\db\ActiveRecord;
+use yii\data\Pagination;
 
 class Messages extends ActiveRecord{
 
@@ -25,12 +26,34 @@ class Messages extends ActiveRecord{
 
 
     /**
+     * Get count of all massages
+     */
+	public function getTotalCount()
+	{
+		return Messages::find()->where([])->count();
+	}
+
+
+    /**
      * New messages for admin panel
      */
 	public function getNewMessages()
 	{
-
 		return Messages::find()->select(['form','name'])->where(['new' => true])->asArray()->all();
+	}
+
+
+    /**
+     * Get messages for admin panel
+     */
+	public function getMessages($pages)
+	{
+		Messages::updateAll(['new' => 0], 'new = 1');
+
+		$query = Messages::find()->select(['id','form','name','phone','file','message','date']);
+	    $countQuery = clone $query;
+	    $pages = new Pagination(['totalCount' => $countQuery->count()]);
+	    return $query->offset($pages->offset)->limit($pages->limit)->orderBy('date DESC')->asArray()->all();
 	}
 
 
