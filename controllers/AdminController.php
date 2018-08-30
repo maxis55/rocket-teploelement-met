@@ -7,6 +7,7 @@ use yii\web\Controller;
 use app\models\AdminLoginForm;
 use app\models\Delivery;
 use app\models\Characteristics;
+use app\models\Messages;
 
 
 
@@ -26,6 +27,9 @@ class AdminController extends Controller
         // cheking autorization
         if ( $session->get('admin')!=true && $action->id!='login' )
             return $this->redirect(['admin/login']);
+
+        // cross pages data
+        $this->view->params['unread_messages'] = Messages::getNewMessages();
 
         return true;
     }

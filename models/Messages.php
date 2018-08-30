@@ -24,4 +24,14 @@ class Messages extends ActiveRecord{
 	}
 
 
+    /**
+     * New messages for admin panel
+     */
+	public function getNewMessages()
+	{
+
+		return Messages::find()->select(['form','name'])->where(['new' => true])->asArray()->all();
+	}
+
+
 }

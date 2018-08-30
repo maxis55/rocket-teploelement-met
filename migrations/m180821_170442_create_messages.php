@@ -30,10 +30,11 @@ class m180821_170442_create_messages extends Migration
     {
         $this->createTable('messages', [
             'id' => $this->primaryKey(),
+            'new' => $this->boolean()->notNull()->defaultValue(true),
             'form' => $this->integer(),
             'name' => $this->string(255),
             'phone' => $this->string(255),
-            'file' => $this->boolean()->notNull(),
+            'file' => $this->string(255),
             'message' => $this->text()->notNull(),
             'date' => $this->timestamp()->notNull()->defaultExpression('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'),
         ]);
@@ -42,6 +43,12 @@ class m180821_170442_create_messages extends Migration
             'idx-messages-form',
             'messages',
             'form'
+        );
+
+        $this->createIndex(
+            'idx-messages-new',
+            'messages',
+            'new'
         );
 
     }

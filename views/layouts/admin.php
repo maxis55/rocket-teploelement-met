@@ -38,32 +38,35 @@ AdminAsset::register($this);
 
       <div class="navbar-custom-menu">
         <ul class="nav navbar-nav">
+          <?php if(count($this->params['unread_messages'])){ ?>
           <!-- Notifications: style can be found in dropdown.less -->
           <li class="dropdown notifications-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <i class="fa fa-envelope-o"></i>
-              <span class="label label-warning">10</span>
+              <span class="label label-warning"><?=count($this->params['unread_messages']) ?></span>
             </a>
             <ul class="dropdown-menu">
               <li class="header">Сообщения</li>
               <li>
                 <!-- inner menu: contains the actual data -->
                 <ul class="menu">
+                  <?php
+                    foreach ($this->params['unread_messages'] as $message) {
+                      $fa = 'envelope';
+                      if($message['form']==2) $fa = 'phone';
+                  ?>
                   <li>
-                    <a href="#">
-                      <i class="fa fa-envelope text-aqua"></i> Форма контактов
+                    <a href="<?= Url::toRoute(['admin/messages']) ?>">
+                      <i class="fa fa-<?=$fa?> text-aqua"></i> <?=$message['name'] ?>
                     </a>
                   </li>
-                  <li>
-                    <a href="#">
-                      <i class="fa fa-phone text-yellow"></i> Заказ звонка
-                    </a>
-                  </li>
+                 <?php } ?>
                 </ul>
               </li>
-              <li class="footer"><a href="#">Открыть все</a></li>
+              <li class="footer"><a href="<?= Url::toRoute(['admin/messages']) ?>">Открыть все</a></li>
             </ul>
           </li>
+        <?php } ?>
           <!-- Notifications: style can be found in dropdown.less -->
           <li class="dropdown notifications-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">

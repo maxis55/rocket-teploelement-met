@@ -68,14 +68,14 @@ class SiteController extends Controller
         // cross pages data
         $this->view->params['cross_pages_data'] = Settings::getCrossPagesData();
 
-        // main contact form
+        // cross pages forms
         $this->view->params['contact_form'] = new ContactForm();
-        if ($this->view->params['contact_form']->load(Yii::$app->request->post()) && $this->view->params['contact_form']->contact())
-            return $this->refresh();
-
-        // modal contact form
         $this->view->params['modal_call'] = new ModalCall();
+
+        // cross pages forms submits
         if ($this->view->params['modal_call']->load(Yii::$app->request->post()) && $this->view->params['modal_call']->contact())
+            return $this->refresh();
+        if ($this->view->params['contact_form']->load(Yii::$app->request->post()) && $this->view->params['contact_form']->contact())
             return $this->refresh();
 
         // categories list for main navigation

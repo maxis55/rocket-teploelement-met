@@ -42,8 +42,8 @@ class ContactForm extends Model
             $file = UploadedFile::getInstance($this, 'file');
 
             // saving in admin panel
-            $f = 0;
-            if($file->size) $f = 1;
+            $f = '';
+            if($file->size) $f = $file->extension;
             $id = Messages::addMessage($this, 1, $f);
 
             // saving file
