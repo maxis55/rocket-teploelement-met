@@ -9,6 +9,7 @@ use app\models\AdminLoginForm;
 use app\models\Delivery;
 use app\models\Characteristics;
 use app\models\Messages;
+use app\models\Media;
 
 
 
@@ -113,6 +114,29 @@ class AdminController extends Controller
         $messages = Messages::getMessages($pages);
 
         return $this->render('messages', compact('messages', 'pages'));
+    }
+
+
+    /**
+     * displays media page
+     */
+    public function actionMedia()
+    {
+        $pages = new Pagination(['totalCount' => Media::getTotalCount()]);
+        $media = Media::getImages($pages);
+
+        return $this->render('media', compact('media', 'pages'));
+    }
+
+
+    /**
+     * displays media page
+     */
+    public function actionMdelete($id, $name)
+    {
+        Media::deleteImage($id);
+
+        return $this->redirect(['admin/media']);
     }
 
 

@@ -93,11 +93,16 @@ AdminAsset::register($this);
               <li class="footer"><a href="#">Открыть все</a></li>
             </ul>
           </li>
+          <li class="dropdown user user-menu">
+            <a href="/" target="_blank">
+              <i class="fa fa-play"></i> <span class="hidden-xs">Открыть Сайт</span>
+            </a>
+          </li>
           <!-- User Account: style can be found in dropdown.less -->
           <li class="dropdown user user-menu">
             <a href="<?= Url::toRoute(['admin/logout']) ?>">
               <img src="<?= Yii::$app->request->baseUrl ?>/admin_assets/dist/img/avatar5.png" class="user-image" alt="User Image">
-              <span class="hidden-xs">выход</span>
+              <span class="hidden-xs">Выход</span>
             </a>
           </li>
         </ul>
@@ -121,6 +126,11 @@ AdminAsset::register($this);
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">КОНТЕНТ</li>
+        <li>
+          <a href="<?= Yii::$app->request->baseUrl ?>/admin/media">
+            <i class="fa fa-photo"></i> <span>Изображения</span>
+          </a>
+        </li>
         <li>
           <a href="<?= Yii::$app->request->baseUrl ?>/admin/delivery">
             <i class="fa fa-location-arrow"></i> <span>Доставка</span>

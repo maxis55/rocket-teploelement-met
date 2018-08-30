@@ -49,6 +49,7 @@ $config = [
             'showScriptName' => false,
             'rules' => [
                 'admin' => 'admin/index',
+                'admin/mdelete/<id>/<name>' => 'admin/mdelete',
                 'admin/<action>' => 'admin/<action>',
                 'catalog/<category>/<subcategory>/<subsubcategory>' => 'site/catalog-subcategory',
                 'catalog/<category>/<subcategory>' => 'site/catalog-subcategory',
