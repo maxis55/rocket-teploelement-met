@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\Settings;
 use Yii;
 use yii\web\Controller;
 use yii\data\Pagination;
@@ -84,8 +85,8 @@ class AdminController extends Controller
             Delivery::updateAllDelivery(Yii::$app->request->post());
 
         $delivery = Delivery::getAllDelivery();
-
-        return $this->render('delivery', compact('delivery'));
+        $deliveryContent=Settings::find() ->where(['like', 'key', 'delivery_content'])->asArray()->all();
+        return $this->render('delivery', compact('delivery','deliveryContent'));
     }
 
 

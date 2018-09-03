@@ -20,6 +20,9 @@ class Delivery extends ActiveRecord{
 
     /**
      * Update all delivery messages for main page
+     * @param $data
+     * @return int
+     * @throws \yii\db\Exception
      */
 	public static function updateAllDelivery($data)
 	{
@@ -30,6 +33,12 @@ class Delivery extends ActiveRecord{
 			if($value || $data['text'][$key])
 				$bulkInsertArray[] = [ 'city'=>$value, 'text'=>$data['text'][$key] ];
 
+		for($i=0,$sizeofContent=sizeof($data['content']);$i<$sizeofContent;$i++){
+		    $newSettings= Settings::find()->where(['key'=>'delivery_content'.$i])->one();
+
+		    $newSettings->value=$data['content'][$i];
+		    $newSettings->save();
+		}
 		// cleaning table
 		Delivery::deleteAll();
 

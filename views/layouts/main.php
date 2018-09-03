@@ -72,7 +72,7 @@ AppAsset::register($this);
 				<div class="header_middle">
 					<div class="container">
 						<div class="container_inner">
-							<div class="header_messadge">Комплексные поставки<br><span>металлопроката</span><span> и деталей трубопровода</span></div>
+                            <div class="header_messadge"><?php echo $this->params['cross_pages_data']['header_text_3']; ?><br><span><?php echo $this->params['cross_pages_data']['header_text_4']; ?></span><span><?php echo $this->params['cross_pages_data']['header_text_5']; ?></span></div>
 						</div>
 					</div>
 				</div>

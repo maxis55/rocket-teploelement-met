@@ -50,6 +50,8 @@ class AdminAsset extends AssetBundle
         'admin_assets/dist/js/adminlte.min.js',
         'admin_assets/dist/js/pages/dashboard.js',
         'admin_assets/dist/js/demo.js',
+        'admin_assets/tinymce/tinymce.min.js',
+        'admin_assets/js/admintiny.js',
     ];
     public $depends = [
         'yii\web\JqueryAsset',
