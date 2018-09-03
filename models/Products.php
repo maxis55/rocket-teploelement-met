@@ -10,7 +10,7 @@ class Products extends ActiveRecord{
     /**
      * Content for single product
      */
-	public function getProduct($slug){
+	public static function getProduct($slug){
 
 		return Products::find()
 			->select(['products.id','products.name','products.text','media.image'])

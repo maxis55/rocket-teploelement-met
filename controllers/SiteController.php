@@ -21,11 +21,13 @@ class SiteController extends Controller
 {
 
 
-
     /**
      * Cross pages actions
+     * @param $action
+     * @return bool|\yii\web\Response
+     * @throws \Exception
      */
-    public function beforeAction()
+    public function beforeAction($action)
     {
 
         // header navigation
@@ -105,11 +107,13 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
+
         $news = News::getNewsForMain();
         $delivery = Delivery::getAllDelivery();
 
         $this->layout = 'index';
         return $this->render('index', compact('news','delivery'));
+
     }
 
 
@@ -145,9 +149,10 @@ class SiteController extends Controller
     }
 
 
-
     /**
      * Displays single news page.
+     * @param $slug
+     * @return string
      */
     public function actionNewsPage($slug)
     {
@@ -157,9 +162,10 @@ class SiteController extends Controller
     }
 
 
-
     /**
      * Displays product page.
+     * @param $slug
+     * @return string
      */
     public function actionProduct($slug)
     {
@@ -171,9 +177,10 @@ class SiteController extends Controller
     }
 
 
-
     /**
      * Displays catalog category page.
+     * @param $category
+     * @return string
      */
     public function actionCatalogCategory($category)
     {
@@ -185,9 +192,12 @@ class SiteController extends Controller
     }
 
 
-
     /**
      * Displays catalog subcategory and sub-subcategory page.
+     * @param $category
+     * @param $subcategory
+     * @param null $subsubcategory
+     * @return string
      */
     public function actionCatalogSubcategory($category, $subcategory, $subsubcategory=null)
     {

@@ -11,7 +11,7 @@ class Settings extends ActiveRecord{
     /**
      * Cross pages data, header footer and others
      */
-	public function getCrossPagesData(){
+	public static function getCrossPagesData(){
 
 		$crossPagesDataList = ['email','phone1','phone2','header_text_1','header_text_2','header_text_3','header_text_4','header_text_5','copyright','catalog_bl_text_1','catalog_bl_text_2','contacts_form_text_1','contacts_form_text_2','contacts_form_text_3']; // list of data keys
 

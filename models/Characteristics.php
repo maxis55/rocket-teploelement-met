@@ -11,7 +11,7 @@ class Characteristics extends ActiveRecord{
     /**
      * All characteristics
      */
-	public function getAllCharacteristics()
+	public static function getAllCharacteristics()
 	{
 
 		return Characteristics::find()->select(['id','name'])->asArray()->all();
@@ -21,7 +21,7 @@ class Characteristics extends ActiveRecord{
     /**
      * Update all characteristics names
      */
-	public function updateAllCharacteristics($data)
+	public static function updateAllCharacteristics($data)
 	{
 		// building data for insert
 		$bulkInsertArray = [];

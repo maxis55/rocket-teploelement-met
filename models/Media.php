@@ -12,7 +12,7 @@ class Media extends ActiveRecord{
     /**
      * Get count of all images
      */
-	public function getTotalCount()
+	public static function getTotalCount()
 	{
 		return Media::find()->where([])->count();
 	}
@@ -21,7 +21,7 @@ class Media extends ActiveRecord{
     /**
      * Get images for admin panel
      */
-	public function getImages($pages)
+	public static function getImages($pages)
 	{
 		$query = Media::find()->select(['id','image']);
 	    $countQuery = clone $query;
@@ -32,8 +32,11 @@ class Media extends ActiveRecord{
 
     /**
      * Delete image
+     * @param $id
+     * @param $name
+     * @return bool
      */
-	public function deleteImage($id, $name)
+	public static function deleteImage($id, $name)
 	{
 		unlink(Yii::getAlias('@web') . '/media/'. $name);
 

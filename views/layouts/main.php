@@ -89,7 +89,7 @@ AppAsset::register($this);
 			<div class="footer_inner">
 				<div class="footer_nav">
 					<nav><?php echo $this->params['footer_nav']; ?></nav>
-					</nav>
+
 					<div class="footer_info_sub">
 						<div class="footer_info_sub_box">
 							<span><?php echo $this->params['cross_pages_data']['header_text_1']; ?></span>

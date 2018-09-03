@@ -11,7 +11,7 @@ class Messages extends ActiveRecord{
     /**
      * Saving message to database
      */
-	public function addMessage($data, $form, $file){
+	public static function addMessage($data, $form, $file){
 
 		$message = new Messages;
 		$message->form = (int)$form;
@@ -28,7 +28,7 @@ class Messages extends ActiveRecord{
     /**
      * Get count of all massages
      */
-	public function getTotalCount()
+	public static function getTotalCount()
 	{
 		return Messages::find()->where([])->count();
 	}
@@ -37,7 +37,7 @@ class Messages extends ActiveRecord{
     /**
      * New messages for admin panel
      */
-	public function getNewMessages()
+	public static function getNewMessages()
 	{
 		return Messages::find()->select(['form','name'])->where(['new' => true])->asArray()->all();
 	}
@@ -46,7 +46,7 @@ class Messages extends ActiveRecord{
     /**
      * Get messages for admin panel
      */
-	public function getMessages($pages)
+	public static function getMessages($pages)
 	{
 		Messages::updateAll(['new' => 0], 'new = 1');
 

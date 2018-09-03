@@ -10,7 +10,7 @@ class Category extends ActiveRecord{
     /**
      * Content for single category
      */
-	public function getCategory($slug){
+	public static function getCategory($slug){
 
 		return Category::find()
 			->select(['category.id','category.name','category.content','media.image'])
@@ -24,7 +24,7 @@ class Category extends ActiveRecord{
     /**
      * Content for subcategories
      */
-	public function getSubCategory($parent){
+	public static function getSubCategory($parent){
 
 		return Category::find()
 			->select(['category.slug','category.name','category.shortdesc','media.image'])
@@ -38,7 +38,7 @@ class Category extends ActiveRecord{
     /**
      * Get all subcategories
      */
-	public function getSubCategories(){
+	public static function getSubCategories(){
 
 		return Category::find()->select(['id','parent','slug','name'])->orderBy(['parent' => SORT_ASC])->asArray()->all();
 	}

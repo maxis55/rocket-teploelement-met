@@ -11,7 +11,7 @@ class Delivery extends ActiveRecord{
     /**
      * All delivery messages for main page
      */
-	public function getAllDelivery()
+	public static function getAllDelivery()
 	{
 
 		return Delivery::find()->select(['city','text'])->asArray()->all();
@@ -21,7 +21,7 @@ class Delivery extends ActiveRecord{
     /**
      * Update all delivery messages for main page
      */
-	public function updateAllDelivery($data)
+	public static function updateAllDelivery($data)
 	{
 
 		// building data for insert

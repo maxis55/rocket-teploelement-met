@@ -10,7 +10,7 @@ class Products_characteristics extends ActiveRecord{
     /**
      * Content for single product
      */
-	public function getCharacteristics($product){
+	public static function getCharacteristics($product){
 
 		return Products_characteristics::find()
 			->select(['characteristics.name','products_characteristics.value'])
