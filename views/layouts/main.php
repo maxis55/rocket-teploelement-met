@@ -99,7 +99,7 @@ AppAsset::register($this);
 					</div>
 				</div>
 				<div class="footer_info">
-					<div class="footer_info_title">Наш телефонkjh:</div>
+					<div class="footer_info_title">Наш телефон:</div>
 					<a href="tel:<?php echo preg_replace("/[^0-9]/","",$this->params['cross_pages_data']['phone1']);?>" class="header_info_lk"><?php echo $this->params['cross_pages_data']['phone1']; ?></a>
 					<a href="tel:<?php echo preg_replace("/[^0-9]/","",$this->params['cross_pages_data']['phone2']);?>" class="header_info_lk"><?php echo $this->params['cross_pages_data']['phone2']; ?></a>
 					<div class="header_call">
