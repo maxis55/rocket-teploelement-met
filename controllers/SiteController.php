@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\News;
 use Yii;
 use yii\web\Controller;
 use yii\widgets\Menu;
@@ -62,10 +63,30 @@ class SiteController extends Controller
     public function actionIndex()
     {
         $this->layout = 'index';
-        return $this->render('index');
+        $news_slider = News::getFirstArchiveNews();
+        return $this->render('index',['news_slider'=>$news_slider]);
     }
 
-
+    /**
+     * Displays archive news page.
+     * @param $slug
+     * @return string
+     */
+    public function actionNews()
+    {
+        $news = News::getFirstArchiveNews();
+        return $this->render('news', compact('news'));
+    }
+    /**
+     * Displays single news page.
+     * @param string $slug
+     * @return string
+     */
+    public function actionNewsPage($slug)
+    {
+        $news = News::getSingleNews($slug);
+        return $this->render('news-page', ['news'=>$news]);
+    }
 
     /**
      * Displays contact page.

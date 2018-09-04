@@ -49,6 +49,7 @@ $config = [
             'showScriptName' => false,
             'rules' => [
                 '<action>' => 'site/<action>',
+                'news/<slug>' => 'site/news-page',
             ],
         ],
         'assetManager' => [

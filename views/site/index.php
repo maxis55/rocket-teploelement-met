@@ -1,3 +1,6 @@
+<?php
+use yii\helpers\Url;
+?>
 <!-- MAIN CONTENT Start-->
     <div id="content">
         <div class="container">
@@ -142,70 +145,28 @@
                                 <div class="main_news_box_inner">
                                     <div class="owl-carousel-resp"></div>
                                     <div class="owl-carousel">
-                                        <div>
-                                            <div class="main_news_item">
-                                            <figure>
-                                                <figcaption>
-                                                    <time datetime="2012-12">
-                                                        <span>21</span>
-                                                        05.18
-                                                    </time>
-                                                    <a href="#" class="news_name">Заголовок текстовой новости, сделан для примера новости</a>
-                                                </figcaption>
-                                                <span class="news_content">Это пример анонса текстовой ново-сти, сделан для примеры анонса новости...
-                                                    <a href="#" class="news_content_lk"></a>
-                                                </span>
-                                            </figure>
+                                        <?php
+                                        /** @var array $news_slider from controller*/
+
+                                        foreach ($news_slider as $single) { ?>
+                                            <div>
+                                                <div class="main_news_item">
+                                                    <figure>
+                                                        <figcaption>
+                                                            <time datetime="2012-12">
+                                                                <span><?= date('d', strtotime($single['date'])); ?></span>
+                                                                <?= date('m.y', strtotime($single['date'])); ?>
+                                                            </time>
+                                                            <a href="<?= Url::toRoute(['site/news-page', 'slug' => $single['slug']]) ?>" class="news_name"><?= $single['name'] ?></a>
+                                                        </figcaption>
+                                                        <span class="news_content">
+                                                        <?= $single['shortdesc'] ?>
+                                                            <a href="<?= Url::toRoute(['site/news-page', 'slug' => $single['slug']]) ?>" class="news_content_lk"></a>
+                                                    </span>
+                                                    </figure>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div>
-                                            <div class="main_news_item">
-                                            <figure>
-                                                <figcaption>
-                                                    <time datetime="2012-12">
-                                                        <span>20</span>
-                                                        05.18
-                                                    </time>
-                                                    <a href="#" class="news_name">Заголовок текстовой новости, сделан для примера новости</a>
-                                                </figcaption>
-                                                <span class="news_content">Это пример анонса текстовой ново-сти, сделан для примеры анонса новости...
-                                                    <a href="#" class="news_content_lk"></a>
-                                                </span>
-                                            </figure>
-                                            </div>
-                                        </div>
-                                        <div>
-                                            <div class="main_news_item">
-                                            <figure>
-                                                <figcaption>
-                                                    <time datetime="2012-12">
-                                                        <span>19</span>
-                                                        05.18
-                                                    </time>
-                                                    <a href="#" class="news_name">Заголовок текстовой новости, сделан для примера новости</a>
-                                                </figcaption>
-                                                <span class="news_content">Это пример анонса текстовой ново-сти, сделан для примеры анонса новости...
-                                                    <a href="#" class="news_content_lk"></a>
-                                                </span>
-                                            </figure>
-                                            </div>
-                                        </div>
-                                        <div>
-                                            <div class="main_news_item">
-                                            <figure>
-                                                <figcaption>
-                                                    <time datetime="2012-12">
-                                                        <span>18</span>
-                                                        05.18
-                                                    </time>
-                                                    <a href="#" class="news_name">Заголовок текстовой новости, сделан для примера новости</a>
-                                                </figcaption>
-                                                <span class="news_content">Это пример анонса текстовой ново-сти, сделан для примеры анонса новости...
-                                                    <a href="#" class="news_content_lk"></a>
-                                                </span>
-                                            </figure>
-                                            </div>
-                                        </div>
+                                        <?php } ?>
                                     </div>
                                 </div>
                         </div>

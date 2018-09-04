@@ -14,7 +14,8 @@ class Settings extends ActiveRecord{
 	public static function getCrossPagesData(){
 
         $json_settings=array('menu');
-        $global_settings=Settings::find()->select(['key', 'value','type'])->asArray()->all();
+
+        $global_settings=self::find()->select(['key', 'value','type'])->asArray()->all();
 
         foreach ($global_settings as $key=>$global_setting){
             if(in_array($global_settings[$key]['type'],$json_settings)){
