@@ -123,6 +123,7 @@ class AdminController extends Controller
      */
     public function actionMedia()
     {
+
         $pages = new Pagination(['totalCount' => Media::getTotalCount()]);
         $media = Media::getImages($pages);
 

@@ -48,6 +48,7 @@ class m180824_171800_update_category extends Migration
                 'name' => $i.' название категории',
                 'slug' => $slugs[$i],
                 'content' => $i.$content,
+                'shortdesc' => $shortdesc,
                 'media' => rand(1, 10),
             ]);
             $c1 = Yii::$app->db->getLastInsertID();

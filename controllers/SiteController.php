@@ -133,7 +133,8 @@ class SiteController extends Controller
      */
     public function actionDelivery()
     {
-        return $this->render('delivery');
+        $deliveryContent=Settings::find() ->where(['like', 'key', 'delivery_content'])->indexBy('key')->asArray()->all();
+        return $this->render('delivery',compact('deliveryContent'));
     }
 
 
