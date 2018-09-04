@@ -36,6 +36,7 @@ class m180819_070308_create_settings extends Migration
                 'key' => $this->string(50)->unique()->notNull(),
                 'value' => $this->text()->notNull(),
                 'type'=>$this->string(50)->notNull(),
+                'title'=>$this->string(255)->notNull(),
             ]);
         }
 

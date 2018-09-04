@@ -221,7 +221,7 @@
                         
                                     <label>Узнайте, есть ли поставки в ваш город:</label>
                                     <div class="form_item search">
-                                            <input type="search" name="search" placeholder="Ваш город" autocomplete list="town">
+                                            <input type="search" name="search" placeholder="Ваш город"  autocomplete="off" list="town">
                                             <datalist id="town">
                                               <option value="Москва">
                                               <option value="Казань">

@@ -18,45 +18,24 @@ class SiteController extends Controller
     public function beforeAction()
     {
 
-        // header navigation
-        $this->view->params['header_nav'] = Menu::widget([
-            'items' => [
-                ['label' => 'Продукция', 'url' => ['site/index'], 'items' => [
-                    ['label' => 'cетка сварная', 'url' => ['site/index']],
-                    ['label' => 'cетка тканная', 'url' => ['site/index']],
-                    ['label' => 'cетка нержавеющая', 'url' => ['site/index'], 'items' => [
-                            ['label' => 'трубы', 'url' => ['site/index']],
-                            ['label' => 'листы', 'url' => ['site/index']],
-                            ['label' => 'швеллера', 'url' => ['site/index']],
-                        ]
-                    ],
-                    ['label' => 'cетка плетенная рабица', 'url' => ['site/index']],
-                    ['label' => 'cетка тканная', 'url' => ['site/index']],
-                ]],
-                ['label' => 'Доставка', 'url' => ['site/delivery']],
-                ['label' => 'Информация', 'url' => ['site/index'], 'items' => [
-                    ['label' => 'новости', 'url' => ['site/index']],
-                    ['label' => 'статьи', 'url' => ['site/index']],
-                ]],
-                ['label' => 'Контакты', 'url' => ['site/contact']],
-            ],
-            'submenuTemplate' => "\n<ul class='sub_menu'>\n{items}\n</ul>\n",
-            'options'=>['class'=>'menu'],
-        ]);
-
-        // footer navigation
-        $this->view->params['footer_nav'] = Menu::widget([
-            'items' => [
-                ['label' => 'Продукция', 'url' => ['site/index']],
-                ['label' => 'Доставка', 'url' => ['site/delivery']],
-                ['label' => 'Информация', 'url' => ['site/index']],
-                ['label' => 'Контакты', 'url' => ['site/contact']],
-            ],
-            'options'=>['class'=>'menu'],
-        ]);
 
         // cross pages data
         $this->view->params['cross_pages_data'] = Settings::getCrossPagesData();
+
+
+        // footer navigation
+        $this->view->params['footer_nav'] = Menu::widget([
+            'items' =>$this->view->params['cross_pages_data']['footer_menu'],
+            'options'=>['class'=>'menu'],
+        ]);
+
+
+        // header navigation
+        $this->view->params['header_nav'] = Menu::widget([
+            'items' =>$this->view->params['cross_pages_data']['header_menu'],
+            'submenuTemplate' => "\n<ul class='sub_menu'>\n{items}\n</ul>\n",
+            'options'=>['class'=>'menu'],
+        ]);
 
         return true;
     }
