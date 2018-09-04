@@ -4,6 +4,7 @@
 /* @var $content string */
 
 use yii\helpers\Html;
+use yii\helpers\Url;
 use yii\web\View;
 use yii\widgets\Menu;
 use app\assets\AppAsset;
@@ -40,7 +41,7 @@ AppAsset::register($this);
 						<div class="container_inner">
 							<div class="header_top_inner">
 								<div class="logo">
-									<a href="/" class="logo_lk">
+									<a href="<?= Url::base(true) ?>" class="logo_lk">
 										<span class="logo_top">
 											<img src="images/icons/logo.svg" alt="">
 										</span>
@@ -51,15 +52,17 @@ AppAsset::register($this);
 						  			<nav><?php echo $this->params['header_nav']; ?></nav>
 									<div class="header_info_sub">
 										<div class="header_info_sub_box">
-											<span>Минимальные сроки</span>
-											<span>Отличные цены</span>
+                                            <span><?= $this->params['cross_pages_data']['header_text1']; ?></span>
+                                            <span><?= $this->params['cross_pages_data']['header_text2']; ?></span>
 									  </div>
 										<a href="mailto:<?php echo $this->params['cross_pages_data']['email']; ?>" class="info_sub_lk"><?php echo $this->params['cross_pages_data']['email']; ?></a>
 									</div>
 								</div>
 								<div class="header_info">
-									<a href="tel:+7(351)2239392" class="header_info_lk"><?php echo $this->params['cross_pages_data']['phone1']; ?></a>
-									<a href="tel:+7(951)2239392" class="header_info_lk"><?php echo $this->params['cross_pages_data']['phone2']; ?></a>
+                                    <a href="tel:<?= preg_replace("/[^0-9]/", "", $this->params['cross_pages_data']['phone1']); ?>"
+                                       class="header_info_lk"><?= $this->params['cross_pages_data']['phone1']; ?></a>
+                                    <a href="tel:<?= preg_replace("/[^0-9]/", "", $this->params['cross_pages_data']['phone2']); ?>"
+                                       class="header_info_lk"><?= $this->params['cross_pages_data']['phone2']; ?></a>
 									<div class="header_call">
 										<button class="blue_btn modal_btn" data-modal="call">Заказать звонок</button>
 										<button class="orange_btn modal_btn" data-modal="call"></button>
@@ -73,7 +76,9 @@ AppAsset::register($this);
 			<div class="header_middle">
 				<div class="container">
 					<div class="container_inner">
-						<div class="header_messadge">Комплексные поставки<br><span>металлопроката</span><span> и деталей трубопровода</span></div>
+                        <div class="header_messadge"><?= $this->params['cross_pages_data']['header_title1']; ?>
+                            <br><span><?= $this->params['cross_pages_data']['header_title2']; ?></span><span> <?= $this->params['cross_pages_data']['header_title3']; ?></span>
+                        </div>
 					</div>
 				</div>
 			</div>
@@ -267,8 +272,10 @@ AppAsset::register($this);
 				</div>
 				<div class="footer_info">
 					<div class="footer_info_title">Наш телефон:</div>
-					<a href="tel:+7(351)2239392" class="header_info_lk"><?php echo $this->params['cross_pages_data']['phone1']; ?></a>
-					<a href="tel:+7(951)2239392" class="header_info_lk"><?php echo $this->params['cross_pages_data']['phone2']; ?></a>
+                    <a href="tel:<?= preg_replace("/[^0-9]/", "", $this->params['cross_pages_data']['phone1']); ?>"
+                       class="header_info_lk"><?= $this->params['cross_pages_data']['phone1']; ?></a>
+                    <a href="tel:<?= preg_replace("/[^0-9]/", "", $this->params['cross_pages_data']['phone2']); ?>"
+                       class="header_info_lk"><?= $this->params['cross_pages_data']['phone2']; ?></a>
 					<div class="header_call">
 						<button class="blue_btn modal_btn" data-modal="call">Заказать звонок</button>
 					</div>
@@ -276,15 +283,15 @@ AppAsset::register($this);
 				<div class="footer_info_logo">
 					<div class="footer_logo_box">
 						<div class="logo">
-									<a href="index.html" class="logo_lk">
+									<a href="<?= Url::base(true) ?>" class="logo_lk">
 										<span class="logo_top">
 											<img src="images/icons/logo.svg" alt="">
 										</span>
 									</a>
 								</div>
 						<div class="copyright">
-							<span>Copyright 2018</span>
-							<span>Все права защищены</span>
+                            <span><?= $this->params['cross_pages_data']['copyright1']; ?></span>
+                            <span><?= $this->params['cross_pages_data']['copyright2']; ?></span>
 						</div>
 					
 					</div>

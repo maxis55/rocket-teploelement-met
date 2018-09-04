@@ -136,6 +136,15 @@ class m180819_070329_update_settings extends Migration
             'type'=>'menu',
             'title' => "Меню в футере",
         ]);
+
+        $this->insert('settings', [
+            'id' => ++$i,
+            'key' => 'price_list',
+            'value' => 'price_list.txt',
+            'type'=>'file',
+            'title' => "Прайс лист рядом с заявкой",
+        ]);
+
         return true;
     }
 

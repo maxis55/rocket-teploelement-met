@@ -12,6 +12,7 @@ class Settings extends ActiveRecord{
      * Cross pages data, header footer and others
      */
 	public static function getCrossPagesData(){
+
         $json_settings=array('menu');
         $global_settings=Settings::find()->select(['key', 'value','type'])->asArray()->all();
 

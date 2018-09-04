@@ -60,10 +60,10 @@ AppAsset::register($this);
                                 </div>
                             </div>
                             <div class="header_info">
-                                <a href="tel:<?= preg_replace("/[^0-9]/", "", $this->params['cross_pages_data']['phone1']['value']); ?>"
-                                   class="header_info_lk"><?= $this->params['cross_pages_data']['phone1']['value']; ?></a>
-                                <a href="tel:<?= preg_replace("/[^0-9]/", "", $this->params['cross_pages_data']['phone2']['value']); ?>"
-                                   class="header_info_lk"><?= $this->params['cross_pages_data']['phone2']['value']; ?></a>
+                                <a href="tel:<?= preg_replace("/[^0-9]/", "", $this->params['cross_pages_data']['phone1']); ?>"
+                                   class="header_info_lk"><?= $this->params['cross_pages_data']['phone1']; ?></a>
+                                <a href="tel:<?= preg_replace("/[^0-9]/", "", $this->params['cross_pages_data']['phone2']); ?>"
+                                   class="header_info_lk"><?= $this->params['cross_pages_data']['phone2']; ?></a>
                                 <div class="header_call">
                                     <button class="blue_btn modal_btn" data-modal="call">Заказать звонок</button>
                                     <button class="orange_btn modal_btn" data-modal="call"></button>
@@ -119,7 +119,7 @@ AppAsset::register($this);
                 <div class="footer_info_logo">
                     <div class="footer_logo_box">
                         <div class="logo">
-                            <a href="index.html" class="logo_lk">
+                            <a href="<?= Url::base(true) ?>" class="logo_lk">
 								<span class="logo_top">
 									<img src="images/icons/logo.svg" alt="">
 								</span>
