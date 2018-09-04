@@ -29,13 +29,16 @@ class m180819_070308_create_settings extends Migration
     public function up()
     {
         $tableName = $this->db->tablePrefix . 'settings';
+
         if ($this->db->getTableSchema($tableName, true) === null) {
             $this->createTable('settings', [
                 'id' => $this->primaryKey(),
                 'key' => $this->string(50)->unique()->notNull(),
-                'value' => $this->text()->notNull()
+                'value' => $this->text()->notNull(),
+                'type'=>$this->string(50)->notNull(),
             ]);
         }
+
         return true;
     }
 
