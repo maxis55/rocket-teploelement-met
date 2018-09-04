@@ -40,7 +40,8 @@ use yii\helpers\Url;
                     </div>
                     <div class="news_flex">
 
-                        <?php foreach ($news as  $single) { ?>
+                        <?php /** @var array $news */
+                        foreach ($news as $single) { ?>
                             <div class="main_news_item">
                                 <figure>
                                     <a href="<?= Url::toRoute(['site/news-page', 'slug' => $single['slug']]) ?>" class="news_img">
