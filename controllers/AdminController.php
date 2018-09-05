@@ -14,4 +14,14 @@ use yii\web\Controller;
 class AdminController extends Controller
 {
 
+    public $layout = 'admin/main';
+
+    /**
+     * Displays homepage.
+     */
+    public function actionIndex()
+    {
+
+        return $this->render('index');
+    }
 }
