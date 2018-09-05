@@ -12,11 +12,13 @@ class SiteController extends Controller
 {
 
 
-
     /**
      * Cross pages actions
+     * @param $action
+     * @return bool
+     * @throws \Exception
      */
-    public function beforeAction()
+    public function beforeAction($action)
     {
 
 
@@ -38,7 +40,7 @@ class SiteController extends Controller
             'options'=>['class'=>'menu'],
         ]);
 
-        return true;
+        return parent::beforeAction($action);
     }
 
 
