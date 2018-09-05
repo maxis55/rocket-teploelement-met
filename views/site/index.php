@@ -1,16 +1,14 @@
-<?php
-use yii\helpers\Url;
-?>
+<?php use yii\helpers\Url; ?>
 <!-- MAIN CONTENT Start-->
     <div id="content">
         <div class="container">
             <section>
                 <div class="container_inner">
                   <div class="main_about_box">
-                    <h2 class="title1"><span><?= $page_content['block_about']['title'];?></span></h2>
-                    <?= $page_content['block_about']['description'];?>
+                    <h2 class="title1"><span><?= $page_content['about_title'];?></span></h2>
+                    <?= $page_content['about_content'];?>
                     <div class="main_about_info">
-                        <a href="<?= $page_content['block_about']['link'];?>" class="more_white_btn"><span>Подробнее</span></a>
+                        <a href="<?= $page_content['about_link'];?>" class="more_white_btn"><span>Подробнее</span></a>
                         <a href="#" class="add_btn modal_btn" data-modal="request">Получить цены</a>
                     </div>
                     <div class="main_about_img"></div>
@@ -20,40 +18,40 @@ use yii\helpers\Url;
       <section>
         <div class="main_services_box">
 
-                <?php for ($i=1;$i<=5;$i++) { ?>
-                    <div class="main_services_item">
-                        <?php if($i%2 != 0){?>
-                            <div class="main_services_info_left">
-                                <?php if($i==1){?>
-                                    <div class="main_services_title">
-                                        <h2 class="title1"><span>Наши услуги</span></h2>
-                                    </div>
-                                <?php } ?>
-                                <h3 class="title2"><?= $page_content['block_'.$i]['title']; ?></h3>
-                                <?= $page_content['block_'.$i]['description'];?>
-                                <div class="main_services_forbtn">
-                                    <a href="<?= $page_content['block_'.$i]['link']; ?>" class="add_btn">Подробнее</a>
+            <?php for ($i = 1; $i <= 5; $i++) { ?>
+                <div class="main_services_item">
+                    <?php if ($i % 2 != 0) { ?>
+                        <div class="main_services_info_left">
+                            <?php if ($i == 1) { ?>
+                                <div class="main_services_title">
+                                    <h2 class="title1"><span><?= $page_content['before_5_blocks']?></span></h2>
                                 </div>
+                            <?php } ?>
+                            <h3 class="title2"><?=$page_content['block_'.$i.'_title_1']; ?><span><?=$page_content['block_'.$i.'_title_2']; ?></span></h3>
+                            <?= $page_content['block_' . $i . '_content']; ?>
+                            <div class="main_services_forbtn">
+                                <a href="<?= $page_content['block_' . $i . '_link']; ?>" class="add_btn">Подробнее</a>
                             </div>
-                            <div class="main_services_img">
-                                <img src="images/services_img<?= $page_content['block_'.$i]['image']; ?>.png" alt="">
+                        </div>
+                        <div class="main_services_img">
+                            <img src="images/services_img<?= $page_content['block_' . $i . '_image']; ?>.png" alt="">
+                        </div>
+                    <?php } else { ?>
+                        <div class="main_services_img">
+                            <img src="images/services_img<?= $page_content['block_' . $i . '_image']; ?>.png" alt="">
+                        </div>
+                        <div class="main_services_info_right">
+                            <h3 class="title2"><?= $page_content['block_' . $i . '_title_1']; ?><span><?= $page_content['block_' . $i . '_title_2']; ?></span></h3>
+                            <?= $page_content['block_' . $i . '_content']; ?>
+                            <div class="main_services_forbtn">
+                                <a href="<?= $page_content['block_' . $i . '_link']; ?>" class="add_btn">Подробнее</a>
                             </div>
-                        <?php }else{ ?>
-                            <div class="main_services_img">
-                                <img src="images/services_img<?= $page_content['block_'.$i]['image']; ?>.png" alt="">
-                            </div>
-                            <div class="main_services_info_right">
-                                <h3 class="title2"><?= $page_content['block_'.$i]['title']; ?></h3>
-                                <?= $page_content['block_'.$i]['description'];?>
-                                <div class="main_services_forbtn">
-                                    <a href="<?= $page_content['block_'.$i]['link']; ?>" class="add_btn">Подробнее</a>
-                                </div>
-                            </div>
+                        </div>
 
-                        <?php } ?>
+                    <?php } ?>
 
-                    </div>
-                <?php } ?>
+                </div>
+            <?php } ?>
             </div>
             </section>
         
