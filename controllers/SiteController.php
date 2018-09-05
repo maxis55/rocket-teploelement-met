@@ -121,4 +121,49 @@ class SiteController extends Controller
 
 
 
+
+    /**
+     * Displays catalog category page.
+     * @param $category
+     * @return string
+     */
+    public function actionCatalogCategory($category)
+    {
+        $slug = $category;
+        $category = Category::getCategory($slug);
+        $subCategory = Category::getSubCategory($category['id']);
+
+        return $this->render('category', compact('category','subCategory','slug'));
+    }
+
+
+    /**
+     * Displays catalog subcategory and sub-subcategory page.
+     * @param $category
+     * @param $subcategory
+     * @param null $subsubcategory
+     * @return string
+     */
+    public function actionCatalogSubcategory($category, $subcategory, $subsubcategory=null)
+    {
+        $slug = $category;
+
+        // category data
+        if ($subsubcategory) $category = Category::getCategory($subsubcategory);
+        else $category = Category::getCategory($subcategory);
+
+        // breadcrumbs data
+        $breadcrumbs = [['cat',$slug]];
+        if ($subsubcategory) $breadcrumbs[] = ['sub',$subcategory];
+
+        return $this->render('sub_category', compact('category','slug','breadcrumbs'));
+    }
+
+
+
+
+
+
+
+
 }

@@ -76,4 +76,36 @@ class Category extends ActiveRecord
     {
         return $this->hasMany(Category::className(), ['parent' => 'id']);
     }
+
+
+
+    /**
+     * Content for single category
+     */
+    public static function getCategory($slug){
+
+        return Category::find()
+            ->select(['category.id','category.name','category.content'])
+//            ->leftJoin('media', 'category.media = media.id') add after existing media library
+            ->where(['category.slug' => $slug])
+            ->asArray()
+            ->one();
+    }
+
+
+    /**
+     * Content for subcategories
+     */
+    public static function getSubCategory($parent){
+
+        return Category::find()
+            ->select(['category.slug','category.name','category.shortdesc'])
+//            ->leftJoin('media', 'category.media = media.id') add after existing media library
+            ->where(['category.parent' => $parent])
+            ->asArray()
+            ->all();
+    }
+
+
+
 }

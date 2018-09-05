@@ -1,90 +1,39 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Rocketcmp-1_3
- * Date: 05.09.2018
- * Time: 11:06
- */
 
 namespace app\controllers;
 
-
+use Yii;
 use app\models\Category;
 use app\models\CategorySearch;
-use app\models\LoginForm;
-use Yii;
-use yii\filters\AccessControl;
-use yii\filters\VerbFilter;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
+use yii\filters\VerbFilter;
 
-class AdminController extends Controller
+/**
+ * CategoryController implements the CRUD actions for Category model.
+ */
+class CategoryController extends Controller
 {
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public function behaviors()
     {
         return [
-            'access' => [
-                'class' => AccessControl::className(),
-                'rules' => [
-                    [
-                        'actions' => ['login', 'error'],
-                        'allow' => true,
-                    ],
-                    [
-                        'actions' => ['logout', 'index'],
-                        'allow' => true,
-                        'roles' => ['@'],
-                    ],
-                ],
-            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
-                    'logout' => ['post'],
+                    'delete' => ['POST'],
                 ],
             ],
         ];
     }
 
-    public $layout = 'admin/main';
-
-    /**
-     * Displays homepage.
-     */
-    public function actionIndex()
-    {
-
-        return $this->render('index');
-    }
-
-    /**
-     * Login action.
-     *
-     * @return string
-     */
-    public function actionPages()
-    {
-
-        $model = new LoginForm();
-        if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            return $this->goBack();
-        }
-
-        $model->password = '';
-        return $this->render('login', [
-            'model' => $model,
-        ]);
-    }
-
-
     /**
      * Lists all Category models.
      * @return mixed
      */
-    public function actionCategories()
+    public function actionIndex()
     {
         $searchModel = new CategorySearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
@@ -103,7 +52,7 @@ class AdminController extends Controller
      */
     public function actionView($id)
     {
-        return $this->render('categories/view', [
+        return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
     }
@@ -121,7 +70,7 @@ class AdminController extends Controller
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
-        return $this->render('categories/create', [
+        return $this->render('create', [
             'model' => $model,
         ]);
     }
@@ -138,10 +87,10 @@ class AdminController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['categories/view', 'id' => $model->id]);
+            return $this->redirect(['view', 'id' => $model->id]);
         }
 
-        return $this->render('categories/update', [
+        return $this->render('update', [
             'model' => $model,
         ]);
     }
@@ -160,7 +109,7 @@ class AdminController extends Controller
     {
         $this->findModel($id)->delete();
 
-        return $this->redirect(['categories/index']);
+        return $this->redirect(['index']);
     }
 
     /**
@@ -177,41 +126,5 @@ class AdminController extends Controller
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
-    }
-
-
-
-
-
-
-    /**
-     * Login action.
-     *
-     * @return string
-     */
-    public function actionLogin()
-    {
-
-        $model = new LoginForm();
-        if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            return $this->goBack();
-        }
-
-        $model->password = '';
-        return $this->render('login', [
-            'model' => $model,
-        ]);
-
-    }
-    /**
-     * Logout action.
-     *
-     * @return string
-     */
-    public function actionLogout()
-    {
-        Yii::$app->user->logout();
-
-        return $this->goHome();
     }
 }
