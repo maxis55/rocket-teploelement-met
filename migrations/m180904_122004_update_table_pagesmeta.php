@@ -266,7 +266,7 @@ class m180904_122004_update_table_pagesmeta extends Migration
 
     public function down()
     {
-        $this->dropTable('pagesmeta');
+        $this->delete('pagesmeta', ['id' => '<=12']);
         return true;
     }
 }

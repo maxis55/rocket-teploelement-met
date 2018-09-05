@@ -54,8 +54,8 @@ class m180904_111521_update_table_pages extends Migration
 
     public function down()
     {
-        echo "m180904_111521_update_table_pages cannot be reverted.\n";
+        $this->delete('pages', ['id' => '<=6']);
 
-        return false;
+        return true;
     }
 }

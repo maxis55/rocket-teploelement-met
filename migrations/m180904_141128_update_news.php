@@ -52,7 +52,7 @@ class m180904_141128_update_news extends Migration
 
     public function down()
     {
-        $this->delete('settings', ['id' => '<=66']);
+        $this->delete('news', ['id' => '<=66']);
 
         return true;
     }
