@@ -35,9 +35,9 @@ class m180904_113600_create_table_pagesmeta extends Migration
                 'id' => $this->primaryKey(),
                 'page_id' => $this->integer(),
                 'key' => $this->string(50),
-                'title' => $this->string(20),
-                'type' => $this->string(10),
-                'value' => $this->text(255),
+                'title' => $this->string(255),
+                'type' => $this->string(20),
+                'value' => $this->text(),
             ]);
         }
         return true;
