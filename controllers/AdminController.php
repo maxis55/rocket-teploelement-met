@@ -9,6 +9,8 @@
 namespace app\controllers;
 
 
+use app\models\LoginForm;
+use Yii;
 use yii\web\Controller;
 
 class AdminController extends Controller
@@ -23,5 +25,20 @@ class AdminController extends Controller
     {
 
         return $this->render('index');
+    }
+
+    public function actionLogin()
+    {
+
+        $model = new LoginForm();
+        if ($model->load(Yii::$app->request->post()) && $model->login()) {
+            return $this->goBack();
+        }
+
+        $model->password = '';
+        return $this->render('login', [
+            'model' => $model,
+        ]);
+
     }
 }
