@@ -7,11 +7,13 @@ use Yii;
 use yii\web\Controller;
 use yii\widgets\Menu;
 use app\models\Settings;
+use app\models\Pages;
+use app\models\Pagesmeta;
 
 class SiteController extends Controller
 {
 
-
+    public $map;
 
     /**
      * Cross pages actions
@@ -64,7 +66,8 @@ class SiteController extends Controller
     {
         $this->layout = 'index';
         $news_slider = News::getFirstArchiveNews();
-        return $this->render('index',['news_slider'=>$news_slider]);
+        $page_content = Pagesmeta::getFrontPageMeta('index');
+        return $this->render('index',['news_slider'=>$news_slider, 'page_content' => $page_content]);
     }
 
     /**
@@ -93,7 +96,9 @@ class SiteController extends Controller
      */
     public function actionContact()
     {
-        return $this->render('contact');
+        $this->view->params['map'] = [55, 55];
+        $page_content = Pagesmeta::getFrontPageMeta('contacts');
+        return $this->render('contact', compact('page_content'));
     }
 
 
@@ -103,7 +108,8 @@ class SiteController extends Controller
      */
     public function actionDelivery()
     {
-        return $this->render('delivery');
+        $page_content = Pagesmeta::getFrontPageMeta('delivery');
+        return $this->render('delivery', compact('page_content'));
     }
 
 

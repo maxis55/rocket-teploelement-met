@@ -306,42 +306,32 @@ AppAsset::register($this);
     </div>
     <!--TMP END  -->
     <?php $this->endBody() ?>
+
+
     <?php
-    if (Yii::$app->controller->action->id == 'contact') {
-        $this->registerJs(
-            '//--------------googlemaps---------
-			  if ($(".map").length){
-
-			  	function initMap(){
-
-			 		var element = document.getElementById("map_box");
-			 		console.log(element);
-			 		var options ={
-			 			zoom:5,
-			 			center:{lat:55.7558, lng:37.6173},
-			 			panControl: false,
-	      		zoomControl: true,
-	      		mapTypeControl: false,
-	      		scrollwheel: false
-					};
-			 		var mapMockow = new google.maps.Map(element, options);
-			 		addMarker({lat:55.7558, lng:37.6173});
-
-				 		function addMarker(coordinates){
-					 		var marker = new google.maps.Marker({
-					 			position:coordinates,
-					 			map:mapMockow,
-					 			icon:"' . Yii::$app->request->baseUrl . './images/icons/marker.png"
-				 			});
-				 		}
-			  	}
-			  }',
-            View::POS_END);
+        if (Yii::$app->controller->action->id == 'contact') {
+            $this->registerJs(
+                'ymaps.ready(initYaMap);
+                        function initYaMap() {
+                            var myMap = new ymaps.Map("ya_map", {
+                            center: [' . $this->params['map'][0] . ', ' . $this->params['map'][1] . '],
+                            zoom: 5
+                        }, {
+                            searchControlProvider: \'yandex#search\'
+                        }),
+                            myPlacemark = new ymaps.Placemark([' . $this->params['map'][0] . ', ' . $this->params['map'][1] . '], {
+                            }, {
+                                iconLayout: \'default#image\',
+                                iconImageHref: "' . Yii::$app->request->baseUrl . './images/icons/marker.png",
+                                iconImageSize: [40, 60],
+                                iconImageOffset: [-5, -38]
+                            });
+                    
+                        myMap.geoObjects.add(myPlacemark);
+                        }',
+                View::POS_END);
+        }
         ?>
-        <script async defer
-                src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB53L7PG3UE9qtFIcdoXay7OFo1vXmX9aU&callback=initMap"></script><?php
-    }
-    ?>
     </body>
 
     </html>
