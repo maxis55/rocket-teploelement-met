@@ -43,6 +43,20 @@ class m180904_152125_create_category extends Migration
             'category',
             'slug'
         );
+        $this->createIndex(
+            'FK_category_category',
+            'category',
+            'parent'
+        );
+
+        $this->addForeignKey(
+            'FK_category_category',
+            'category',
+            'parent',
+            'category',
+            'id',
+            'SET NULL'
+        );
 
     }
 

@@ -37,11 +37,11 @@ class m180904_152133_update_category extends Migration
         Соединительный элемент используется в сфере ЖКХ, нефте- и газопромышленности. Все требования к ним прописаны в НТД.
         Например, отводы ГОСТ 17375-2001 допускается использовать как для прокладки магистрали в вертикальном, так и в горизонтальном направлении. Так же в документах указано, какими характеристиками обладают соединительные детали.';
         $shortdesc = 'Это пример текста новости, сделан для того, чтобы было понятно, где будет текст. Это пример текста новости, сделан для того, чтобы было понятно, где будет текст';
-        $slugs = [1=> 'truby', 'listy', 'shvellera', 'ugolok', 'balka', 'armatura', 'provoloka', 'krug', 'shestigrannik', 'kvadrat', 'polosa', 'relsy', 'pokovka', 'setka', 'otvody', 'perexody', 'trojniki', 'zaglushki', 'flancy', 'opory', 'sgony', 'mufty'];
-
-        for ($i = 1; $i < count($slugs); $i++) {
+        $slugs = [1 => 'truby', 'listy', 'shvellera', 'ugolok', 'balka', 'armatura', 'provoloka', 'krug', 'shestigrannik', 'kvadrat', 'polosa', 'relsy', 'pokovka', 'setka', 'otvody', 'perexody', 'trojniki', 'zaglushki', 'flancy', 'opory', 'sgony', 'mufty'];
+        $names = [1 => 'Трубы', 'Листы', 'Швеллера', 'Уголок', 'Балка', 'Арматура', 'Проволока', 'Круг', 'Шестигранник', 'Квадрат', 'Полоса', 'Рельсы', 'Поковка', 'Сетка', 'Отводы', 'Переходы', 'Тройники', 'Заглушки', 'Фланцы', 'Опоры', 'Сгоны', 'Муфты'];
+        for ($i = 1; $i <= count($slugs); $i++) {
             $this->insert('category', [
-                'name' => $i . ' название категории',
+                'name' => $names[$i],
                 'slug' => $slugs[$i],
                 'content' => $i . $content,
                 'shortdesc' => $shortdesc,

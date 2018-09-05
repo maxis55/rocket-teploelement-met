@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\Category;
 use app\models\News;
 use Yii;
 use yii\web\Controller;
@@ -41,6 +42,9 @@ class SiteController extends Controller
             'submenuTemplate' => "\n<ul class='sub_menu'>\n{items}\n</ul>\n",
             'options'=>['class'=>'menu'],
         ]);
+        //categories
+        $categories=Category::find()->select(['name','slug','id'])->where(['parent'=>null])->indexBy('id')->all();
+        $this->view->params['categories'] = $categories;
 
         return parent::beforeAction($action);
     }
@@ -69,6 +73,7 @@ class SiteController extends Controller
         $this->layout = 'index';
         $news_slider = News::getFirstArchiveNews();
         $page_content = Pagesmeta::getFrontPageMeta('index');
+
         return $this->render('index',['news_slider'=>$news_slider, 'page_content' => $page_content]);
     }
 
