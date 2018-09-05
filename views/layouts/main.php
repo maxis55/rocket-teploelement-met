@@ -43,7 +43,7 @@ AppAsset::register($this);
                             <div class="logo">
                                 <a href="<?= Url::base(true) ?>" class="logo_lk">
 										<span class="logo_top">
-											<img src="images/icons/logo.svg" alt="">
+											<img src="<?= Url::base(true) ?>/images/icons/logo.svg" alt="">
 										</span>
                                 </a>
                             </div>
