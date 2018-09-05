@@ -68,7 +68,7 @@ use yii\helpers\Url;
                             <div class="main_news_title">
                                 <h2 class="title1"><span>Наши новости</span></h2>
                             </div>
-                                <a href="#" class="more_white_btn"><span>Смотреть все новости</span></a>
+                                <a href="<?= Url::toRoute(['site/news']) ?>" class="more_white_btn"><span>Смотреть все новости</span></a>
                                 <div class="main_news_box_inner">
                                     <div class="owl-carousel-resp"></div>
                                     <div class="owl-carousel">
@@ -80,7 +80,7 @@ use yii\helpers\Url;
                                                 <div class="main_news_item">
                                                     <figure>
                                                         <figcaption>
-                                                            <time datetime="2012-12">
+                                                            <time datetime="<?= date('Y-m', strtotime($single['date'])); ?>">
                                                                 <span><?= date('d', strtotime($single['date'])); ?></span>
                                                                 <?= date('m.y', strtotime($single['date'])); ?>
                                                             </time>

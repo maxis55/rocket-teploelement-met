@@ -213,4 +213,4 @@
 			</div>
 		</div>
 	</div>
-    <?php include('contact_form.php'); ?>
+    <?= $this->render('contact_form.php') ?>

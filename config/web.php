@@ -52,17 +52,7 @@ $config = [
                 'news/<slug>' => 'site/news-page',
             ],
         ],
-        'assetManager' => [
-            'bundles' => [
-                'yii\bootstrap\BootstrapPluginAsset' => [
-                    'js'=>[]
-                ],
-                'yii\bootstrap\BootstrapAsset' => [
-                    'css' => [],
-                ],
 
-            ],
-        ],
     ],
     'params' => $params,
 ];
