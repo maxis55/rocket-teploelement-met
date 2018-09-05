@@ -27,51 +27,28 @@
                             <div class="contacts_info_call">
                                 <div class="contacts_call_item">
                                     <span>По всем вопросам</span>
-                                    <a href="tel:+7(351)2239392" class="header_info_lk"><span>+7(351)</span>223-93-92</a>
+                                    <a href="tel:<?= preg_replace("/[^0-9]/", "", $page_content['phone1']); ?>" class="header_info_lk"><?= $page_content['phone1']?></a>
                                 </div>
                                 <div class="contacts_call_item">
                                     <span>Звонок по России</span>
-                                    <a href="tel:+7(351)2239392" class="header_info_lk"><span>+7(351)</span>223-93-92</a>
+                                    <a href="tel:<?= preg_replace("/[^0-9]/", "", $page_content['phone2']); ?>" class="header_info_lk"><?= $page_content['phone2']?></a>
                                 </div>
                                 <div class="contacts_call_item">
                                     <button class="blue_btn modal_btn" data-modal="call">Заказать звонок</button>
                                 </div>
                             </div>
                             <div class="contacts_info_email">
-                                <a href="mailto:zakaz@teploment.ru" class="info_sub_lk">zakaz@teploment.ru</a>
+                                <a href="mailto:<?= $page_content['email']?>" class="info_sub_lk"><?= $page_content['email']?></a>
                             </div>
                             <div class="contacts_info_data">
-                                <dl class="contacts_data_list">
-                                    <div>
-                                        <dt>Наименование</dt>
-                                        <dd>ООО «ТеплоЭлемент»</dd>
-                                    </div>
-                                    <div>
-                                        <dt>Юридический/фактический адрес: </dt>
-                                        <dd>Челябинск, Цинковая 2а/2, офис 10</dd>
-                                    </div>
-                                    <div>
-                                        <dt>Почтовый адрес:</dt>
-                                        <dd>454008, г. Челябинск, ул. Сетевая 11</dd>
-                                    </div>
-                                    <div>
-                                        <dt>ИНН:</dt>
-                                        <dd>7404061700</dd>
-                                    </div>
-                                    <div>
-                                        <dt>КПП:</dt>
-                                        <dd>7404061700</dd>
-                                    </div>
-                                    <div>
-                                        <dt>ОГРН:</dt>
-                                        <dd>1137404001008</dd>
-                                    </div>
-                  </dl>
-                  <a href="#" target="_blank" class="red_btn">Карта предприятия</a>
+                                <div class="contacts_data_list">
+                                    <?= $page_content['content']?>
+                                </div>
+                                <a href="<?= $page_content['link']?>" target="_blank" class="red_btn">Карта предприятия</a>
                             </div>
                         </div>
                         <div class="contacts_map">
-                            <div id="map_box" class="map"></div>
+                            <div id="ya_map" style="width: 100%; height: 444px"></div>
                         </div>
                   </div>
                 </div>

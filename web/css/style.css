@@ -3399,6 +3399,7 @@ input[type=radio], input[type=file] {
   line-height: 1.2;
 }
 .contacts_info_data .red_btn {
+  margin-top: 15px;
   padding: 0 10px 0 43px;
   text-align: right;
   border-bottom: 2px solid #7f0000;
@@ -6705,3 +6706,13 @@ p {
 }
 
 /*# sourceMappingURL=style.css.map */
+.contacts_data_list p {
+  margin-bottom: 0;
+  color: white;
+}
+.contacts_data_list a {
+  margin-top: 15px;
+}
+html, body, #map {
+  width: 100%; height: 100%; padding: 0; margin: 0;
+}

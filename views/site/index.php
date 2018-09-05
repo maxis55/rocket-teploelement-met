@@ -6,87 +6,55 @@ use yii\helpers\Url;
         <div class="container">
             <section>
                 <div class="container_inner">
-                    <div class="main_about_box">
-                        <h2 class="title1"><span>О компании</span></h2>
-                        <p>Компания ООО «ТеплоЭлемент» - соединительные детали трубопровода и арматура, мехобработка изделий по чертежам</p>
-                        <p>Компания ООО «ТеплоЭлемент» занимается поставками трубопроводной арматуры и соединительных деталей трубопровода для промышленных, химических и нефтегазоперерабатывающих предприятий, теплосетей, водоканалов и тепловых электростанций.</p>
-                        <p>Полный ассортимент компании ООО «ТеплоЭлемент» насчитывает более 3000 наименований, что позволяет нашим заказчикам закрывать любые потребности в кратчайшие сроки. </p>
-                        <div class="main_about_info">
-                            <a href="#" class="more_white_btn"><span>Подробнее</span></a>
-                            <a href="#" class="add_btn modal_btn" data-modal="request">Получить цены</a>
-                        </div>
-                        <div class="main_about_img"></div>
-                  </div>
+                  <div class="main_about_box">
+                    <h2 class="title1"><span><?= $page_content['block_about']['title'];?></span></h2>
+                    <?= $page_content['block_about']['description'];?>
+                    <div class="main_about_info">
+                        <a href="<?= $page_content['block_about']['link'];?>" class="more_white_btn"><span>Подробнее</span></a>
+                        <a href="#" class="add_btn modal_btn" data-modal="request">Получить цены</a>
+                    </div>
+                    <div class="main_about_img"></div>
+                </div>
              </div>
             </section>
       <section>
-                <div class="main_services_box">
-                  
-                  <div class="main_services_item">
-                    <div class="main_services_info_left">
-                        <div class="main_services_title">
-                            <h2 class="title1"><span>Наши услуги</span></h2>
-                        </div>
-                        <h3 class="title2">Резка<span>металла</span></h3>
-                        <p>Это пример текста, создан для того, чтобы было понятно, где будет текст. Это пример текста, создан для того, чтобы было понятно, где будет текст. </p>
-                        <div class="main_services_forbtn">
-                            <button class="add_btn">Подробнее</button>
-                        </div>
+        <div class="main_services_box">
+
+                <?php for ($i=1;$i<=5;$i++) { ?>
+                    <div class="main_services_item">
+                        <?php if($i%2 != 0){?>
+                            <div class="main_services_info_left">
+                                <?php if($i==1){?>
+                                    <div class="main_services_title">
+                                        <h2 class="title1"><span>Наши услуги</span></h2>
+                                    </div>
+                                <?php } ?>
+                                <h3 class="title2"><?= $page_content['block_'.$i]['title']; ?></h3>
+                                <?= $page_content['block_'.$i]['description'];?>
+                                <div class="main_services_forbtn">
+                                    <a href="<?= $page_content['block_'.$i]['link']; ?>" class="add_btn">Подробнее</a>
+                                </div>
+                            </div>
+                            <div class="main_services_img">
+                                <img src="images/services_img<?= $page_content['block_'.$i]['image']; ?>.png" alt="">
+                            </div>
+                        <?php }else{ ?>
+                            <div class="main_services_img">
+                                <img src="images/services_img<?= $page_content['block_'.$i]['image']; ?>.png" alt="">
+                            </div>
+                            <div class="main_services_info_right">
+                                <h3 class="title2"><?= $page_content['block_'.$i]['title']; ?></h3>
+                                <?= $page_content['block_'.$i]['description'];?>
+                                <div class="main_services_forbtn">
+                                    <a href="<?= $page_content['block_'.$i]['link']; ?>" class="add_btn">Подробнее</a>
+                                </div>
+                            </div>
+
+                        <?php } ?>
+
                     </div>
-                    <div class="main_services_img">
-                        <img src="images/services_img1.png" alt="">
-                    </div>
-                  </div>
-                  <div class="main_services_item">
-                    <div class="main_services_img">
-                        <img src="images/services_img2.png" alt="">
-                    </div>
-                    <div class="main_services_info_right">
-                        <h3 class="title2">Сварка<span>металла</span></h3>
-                        <p>Это пример текста, создан для того, чтобы было понятно, где будет текст. Это пример текста, создан для того, чтобы было понятно, где будет текст. </p>
-                        <div class="main_services_forbtn">
-                            <button class="add_btn">Подробнее</button>
-                        </div>
-                    </div>
-                   </div>
-                   <div class="main_services_item">
-                    <div class="main_services_info_left">
-                        <h3 class="title2">Изоляция<span>металла</span></h3>
-                        <p>Это пример текста, создан для того, чтобы было понятно, где будет текст. Это пример текста, создан для того, чтобы было понятно, где будет текст. </p>
-                        <div class="main_services_forbtn">
-                            <button class="add_btn">Подробнее</button>
-                        </div>
-                    </div>
-                    <div class="main_services_img">
-                        <img src="images/services_img3.png" alt="">
-                    </div>
-                  </div>
-                  <div class="main_services_item">
-                    <div class="main_services_img">
-                        <img src="images/services_img4.png" alt="">
-                    </div>
-                    <div class="main_services_info_right">
-                        <h3 class="title2">Гибка<span>металла</span></h3>
-                        <p>Это пример текста, создан для того, чтобы было понятно, где будет текст. Это пример текста, создан для того, чтобы было понятно, где будет текст. </p>
-                        <div class="main_services_forbtn">
-                            <button class="add_btn">Подробнее</button>
-                        </div>
-                    </div>
-                  </div>
-                  <div class="main_services_item">
-                    <div class="main_services_info_left">
-                        <h3 class="title2">Вальцовка<span>металла</span></h3>
-                        <p>Это пример текста, создан для того, чтобы было понятно, где будет текст. Это пример текста, создан для того, чтобы было понятно, где будет текст. </p>
-                        <div class="main_services_forbtn">
-                            <button class="add_btn">Подробнее</button>
-                        </div>
-                    </div>
-                    <div class="main_services_img">
-                        <img src="images/services_img5.png" alt="">
-                    </div>
-                  </div>
-                  
-                </div>
+                <?php } ?>
+            </div>
             </section>
         
         </div>

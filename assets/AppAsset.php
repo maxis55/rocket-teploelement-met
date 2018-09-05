@@ -24,6 +24,7 @@ class AppAsset extends AssetBundle
     ];
     public $js = [
         'js/script.js',
+        '//api-maps.yandex.ru/2.1/?lang=ru_RU'
     ];
     public $depends = [
         'yii\web\YiiAsset',
