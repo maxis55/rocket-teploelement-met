@@ -480,7 +480,7 @@ class AdminController extends Controller
      */
     public function actionNewsUpdate($id)
     {
-        $model = $this->findModel($id);
+        $model = $this->findNewsModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['admin/news-view', 'id' => $model->id]);

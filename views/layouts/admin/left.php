@@ -32,6 +32,7 @@
                     ],
 
                     ['label' => 'Медиа', 'icon' => 'image', 'url' => ['/admin/media']],
+                    ['label' => 'Новости', 'icon' => 'calendar-plus', 'url' => ['/admin/news']],
                     ['label' => 'Login', 'url' => ['/admin/login'], 'visible' => Yii::$app->user->isGuest],
                     [
                         'label' => 'Some tools',
