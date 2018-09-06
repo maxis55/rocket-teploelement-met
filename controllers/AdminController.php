@@ -99,12 +99,12 @@ class AdminController extends Controller
      * Displays a single Category model.
      * @param integer $id
      * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
+     * @throws NotFoundHttpException
      */
-    public function actionView($id)
+    public function actionCategoryView($id)
     {
         return $this->render('categories/view', [
-            'model' => $this->findModel($id),
+            'model' => $this->findCategoryModel($id),
         ]);
     }
 
@@ -113,7 +113,7 @@ class AdminController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
+    public function actionCategoryCreate()
     {
         $model = new Category();
 
@@ -133,9 +133,9 @@ class AdminController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionUpdate($id)
+    public function actionCategoryUpdate($id)
     {
-        $model = $this->findModel($id);
+        $model = $this->findCategoryModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['categories/view', 'id' => $model->id]);
@@ -156,9 +156,9 @@ class AdminController extends Controller
      * @throws \Throwable
      * @throws \yii\db\StaleObjectException
      */
-    public function actionDelete($id)
+    public function actionCategoryDelete($id)
     {
-        $this->findModel($id)->delete();
+        $this->findCategoryModel($id)->delete();
 
         return $this->redirect(['categories/index']);
     }
@@ -170,7 +170,7 @@ class AdminController extends Controller
      * @return Category the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($id)
+    protected function findCategoryModel($id)
     {
         if (($model = Category::findOne($id)) !== null) {
             return $model;
