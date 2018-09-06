@@ -14,4 +14,5 @@ RewriteEngine On
 # Redirect all requests to web
 RewriteCond %{REQUEST_URI} ^(.*)$
 RewriteRule ^(.*)$ web/$1
+RewriteRule admin/ web/admin/index
 </IfModule>
