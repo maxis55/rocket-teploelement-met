@@ -17,9 +17,9 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'description')->textarea(['rows' => 6]) ?>
 
-    <?= $form->field($model, 'keywords')->textInput(['maxlength' => true]) ?>
+    <?//= $form->field($model, 'keywords')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'slug')->textInput(['maxlength' => true]) ?>
+    <?//= $form->field($model, 'slug')->textInput(['maxlength' => true]) ?>
 
     <?php 
     if($model->id <= 5) {
@@ -41,7 +41,7 @@ use yii\widgets\ActiveForm;
                 <?php if ($item['type'] == 'tinyarea') { ?>
                     <div class="form-group field-pages-<?= $item['key'] ?>">
                         <label class="control-label" for="pages-<?= $item['key'] ?>">Описание</label>
-                        <textarea id="pages-<?= $item['key'] ?>" class="form-control" name="Pages[<?= $item['key'] ?>]"
+                        <textarea id="pages-<?= $item['key'] ?>" class="form-control tinymce" name="Pages[<?= $item['key'] ?>]"
                                   rows="6"><?= $item['title'] ?></textarea>
                     </div>
                 <?php } ?>
@@ -62,7 +62,7 @@ use yii\widgets\ActiveForm;
 
 
     <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

@@ -5,10 +5,10 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\Pages */
 
-$this->title = 'Update Pages: {nameAttribute}';
-$this->params['breadcrumbs'][] = ['label' => 'Pages', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->title, 'url' => ['view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = 'Update';
+$this->title = 'Редактирование страницы: ' . $model->title;
+$this->params['breadcrumbs'][] = ['label' => 'Страницы', 'url' => ['admin/pages']];
+$this->params['breadcrumbs'][] = ['label' => $model->title, 'url' => ['admin/pages-view', 'id' => $model->id]];
+$this->params['breadcrumbs'][] = 'Редактировать';
 ?>
 <div class="pages-update">
 

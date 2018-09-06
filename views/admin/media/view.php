@@ -6,8 +6,8 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model app\models\Media */
 
-$this->title = $model->name;
-$this->params['breadcrumbs'][] = ['label' => 'Media', 'url' => ['index']];
+$this->title = $model->title;
+$this->params['breadcrumbs'][] = ['label' => 'Медиа', 'url' => ['admin/media']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="media-view">
@@ -15,11 +15,11 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->id], [
+        <?= Html::a('Обновить', ['admin/media-update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Удалить', ['admin/media-delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
+                'confirm' => 'Уверенны что хотите удалить запись?',
                 'method' => 'post',
             ],
         ]) ?>
@@ -28,7 +28,14 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'id',
+            //'id',
+            [
+                'attribute'=>'name',
+                'label'=>'Изображение',
+                'format'=>'raw',
+                'value'=>function($data) {
+                    return '<img src="'.$data->getImageOfSize(450,450).'">';
+                }],
             'name',
             'title',
             'alt',

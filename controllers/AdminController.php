@@ -10,6 +10,7 @@ namespace app\controllers;
 
 
 use app\models\LoginForm;
+use app\models\Media;
 use app\models\MediaSearch;
 use Yii;
 use yii\web\Controller;
@@ -146,7 +147,7 @@ class AdminController extends Controller
             $model = $this->findMediaModel($id);
 
             if ($model->load(Yii::$app->request->post()) && $model->save()) {
-                return $this->redirect(['media/view', 'id' => $model->id]);
+                return $this->redirect(['admin/media-view', 'id' => $model->id]);
             }
 
             return $this->render('media/update', [
@@ -158,7 +159,7 @@ class AdminController extends Controller
         {
             $this->findMediaModel($id)->delete();
 
-            return $this->redirect(['media/index']);
+            return $this->redirect(['admin/media']);
         }
 
         protected function findMediaModel($id)

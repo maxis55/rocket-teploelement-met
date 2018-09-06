@@ -47,8 +47,8 @@ class Media extends ActiveRecord
     {
         return [
             'id' => 'ID',
-            'name' => 'Name',
-            'title' => 'Название',
+            'name' => 'Имя файла',
+            'title' => 'Название изображения',
             'alt' => 'Alt изображения',
         ];
     }

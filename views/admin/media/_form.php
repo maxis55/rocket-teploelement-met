@@ -12,7 +12,9 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
+    <?//= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
+
+    <img src="<?= $model->getImageOfSize(600, 600)?>" />
 
     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
 
