@@ -21,6 +21,16 @@
                             ['label' => 'Добавить', 'icon' => 'file', 'url' => ['/admin/pages-create'],],
                         ],
                     ],
+                    [
+                        'label' => 'Категории',
+                        'icon' => 'folder-open',
+                        'url' => '#',
+                        'items' => [
+                            ['label' => 'Просмотреть', 'icon' => 'eye', 'url' => ['/admin/categories'],],
+                            ['label' => 'Добавить', 'icon' => 'file', 'url' => ['/admin/category-create'],],
+                        ],
+                    ],
+
                     ['label' => 'Медиа', 'icon' => 'image', 'url' => ['/admin/media']],
                     ['label' => 'Login', 'url' => ['/admin/login'], 'visible' => Yii::$app->user->isGuest],
                     [

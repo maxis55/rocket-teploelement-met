@@ -111,6 +111,14 @@ class Category extends ActiveRecord
             ->all();
     }
 
+    public static function getCategoryByParent($parent=null,$params=['name', 'slug', 'id']){
+                return Category::find()
+                    ->select($params)
+                    ->where(['parent' => $parent])
+                    ->indexBy('id')
+                    ->all();
+    }
+
 
 
 }

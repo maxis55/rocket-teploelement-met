@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\CategorySearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Categories';
+$this->title = 'Категории';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="category-index">
@@ -16,7 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Category', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Создать категорию', ['category-create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([
@@ -25,7 +25,6 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
             'slug',
             'parent',
             'name',
@@ -33,7 +32,32 @@ $this->params['breadcrumbs'][] = $this->title;
             //'content:ntext',
             //'media',
 
-            ['class' => 'yii\grid\ActionColumn'],
+            ['class' => 'yii\grid\ActionColumn',
+                'template' => '{view}{update}{delete}',
+                'buttons' => [
+                    'view' => function ($url, $model) {
+                        return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', $url, [
+                            'title' => Yii::t('app', 'Просмотреть'),
+                        ]);
+                    },
+                    'update' => function ($url, $model) {
+                        return Html::a('<span class="glyphicon glyphicon-pencil"></span>', $url, [
+                            'title' => Yii::t('app', 'Редактировать'),
+                        ]);
+                    },
+                    'delete' => function ($url, $model) {
+                        if(null==$model->parent) {
+                            return false;
+                        }
+                        return Html::a('<span class="glyphicon glyphicon-trash"></span>', $url, [
+                            'title' => Yii::t('app', 'Удалить'),
+                        ]);
+                    }
+                ],
+                'urlCreator' => function ($action, $model, $key, $index) {
+                    return '/admin/category-' . $action . '?id=' . $key;
+                }
+            ],
         ],
     ]); ?>
 </div>

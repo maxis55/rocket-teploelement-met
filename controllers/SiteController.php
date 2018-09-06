@@ -44,7 +44,7 @@ class SiteController extends Controller
             'options' => ['class' => 'menu'],
         ]);
         //categories
-        $categories = Category::find()->select(['name', 'slug', 'id'])->where(['parent' => null])->indexBy('id')->all();
+        $categories = Category::getCategoryByParent(null);
         $this->view->params['categories'] = $categories;
 
         return parent::beforeAction($action);
@@ -167,7 +167,6 @@ class SiteController extends Controller
                     'label' => $subcategory['name'],
                     'url' => Url::toRoute(['catalog-subcategory', 'category_slug' => $category_slug, 'subcategory_slug' => $subcategory_slug])
                 ];
-
             $subsubcategory = Category::getCategory($subsubcategory_slug, ['category.name', 'category.content']);
             $this->view->params['breadcrumbs'][] = $subsubcategory['name'];
 

@@ -3,6 +3,41 @@ namespace app\models;
 use yii\db\ActiveRecord;
 class News extends ActiveRecord{
 
+    /**
+     * @inheritdoc
+     */
+    public static function tableName()
+    {
+        return 'news';
+    }
+    public function rules()
+    {
+        return [
+            [['name', 'content', 'shortdesc', 'slug'], 'required'],
+            [['content'], 'string'],
+            [['date'], 'safe'],
+            [['media_id'], 'integer'],
+            [['name', 'shortdesc'], 'string', 'max' => 255],
+            [['slug'], 'string', 'max' => 20],
+            [['slug'], 'unique'],
+        ];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function attributeLabels()
+    {
+        return [
+            'id' => 'ID',
+            'name' => 'Название',
+            'content' => 'Контент',
+            'date' => 'Дата',
+            'shortdesc' => 'Краткое описание',
+            'slug' => 'Slug',
+            'media_id' => 'Изображение',
+        ];
+    }
 
     /**
      * First group of news for news archive page

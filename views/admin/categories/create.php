@@ -5,17 +5,20 @@ use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Category */
+/** @var app\models\Category $parentCategories */
 
-$this->title = 'Create Category';
-$this->params['breadcrumbs'][] = ['label' => 'Categories', 'url' => ['index']];
+$this->title = 'Создать категорию';
+$this->params['breadcrumbs'][] = ['label' => 'Категории', 'url' => ['categories']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="category-create">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <?= $this->render('_form', [
+    <?=
+    $this->render('_form', [
         'model' => $model,
+        'parentCategories' => $parentCategories,
     ]) ?>
 
 </div>

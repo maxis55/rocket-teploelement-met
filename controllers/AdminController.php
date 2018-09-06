@@ -15,6 +15,8 @@ use app\assets\AdminAsset;
 use app\models\LoginForm;
 use app\models\Media;
 use app\models\MediaSearch;
+use app\models\News;
+use app\models\NewsSearch;
 use app\models\Pagesmeta;
 use Yii;
 use yii\filters\AccessControl;
@@ -37,11 +39,10 @@ class AdminController extends Controller
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['login', 'error'],
                         'allow' => true,
+                        'actions' => ['login'],
                     ],
                     [
-                        'actions' => ['logout', 'index'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -81,7 +82,7 @@ class AdminController extends Controller
         $searchModel = new CategorySearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-        return $this->render('index', [
+        return $this->render('categories/index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
@@ -113,8 +114,12 @@ class AdminController extends Controller
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
+        $parentCategories= Category::getCategoryByParent(null);
+
+
         return $this->render('categories/create', [
             'model' => $model,
+            'parentCategories' => $parentCategories,
         ]);
     }
 
@@ -130,11 +135,13 @@ class AdminController extends Controller
         $model = $this->findCategoryModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['categories/view', 'id' => $model->id]);
+            return $this->redirect(['admin/category-view', 'id' => $model->id]);
         }
+        $parentCategories= Category::getCategoryByParent(null);
 
         return $this->render('categories/update', [
             'model' => $model,
+            'parentCategories' => $parentCategories,
         ]);
     }
 
@@ -172,10 +179,6 @@ class AdminController extends Controller
     }
 
 
-
-
-
-
     /**
      * Login action.
      *
@@ -195,6 +198,7 @@ class AdminController extends Controller
         ]);
 
     }
+
     /**
      * Logout action.
      *
@@ -209,169 +213,325 @@ class AdminController extends Controller
 
     //pages actions
 
-        public function actionPages()
-        {
-            $searchModel = new PagesSearch();
-            $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+    public function actionPages()
+    {
+        $searchModel = new PagesSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-            return $this->render('pages/index', [
-                'searchModel' => $searchModel,
-                'dataProvider' => $dataProvider,
-            ]);
+        return $this->render('pages/index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
+    /**
+     * @param $id
+     * @return string
+     * @throws NotFoundHttpException
+     */
+    public function actionPagesView($id)
+    {
+        return $this->render('pages/view', [
+            'model' => $this->findPagesModel($id),
+        ]);
+    }
+
+    public function actionPagesCreate()
+    {
+        $model = new Pages();
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['admin/pages-view', 'id' => $model->id]);
         }
 
-        public function actionPagesView($id)
-        {
-            return $this->render('pages/view', [
-                'model' => $this->findPagesModel($id),
-            ]);
-        }
+        return $this->render('pages/create', [
+            'model' => $model,
+        ]);
+    }
 
-        public function actionPagesCreate()
-        {
-            $model = new Pages();
+    /**
+     * @param $id
+     * @return string|\yii\web\Response
+     * @throws NotFoundHttpException
+     */
+    public function actionPagesUpdate($id)
+    {
+        $model = $this->findPagesModel($id);
 
-            if ($model->load(Yii::$app->request->post()) && $model->save()) {
-                return $this->redirect(['admin/pages-view', 'id' => $model->id]);
+        if (Yii::$app->request->isPost) {
+            $post = Yii::$app->request->post('Pages');
+            $meta = Pagesmeta::find()->where(['=', 'page_id', $id])->all();
+            foreach ($meta as $single_meta) {
+                $single_meta->value = $post[$single_meta->key];
+                $single_meta->save();
             }
-
-            return $this->render('pages/create', [
-                'model' => $model,
-            ]);
         }
 
-        public function actionPagesUpdate($id)
-        {
-            $model = $this->findPagesModel($id);
-
-            if(Yii::$app->request->isPost){
-                $post = Yii::$app->request->post('Pages');
-                $meta = Pagesmeta::find()->where(['=', 'page_id', $id])->all();
-                foreach ($meta as $single_meta){
-                    $single_meta->value = $post[$single_meta->key];
-                    $single_meta->save();
-                }
-            }
-
-            if ($model->load(Yii::$app->request->post()) && $model->save()) {
-                return $this->redirect(['admin/pages-view', 'id' => $model->id]);
-            }
-
-            return $this->render('pages/update', [
-                'model' => $model,
-            ]);
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['admin/pages-view', 'id' => $model->id]);
         }
 
-        public function actionPagesDelete($id)
-        {
-            $this->findPagesModel($id)->delete();
+        return $this->render('pages/update', [
+            'model' => $model,
+        ]);
+    }
 
-            return $this->redirect(['admin/pages']);
+    /**
+     * @param $id
+     * @return \yii\web\Response
+     * @throws NotFoundHttpException
+     * @throws \Exception
+     * @throws \Throwable
+     * @throws \yii\db\StaleObjectException
+     */
+    public function actionPagesDelete($id)
+    {
+        $this->findPagesModel($id)->delete();
+
+        return $this->redirect(['admin/pages']);
+    }
+
+    /**
+     * @param $id
+     * @return null|static
+     * @throws NotFoundHttpException
+     */
+    protected function findPagesModel($id)
+    {
+        if (($model = Pages::findOne($id)) !== null) {
+            return $model;
         }
 
-        protected function findPagesModel($id)
-        {
-            if (($model = Pages::findOne($id)) !== null) {
-                return $model;
-            }
-
-            throw new NotFoundHttpException('The requested page does not exist.');
-        }
+        throw new NotFoundHttpException('The requested page does not exist.');
+    }
 
     //pages actions end
 
     //media actions
 
-        public function actionMedia()
-        {
-            if(yii::$app->request->isPost){
-                $model = new Media();
-
-                $files = UploadedFile::getInstances($model,'images');
-                foreach ($files as $obj){
-
-                    $name = md5(time() . $obj->name) . '.' . pathinfo($obj->name, PATHINFO_EXTENSION);
-                    if( $obj->saveAs( Yii::getAlias('@web') . 'uploads/images/' . $name ) )
-                    {
-
-                        $image = new Media();
-                        $image->name = $name;
-                        $image->title = $obj->name;
-                        $image->alt = '';
-
-                        $image->save();
-
-                    }
-                }
-            }
-
-            $searchModel = new MediaSearch();
-            $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
-            return $this->render('media/index', [
-                'searchModel' => $searchModel,
-                'dataProvider' => $dataProvider,
-            ]);
-        }
-
-        public function actionMediaView($id)
-        {
-            return $this->render('media/view', [
-                'model' => $this->findMediaModel($id),
-            ]);
-        }
-
-        public function actionMediaCreate()
-        {
+    public function actionMedia()
+    {
+        if (yii::$app->request->isPost) {
             $model = new Media();
 
-            if ($model->load(Yii::$app->request->post()) && $model->save()) {
-                return $this->redirect(['media/view', 'id' => $model->id]);
+            $files = UploadedFile::getInstances($model, 'images');
+            foreach ($files as $obj) {
+
+                $name = md5(time() . $obj->name) . '.' . pathinfo($obj->name, PATHINFO_EXTENSION);
+                if ($obj->saveAs(Yii::getAlias('@web') . 'uploads/images/' . $name)) {
+
+                    $image = new Media();
+                    $image->name = $name;
+                    $image->title = $obj->name;
+                    $image->alt = '';
+
+                    $image->save();
+
+                }
             }
-
-            return $this->render('media/create', [
-                'model' => $model,
-            ]);
         }
 
-        public function actionMediaUpdate($id)
-        {
-            $model = $this->findMediaModel($id);
+        $searchModel = new MediaSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-            if ($model->load(Yii::$app->request->post()) && $model->save()) {
-                return $this->redirect(['admin/media-view', 'id' => $model->id]);
-            }
+        return $this->render('media/index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
 
-            return $this->render('media/update', [
-                'model' => $model,
-            ]);
+    /**
+     * @param $id
+     * @return string
+     * @throws NotFoundHttpException
+     */
+    public function actionMediaView($id)
+    {
+        return $this->render('media/view', [
+            'model' => $this->findMediaModel($id),
+        ]);
+    }
+
+    public function actionMediaCreate()
+    {
+        $model = new Media();
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['media/view', 'id' => $model->id]);
         }
 
-        public function actionMediaDelete($id)
-        {
-            $this->findMediaModel($id)->delete();
+        return $this->render('media/create', [
+            'model' => $model,
+        ]);
+    }
 
-            return $this->redirect(['admin/media']);
+    /**
+     * @param $id
+     * @return string|\yii\web\Response
+     * @throws NotFoundHttpException
+     */
+    public function actionMediaUpdate($id)
+    {
+        $model = $this->findMediaModel($id);
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['admin/media-view', 'id' => $model->id]);
         }
 
-        public function actionMediaLibrary()
-        {
-            $data = yii::$app->request->post();
-            $counter = $data['counter'];
-            return Media::getImagesLibrary($counter);
+        return $this->render('media/update', [
+            'model' => $model,
+        ]);
+    }
+
+    /**
+     * @param $id
+     * @return \yii\web\Response
+     * @throws NotFoundHttpException
+     * @throws \Exception
+     * @throws \Throwable
+     * @throws \yii\db\StaleObjectException
+     */
+    public function actionMediaDelete($id)
+    {
+        $this->findMediaModel($id)->delete();
+
+        return $this->redirect(['admin/media']);
+    }
+
+    public function actionMediaLibrary()
+    {
+        $data = yii::$app->request->post();
+        $counter = $data['counter'];
+        return Media::getImagesLibrary($counter);
+    }
+
+    /**
+     * @param $id
+     * @return null|static
+     * @throws NotFoundHttpException
+     */
+    protected function findMediaModel($id)
+    {
+        if (($model = Media::findOne($id)) !== null) {
+            return $model;
         }
 
-        protected function findMediaModel($id)
-        {
-            if (($model = Media::findOne($id)) !== null) {
-                return $model;
-            }
-
-            throw new NotFoundHttpException('The requested page does not exist.');
-        }
-
+        throw new NotFoundHttpException('The requested page does not exist.');
+    }
 
 
     //media actions end
+
+
+
+
+    /**
+     * Lists all News models.
+     * @return mixed
+     */
+    public function actionNews()
+    {
+        $searchModel = new NewsSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        return $this->render('news/index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
+    /**
+     * Displays a single News model.
+     * @param integer $id
+     * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    public function actionNewsView($id)
+    {
+        return $this->render('news/view', [
+            'model' => $this->findModel($id),
+        ]);
+    }
+
+    /**
+     * Creates a new News model.
+     * If creation is successful, the browser will be redirected to the 'view' page.
+     * @return mixed
+     */
+    public function actionNewsCreate()
+    {
+        $model = new News();
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['view', 'id' => $model->id]);
+        }
+
+        return $this->render('news/create', [
+            'model' => $model,
+        ]);
+    }
+
+    /**
+     * Updates an existing News model.
+     * If update is successful, the browser will be redirected to the 'view' page.
+     * @param integer $id
+     * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    public function actionNewsUpdate($id)
+    {
+        $model = $this->findModel($id);
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['admin/news-view', 'id' => $model->id]);
+        }
+
+        return $this->render('news/update', [
+            'model' => $model,
+        ]);
+    }
+
+    /**
+     * Deletes an existing News model.
+     * If deletion is successful, the browser will be redirected to the 'index' page.
+     * @param integer $id
+     * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    public function actionNewsDelete($id)
+    {
+        $this->findNewsModel($id)->delete();
+
+        return $this->redirect(['admin/news']);
+    }
+
+    /**
+     * Finds the News model based on its primary key value.
+     * If the model is not found, a 404 HTTP exception will be thrown.
+     * @param integer $id
+     * @return News the loaded model
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    protected function findNewsModel($id)
+    {
+        if (($model = News::findOne($id)) !== null) {
+            return $model;
+        }
+
+        throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 }
