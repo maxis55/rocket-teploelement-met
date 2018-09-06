@@ -5,6 +5,7 @@ namespace app\controllers;
 use app\models\Category;
 use app\models\News;
 use Yii;
+use yii\helpers\Url;
 use yii\web\Controller;
 use yii\widgets\Menu;
 use app\models\Settings;
@@ -31,24 +32,23 @@ class SiteController extends Controller
 
         // footer navigation
         $this->view->params['footer_nav'] = Menu::widget([
-            'items' =>$this->view->params['cross_pages_data']['footer_menu'],
-            'options'=>['class'=>'menu'],
+            'items' => $this->view->params['cross_pages_data']['footer_menu'],
+            'options' => ['class' => 'menu'],
         ]);
 
 
         // header navigation
         $this->view->params['header_nav'] = Menu::widget([
-            'items' =>$this->view->params['cross_pages_data']['header_menu'],
+            'items' => $this->view->params['cross_pages_data']['header_menu'],
             'submenuTemplate' => "\n<ul class='sub_menu'>\n{items}\n</ul>\n",
-            'options'=>['class'=>'menu'],
+            'options' => ['class' => 'menu'],
         ]);
         //categories
-        $categories=Category::find()->select(['name','slug','id'])->where(['parent'=>null])->indexBy('id')->all();
+        $categories = Category::find()->select(['name', 'slug', 'id'])->where(['parent' => null])->indexBy('id')->all();
         $this->view->params['categories'] = $categories;
 
         return parent::beforeAction($action);
     }
-
 
 
     /**
@@ -64,7 +64,6 @@ class SiteController extends Controller
     }
 
 
-
     /**
      * Displays homepage.
      */
@@ -74,7 +73,7 @@ class SiteController extends Controller
         $news_slider = News::getFirstArchiveNews();
         $page_content = Pagesmeta::getFrontPageMeta('index');
 
-        return $this->render('index',['news_slider'=>$news_slider, 'page_content' => $page_content]);
+        return $this->render('index', ['news_slider' => $news_slider, 'page_content' => $page_content]);
     }
 
     /**
@@ -85,8 +84,10 @@ class SiteController extends Controller
     public function actionNews()
     {
         $news = News::getFirstArchiveNews();
-        return $this->render('news', compact('news'));
+        $this->view->params['breadcrumbs'][] = 'Новости';
+        return $this->render('news', ['news' => $news]);
     }
+
     /**
      * Displays single news page.
      * @param string $slug
@@ -95,7 +96,9 @@ class SiteController extends Controller
     public function actionNewsPage($slug)
     {
         $news = News::getSingleNews($slug);
-        return $this->render('news-page', ['news'=>$news]);
+        $this->view->params['breadcrumbs'][] = ['label' => 'Новости', 'url' => Url::toRoute(['site/news'])];
+        $this->view->params['breadcrumbs'][] = $news['name'];
+        return $this->render('news-page', ['news' => $news]);
     }
 
     /**
@@ -105,9 +108,9 @@ class SiteController extends Controller
     {
         $this->view->params['map'] = [55, 55];
         $page_content = Pagesmeta::getFrontPageMeta('contacts');
+        $this->view->params['breadcrumbs'][] = 'Контакты';
         return $this->render('contact', compact('page_content'));
     }
-
 
 
     /**
@@ -116,54 +119,67 @@ class SiteController extends Controller
     public function actionDelivery()
     {
         $page_content = Pagesmeta::getFrontPageMeta('delivery');
+        $this->view->params['breadcrumbs'][] = 'Доставка';
         return $this->render('delivery', compact('page_content'));
     }
 
 
-
-
     /**
      * Displays catalog category page.
-     * @param $category
+     * @param $category_slug
      * @return string
      */
-    public function actionCatalogCategory($category)
+    public function actionCatalogCategory($category_slug)
     {
-        $slug = $category;
-        $category = Category::getCategory($slug);
-        $subCategory = Category::getSubCategory($category['id']);
+        $category = Category::getCategory($category_slug);
+        $subCategory = Category::getSubCategory($category['id'],['category.name','category.slug','category.shortdesc']);
 
-        return $this->render('category', compact('category','subCategory','slug'));
+        $this->view->params['breadcrumbs'][] = $category['name'];
+
+        return $this->render('category', compact('category', 'subCategory'));
     }
 
 
     /**
      * Displays catalog subcategory and sub-subcategory page.
-     * @param $category
-     * @param $subcategory
-     * @param null $subsubcategory
+     * @param $category_slug
+     * @param $subcategory_slug
+     * @param null $subsubcategory_slug
      * @return string
      */
-    public function actionCatalogSubcategory($category, $subcategory, $subsubcategory=null)
+    public function actionCatalogSubcategory($category_slug, $subcategory_slug, $subsubcategory_slug = null)
     {
-        $slug = $category;
 
-        // category data
-        if ($subsubcategory) $category = Category::getCategory($subsubcategory);
-        else $category = Category::getCategory($subcategory);
+        $first_category = Category::getCategory($category_slug, ['category.name']);
 
-        // breadcrumbs data
-        $breadcrumbs = [['cat',$slug]];
-        if ($subsubcategory) $breadcrumbs[] = ['sub',$subcategory];
+        $this->view->params['breadcrumbs'][] =
+            [
+                'label' => $first_category['name'],
+                'url' => Url::toRoute(['catalog-category', 'category_slug' => $category_slug])
+            ];
 
-        return $this->render('sub_category', compact('category','slug','breadcrumbs'));
+        // category & breadcrumbs data
+        if (null != $subsubcategory_slug) {
+
+            $subcategory = Category::getCategory($subcategory_slug, ['category.name']);
+            $this->view->params['breadcrumbs'][] =
+                [
+                    'label' => $subcategory['name'],
+                    'url' => Url::toRoute(['catalog-subcategory', 'category_slug' => $category_slug, 'subcategory_slug' => $subcategory_slug])
+                ];
+
+            $subsubcategory = Category::getCategory($subsubcategory_slug, ['category.name', 'category.content']);
+            $this->view->params['breadcrumbs'][] = $subsubcategory['name'];
+
+            return $this->render('sub_category', ['category' => $subsubcategory, 'category_slug' => $category_slug]);
+        } else {
+            $subcategory = Category::getCategory($subcategory_slug, ['category.name', 'category.content']);
+            $this->view->params['breadcrumbs'][] = $subcategory['name'];
+
+            return $this->render('sub_category', ['category' => $subcategory, 'category_slug' => $category_slug]);
+        }
+
     }
-
-
-
-
-
-
 
 
 }

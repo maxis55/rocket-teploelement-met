@@ -59,7 +59,7 @@ use yii\helpers\Url;
         
         </div>
     </div>
-    <?php include('contact_form.php'); ?>
+    <?= $this->render('contact_form.php') ?>
     <section>
         <div class="main_news_bl">
             <div class="container">

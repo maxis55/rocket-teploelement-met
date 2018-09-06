@@ -50,7 +50,9 @@ $config = [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
-                'catalog/<category>' => 'site/catalog-category',
+                'catalog/<category_slug>/<subcategory_slug>/<subsubcategory_slug>' => 'site/catalog-subcategory',
+                'catalog/<category_slug>/<subcategory_slug>' => 'site/catalog-subcategory',
+                'catalog/<category_slug>' => 'site/catalog-category',
                 'news/<slug>' => 'site/news-page',
                 '<action>' => 'site/<action>',
             ],

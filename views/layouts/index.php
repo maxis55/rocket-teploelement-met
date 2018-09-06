@@ -86,7 +86,7 @@ AppAsset::register($this);
 		</div>
 	</header>
 <!--HEADER END-->
-    <?= $this->render('@app/views/site/categories_template.php') ?>
+    <?= $this->render('@app/views/site/categories_breadcrumbs_template.php') ?>
 
 	<?= $content ?>
 

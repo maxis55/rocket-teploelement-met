@@ -1,7 +1,32 @@
 <?php use yii\helpers\Url;
+use yii\widgets\Breadcrumbs;
 
 $all_categories = array_values($this->params['categories']); ?>
 <div class="catalog_bl">
+<?php if (isset($this->params['breadcrumbs'])): ?>
+    <div class="breadcrumbs_box">
+        <div class="container">
+            <div class="container_inner">
+                <?=
+                Breadcrumbs::widget([
+                    'options' => [
+                        'class' => 'breadcrumbs'
+                    ],
+                    'itemTemplate' => "<li>{link} /</li>",
+                    'homeLink' => [
+                        'label' => Yii::t('yii', 'Главная'),
+                        'url' => Yii::$app->homeUrl,
+                        'class'=>'breadcrumbs_main'
+                    ],
+                    'activeItemTemplate' => "<li><span class='breadcrumbs_current'>{link}</span></li>\n",
+                    'class'=>'somey',
+                    'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+                ])
+                ?>
+            </div>
+        </div>
+    </div>
+<?php endif; ?>
     <div class="container">
         <div class="container_inner">
 
@@ -19,17 +44,17 @@ $all_categories = array_values($this->params['categories']); ?>
                                 <div class="header_supply_img">
                                 </div>
                                 <?php if (null == $all_categories[$i]->categories): ?>
-                                    <a href="<?= Url::toRoute(['site/catalog-category', 'category' => $all_categories[$i]->slug]) ?>"
+                                    <a href="<?= Url::toRoute(['site/catalog-category', 'category_slug' => $all_categories[$i]->slug]) ?>"
                                        class="categories_name"><?= $all_categories[$i]->name; ?></a>
                                 <?php else: ?>
                                     <div class="categories_open">
-                                        <a href="<?= Url::toRoute(['site/catalog-category', 'category' => $all_categories[$i]->slug]) ?>"
+                                        <a href="<?= Url::toRoute(['site/catalog-category', 'category_slug' => $all_categories[$i]->slug]) ?>"
                                            class="categories_name"><?= $all_categories[$i]->name; ?></a>
                                         <div class="categories">
                                             <ul class="submenu">
                                                 <?php foreach ($all_categories[$i]->categories as $subcategory): ?>
                                                     <li>
-                                                        <a href="<?= Url::toRoute(['site/catalog-subcategory', 'category' => $all_categories[$i]->slug, 'subcategory' => $subcategory->slug]) ?>"
+                                                        <a href="<?= Url::toRoute(['site/catalog-subcategory', 'category_slug' => $all_categories[$i]->slug, 'subcategory_slug' => $subcategory->slug]) ?>"
                                                             <?= null != $subcategory->categories ? 'class="submenu_lk"' : ''; ?> >
                                                             <?= $subcategory->name; ?>
                                                         </a>
@@ -37,7 +62,7 @@ $all_categories = array_values($this->params['categories']); ?>
                                                             <ul class="submenu2">
                                                                 <?php foreach ($subcategory->categories as $subsubcategory): ?>
                                                                     <li>
-                                                                        <a href="<?= Url::toRoute(['site/catalog-subcategory', 'category' => $all_categories[$i]->slug, 'subcategory' => $subcategory->slug, 'subsubcategory' => $subsubcategory->slug]); ?>">
+                                                                        <a href="<?= Url::toRoute(['site/catalog-subcategory', 'category_slug' => $all_categories[$i]->slug, 'subcategory_slug' => $subcategory->slug, 'subsubcategory_slug' => $subsubcategory->slug]); ?>">
                                                                             <?=$subsubcategory->name;?>
                                                                         </a>
                                                                     </li>

@@ -1,6 +1,7 @@
 
 	<!-- MAIN CONTENT Start-->
-    <?= $this->render('@app/views/site/categories_template.php') ?>
+
+        <?= $this->render('categories_breadcrumbs_template.php') ?>
 
 	<div id="content">
 		<div class="container">

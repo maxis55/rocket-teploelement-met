@@ -1,23 +1,32 @@
 <?php
 use yii\helpers\Url;
+use yii\widgets\Breadcrumbs;
+
 ?>
 
     <!-- MAIN CONTENT Start-->
     <div class="breadcrumbs_bl">
+
         <div class="breadcrumbs_box">
             <div class="container">
                 <div class="container_inner">
-                    <ul class="breadcrumbs">
-                        <li>
-                            <a class="breadcrumbs_main" href="/">Главная</a>/
-                        </li>
-                        <li>
-                            <a class="breadcrumbs_main" href="<?= Url::toRoute(['site/news']) ?>">Новости</a>/
-                        </li>
-                        <li>
-                            <span class="breadcrumbs_current"><?= $news['name'] ?></span>
-                        </li>
-                    </ul>
+                    <?=
+                    Breadcrumbs::widget([
+                        'options' => [
+                            'class' => 'breadcrumbs'
+                        ],
+                        'itemTemplate' => "<li>{link} /</li>",
+                        'homeLink' => [
+                            'label' => Yii::t('yii', 'Главная'),
+                            'url' => Yii::$app->homeUrl,
+                            'class'=>'breadcrumbs_main'
+                        ],
+                        'activeItemTemplate' => "<li><span class='breadcrumbs_current'>{link}</span></li>\n",
+                        'class'=>'somey',
+                        'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+                    ])
+                    ?>
+
                 </div>
             </div>
         </div>

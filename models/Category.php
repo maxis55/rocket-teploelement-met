@@ -78,14 +78,16 @@ class Category extends ActiveRecord
     }
 
 
-
     /**
      * Content for single category
+     * @param $slug
+     * @param array $params
+     * @return array|null|ActiveRecord
      */
-    public static function getCategory($slug){
+    public static function getCategory($slug,$params=['category.id','category.name','category.content','category.slug']){
 
         return Category::find()
-            ->select(['category.id','category.name','category.content'])
+            ->select($params)
 //            ->leftJoin('media', 'category.media = media.id') add after existing media library
             ->where(['category.slug' => $slug])
             ->asArray()
@@ -95,11 +97,14 @@ class Category extends ActiveRecord
 
     /**
      * Content for subcategories
+     * @param $parent
+     * @param array $params
+     * @return array|ActiveRecord[]
      */
-    public static function getSubCategory($parent){
+    public static function getSubCategory($parent, $params=['category.slug','category.name','category.shortdesc']){
 
         return Category::find()
-            ->select(['category.slug','category.name','category.shortdesc'])
+            ->select($params)
 //            ->leftJoin('media', 'category.media = media.id') add after existing media library
             ->where(['category.parent' => $parent])
             ->asArray()
