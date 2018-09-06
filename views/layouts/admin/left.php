@@ -30,9 +30,17 @@
                             ['label' => 'Добавить', 'icon' => 'file', 'url' => ['/admin/category-create'],],
                         ],
                     ],
-
+	                [
+		                'label' => 'Новости',
+		                'icon' => 'newspaper-o',
+		                'url' => '#',
+		                'items' => [
+			                ['label' => 'Просмотреть', 'icon' => 'eye', 'url' => ['/admin/news'],],
+			                ['label' => 'Добавить', 'icon' => 'file', 'url' => ['/admin/news-create'],],
+		                ],
+	                ],
                     ['label' => 'Медиа', 'icon' => 'image', 'url' => ['/admin/media']],
-                    ['label' => 'Новости', 'icon' => 'newspaper-o', 'url' => ['/admin/news']],
+	                ['label' => 'Настройки', 'icon' => 'gear', 'url' => ['/admin/settings']],
                     ['label' => 'Login', 'url' => ['/admin/login'], 'visible' => Yii::$app->user->isGuest],
                     [
                         'label' => 'Some tools',

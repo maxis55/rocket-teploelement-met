@@ -3,6 +3,7 @@
 use app\models\Media;
 use app\models\Pagesmeta;
 use yii\helpers\Html;
+use yii\helpers\Url;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
@@ -44,15 +45,15 @@ $this->params['breadcrumbs'][] = $this->title;
         $data = Pagesmeta::getFrontPageMeta($model->slug, true);
 
         if (!empty($data)) { ?>
-            <table id="w0" class="table table-striped table-bordered detail-view">
+            <table id="w1" class="table table-striped table-bordered detail-view">
                 <tbody>
                     <?php foreach ($data as $item) { ?>
                         <tr>
                             <th><?= $item['title'] ?></th>
                             <td><?php if(($item['type'] == 'media')&&($item['value']!='')) {
-                                echo '<img src="'.Media::findById($item['value'])->getImageOfSize(450, 450).'">';
+                                 echo Html::img(Media::findById($item['value'])->getImageOfSize(450, 450), ['alt'=>'img']);
                             }else{
-                                $item['value'];
+                                echo $item['value'];
                             }?></td>
                         </tr>
                     <?php } ?>

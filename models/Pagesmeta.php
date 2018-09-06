@@ -54,10 +54,10 @@ class Pagesmeta extends \yii\db\ActiveRecord
     static function getFrontPageMeta($slug, $admin = false)
     {
         $page = Pages::find()->where(['slug' => $slug])->one();
-        $page_id = $page->id;
+
 
         $json_settings=array('json');
-        $global_settings=self::find()->select(['key', 'value', 'title', 'type'])->where(['=', 'page_id', $page_id])->asArray()->all();
+        $global_settings=self::find()->select(['key', 'value', 'title', 'type'])->where(['=', 'page_id', $page->id])->asArray()->all();
 
         foreach ($global_settings as $key=>$global_setting){
             if(in_array($global_settings[$key]['type'],$json_settings)){
@@ -65,7 +65,7 @@ class Pagesmeta extends \yii\db\ActiveRecord
             }
         }
 
-        if($admin == true)
+        if($admin)
         {
             return $global_settings;
         }

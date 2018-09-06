@@ -6,6 +6,7 @@ use Imagine\Image\Box;
 use Yii;
 use yii\db\ActiveRecord;
 use yii\imagine\Image;
+use yii\web\NotFoundHttpException;
 use yii\web\Response;
 use yii\web\UploadedFile;
 

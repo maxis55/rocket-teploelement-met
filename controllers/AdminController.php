@@ -18,6 +18,7 @@ use app\models\MediaSearch;
 use app\models\News;
 use app\models\NewsSearch;
 use app\models\Pagesmeta;
+use app\models\Settings;
 use Yii;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
@@ -420,7 +421,7 @@ class AdminController extends Controller
     public function actionNewsView($id)
     {
         return $this->render('news/view', [
-            'model' => $this->findModel($id),
+            'model' => $this->findNewsModel($id),
         ]);
     }
 
@@ -497,7 +498,31 @@ class AdminController extends Controller
 
 
 
+	/**
+	 * Lists all Settings models.
+	 * @return mixed
+	 * @throws NotFoundHttpException
+	 */
+	public function actionSettings()
+	{
 
+
+		$data = Yii::$app->request->post();
+
+//		if ($data) {
+//			foreach ($fieldsArray as $field) {
+//				$tempModel = $this->findModel($field);
+//				if (null != $tempModel) {
+//					$tempModel->value = $data[$field];
+//					$tempModel->save();
+//				}
+//			}
+//		}
+		$meta = Settings::getCrossPagesData(['key','value','type','title'],true);
+		return $this->render('settings/view', [
+			'meta' => $meta
+		]);
+	}
 
 
 
