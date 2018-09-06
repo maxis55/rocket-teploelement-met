@@ -179,37 +179,7 @@ class AdminController extends Controller
     }
 
 
-    /**
-     * Login action.
-     *
-     * @return string
-     */
-    public function actionLogin()
-    {
 
-        $model = new LoginForm();
-        if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            return $this->goBack();
-        }
-
-        $model->password = '';
-        return $this->render('login', [
-            'model' => $model,
-        ]);
-
-    }
-
-    /**
-     * Logout action.
-     *
-     * @return string
-     */
-    public function actionLogout()
-    {
-        Yii::$app->user->logout();
-
-        return $this->goHome();
-    }
 
     //pages actions
 
@@ -291,11 +261,12 @@ class AdminController extends Controller
         return $this->redirect(['admin/pages']);
     }
 
-    /**
-     * @param $id
-     * @return null|static
-     * @throws NotFoundHttpException
-     */
+	/**
+	 * @param $id
+	 *
+	 * @return Pages * @throws NotFoundHttpException
+	 * @throws NotFoundHttpException
+	 */
     protected function findPagesModel($id)
     {
         if (($model = Pages::findOne($id)) !== null) {
@@ -424,7 +395,7 @@ class AdminController extends Controller
 
 
 
-
+	//start of "News" block
     /**
      * Lists all News models.
      * @return mixed
@@ -522,6 +493,7 @@ class AdminController extends Controller
     }
 
 
+//end of "News" block
 
 
 
@@ -529,8 +501,37 @@ class AdminController extends Controller
 
 
 
+	/**
+	 * Login action.
+	 *
+	 * @return string
+	 */
+	public function actionLogin()
+	{
 
+		$model = new LoginForm();
+		if ($model->load(Yii::$app->request->post()) && $model->login()) {
+			return $this->goBack();
+		}
 
+		$model->password = '';
+		return $this->render('login', [
+			'model' => $model,
+		]);
+
+	}
+
+	/**
+	 * Logout action.
+	 *
+	 * @return string
+	 */
+	public function actionLogout()
+	{
+		Yii::$app->user->logout();
+
+		return $this->goHome();
+	}
 
 
 
