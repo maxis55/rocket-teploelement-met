@@ -50,6 +50,19 @@ class m180904_111521_update_table_pages extends Migration
             'description' => "описание страницы доставки",
             'slug' => 'delivery'
         ]);
+
+        $this->insert('pages', [
+            'id' => ++$i,
+            'title' => 'Новости',
+            'description' => "новостная страница",
+            'slug' => 'news'
+        ]);
+        $this->insert('pages', [
+            'id' => ++$i,
+            'title' => 'Страница 404',
+            'description' => "страница 404",
+            'slug' => '404'
+        ]);
     }
 
     public function down()

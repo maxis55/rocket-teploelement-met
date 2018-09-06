@@ -31,110 +31,103 @@ class m180904_122004_update_table_pagesmeta extends Migration
 
         $i=0;
 
-        $data = [
-            'title' => 'О компании',
-            'description' => '<p>Компания ООО «ТеплоЭлемент» - соединительные детали трубопровода и арматура, мехобработка изделий по чертежам</p>
+        $this->insert('pagesmeta', [
+            'id' => ++$i,
+            'page_id' => 1,
+            'key' => 'about_title',
+            'title' => 'Название блока',
+            'value' => 'О компании',
+            'type' => 'input'
+        ]);
+        $this->insert('pagesmeta', [
+            'id' => ++$i,
+            'page_id' => 1,
+            'key' => 'about_content',
+            'title' => 'Блок о компании',
+            'value' => '<p>Компания ООО «ТеплоЭлемент» - соединительные детали трубопровода и арматура, мехобработка изделий по чертежам</p>
 						<p>Компания ООО «ТеплоЭлемент» занимается поставками трубопроводной арматуры и соединительных деталей трубопровода для промышленных, химических и нефтегазоперерабатывающих предприятий, теплосетей, водоканалов и тепловых электростанций.</p>
 						<p>Полный ассортимент компании ООО «ТеплоЭлемент» насчитывает более 3000 наименований, что позволяет нашим заказчикам закрывать любые потребности в кратчайшие сроки. </p>',
-            'link' => '#aboutlink'
-        ];
-
-        $this->insert('pagesmeta', [
-            'id' => ++$i,
-            'page_id' => 1,
-            'key' => 'block_about',
-            'title' => 'Блок о компании',
-            'value' => json_encode($data),
-            'type' => 'json'
+            'type' => 'tinyarea'
         ]);
-
-        $data = [
-            'title' => 'Резка металла',
-            'description' => '111 Это пример текста, создан для того, чтобы было понятно, где будет текст. Это пример текста, создан для того, чтобы было понятно, где будет текст.',
-            'link' => '#link1',
-            'image' => '1'
-        ];
-
         $this->insert('pagesmeta', [
             'id' => ++$i,
             'page_id' => 1,
-            'key' => 'block_1',
-            'title' => 'Блок 1',
-            'value' => json_encode($data),
-            'type' => 'json'
-        ]);
-
-        $data = [
-            'title' => 'Сварка металла',
-            'description' => '222 Это пример текста, создан для того, чтобы было понятно, где будет текст. Это пример текста, создан для того, чтобы было понятно, где будет текст.',
-            'link' => '#link2',
-            'image' => '2'
-        ];
-
-        $this->insert('pagesmeta', [
-            'id' => ++$i,
-            'page_id' => 1,
-            'key' => 'block_2',
-            'title' => 'Блок 2',
-            'value' => json_encode($data),
-            'type' => 'json'
-        ]);
-
-        $data = [
-            'title' => 'Изоляция металла',
-            'description' => '333 Это пример текста, создан для того, чтобы было понятно, где будет текст. Это пример текста, создан для того, чтобы было понятно, где будет текст.',
-            'link' => '#link3',
-            'image' => '3'
-        ];
-
-        $this->insert('pagesmeta', [
-            'id' => ++$i,
-            'page_id' => 1,
-            'key' => 'block_3',
-            'title' => 'Блок 3',
-            'value' => json_encode($data),
-            'type' => 'json'
-        ]);
-
-        $data = [
-            'title' => 'Гибка металла',
-            'description' => '444 Это пример текста, создан для того, чтобы было понятно, где будет текст. Это пример текста, создан для того, чтобы было понятно, где будет текст.',
-            'link' => '#link4',
-            'image' => '4'
-        ];
-
-        $this->insert('pagesmeta', [
-            'id' => ++$i,
-            'page_id' => 1,
-            'key' => 'block_4',
-            'title' => 'Блок 4',
-            'value' => json_encode($data),
-            'type' => 'json'
-        ]);
-
-        $data = [
-            'title' => 'Вальцовка металла',
-            'description' => '555 Это пример текста, создан для того, чтобы было понятно, где будет текст. Это пример текста, создан для того, чтобы было понятно, где будет текст.',
-            'link' => '#link5',
-            'image' => '5'
-        ];
-
-        $this->insert('pagesmeta', [
-            'id' => ++$i,
-            'page_id' => 1,
-            'key' => 'block_5',
-            'title' => 'Блок 5',
-            'value' => json_encode($data),
-            'type' => 'json'
+            'key' => 'about_link',
+            'title' => 'ссылка в Подробнее',
+            'value' => '#link',
+            'type' => 'input'
         ]);
 
         $this->insert('pagesmeta', [
             'id' => ++$i,
-            'page_id' => 3,
+            'page_id' => 1,
+            'key' => 'before_5_blocks',
+            'title' => 'Текст перед 5 блоками',
+            'value' => 'Наши услуги',
+            'type' => 'input'
+        ]);
+
+        for ($r=1;$r<=5;$r++){
+            $this->insert('pagesmeta', [
+                'id' => ++$i,
+                'page_id' => 1,
+                'key' => 'block_'.$r.'_title_1',
+                'title' => 'Заголовок черного цвета',
+                'value' => 'Текст 1',
+                'type' => 'input'
+            ]);
+            $this->insert('pagesmeta', [
+                'id' => ++$i,
+                'page_id' => 1,
+                'key' => 'block_'.$r.'_title_2',
+                'title' => 'Заголовок синего цвета',
+                'value' => 'текст 2',
+                'type' => 'input'
+            ]);
+            $this->insert('pagesmeta', [
+                'id' => ++$i,
+                'page_id' => 1,
+                'key' => 'block_'.$r.'_content',
+                'title' => 'Контент',
+                'value' => '
+                    <p>текстовый блок '.$r.' контентная часть</p>
+                ',
+                'type' => 'tinyarea'
+            ]);
+            $this->insert('pagesmeta', [
+                'id' => ++$i,
+                'page_id' => 1,
+                'key' => 'block_'.$r.'_link',
+                'title' => 'Ссылка блока '.$r,
+                'value' => '#link'.$r,
+                'type' => 'input'
+            ]);
+            $this->insert('pagesmeta', [
+                'id' => ++$i,
+                'page_id' => 1,
+                'key' => 'block_'.$r.'_image',
+                'title' => 'Изображение блока '.$r,
+                'value' => $r,
+                'type' => 'media'
+            ]);
+        }
+
+        $this->insert('pagesmeta', [
+            'id' => ++$i,
+            'page_id' => 1,
             'key' => 'main_image',
             'title' => 'Изображение в начале страницы',
             'value' => 1,
             'type' => 'media'
+        ]);
+
+        $this->insert('pagesmeta', [
+            'id' => ++$i,
+            'page_id' => 1,
+            'key' => 'posts_per_page',
+            'title' => 'Количество новостей в слайдере',
+            'value' => 5,
+            'type' => 'input'
         ]);
 
         $this->insert('pagesmeta', [
@@ -262,6 +255,32 @@ class m180904_122004_update_table_pagesmeta extends Migration
             'type' => 'tinyarea'
         ]);
 
+        $this->insert('pagesmeta', [
+            'id' => ++$i,
+            'page_id' => 4,
+            'key' => 'posts_per_page',
+            'title' => 'Количество новостей на странице',
+            'value' => 8,
+            'type' => 'input'
+        ]);
+
+        $this->insert('pagesmeta', [
+            'id' => ++$i,
+            'page_id' => 5,
+            'key' => 'image',
+            'title' => 'Изображение',
+            'value' => 1,
+            'type' => 'media'
+        ]);
+
+        $this->insert('pagesmeta', [
+            'id' => ++$i,
+            'page_id' => 5,
+            'key' => 'text_block',
+            'title' => 'Текст на странице',
+            'value' => 'СТРАНИЦА НЕ НАЙДЕНА',
+            'type' => 'tinyarea'
+        ]);
     }
 
     public function down()

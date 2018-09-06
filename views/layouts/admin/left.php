@@ -13,6 +13,17 @@
                     ['label' => 'Menu Yii2', 'options' => ['class' => 'header']],
                     ['label' => 'Gii', 'icon' => 'file-code-o', 'url' => ['/gii']],
                     [
+                        'label' => 'Страницы',
+                        'icon' => 'file',
+                        'url' => '#',
+                        'items' => [
+                            ['label' => 'Просмотреть', 'icon' => 'eye', 'url' => ['/admin/pages'],],
+                            ['label' => 'Добавить', 'icon' => 'file', 'url' => ['/admin/pages-create'],],
+                        ],
+                    ],
+                    ['label' => 'Медиа', 'icon' => 'image', 'url' => ['/admin/media']],
+                    ['label' => 'Login', 'url' => ['/admin/login'], 'visible' => Yii::$app->user->isGuest],
+                    [
                         'label' => 'Some tools',
                         'icon' => 'share',
                         'url' => '#',

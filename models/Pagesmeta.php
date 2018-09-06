@@ -51,18 +51,23 @@ class Pagesmeta extends \yii\db\ActiveRecord
         ];
     }
 
-    static function getFrontPageMeta($slug)
+    static function getFrontPageMeta($slug, $admin = false)
     {
         $page = Pages::find()->where(['slug' => $slug])->one();
         $page_id = $page->id;
 
         $json_settings=array('json');
-        $global_settings=self::find()->select(['key', 'value', 'type'])->where(['=', 'page_id', $page_id])->asArray()->all();
+        $global_settings=self::find()->select(['key', 'value', 'title', 'type'])->where(['=', 'page_id', $page_id])->asArray()->all();
 
         foreach ($global_settings as $key=>$global_setting){
             if(in_array($global_settings[$key]['type'],$json_settings)){
                 $global_settings[$key]['value']=json_decode($global_settings[$key]['value'],true);
             }
+        }
+
+        if($admin == true)
+        {
+            return $global_settings;
         }
 
         return  ArrayHelper::map($global_settings, 'key', 'value');

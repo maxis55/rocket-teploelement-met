@@ -14,14 +14,17 @@ use yii\web\AssetBundle;
  */
 class AdminAsset extends AssetBundle
 {
-    public $basePath = '@webroot';
-    public $baseUrl = '@web';
+    public $basePath = '@webroot/admin';
+    public $baseUrl = '@web/admin';
     public $css = [
-
+        'css/admin.css',
         'https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic',
     ];
     public $js = [
-
+        'js/admin.js',
+        'js/tinymce/tinymce.min.js',
+        'js/admintiny.js',
+        'js/adminmedia.js',
     ];
     public $depends = [
         'yii\web\JqueryAsset',

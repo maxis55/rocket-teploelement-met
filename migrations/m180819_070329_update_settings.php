@@ -145,6 +145,42 @@ class m180819_070329_update_settings extends Migration
             'title' => "Прайс лист рядом с заявкой",
         ]);
 
+        $this->insert('settings', [
+            'id' => ++$i,
+            'key' => 'before_cats_title',
+            'title' => 'Текст перед категориями',
+            'value' => 'Мы предлагаем',
+            'type' => 'input'
+        ]);
+        $this->insert('settings', [
+            'id' => ++$i,
+            'key' => 'before_cats_left_1',
+            'title' => 'Текст перед левыми категориями черного цвета',
+            'value' => 'Поставки',
+            'type' => 'input'
+        ]);
+        $this->insert('settings', [
+            'id' => ++$i,
+            'key' => 'before_cats_left_2',
+            'title' => 'Текст перед левыми категориями синего цвета',
+            'value' => 'Металлопроката',
+            'type' => 'input'
+        ]);
+        $this->insert('settings', [
+            'id' => ++$i,
+            'key' => 'before_cats_right_1',
+            'title' => 'Текст перед левыми категориями черного цвета',
+            'value' => 'Детали',
+            'type' => 'input'
+        ]);
+        $this->insert('settings', [
+            'id' => ++$i,
+            'key' => 'before_cats_right_2',
+            'title' => 'Текст перед левыми категориями синего цвета',
+            'value' => 'Трубопровода',
+            'type' => 'input'
+        ]);
+
         return true;
     }
 
