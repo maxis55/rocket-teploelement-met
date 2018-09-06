@@ -1,5 +1,6 @@
 <?php
 
+use app\models\Media;
 use app\models\Pagesmeta;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
@@ -39,7 +40,7 @@ use yii\widgets\ActiveForm;
                 <?php } ?>
 
                 <?php if ($item['type'] == 'tinyarea') { ?>
-                    <div class="form-group field-pages-<?= $item['key'] ?>">
+                    <div class="form-group field-pages-<?= $item['key'] ?> field-pages-description">
                         <label class="control-label" for="pages-<?= $item['key'] ?>">Описание</label>
                         <textarea id="pages-<?= $item['key'] ?>" class="form-control tinymce" name="Pages[<?= $item['key'] ?>]"
                                   rows="6"><?= $item['title'] ?></textarea>
@@ -47,9 +48,21 @@ use yii\widgets\ActiveForm;
                 <?php } ?>
 
                 <?php if ($item['type'] == 'media') { ?>
+
+                    <div class="box-item-inner">
+                        <div class="box-img">
+                            <img src="<?php echo Media::findById($item['value'])->getImageOfSize(450, 450); ?>" >
+                            <div class="s-boxbtn">
+                                <button type="button" class="btn btn-block btn-danger">Удалить</button>
+                                <button type="button" class="btn btn-block bg-purple media-open-button">Выбрать/Изменить</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <img src="<?php echo Media::findById($item['value'])->getImageOfSize(450, 450); ?>" >
                     <div class="form-group field-pages-<?= $item['key'] ?> required">
                         <label class="control-label" for="pages-<?= $item['key'] ?>"><?= $item['title'] ?></label>
-                        <input type="text" id="pages-<?= $item['key'] ?>" class="form-control"
+                        <input type="hidden" id="pages-<?= $item['key'] ?>" class="form-control"
                                name="Pages[<?= $item['key'] ?>]" value="<?= $item['value'] ?>" maxlength="50"
                                aria-required="true">
                     </div>

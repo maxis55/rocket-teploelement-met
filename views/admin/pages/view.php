@@ -1,5 +1,6 @@
 <?php
 
+use app\models\Media;
 use app\models\Pagesmeta;
 use yii\helpers\Html;
 use yii\widgets\DetailView;
@@ -31,24 +32,11 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
             'id',
             'title',
-            'description:ntext',
+            'description:html',
             'keywords',
             'slug',
         ],
     ]) ?>
-
-    <table id="w0" class="table table-striped table-bordered detail-view">
-        <tbody>
-        <tr>
-            <th>ID</th>
-            <td>1</td>
-        </tr>
-        <tr><th>Название</th><td>Главная страница</td></tr>
-        <tr><th>Описание</th><td>описание главной страницы</td></tr>
-        <tr><th>Ключевые слова</th><td><span class="not-set">(not set)</span></td></tr>
-        <tr><th>Слаг</th><td>index</td></tr>
-        </tbody>
-    </table>
 
     <?php
     if($model->id <= 5) {
@@ -61,7 +49,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     <?php foreach ($data as $item) { ?>
                         <tr>
                             <th><?= $item['title'] ?></th>
-                            <td><?= $item['value'] ?></td>
+                            <td><?= ($item['type'] == 'media') ? '<img src="'.Media::findById($item['value'])->getImageOfSize(450, 450).'">' :  $item['value'];?></td>
                         </tr>
                     <?php } ?>
                 </tbody>

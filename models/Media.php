@@ -109,5 +109,12 @@ class Media extends ActiveRecord
         return $result;
     }
 
+    public static function findById($id)
+    {
+        if (($model = Media::findOne($id)) !== null) {
+            return $model;
+        }
+        throw new NotFoundHttpException('The requested page does not exist.');
+    }
 
 }

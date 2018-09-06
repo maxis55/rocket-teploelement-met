@@ -17,8 +17,16 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Добавить изображение', ['admin/media-create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Загрузить изображения', ['#'], ['class' => 'btn btn-success', 'id' => 'ajaxImageUploadBlock']) ?>
     </p>
+    <form id="uploadImages" action="/admin/media" method="POST" enctype="multipart/form-data" class="image-upload-form">
+
+        <input type="hidden" name="_csrf" value="<?=Yii::$app->request->getCsrfToken()?>">
+        <label for="images_input">Выбрать изображения</label>
+        <input id="images_input" type="file" name="Media[images][]" multiple="multiple" accept="image" style="display: none">
+        <div id="img_list"><ul></ul></div>
+        <input type="submit" value="Загрузить">
+    </form>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,

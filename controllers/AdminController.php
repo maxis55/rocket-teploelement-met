@@ -9,6 +9,7 @@
 namespace app\controllers;
 
 
+use app\assets\AdminAsset;
 use app\models\LoginForm;
 use app\models\Media;
 use app\models\MediaSearch;
@@ -18,11 +19,19 @@ use app\models\Pages;
 use app\models\PagesSearch;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
 
 class AdminController extends Controller
 {
 
     public $layout = 'admin/main';
+
+    public function init()
+    {
+        AdminAsset::register(Yii::$app->view);
+
+        parent::init();
+    }
 
     public function actionIndex()
     {
@@ -113,6 +122,27 @@ class AdminController extends Controller
 
         public function actionMedia()
         {
+            if(yii::$app->request->isPost){
+                $model = new Media();
+
+                $files = UploadedFile::getInstances($model,'images');
+                foreach ($files as $obj){
+
+                    $name = md5(time() . $obj->name) . '.' . pathinfo($obj->name, PATHINFO_EXTENSION);
+                    if( $obj->saveAs( Yii::getAlias('@web') . 'uploads/images/' . $name ) )
+                    {
+
+                        $image = new Media();
+                        $image->name = $name;
+                        $image->title = $obj->name;
+                        $image->alt = '';
+
+                        $image->save();
+
+                    }
+                }
+            }
+
             $searchModel = new MediaSearch();
             $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -162,6 +192,13 @@ class AdminController extends Controller
             return $this->redirect(['admin/media']);
         }
 
+        public function actionMediaLibrary()
+        {
+            $data = yii::$app->request->post();
+            $counter = $data['counter'];
+            return Media::getImagesLibrary($counter);
+        }
+
         protected function findMediaModel($id)
         {
             if (($model = Media::findOne($id)) !== null) {
@@ -171,5 +208,8 @@ class AdminController extends Controller
             throw new NotFoundHttpException('The requested page does not exist.');
         }
 
+
+
     //media actions end
+
 }

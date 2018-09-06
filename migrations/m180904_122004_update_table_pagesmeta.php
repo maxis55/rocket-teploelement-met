@@ -108,7 +108,7 @@ class m180904_122004_update_table_pagesmeta extends Migration
                 'key' => 'block_'.$r.'_image',
                 'title' => 'Изображение блока '.$r,
                 'value' => $r,
-                'type' => 'input'
+                'type' => 'media'
             ]);
         }
 
