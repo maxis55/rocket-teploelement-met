@@ -49,8 +49,9 @@ $config = [
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
+
             'rules' => [
-                'admin' => 'admin/index',
+
                 'catalog/<category_slug>/<subcategory_slug>/<subsubcategory_slug>' => 'site/catalog-subcategory',
                 'catalog/<category_slug>/<subcategory_slug>' => 'site/catalog-subcategory',
                 'catalog/<category_slug>' => 'site/catalog-category',
