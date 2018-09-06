@@ -51,21 +51,22 @@ use yii\widgets\ActiveForm;
 
                     <div class="box-item-inner">
                         <div class="box-img">
-                            <img src="<?php echo Media::findById($item['value'])->getImageOfSize(450, 450); ?>" >
+                            <p><?=$item['title']?></p>
+                            <?php if(!empty($item['value'])){?>
+                                <img class="image" src="<?php echo Media::findById($item['value'])->getImageOfSize(450, 450); ?>" >
+                            <?php }else{?>
+                                <img class="image">
+                            <?php } ?>
                             <div class="s-boxbtn">
+                                <input type="hidden" id="pages-<?= $item['key'] ?>" class="form-control"
+                                       name="Pages[<?= $item['key'] ?>]" value="<?= $item['value'] ?>" maxlength="50"
+                                       aria-required="true">
                                 <button type="button" class="btn btn-block btn-danger">Удалить</button>
                                 <button type="button" class="btn btn-block bg-purple media-open-button">Выбрать/Изменить</button>
                             </div>
                         </div>
                     </div>
 
-                    <img src="<?php echo Media::findById($item['value'])->getImageOfSize(450, 450); ?>" >
-                    <div class="form-group field-pages-<?= $item['key'] ?> required">
-                        <label class="control-label" for="pages-<?= $item['key'] ?>"><?= $item['title'] ?></label>
-                        <input type="hidden" id="pages-<?= $item['key'] ?>" class="form-control"
-                               name="Pages[<?= $item['key'] ?>]" value="<?= $item['value'] ?>" maxlength="50"
-                               aria-required="true">
-                    </div>
                 <?php } ?>
 
             <?php }

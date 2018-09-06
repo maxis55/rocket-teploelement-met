@@ -13,6 +13,7 @@ use app\assets\AdminAsset;
 use app\models\LoginForm;
 use app\models\Media;
 use app\models\MediaSearch;
+use app\models\Pagesmeta;
 use Yii;
 use yii\web\Controller;
 use app\models\Pages;
@@ -90,6 +91,15 @@ class AdminController extends Controller
         public function actionPagesUpdate($id)
         {
             $model = $this->findPagesModel($id);
+
+            if(Yii::$app->request->isPost){
+                $post = Yii::$app->request->post('Pages');
+                $meta = Pagesmeta::find()->where(['=', 'page_id', $id])->all();
+                foreach ($meta as $single_meta){
+                    $single_meta->value = $post[$single_meta->key];
+                    $single_meta->save();
+                }
+            }
 
             if ($model->load(Yii::$app->request->post()) && $model->save()) {
                 return $this->redirect(['admin/pages-view', 'id' => $model->id]);

@@ -49,7 +49,11 @@ $this->params['breadcrumbs'][] = $this->title;
                     <?php foreach ($data as $item) { ?>
                         <tr>
                             <th><?= $item['title'] ?></th>
-                            <td><?= ($item['type'] == 'media') ? '<img src="'.Media::findById($item['value'])->getImageOfSize(450, 450).'">' :  $item['value'];?></td>
+                            <td><?php if(($item['type'] == 'media')&&($item['value']!='')) {
+                                echo '<img src="'.Media::findById($item['value'])->getImageOfSize(450, 450).'">';
+                            }else{
+                                $item['value'];
+                            }?></td>
                         </tr>
                     <?php } ?>
                 </tbody>

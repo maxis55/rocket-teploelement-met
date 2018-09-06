@@ -216,3 +216,7 @@ hr {
     position: fixed;
     width: 100%;
 }
+
+.s-boxbtn {
+    width: 350px;
+}
