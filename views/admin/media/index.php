@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use yii\helpers\Url;
 use yii\widgets\Pjax;
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\MediaSearch */
@@ -13,7 +14,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="media-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
-    <?php Pjax::begin(); ?>
+
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
@@ -28,48 +29,62 @@ $this->params['breadcrumbs'][] = $this->title;
         <input type="submit" value="Загрузить">
     </form>
 
-    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
+    <?php try {
+        echo GridView::widget([
+            'dataProvider' => $dataProvider,
+            'filterModel' => $searchModel,
+            'columns' => [
+                ['class' => 'yii\grid\SerialColumn'],
 
-            //'id',
-            [
-                'attribute'=>'name',
-                'label'=>'Изображение',
-                'format'=>'raw',
-                'value'=>function($data) {
-                    return '<img src="'.$data->getImageOfSize(250,250).'">';
-                }],
-            'name',
-            'title',
-            'alt',
+                //'id',
+                [
+                    'attribute' => 'id',
+                    'label' => 'Изображение',
+                    'format' => 'raw',
 
-            ['class' => 'yii\grid\ActionColumn',
-                'template' => '{view}{update}{delete}',
-                'buttons' => [
-                    'view' => function ($url, $model) {
-                        return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', $url, [
-                            'title' => Yii::t('app', 'Просмотреть'),
-                        ]);
-                    },
-                    'update' => function ($url, $model) {
-                        return Html::a('<span class="glyphicon glyphicon-pencil"></span>', $url, [
-                            'title' => Yii::t('app', 'Редактировать'),
-                        ]);
-                    },
-                    'delete' => function ($url, $model) {
-                        return Html::a('<span class="glyphicon glyphicon-trash"></span>', $url, [
-                            'title' => Yii::t('app', 'Удалить'),
-                        ]);
+                    'value' => function ($data) {
+                        if('image'==$data->type){
+                            return '<img style="width:150px" src="' . $data->getImageOfSize(250, 250) . '">';
+                        }else{
+                            return '<a target="_blank" href="'. $data->getImageOfSize() . '">'.$data->name.'</a>';
+                        }
+
+                    }],
+                'name',
+                'title',
+                'alt',
+
+                ['class' => 'yii\grid\ActionColumn',
+                    'template' => '{view}{update}{delete}',
+                    'buttons' => [
+                        'view' => function ($url, $model) {
+                            return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', $url, [
+                                'title' => Yii::t('app', 'Просмотреть'),
+                            ]);
+                        },
+                        'update' => function ($url, $model) {
+                            return Html::a('<span class="glyphicon glyphicon-pencil"></span>', $url, [
+                                'title' => Yii::t('app', 'Редактировать'),
+                            ]);
+                        },
+                        'delete' => function ($url, $model) {
+                            return Html::a('<span class="glyphicon glyphicon-trash"></span>', $url, [
+                                'title' => Yii::t('app', 'Удалить'),
+                                'data' => [
+                                    'confirm' => 'Уверенны что хотите удалить запись?',
+                                    'method' => 'post',
+                                ],
+                            ]);
+                        }
+                    ],
+                    'urlCreator' => function ($action, $model, $key, $index) {
+                        return '/admin/media-' . $action . '?id=' . $key;
                     }
                 ],
-                'urlCreator' => function ($action, $model, $key, $index) {
-                    return '/admin/media-' . $action . '?id=' . $key;
-                }
             ],
-        ],
-    ]); ?>
-    <?php Pjax::end(); ?>
+        ]);
+    } catch (Exception $e) {
+        echo 'Ошибка при загрузке медиа';
+    } ?>
+
 </div>

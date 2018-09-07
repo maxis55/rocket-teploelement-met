@@ -190,19 +190,12 @@ class m180620_071143_update_table_media extends Migration
             'type'=>'image',
         ]);
 
-        $this->insert('media',[
-            'id'=>++$i,
-            'name'=>'new.png',
-            'title'=>'большая картинка в середине новости',
-            'alt'=>'большая картинка в середине новости',
-            'type'=>'image',
-        ]);
 
         $this->insert('media',[
             'id'=>++$i,
             'name'=>'new.jpg',
-            'title'=>'новости',
-            'alt'=>'новость',
+            'title'=>'большая картинка в середине новости',
+            'alt'=>'большая картинка в середине новости',
             'type'=>'image',
         ]);
 
