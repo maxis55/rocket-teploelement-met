@@ -115,7 +115,7 @@ class AdminController extends Controller
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
-        $parentCategories= Category::getCategoryByParent(null);
+        $parentCategories = Category::getCategoryByParent(null);
 
 
         return $this->render('categories/create', [
@@ -138,7 +138,7 @@ class AdminController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['admin/category-view', 'id' => $model->id]);
         }
-        $parentCategories= Category::getCategoryByParent(null);
+        $parentCategories = Category::getCategoryByParent(null);
 
         return $this->render('categories/update', [
             'model' => $model,
@@ -178,8 +178,6 @@ class AdminController extends Controller
 
         throw new NotFoundHttpException('The requested page does not exist.');
     }
-
-
 
 
     //pages actions
@@ -262,12 +260,12 @@ class AdminController extends Controller
         return $this->redirect(['admin/pages']);
     }
 
-	/**
-	 * @param $id
-	 *
-	 * @return Pages * @throws NotFoundHttpException
-	 * @throws NotFoundHttpException
-	 */
+    /**
+     * @param $id
+     *
+     * @return Pages * @throws NotFoundHttpException
+     * @throws NotFoundHttpException
+     */
     protected function findPagesModel($id)
     {
         if (($model = Pages::findOne($id)) !== null) {
@@ -289,13 +287,27 @@ class AdminController extends Controller
             $files = UploadedFile::getInstances($model, 'images');
             foreach ($files as $obj) {
 
-                $name = md5(time() . $obj->name) . '.' . pathinfo($obj->name, PATHINFO_EXTENSION);
-                if ($obj->saveAs(Yii::getAlias('@web') . 'uploads/images/' . $name)) {
+                if (@is_array(getimagesize($obj->tempName))) {
+                    $type = 'image';
+                } else {
+                    $type = 'file';
+                }
+                $name = $obj->name;
+                $nameOccurences=0;
+                while (is_file(Yii::getAlias('@web') . 'uploads/' . $type . '/' . $name)) {
+                        $name=pathinfo($obj->name, PATHINFO_FILENAME).'-'.++$nameOccurences.'.'.pathinfo($obj->name, PATHINFO_EXTENSION);
+                }
+                if(0!=$nameOccurences){
+                    $name=pathinfo($obj->name, PATHINFO_FILENAME).'-'.$nameOccurences.'.'.pathinfo($obj->name, PATHINFO_EXTENSION);
+                }
+
+                if ($obj->saveAs(Yii::getAlias('@web') . 'uploads/' . $type . '/' . $name)) {
 
                     $image = new Media();
                     $image->name = $name;
                     $image->title = $obj->name;
                     $image->alt = '';
+                    $image->type = $type;
 
                     $image->save();
 
@@ -395,8 +407,7 @@ class AdminController extends Controller
     //media actions end
 
 
-
-	//start of "News" block
+    //start of "News" block
     /**
      * Lists all News models.
      * @return mixed
@@ -497,17 +508,16 @@ class AdminController extends Controller
 //end of "News" block
 
 
+    /**
+     * Lists all Settings models.
+     * @return mixed
+     * @throws NotFoundHttpException
+     */
+    public function actionSettings()
+    {
 
-	/**
-	 * Lists all Settings models.
-	 * @return mixed
-	 * @throws NotFoundHttpException
-	 */
-	public function actionSettings()
-	{
 
-
-		$data = Yii::$app->request->post();
+        $data = Yii::$app->request->post();
 
 //		if ($data) {
 //			foreach ($fieldsArray as $field) {
@@ -518,46 +528,44 @@ class AdminController extends Controller
 //				}
 //			}
 //		}
-		$meta = Settings::getCrossPagesData(['key','value','type','title'],true);
-		return $this->render('settings/view', [
-			'meta' => $meta
-		]);
-	}
+        $meta = Settings::getCrossPagesData(['key', 'value', 'type', 'title'], true);
+        return $this->render('settings/view', [
+            'meta' => $meta
+        ]);
+    }
 
 
+    /**
+     * Login action.
+     *
+     * @return string
+     */
+    public function actionLogin()
+    {
 
-	/**
-	 * Login action.
-	 *
-	 * @return string
-	 */
-	public function actionLogin()
-	{
+        $model = new LoginForm();
+        if ($model->load(Yii::$app->request->post()) && $model->login()) {
+            return $this->redirect('index');
+        }
 
-		$model = new LoginForm();
-		if ($model->load(Yii::$app->request->post()) && $model->login()) {
-			return $this->goBack();
-		}
+        $model->password = '';
+        return $this->render('login', [
+            'model' => $model,
+        ]);
 
-		$model->password = '';
-		return $this->render('login', [
-			'model' => $model,
-		]);
+    }
 
-	}
+    /**
+     * Logout action.
+     *
+     * @return string
+     */
+    public function actionLogout()
+    {
+        Yii::$app->user->logout();
 
-	/**
-	 * Logout action.
-	 *
-	 * @return string
-	 */
-	public function actionLogout()
-	{
-		Yii::$app->user->logout();
-
-		return $this->goHome();
-	}
-
+        return $this->goHome();
+    }
 
 
 }

@@ -33,6 +33,7 @@ class m180620_071135_create_table_media extends Migration
             'name' => $this->string()->unique()->notNull(),
             'title' => $this->string(60),
             'alt' => $this->string(125),
+            'type' => $this->string(20),
         ]);
 
         echo "Table 'media' created\n";
