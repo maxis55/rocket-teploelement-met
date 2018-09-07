@@ -5,6 +5,7 @@ namespace app\models;
 use Imagine\Image\Box;
 use Yii;
 use yii\db\ActiveRecord;
+use yii\helpers\Url;
 use yii\imagine\Image;
 use yii\web\NotFoundHttpException;
 use yii\web\Response;
@@ -17,7 +18,6 @@ use yii\web\UploadedFile;
 class Media extends ActiveRecord
 {
 
-    public $image;
 
     /**
      * @inheritdoc
@@ -59,6 +59,7 @@ class Media extends ActiveRecord
      */
 	public function uploadImage($file)
 	{
+
 		$name = md5(time()) . '.' . pathinfo($file->name, PATHINFO_EXTENSION);
 		if( $file->saveAs( Yii::getAlias('@web') . 'uploads/images/' . $name ) )
 		{
@@ -66,7 +67,7 @@ class Media extends ActiveRecord
 			$image->name = $name;
 			$image->title = $file->name;
 			$image->alt = '';
-
+            $image->type='image';
 
 			$image->save();
 		}
@@ -76,17 +77,23 @@ class Media extends ActiveRecord
 	public function getImageOfSize($height='',$width='',$quality=90){
 
 	    if(''==$height||''==$width){
-            return Yii::getAlias('@web/' . 'uploads/images/'. $this->name);
+            return Yii::getAlias('@web/' . 'uploads/'. $this->type.'/'. $this->name);
         }
-        if(file_exists(Yii::getAlias('@web'). 'uploads/images/'.$this->name) || file_exists(Yii::getAlias('@web'). 'uploads/images/'.$width.'x'.$height.'/'.$this->name)){
-            if(! file_exists(Yii::getAlias('@web'). 'uploads/images/'.$width.'x'.$height.'/'.$this->name) ){
-                if (!is_dir(Yii::getAlias('@web'). 'uploads/images/'.$width.'x'.$height.'/')) {
-                    mkdir(Yii::getAlias('@web'). 'uploads/images/'.$width.'x'.$height.'/', 0777, true);
+
+        //if file is not image return original path
+        if( ! @is_array(getimagesize(Yii::getAlias('@web/' . 'uploads/images/'. $this->name)))){
+            return Yii::getAlias('@web/' . 'uploads/'. $this->type.'/'. $this->name);
+        }
+
+        if(file_exists(Yii::getAlias('@web'). 'uploads/'. $this->type.'/'.$this->name) || file_exists(Yii::getAlias('@web'). 'uploads/images/'.$width.'x'.$height.'/'.$this->name)){
+            if(! file_exists(Yii::getAlias('@web'). 'uploads/'. $this->type.'/'.$width.'x'.$height.'/'.$this->name) ){
+                if (!is_dir(Yii::getAlias('@web'). 'uploads/'. $this->type.'/'.$width.'x'.$height.'/')) {
+                    mkdir(Yii::getAlias('@web'). 'uploads/'. $this->type.'/'.$width.'x'.$height.'/', 0777, true);
                 }
-                Image::getImagine()->open(Yii::getAlias('@web') . 'uploads/images/'.$this->name)->thumbnail(new Box($width,$height ))->save(Yii::getAlias('@web'). 'uploads/images/'.$width.'x'.$height.'/'.$this->name , ['quality' => $quality]);
+                Image::getImagine()->open(Yii::getAlias('@web') . 'uploads/'. $this->type.'/'.$this->name)->thumbnail(new Box($width,$height ))->save(Yii::getAlias('@web'). 'uploads/images/'.$width.'x'.$height.'/'.$this->name , ['quality' => $quality]);
             }
 
-            return Yii::getAlias('@web/' . 'uploads/images/'.$width.'x'.$height.'/' . $this->name);
+            return Yii::getAlias('@web/' . 'uploads/'. $this->type.'/'.$width.'x'.$height.'/' . $this->name);
         }
         return null;
     }
@@ -95,8 +102,9 @@ class Media extends ActiveRecord
 	    $result = array();
         $query = Media::find()->offset($counter*12)->limit(12)->all();
         Yii::$app->response->format = Response::FORMAT_JSON;
+        $type=$query[0]->type;
         foreach ($query as $image){
-            $result[0] .= '<div class="media-image"><img class="media-selected" src="/uploads/images/'.$image['name'].'" data-imageid="'.$image['id'].'" title="'.$image['title'].'"></div>';
+            $result[0] .= '<div class="media-image"><img class="media-selected" src="/uploads/'.$type.'/'.$image['name'].'" data-imageid="'.$image['id'].'" title="'.$image['title'].'"></div>';
         }
         if(count($query)==12)
         {

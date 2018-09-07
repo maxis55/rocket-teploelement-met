@@ -169,14 +169,14 @@ class m180819_070329_update_settings extends Migration
         $this->insert('settings', [
             'id' => ++$i,
             'key' => 'before_cats_right_1',
-            'title' => 'Текст перед левыми категориями черного цвета',
+            'title' => 'Текст перед правыми категориями черного цвета',
             'value' => 'Детали',
             'type' => 'input'
         ]);
         $this->insert('settings', [
             'id' => ++$i,
             'key' => 'before_cats_right_2',
-            'title' => 'Текст перед левыми категориями синего цвета',
+            'title' => 'Текст перед правыми категориями синего цвета',
             'value' => 'Трубопровода',
             'type' => 'input'
         ]);
