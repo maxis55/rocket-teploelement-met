@@ -78,30 +78,37 @@ class Media extends ActiveRecord
     {
 
         $defaultPath = Yii::getAlias('@web/' . 'uploads/' . $this->type . '/' . $this->name);
-        $pathDimensions = Yii::getAlias('@web') . 'uploads/' . $this->type . '/' . $width . 'x' . $height . '/';
+        $defaultPath2 = Yii::getAlias('@webroot/' . 'uploads/' . $this->type . '/' . $this->name);
+        $pathDimensions = Yii::getAlias('@web') . '/uploads/' . $this->type . '/' . $width . 'x' . $height . '/';
+        $pathDimensions2 = Yii::getAlias('@webroot') . '/uploads/' . $this->type . '/' . $width . 'x' . $height . '/';
 //        var_dump(Yii::getAlias('@web'));
 //        die();
+
+
         if ('' == $height || '' == $width) {
             return $defaultPath;
         }
 
         //if file is not image return original path
-        if (!@is_array(getimagesize($defaultPath))) {
+        if (!@is_array(getimagesize($defaultPath2))) {
              return $defaultPath;
         }
-        if (file_exists($pathDimensions . $this->name)) {
+
+
+
+        if (file_exists($pathDimensions2 . $this->name)) {
             return $pathDimensions . $this->name;
         }
 
-        if (file_exists($defaultPath)) {
+        if (file_exists($defaultPath2)) {
 
-            if (!is_dir($pathDimensions)) {
-                mkdir($pathDimensions, 0777, true);
+            if (!is_dir($pathDimensions2)) {
+                mkdir($pathDimensions2, 0777, true);
             }
             Image::getImagine()
-                ->open($defaultPath)
+                ->open($defaultPath2)
                 ->thumbnail(new Box($width, $height))
-                ->save($pathDimensions . $this->name, ['quality' => $quality]);
+                ->save($pathDimensions2 . $this->name, ['quality' => $quality]);
 
             return $pathDimensions . $this->name;
         }
