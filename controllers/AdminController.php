@@ -287,32 +287,7 @@ class AdminController extends Controller
 
             $files = UploadedFile::getInstances($model, 'images');
             foreach ($files as $obj) {
-
-                if (@is_array(getimagesize($obj->tempName))) {
-                    $type = 'image';
-                } else {
-                    $type = 'file';
-                }
-                $name = $obj->name;
-                $nameOccurences = 0;
-                while (is_file(Yii::getAlias('@web') . 'uploads/' . $type . '/' . $name)) {
-                    $name = pathinfo($obj->name, PATHINFO_FILENAME) . '-' . ++$nameOccurences . '.' . pathinfo($obj->name, PATHINFO_EXTENSION);
-                }
-                if (0 != $nameOccurences) {
-                    $name = pathinfo($obj->name, PATHINFO_FILENAME) . '-' . $nameOccurences . '.' . pathinfo($obj->name, PATHINFO_EXTENSION);
-                }
-
-                if ($obj->saveAs(Yii::getAlias('@web') . 'uploads/' . $type . '/' . $name)) {
-
-                    $image = new Media();
-                    $image->name = $name;
-                    $image->title = $obj->name;
-                    $image->alt = '';
-                    $image->type = $type;
-
-                    $image->save();
-
-                }
+                Media::uploadImage($obj);
             }
         }
 
@@ -545,7 +520,6 @@ class AdminController extends Controller
                 }
 
             }
-
             return $this->redirect('settings');
         }
         $meta = Settings::getCrossPagesData(['key', 'value', 'type', 'title'], true);

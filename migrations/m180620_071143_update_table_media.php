@@ -379,6 +379,14 @@ class m180620_071143_update_table_media extends Migration
             'type'=>'image',
         ]);
 
+        $this->insert('media',[
+            'id'=>++$i,
+            'name'=>'text.txt',
+            'title'=>'text',
+            'alt'=>'',
+            'type'=>'file',
+        ]);
+
         echo "Default images created\n";
 
         return true;

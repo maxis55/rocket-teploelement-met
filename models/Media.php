@@ -61,15 +61,34 @@ class Media extends ActiveRecord
     public static function uploadImage($file)
     {
 
-        $name = md5(time()) . '.' . pathinfo($file->name, PATHINFO_EXTENSION);
-        if ($file->saveAs(Yii::getAlias('@web') . 'uploads/image/' . $name)) {
+        if (@is_array(getimagesize($file->tempName))) {
+            $type = 'image';
+        } else {
+            $type = 'file';
+        }
+        $name = $file->name;
+        $nameOccurences = 0;
+        while (is_file(Yii::getAlias('@webroot') . '/uploads/' . $type . '/' . $name)) {
+            $name = pathinfo($file->name, PATHINFO_FILENAME) . '-' . ++$nameOccurences . '.' . pathinfo($file->name, PATHINFO_EXTENSION);
+        }
+        if (0 != $nameOccurences) {
+            $name = pathinfo($file->name, PATHINFO_FILENAME) . '-' . $nameOccurences . '.' . pathinfo($file->name, PATHINFO_EXTENSION);
+        }
+
+        if (!is_dir(Yii::getAlias('@webroot') . '/uploads/' . $type)) {
+            mkdir(Yii::getAlias('@webroot') . '/uploads/' . $type, 0777, true);
+        }
+
+        if ($file->saveAs(Yii::getAlias('@webroot') . '/uploads/' . $type . '/' . $name)) {
+
             $image = new Media();
             $image->name = $name;
             $image->title = $file->name;
             $image->alt = '';
-            $image->type = 'image';
+            $image->type = $type;
 
             $image->save();
+
         }
     }
 
