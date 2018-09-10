@@ -50,4 +50,9 @@ class Pages extends \yii\db\ActiveRecord
         ];
     }
 
+
+    public static function getPages($params=['slug']){
+        return Pages::find()->select($params)->asArray()->all();
+    }
+
 }

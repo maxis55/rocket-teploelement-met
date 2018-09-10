@@ -62,11 +62,12 @@ if (Yii::$app->controller->action->id === 'login') {
         <!-- Modal content -->
         <div class="media-content">
             <span class="close-media">&times;</span>
-            <h4>Библиотека изображений</h4>
+            <h4>Библиотека</h4>
             <div class="inner-media"></div>
-            <div id="medialoadmore" class="media-loadmore" data-page="0">Загрузить еще</div>
+            <div id="medialoadmore" class="media-loadmore" data-page="0" data-media-type="image">Загрузить еще</div>
         </div>
     </div>
+
 
     <?php $this->endBody() ?>
     </body>

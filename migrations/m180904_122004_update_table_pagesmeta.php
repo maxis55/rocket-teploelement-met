@@ -108,7 +108,7 @@ class m180904_122004_update_table_pagesmeta extends Migration
                 'key' => 'block_'.$r.'_image',
                 'title' => 'Изображение блока '.$r,
                 'value' => $r,
-                'type' => 'media'
+                'type' => 'image'
             ]);
         }
 
@@ -118,7 +118,7 @@ class m180904_122004_update_table_pagesmeta extends Migration
             'key' => 'main_image',
             'title' => 'Изображение в начале страницы',
             'value' => 1,
-            'type' => 'media'
+            'type' => 'image'
         ]);
 
         $this->insert('pagesmeta', [
@@ -225,7 +225,7 @@ class m180904_122004_update_table_pagesmeta extends Migration
             'key' => 'image_1',
             'title' => 'Изображение',
             'value' => 2,
-            'type' => 'media'
+            'type' => 'image'
         ]);
 
         $this->insert('pagesmeta', [
@@ -270,7 +270,7 @@ class m180904_122004_update_table_pagesmeta extends Migration
             'key' => 'image',
             'title' => 'Изображение',
             'value' => 1,
-            'type' => 'media'
+            'type' => 'image'
         ]);
 
         $this->insert('pagesmeta', [

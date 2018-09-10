@@ -16,7 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 
     <p>
-        <?php // Html::a('Обновить', ['admin/settings-update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Обновить', ['admin/settings-update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
 
     </p>
 
@@ -30,24 +30,38 @@ $this->params['breadcrumbs'][] = $this->title;
             foreach ($meta as $meta_item) { ?>
                 <tr>
                     <th><?= $meta_item['title'] ?></th>
-                    <td><?php if (($meta_item['type'] == 'media') && ($meta_item['value'] != '')) {
+                    <td>
+                        <?php
+                        if (($meta_item['type'] == 'image') && ($meta_item['value'] != '')) {
                             try {
                                 echo Html::img(Media::findById($meta_item['value'])->getImageOfSize(450, 450), ['alt' => 'img']);
                             } catch (\yii\web\NotFoundHttpException $e) {
                                 echo 'Ошибка при загрузке картинки';
                             }
-                        } else {
-                            if (($meta_item['type'] == 'menu')) {
-                                echo '<ul>';
-                                foreach ($meta_item['value'] as $meta_value_item) {
-                                    echo "<li><a href='" . Url::base(true) . "/{$meta_value_item['url'][0]}'>{$meta_value_item['label']}</a></li>";
-                                }
-                                echo '</ul>';
+                        }
 
-                            } else {
-                                echo $meta_item['value'];
+                        if (($meta_item['type'] == 'menu')) {
+                            echo '<ul>';
+                            foreach ($meta_item['value'] as $meta_value_item) {
+                                echo "<li><a href='" . Url::base(true) . "/{$meta_value_item['url'][0]}'>{$meta_value_item['label']}</a></li>";
                             }
-                        } ?></td>
+                            echo '</ul>';
+
+                        }
+
+                        if (($meta_item['type'] == 'file') && ($meta_item['value'] != '')) {
+                            try {
+                                echo Html::a(
+                                    Media::findById($meta_item['value'])->name,
+                                    Media::findById($meta_item['value'])->getImageOfSize(),
+                                    ['target' => '_blank']);
+                            } catch (\yii\web\NotFoundHttpException $e) {
+                                echo 'Ошибка при загрузке файла';
+                            }
+                        }
+
+
+                        ?></td>
                 </tr>
             <?php } ?>
             </tbody>

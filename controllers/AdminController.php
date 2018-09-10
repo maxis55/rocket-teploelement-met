@@ -386,7 +386,8 @@ class AdminController extends Controller
     {
         $data = yii::$app->request->post();
         $counter = $data['counter'];
-        return Media::getImagesLibrary($counter);
+        $type = $data['type'];
+        return Media::getImagesLibrary($counter,$type);
     }
 
     /**
@@ -534,6 +535,22 @@ class AdminController extends Controller
         ]);
     }
 
+    public function actionSettingsUpdate()
+    {
+
+
+        $data = Yii::$app->request->post();
+        if(!empty($data)){
+            var_dump($data);
+            die();
+        }
+        $meta = Settings::getCrossPagesData(['key', 'value', 'type', 'title'], true);
+        $pagesSlugs=Pages::getPages(['slug','title']);
+        return $this->render('settings/update', [
+            'meta' => $meta,
+            'pagesSlugs'=>$pagesSlugs
+        ]);
+    }
 
     /**
      * Login action.

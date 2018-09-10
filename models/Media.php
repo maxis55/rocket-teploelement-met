@@ -81,8 +81,7 @@ class Media extends ActiveRecord
         $defaultPath2 = Yii::getAlias('@webroot/' . 'uploads/' . $this->type . '/' . $this->name);
         $pathDimensions = Yii::getAlias('@web') . '/uploads/' . $this->type . '/' . $width . 'x' . $height . '/';
         $pathDimensions2 = Yii::getAlias('@webroot') . '/uploads/' . $this->type . '/' . $width . 'x' . $height . '/';
-//        var_dump(Yii::getAlias('@web'));
-//        die();
+
 
 
         if ('' == $height || '' == $width) {
@@ -93,7 +92,6 @@ class Media extends ActiveRecord
         if (!@is_array(getimagesize($defaultPath2))) {
              return $defaultPath;
         }
-
 
 
         if (file_exists($pathDimensions2 . $this->name)) {
@@ -115,15 +113,22 @@ class Media extends ActiveRecord
         return null;
     }
 
-    public static function getImagesLibrary($counter)
+    public static function getImagesLibrary($counter,$type='image')
     {
         $result = array();
-        $query = Media::find()->offset($counter * 12)->limit(12)->all();
+        $query = Media::find()->where(['type'=>$type])->offset($counter * 12)->limit(12)->all();
         Yii::$app->response->format = Response::FORMAT_JSON;
-        $type = $query[0]->type;
-        foreach ($query as $image) {
-            $result[0] .= '<div class="media-image"><img class="media-selected" src="/uploads/' . $type . '/' . $image['name'] . '" data-imageid="' . $image['id'] . '" title="' . $image['title'] . '"></div>';
+
+        if('image'==$type){
+            foreach ($query as $media_item) {
+                $result[0] .= '<div class="media-image"><img class="media-selected" src="/uploads/' . $type . '/' . $media_item['name'] . '" data-imageid="' . $media_item['id'] . '" title="' . $media_item['title'] . '"></div>';
+            }
+        }else{
+            foreach ($query as $media_item) {
+                $result[0] .= '<div class="media-image"><a class="media-selected-file" target="_blank" href="/uploads/' . $type . '/' . $media_item['name'] . '" data-imageid="' . $media_item['id'] . '">' . $media_item['name'] . '</a></div>';
+            }
         }
+
         if (count($query) == 12) {
             $result[1] = true;
             $counter++;
@@ -147,25 +152,24 @@ class Media extends ActiveRecord
     {
         parent::afterDelete();
         //delete file physically
-        $defaultPath = Yii::$app->basePath . '/web' . '/uploads/' . $this->type . '/' . $this->name;
+        $defaultPath = Yii::$app->basePath . '/web' . '/uploads/' . $this->type . '/';
 
-        foreach (new DirectoryIterator(Yii::$app->basePath . '/web' . '/uploads/' . $this->type . '/') as $fileInfo) {
+        foreach (new DirectoryIterator($defaultPath) as $fileInfo) {
 
             if ($fileInfo->isDot() || $fileInfo->isFile()) {
                 continue;
             }
 
             if ($fileInfo->isDir()) {
-                $fileInfo->getFilename();
-                $sizePath = $fileInfo->getRealPath() . $this->name;
+
+                $sizePath = $fileInfo->getRealPath() .'/'. $this->name;
                 if (is_file($sizePath)) {
-                    var_dump($sizePath);
-                    //unlink($sizePath);
+                    unlink($sizePath);
                 }
 
             }
         }
-        unlink($defaultPath);
+        unlink($defaultPath. $this->name);
 
     }
 
