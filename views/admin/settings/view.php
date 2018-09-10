@@ -59,6 +59,14 @@ $this->params['breadcrumbs'][] = $this->title;
                                 echo 'Ошибка при загрузке файла';
                             }
                         }
+                        if('input'==$meta_item['type']){
+                           echo $meta_item['value'];
+                        }
+
+                        if('input_email'==$meta_item['type']){
+
+                            echo $meta_item['value'];
+                        }
 
 
                         ?></td>

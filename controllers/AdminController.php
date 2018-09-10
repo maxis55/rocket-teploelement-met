@@ -53,6 +53,7 @@ class AdminController extends Controller
                 'class' => VerbFilter::className(),
                 'actions' => [
                     'logout' => ['post'],
+                    'settingsUpdate' => ['post', 'get'],
                 ],
             ],
         ];
@@ -293,12 +294,12 @@ class AdminController extends Controller
                     $type = 'file';
                 }
                 $name = $obj->name;
-                $nameOccurences=0;
+                $nameOccurences = 0;
                 while (is_file(Yii::getAlias('@web') . 'uploads/' . $type . '/' . $name)) {
-                        $name=pathinfo($obj->name, PATHINFO_FILENAME).'-'.++$nameOccurences.'.'.pathinfo($obj->name, PATHINFO_EXTENSION);
+                    $name = pathinfo($obj->name, PATHINFO_FILENAME) . '-' . ++$nameOccurences . '.' . pathinfo($obj->name, PATHINFO_EXTENSION);
                 }
-                if(0!=$nameOccurences){
-                    $name=pathinfo($obj->name, PATHINFO_FILENAME).'-'.$nameOccurences.'.'.pathinfo($obj->name, PATHINFO_EXTENSION);
+                if (0 != $nameOccurences) {
+                    $name = pathinfo($obj->name, PATHINFO_FILENAME) . '-' . $nameOccurences . '.' . pathinfo($obj->name, PATHINFO_EXTENSION);
                 }
 
                 if ($obj->saveAs(Yii::getAlias('@web') . 'uploads/' . $type . '/' . $name)) {
@@ -387,7 +388,7 @@ class AdminController extends Controller
         $data = yii::$app->request->post();
         $counter = $data['counter'];
         $type = $data['type'];
-        return Media::getImagesLibrary($counter,$type);
+        return Media::getImagesLibrary($counter, $type);
     }
 
     /**
@@ -517,18 +518,6 @@ class AdminController extends Controller
     public function actionSettings()
     {
 
-
-        $data = Yii::$app->request->post();
-
-//		if ($data) {
-//			foreach ($fieldsArray as $field) {
-//				$tempModel = $this->findModel($field);
-//				if (null != $tempModel) {
-//					$tempModel->value = $data[$field];
-//					$tempModel->save();
-//				}
-//			}
-//		}
         $meta = Settings::getCrossPagesData(['key', 'value', 'type', 'title'], true);
         return $this->render('settings/view', [
             'meta' => $meta
@@ -539,16 +528,32 @@ class AdminController extends Controller
     {
 
 
-        $data = Yii::$app->request->post();
-        if(!empty($data)){
-            var_dump($data);
-            die();
+        if (Yii::$app->request->isPost) {
+
+            $json_settings = array('menu');
+            $settings = Settings::find()->indexBy('key')->all();
+
+            $post = Yii::$app->request->post();
+            foreach ($settings as $settings_key => $settings_item) {
+
+                if (in_array($settings_item->type, $json_settings)) {
+                    $settings[$settings_key]->value = json_encode($post[$settings_key]);
+                    $settings[$settings_key]->save();
+                } else {
+                    $settings[$settings_key]->value = $post[$settings_key];
+                    $settings[$settings_key]->save();
+                }
+
+            }
+
+            return $this->redirect('settings');
         }
         $meta = Settings::getCrossPagesData(['key', 'value', 'type', 'title'], true);
-        $pagesSlugs=Pages::getPages(['slug','title']);
+        $pagesSlugs = Pages::getPages(['slug', 'title']);
+
         return $this->render('settings/update', [
             'meta' => $meta,
-            'pagesSlugs'=>$pagesSlugs
+            'pagesSlugs' => $pagesSlugs
         ]);
     }
 

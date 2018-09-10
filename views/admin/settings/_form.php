@@ -14,7 +14,7 @@ use yii\widgets\ActiveForm;
 <div class="settings-form">
 
 
-    <form method="post">
+    <form action="/admin/settings-update" method="post">
         <?php
 
 
@@ -83,15 +83,15 @@ use yii\widgets\ActiveForm;
                         <div class="input-group" style="width: 100%">
 
 
-                            <input name="<?= $item['key'] . "[$i]['label']" ?>" required type="text"
+                            <input name="<?= $item['key'] . "[$i][label]" ?>" required type="text"
                                    class="form-control input-sm" value="<?= $item['value'][$i]['label']; ?>"/>
 
                             <span class="input-group-btn" style="width:0px;"></span>
 
 
-                            <select name="<?= $item['key'] . "[$i]['url'][0]" ?>" class="form-control input-sm">
+                            <select name="<?= $item['key'] . "[$i][url][0]" ?>" class="form-control input-sm">
                                 <?php foreach ($pagesSlugs as $pagesSlug): ?>
-                                    <option <?= $pagesSlug['slug'] == $item['value'][$i]['url'][0] ? 'selected' : ''; ?>>
+                                    <option value="<?= $pagesSlug['slug']?>" <?= $pagesSlug['slug'] == $item['value'][$i]['url'][0] ? 'selected' : ''; ?>>
                                         <?= $pagesSlug['title']; ?>
                                         </option>
                                 <?php endforeach; ?>
@@ -132,7 +132,8 @@ use yii\widgets\ActiveForm;
         }
         ?>
 
-
+        <input id="form-token" type="hidden" name="<?=Yii::$app->request->csrfParam?>"
+               value="<?=Yii::$app->request->csrfToken?>" autocomplete="off"/>
         <div class="form-group">
             <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>
         </div>
