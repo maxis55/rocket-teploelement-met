@@ -576,11 +576,13 @@ class AdminController extends Controller
         $model = new Products();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['products/view', 'id' => $model->id]);
+            return $this->redirect(['admin/products-view', 'id' => $model->id]);
         }
+        $parentCategories = Category::getCategoryByParent(null);
 
         return $this->render('products/create', [
             'model' => $model,
+            'parentCategories' => $parentCategories,
         ]);
     }
 
@@ -596,7 +598,7 @@ class AdminController extends Controller
         $model = $this->findProductsModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['products/view', 'id' => $model->id]);
+            return $this->redirect(['admin/products-view', 'id' => $model->id]);
         }
 
         return $this->render('products/update', [
@@ -613,9 +615,9 @@ class AdminController extends Controller
      */
     public function actionProductsDelete($id)
     {
-        $this->findModel($id)->delete();
+        $this->findProductsModel($id)->delete();
 
-        return $this->redirect(['products/index']);
+        return $this->redirect(['admin/products']);
     }
 
     /**

@@ -36,7 +36,7 @@ class m180904_152125_create_category extends Migration
             'name' => $this->string(255)->notNull(),
             'shortdesc' => $this->string(255)->notNull(),
             'content' => $this->text()->notNull(),
-            'media' => $this->integer(),
+            'media_id' => $this->integer(),
         ]);
         $this->createIndex(
             'idx-category-slug',
@@ -54,6 +54,21 @@ class m180904_152125_create_category extends Migration
             'category',
             'parent',
             'category',
+            'id',
+            'SET NULL'
+        );
+
+        $this->createIndex(
+            'FK_category_media',
+            'category',
+            'media_id'
+        );
+
+        $this->addForeignKey(
+            'FK_category_media',
+            'category',
+            'media_id',
+            'media',
             'id',
             'SET NULL'
         );

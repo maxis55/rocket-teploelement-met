@@ -46,20 +46,20 @@ class m180904_141114_create_news extends Migration
         );
 
         //uncomment when media table is created
-//        $this->createIndex(
-//            'FK_news_media',
-//            'news',
-//            'media_id'
-//        );
-//
-//        $this->addForeignKey(
-//            'FK_news_media',
-//            'news',
-//            'media_id',
-//            'media',
-//            'id',
-//            'SET NULL'
-//        );
+        $this->createIndex(
+            'FK_news_media',
+            'news',
+            'media_id'
+        );
+
+        $this->addForeignKey(
+            'FK_news_media',
+            'news',
+            'media_id',
+            'media',
+            'id',
+            'SET NULL'
+        );
 
         return true;
 

@@ -40,23 +40,24 @@ $this->params['breadcrumbs'][] = $this->title;
     ]) ?>
 
     <?php
-    if($model->id <= 5) {
+    if ($model->id <= 5) {
 
         $data = Pagesmeta::getFrontPageMeta($model->slug, true);
 
         if (!empty($data)) { ?>
             <table id="w1" class="table table-striped table-bordered detail-view">
                 <tbody>
-                    <?php foreach ($data as $item) { ?>
-                        <tr>
-                            <th><?= $item['title'] ?></th>
-                            <td><?php if(($item['type'] == 'image')&&($item['value']!='')) {
-                                 echo Html::img(Media::findById($item['value'])->getImageOfSize(450, 450), ['alt'=>'img']);
-                            }else{
+                <?php foreach ($data as $item) { ?>
+                    <tr>
+                        <th><?= $item['title'] ?></th>
+                        <td><?php
+                            if (($item['type'] == 'image') && ($item['value'] != '')) {
+                                echo Html::img(Media::findById($item['value'])->getImageOfSize(450, 450), ['alt' => 'img']);
+                            } else {
                                 echo $item['value'];
-                            }?></td>
-                        </tr>
-                    <?php } ?>
+                            } ?></td>
+                    </tr>
+                <?php } ?>
                 </tbody>
             </table>
         <?php }

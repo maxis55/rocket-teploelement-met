@@ -32,7 +32,21 @@ $this->params['breadcrumbs'][] = $this->title;
 //            'steel_type:ntext',
             //'category_id',
             //'media_id',
+            [
+                'attribute' => 'media_id',
+                'format' => 'html',
+                'label' => 'Фото',
+                'value' => function ($data) {
+                    if ($data->media) {
+                        return Html::img($data->media->getImageOfSize(), ['width' => '60px']);
+                    } else{
+                        return "Нет картинки";
+                    }
 
+                },
+
+
+            ],
             ['class' => 'yii\grid\ActionColumn',
                 'template' => '{view}{update}{delete}',
                 'buttons' => [

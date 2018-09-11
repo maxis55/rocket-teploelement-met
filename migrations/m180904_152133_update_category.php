@@ -45,7 +45,7 @@ class m180904_152133_update_category extends Migration
                 'slug' => $slugs[$i],
                 'content' => $i . $content,
                 'shortdesc' => $shortdesc,
-                'media' => rand(1, 10),
+                'media_id' => rand(1, 10),
             ]);
             $c1 = Yii::$app->db->getLastInsertID();
             for ($z = 1; $z <= rand(1, 10); $z++) {
@@ -55,7 +55,7 @@ class m180904_152133_update_category extends Migration
                     'slug' => 'pcat' . $i . $z,
                     'shortdesc' => $shortdesc,
                     'content' => $i . $z . $content,
-                    'media' => rand(1, 10),
+                    'media_id' => rand(1, 10),
                 ]);
                 $c2 = Yii::$app->db->getLastInsertID();
                 for ($t = 1; $t <= rand(1, 5); $t++) {
@@ -65,7 +65,7 @@ class m180904_152133_update_category extends Migration
                         'slug' => 'ppcat' . $i . $z . $t,
                         'shortdesc' => $shortdesc,
                         'content' => $i . $z . $t . $content,
-                        'media' => rand(1, 10),
+                        'media_id' => rand(1, 10),
                     ]);
                 }
             }

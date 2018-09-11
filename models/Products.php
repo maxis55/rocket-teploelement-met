@@ -58,8 +58,8 @@ class Products extends \yii\db\ActiveRecord
             'title' => 'Заголовок',
             'content' => 'Контент',
             'steel_type' => 'Тип стали',
-            'category_id' => 'Category ID',
-            'media_id' => 'Media ID',
+            'category_id' => 'Категория',
+            'media_id' => 'Изображение',
         ];
     }
 
