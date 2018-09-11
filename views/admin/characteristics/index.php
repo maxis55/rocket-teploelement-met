@@ -4,19 +4,19 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 
 /* @var $this yii\web\View */
-/* @var $searchModel app\models\NewsSearch */
+/* @var $searchModel app\models\CharacteristicsSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Новости';
+$this->title = 'Характеристики';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="news-index">
+<div class="characteristics-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Создать новость', ['news-create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Создать характеристику', ['characteristics-create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([
@@ -25,12 +25,8 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'name',
-            'content:ntext',
-            'date',
-            'shortdesc',
-            //'slug',
-            //'media_id',
+//            'id',
+            'title',
 
             ['class' => 'yii\grid\ActionColumn',
                 'template' => '{view}{update}{delete}',
@@ -42,21 +38,21 @@ $this->params['breadcrumbs'][] = $this->title;
                     },
                     'update' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-pencil"></span>', $url, [
-                            'title' => 'Редактировать',
+                            'title' =>  'Редактировать',
                         ]);
                     },
                     'delete' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-trash"></span>', $url, [
-                            'title' => 'Удалить',
+                            'title' =>'Удалить',
                             'data' => [
-                                'confirm' => 'Вы уверены, что хотите удалить эту новость?',
+                                'confirm' => 'Вы уверены, что хотите удалить эту характеристику?',
                                 'method' => 'post',
                             ],
                         ]);
                     }
                 ],
                 'urlCreator' => function ($action, $model, $key, $index) {
-                    return '/admin/news-' . $action . '?id=' . $key;
+                    return '/admin/characteristics-' . $action . '?id=' . $key;
                 }
             ],
         ],

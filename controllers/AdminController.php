@@ -12,12 +12,16 @@ namespace app\controllers;
 use app\models\Category;
 use app\models\CategorySearch;
 use app\assets\AdminAsset;
+use app\models\Characteristics;
+use app\models\CharacteristicsSearch;
 use app\models\LoginForm;
 use app\models\Media;
 use app\models\MediaSearch;
 use app\models\News;
 use app\models\NewsSearch;
 use app\models\Pagesmeta;
+use app\models\Products;
+use app\models\ProductsSearch;
 use app\models\Settings;
 use Yii;
 use yii\filters\AccessControl;
@@ -530,6 +534,209 @@ class AdminController extends Controller
             'pagesSlugs' => $pagesSlugs
         ]);
     }
+
+
+
+
+    /**
+     * Lists all Products models.
+     * @return mixed
+     */
+    public function actionProducts()
+    {
+        $searchModel = new ProductsSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        return $this->render('products/index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
+    /**
+     * Displays a single Products model.
+     * @param integer $id
+     * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    public function actionProductsView($id)
+    {
+        return $this->render('products/view', [
+            'model' => $this->findProductsModel($id),
+        ]);
+    }
+
+    /**
+     * Creates a new Products model.
+     * If creation is successful, the browser will be redirected to the 'view' page.
+     * @return mixed
+     */
+    public function actionProductsCreate()
+    {
+        $model = new Products();
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['products/view', 'id' => $model->id]);
+        }
+
+        return $this->render('products/create', [
+            'model' => $model,
+        ]);
+    }
+
+    /**
+     * Updates an existing Products model.
+     * If update is successful, the browser will be redirected to the 'view' page.
+     * @param integer $id
+     * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    public function actionProductsUpdate($id)
+    {
+        $model = $this->findProductsModel($id);
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['products/view', 'id' => $model->id]);
+        }
+
+        return $this->render('products/update', [
+            'model' => $model,
+        ]);
+    }
+
+    /**
+     * Deletes an existing Products model.
+     * If deletion is successful, the browser will be redirected to the 'index' page.
+     * @param integer $id
+     * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    public function actionProductsDelete($id)
+    {
+        $this->findModel($id)->delete();
+
+        return $this->redirect(['products/index']);
+    }
+
+    /**
+     * Finds the Products model based on its primary key value.
+     * If the model is not found, a 404 HTTP exception will be thrown.
+     * @param integer $id
+     * @return Products the loaded model
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    protected function findProductsModel($id)
+    {
+        if (($model = Products::findOne($id)) !== null) {
+            return $model;
+        }
+
+        throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+
+
+    /**
+     * Lists all Characteristics models.
+     * @return mixed
+     */
+    public function actionCharacteristics()
+    {
+        $searchModel = new CharacteristicsSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        return $this->render('characteristics/index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
+    /**
+     * Displays a single Characteristics model.
+     * @param integer $id
+     * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    public function actionCharacteristicsView($id)
+    {
+        return $this->render('characteristics/view', [
+            'model' => $this->findCharacteristicsModel($id),
+        ]);
+    }
+
+    /**
+     * Creates a new Characteristics model.
+     * If creation is successful, the browser will be redirected to the 'view' page.
+     * @return mixed
+     */
+    public function actionCharacteristicsCreate()
+    {
+        $model = new Characteristics();
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['admin/characteristics-view', 'id' => $model->id]);
+        }
+
+        return $this->render('characteristics/create', [
+            'model' => $model,
+        ]);
+    }
+
+    /**
+     * Updates an existing Characteristics model.
+     * If update is successful, the browser will be redirected to the 'view' page.
+     * @param integer $id
+     * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    public function actionCharacteristicsUpdate($id)
+    {
+        $model = $this->findCharacteristicsModel($id);
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['admin/characteristics-view', 'id' => $model->id]);
+        }
+
+        return $this->render('characteristics/update', [
+            'model' => $model,
+        ]);
+    }
+
+    /**
+     * Deletes an existing Characteristics model.
+     * If deletion is successful, the browser will be redirected to the 'index' page.
+     * @param integer $id
+     * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    public function actionCharacteristicsDelete($id)
+    {
+        $this->findCharacteristicsModel($id)->delete();
+
+        return $this->redirect(['admin/characteristics']);
+    }
+
+    /**
+     * Finds the Characteristics model based on its primary key value.
+     * If the model is not found, a 404 HTTP exception will be thrown.
+     * @param integer $id
+     * @return Characteristics the loaded model
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    protected function findCharacteristicsModel($id)
+    {
+        if (($model = Characteristics::findOne($id)) !== null) {
+            return $model;
+        }
+
+        throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+
+
+
+
+
 
     /**
      * Login action.

@@ -41,6 +41,8 @@
 	                ],
                     ['label' => 'Медиа', 'icon' => 'image', 'url' => ['/admin/media']],
 	                ['label' => 'Настройки', 'icon' => 'gear', 'url' => ['/admin/settings']],
+	                ['label' => 'Продукты', 'icon' => 'gear', 'url' => ['/admin/products']],
+	                ['label' => 'Характеристики', 'icon' => 'gear', 'url' => ['/admin/characteristics']],
                     ['label' => 'Login', 'url' => ['/admin/login'], 'visible' => Yii::$app->user->isGuest],
                     [
                         'label' => 'Some tools',

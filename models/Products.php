@@ -55,9 +55,9 @@ class Products extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'slug' => 'Slug',
-            'title' => 'Title',
-            'content' => 'Content',
-            'steel_type' => 'Steel Type',
+            'title' => 'Заголовок',
+            'content' => 'Контент',
+            'steel_type' => 'Тип стали',
             'category_id' => 'Category ID',
             'media_id' => 'Media ID',
         ];
