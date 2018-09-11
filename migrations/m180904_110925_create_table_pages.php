@@ -34,7 +34,7 @@ class m180904_110925_create_table_pages extends Migration
             $this->createTable('pages', [
                 'id' => $this->primaryKey(),
                 'title' => $this->string(50)->unique()->notNull(),
-                'description' => $this->text(255),
+                'description' => $this->text(),
                 'keywords' => $this->string(50),
                 'slug' => $this->string(50)
             ]);
