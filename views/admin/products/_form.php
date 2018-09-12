@@ -19,7 +19,78 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'content')->textarea(['rows' => 6]) ?>
 
-    <?= $form->field($model, 'steel_type')->textarea(['rows' => 6]) ?>
+    <?php $steel_types = array(); ?>
+    <?php $steel_types = json_decode($model->steel_type); ?>
+
+    <div class="box-header">
+        <div class="box-title">
+            <button type="button" class="btn btn-block btn-primary"
+                    onclick="addRow(this,'steel_type[]','Тип стали')">Добавить строку в типы стали
+            </button>
+        </div>
+
+    </div>
+    <table class="table table-hover table-append">
+        <tbody>
+        <tr>
+            <th>Тип стали</th>
+            <th style="width: 5%"></th>
+        </tr>
+
+        <?php
+        if(!empty($steel_types))
+        foreach ($steel_types as $steel_type): ?>
+            <tr>
+                <td>
+                    <input class="form-control" name="steel_type[]" placeholder="Тип стали"
+                           value="<?=$steel_type;?>" type="text">
+                </td>
+                <th>
+                    <button type="button" class="btn btn-block btn-danger btn-xs"
+                            onclick="$(this).parents('tr').remove();">Удалить
+                    </button>
+                </th>
+            </tr>
+        <?php endforeach; ?>
+        </tbody>
+    </table>
+
+
+    <?php
+    $characteristics = array();
+    $parentCat = $model->category;
+    while (null != $parentCat->parent0) {
+        $parentCat = $parentCat->parent0;
+    }
+    //get characteristics of category highest in hierarchy
+    $characteristics = $parentCat->characteristics;
+
+
+    $currproductCharacteristics = array_map(
+        function ($object) {
+            return array('id' => $object->characteristics_id, 'value' => $object->value);
+        }, $model->productCharacteristics);
+    $currproductCharacteristics = array_column($currproductCharacteristics, 'value', 'id');
+
+
+    ?>
+
+
+    <?php
+    if(!empty($characteristics))
+    foreach ($characteristics as $characteristic): ?>
+        <div class="form-group field-products-characteristics required">
+            <label class="control-label" for="products-title"><?= $characteristic->title; ?></label>
+            <input required id="products-title" class="form-control"
+                   name="Products[characteristics][<?= $characteristic->id; ?>]"
+                   value="<?php echo $currproductCharacteristics[$characteristic->id]; ?>"
+                   maxlength="60" aria-required="true" aria-invalid="false" type="text">
+            <div class="help-block"></div>
+        </div>
+
+    <?php endforeach; ?>
+
+
 
     <?php $selectOptions = array(); ?>
     <?php foreach ($parentCategories as $category): ?>

@@ -20,6 +20,7 @@ use app\models\MediaSearch;
 use app\models\News;
 use app\models\NewsSearch;
 use app\models\Pagesmeta;
+use app\models\ProductCharacteristics;
 use app\models\Products;
 use app\models\ProductsSearch;
 use app\models\Settings;
@@ -623,10 +624,25 @@ class AdminController extends Controller
     public function actionProductsUpdate($id)
     {
         $model = $this->findProductsModel($id);
+        $request = Yii::$app->request;
+        if ($request->isPost){
+            $tempPost=Yii::$app->request->post();
+            $postCharacteristics=$tempPost['Products']['characteristics'];
+            $tempPost['Products']['steel_type']=json_encode($tempPost['steel_type']);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['admin/products-view', 'id' => $model->id]);
+            if ($model->load($tempPost) && $model->save()) {
+
+                if(!empty($postCharacteristics)) {
+                    //no way to evaluate which characteristics are changed, need to delete all
+                    ProductCharacteristics::deleteAll(['product_id' => $model->id]);
+                    foreach ($postCharacteristics as $key => $characteristic) {
+                        $model->link('characteristics', Characteristics::findOne($key), array('value' => $characteristic));
+                    }
+                }
+                return $this->redirect(['admin/products-view', 'id' => $model->id]);
+            }
         }
+
 
         $parentCategories = Category::getCategoryByParent(null);
 

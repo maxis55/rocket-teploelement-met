@@ -34,7 +34,7 @@ class m180911_093905_create_products extends Migration
             'slug' => $this->string(50)->unique()->notNull(),
             'title' => $this->string(255)->notNull(),
             'content' => $this->text()->notNull(),
-            'steel_type' => $this->text()->notNull(),
+            'steel_type' => $this->text(),
             'category_id' => $this->integer(),
             'media_id' => $this->integer(),
         ]);
