@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use app\models\Category;
 use app\models\News;
+use app\models\Products;
 use Yii;
 use yii\helpers\Url;
 use yii\web\Controller;
@@ -99,6 +100,23 @@ class SiteController extends Controller
         $this->view->params['breadcrumbs'][] = ['label' => 'Новости', 'url' => Url::toRoute(['site/news'])];
         $this->view->params['breadcrumbs'][] = $news['name'];
         return $this->render('news-page', ['news' => $news]);
+    }
+
+
+    /**
+     * Displays product page.
+     * @param $slug
+     * @return string
+     * @throws \yii\web\NotFoundHttpException
+     */
+    public function actionProduct($slug)
+    {
+        $product = Products::findProductBySlug($slug);
+
+
+        return $this->render('product',
+            compact('product')
+        );
     }
 
     /**

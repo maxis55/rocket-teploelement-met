@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use yii\web\NotFoundHttpException;
 
 /**
  * This is the model class for table "products".
@@ -61,6 +62,20 @@ class Products extends \yii\db\ActiveRecord
             'category_id' => 'Категория',
             'media_id' => 'Изображение',
         ];
+    }
+
+    /**
+     * @param string $slug
+     * @return null|static
+     * @throws NotFoundHttpException
+     */
+    static public function findProductBySlug($slug)
+    {
+        if (($model = Products::findOne(['slug' => $slug])) !== null) {
+            return $model;
+        } else {
+            throw new NotFoundHttpException();
+        }
     }
 
     /**

@@ -56,6 +56,7 @@ $config = [
                 'catalog/<category_slug>/<subcategory_slug>/<subsubcategory_slug>' => 'site/catalog-subcategory',
                 'catalog/<category_slug>/<subcategory_slug>' => 'site/catalog-subcategory',
                 'catalog/<category_slug>' => 'site/catalog-category',
+                'product/<slug>' => 'site/product',
                 'news/<slug>' => 'site/news-page',
                 '<action>' => 'site/<action>',
             ],
