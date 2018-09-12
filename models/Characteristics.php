@@ -46,6 +46,10 @@ class Characteristics extends \yii\db\ActiveRecord
         ];
     }
 
+    static public function getCharacteristicsByPar($params=['id','title']){
+        return Characteristics::find()->select($params)->asArray()->all();
+    }
+
     /**
      * @return \yii\db\ActiveQuery
      */

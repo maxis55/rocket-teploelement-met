@@ -5,6 +5,7 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\Category */
 /** @var app\models\Category $parentCategories */
+/** @var array $allCharacteristics */
 
 $this->title = "Обновить категорию: {$model->name}";
 $this->params['breadcrumbs'][] = ['label' => 'Categories', 'url' => ['categories']];
@@ -18,6 +19,8 @@ $this->params['breadcrumbs'][] = 'Update';
     <?= $this->render('_form', [
         'model' => $model,
         'parentCategories' => $parentCategories,
+        'allCharacteristics'=>$allCharacteristics,
+        'type'=>'update'
     ]) ?>
 
 </div>

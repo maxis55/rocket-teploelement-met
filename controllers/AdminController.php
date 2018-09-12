@@ -116,11 +116,14 @@ class AdminController extends Controller
     {
         $model = new Category();
 
+
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+
+            return $this->redirect(['admin/category-view', 'id' => $model->id]);
         }
 
         $parentCategories = Category::getCategoryByParent(null);
+
 
 
         return $this->render('categories/create', [
@@ -141,13 +144,37 @@ class AdminController extends Controller
         $model = $this->findCategoryModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+
+            $characteristicsPost=Yii::$app->request->post()["Category"]['characteristics'];
+
+
+            //get related characteristics, turn into array of IDs
+            $currCharacteristics=array_map(function($object) { return $object->id ;}, $model->characteristics );
+
+            //get deleted characteristics
+            $removedCharacteristics=array_diff($currCharacteristics,$characteristicsPost);
+
+            //new characteristics to add
+            $newCharacteristics=array_diff($characteristicsPost,array_diff($currCharacteristics,$removedCharacteristics));
+
+            foreach ($removedCharacteristics as $item){
+                $model->unlink('characteristics',Characteristics::findOne($item),true);
+            }
+            foreach ($newCharacteristics as $item){
+                $model->link('characteristics',Characteristics::findOne($item));
+            }
+
             return $this->redirect(['admin/category-view', 'id' => $model->id]);
         }
+
+        $allCharacteristics= Characteristics::getCharacteristicsByPar();
         $parentCategories = Category::getCategoryByParent(null);
+
 
         return $this->render('categories/update', [
             'model' => $model,
             'parentCategories' => $parentCategories,
+            'allCharacteristics'=>$allCharacteristics,
         ]);
     }
 
@@ -601,8 +628,11 @@ class AdminController extends Controller
             return $this->redirect(['admin/products-view', 'id' => $model->id]);
         }
 
+        $parentCategories = Category::getCategoryByParent(null);
+
         return $this->render('products/update', [
             'model' => $model,
+            'parentCategories' => $parentCategories,
         ]);
     }
 

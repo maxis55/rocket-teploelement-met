@@ -4,6 +4,7 @@ use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Products */
+/** @var app\models\Category $parentCategories */
 
 $this->title = "Обновить продукт: {$model->title}";
 $this->params['breadcrumbs'][] = ['label' => 'Продукты', 'url' => ['products']];
@@ -16,6 +17,7 @@ $this->params['breadcrumbs'][] = 'Редактирование';
 
     <?= $this->render('_form', [
         'model' => $model,
+        'parentCategories' => $parentCategories,
     ]) ?>
 
 </div>

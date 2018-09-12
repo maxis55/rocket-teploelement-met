@@ -71,4 +71,13 @@ class News extends ActiveRecord{
     public static function getNewsForMain($limit=8){
         return self::find()->select(['shortdesc','date','name','slug'])->limit($limit)->asArray()->all();
     }
+
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getMedia()
+    {
+        return $this->hasOne(Media::className(), ['id' => 'media_id']);
+    }
 }

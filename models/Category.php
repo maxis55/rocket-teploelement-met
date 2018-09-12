@@ -21,6 +21,7 @@ use yii\db\ActiveRecord;
  */
 class Category extends ActiveRecord
 {
+
     /**
      * @inheritdoc
      */
@@ -36,12 +37,13 @@ class Category extends ActiveRecord
     {
         return [
             [['slug', 'name', 'shortdesc', 'content'], 'required'],
-            [['parent', 'media'], 'integer'],
+            [['parent', 'media_id'], 'integer'],
             [['content'], 'string'],
             [['slug'], 'string', 'max' => 20],
             [['name', 'shortdesc'], 'string', 'max' => 255],
             [['slug'], 'unique'],
             [['parent'], 'exist', 'skipOnError' => true, 'targetClass' => Category::className(), 'targetAttribute' => ['parent' => 'id']],
+            [['media_id'], 'exist', 'skipOnError' => true, 'targetClass' => Media::className(), 'targetAttribute' => ['media_id' => 'id']],
         ];
     }
 
@@ -57,7 +59,7 @@ class Category extends ActiveRecord
             'name' => 'Название категории',
             'shortdesc' => 'Краткое описание',
             'content' => 'Контент',
-            'media' => 'Изображение',
+            'media_id' => 'Изображение',
         ];
     }
 
@@ -77,6 +79,37 @@ class Category extends ActiveRecord
         return $this->hasMany(Category::className(), ['parent' => 'id']);
     }
 
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getMedia()
+    {
+        return $this->hasOne(Media::className(), ['id' => 'media_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getCategoryCharacteristics()
+    {
+        return $this->hasMany(CategoryCharacteristics::className(), ['category_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getCharacteristics()
+    {
+        return $this->hasMany(Characteristics::className(), ['id' => 'characteristics_id'])->viaTable('category_characteristics', ['category_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getProducts()
+    {
+        return $this->hasMany(Products::className(), ['category_id' => 'id']);
+    }
 
     /**
      * Content for single category
@@ -84,7 +117,8 @@ class Category extends ActiveRecord
      * @param array $params
      * @return array|null|ActiveRecord
      */
-    public static function getCategory($slug,$params=['category.id','category.name','category.content','category.slug']){
+    public static function getCategory($slug, $params = ['category.id', 'category.name', 'category.content', 'category.slug'])
+    {
 
         return Category::find()
             ->select($params)
@@ -101,7 +135,8 @@ class Category extends ActiveRecord
      * @param array $params
      * @return array|ActiveRecord[]
      */
-    public static function getSubCategory($parent, $params=['category.slug','category.name','category.shortdesc']){
+    public static function getSubCategory($parent, $params = ['category.slug', 'category.name', 'category.shortdesc'])
+    {
 
         return Category::find()
             ->select($params)
@@ -111,14 +146,14 @@ class Category extends ActiveRecord
             ->all();
     }
 
-    public static function getCategoryByParent($parent=null,$params=['name', 'slug', 'id']){
-                return Category::find()
-                    ->select($params)
-                    ->where(['parent' => $parent])
-                    ->indexBy('id')
-                    ->all();
+    public static function getCategoryByParent($parent = null, $params = ['name', 'slug', 'id'])
+    {
+        return Category::find()
+            ->select($params)
+            ->where(['parent' => $parent])
+            ->indexBy('id')
+            ->all();
     }
-
 
 
 }

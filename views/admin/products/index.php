@@ -30,7 +30,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'title',
             'content:ntext',
 //            'steel_type:ntext',
-            //'category_id',
+            'category_id',
             //'media_id',
             [
                 'attribute' => 'media_id',

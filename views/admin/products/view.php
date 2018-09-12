@@ -33,8 +33,36 @@ $this->params['breadcrumbs'][] = $this->title;
             'title',
             'content:ntext',
             'steel_type:ntext',
-            'category_id',
-            'media_id',
+            [
+                'attribute' => 'category_id',
+//                'format' => 'html',
+//                'label' => 'Фото',
+                'value' => function ($data) {
+                    if ($data->category) {
+                        return $data->category->name;
+                    } else{
+                        return "Нет категории";
+                    }
+
+                },
+
+
+            ],
+            [
+                'attribute' => 'media_id',
+                'format' => 'html',
+                'label' => 'Фото',
+                'value' => function ($data) {
+                    if ($data->media) {
+                        return Html::img($data->media->getImageOfSize(), ['width' => '60px']);
+                    } else{
+                        return "Нет картинки";
+                    }
+
+                },
+
+
+            ],
         ],
     ]) ?>
 
