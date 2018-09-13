@@ -5,6 +5,7 @@ namespace app\models;
 use Yii;
 use yii\db\ActiveRecord;
 
+
 /**
  * This is the model class for table "category".
  *
@@ -14,10 +15,14 @@ use yii\db\ActiveRecord;
  * @property string $name
  * @property string $shortdesc
  * @property string $content
- * @property int $media
+ * @property int $media_id
  *
  * @property Category $parent0
  * @property Category[] $categories
+ * @property Media $media
+ * @property CategoryCharacteristics[] $categoryCharacteristics
+ * @property Characteristics[] $characteristics
+ * @property Products[] $products
  */
 class Category extends ActiveRecord
 {
@@ -29,6 +34,8 @@ class Category extends ActiveRecord
     {
         return 'category';
     }
+
+
 
     /**
      * @inheritdoc
@@ -122,9 +129,7 @@ class Category extends ActiveRecord
 
         return Category::find()
             ->select($params)
-//            ->leftJoin('media', 'category.media = media.id') add after existing media library
             ->where(['category.slug' => $slug])
-            ->asArray()
             ->one();
     }
 
@@ -140,9 +145,7 @@ class Category extends ActiveRecord
 
         return Category::find()
             ->select($params)
-//            ->leftJoin('media', 'category.media = media.id') add after existing media library
             ->where(['category.parent' => $parent])
-            ->asArray()
             ->all();
     }
 
@@ -154,6 +157,18 @@ class Category extends ActiveRecord
             ->indexBy('id')
             ->all();
     }
+
+
+    public static function findAllProductsSubCategory($subcategory_slug)
+    {
+
+        $currCategory=Category::findOne(['slug'=>$subcategory_slug]);
+        $products=$currCategory;
+        foreach ($currCategory->categories as $subsubcategory){
+
+        }
+    }
+
 
 
 }

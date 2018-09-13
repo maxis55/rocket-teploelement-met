@@ -5,6 +5,7 @@ namespace app\controllers;
 use app\models\Category;
 use app\models\News;
 use app\models\Products;
+use app\models\ProductsSearch;
 use Yii;
 use yii\helpers\Url;
 use yii\web\Controller;
@@ -105,13 +106,13 @@ class SiteController extends Controller
 
     /**
      * Displays product page.
-     * @param $slug
+     * @param $product_slug
      * @return string
      * @throws \yii\web\NotFoundHttpException
      */
-    public function actionProduct($slug)
+    public function actionProduct($product_slug)
     {
-        $product = Products::findProductBySlug($slug);
+        $product = Products::findProductBySlug($product_slug);
 
 
         return $this->render('product',
@@ -179,21 +180,47 @@ class SiteController extends Controller
         // category & breadcrumbs data
         if (null != $subsubcategory_slug) {
 
-            $subcategory = Category::getCategory($subcategory_slug, ['category.name']);
+            $subcategory = Category::findOne(['slug'=>$subcategory_slug]);
+            $subsubcategory = Category::findOne(['slug'=>$subsubcategory_slug]);
+
+
             $this->view->params['breadcrumbs'][] =
-                [
-                    'label' => $subcategory['name'],
-                    'url' => Url::toRoute(['catalog-subcategory', 'category_slug' => $category_slug, 'subcategory_slug' => $subcategory_slug])
+                [ 'label' => $subcategory->name,
+                    'url' =>
+                        Url::toRoute(['catalog-subcategory', 'category_slug' => $category_slug, 'subcategory_slug' => $subcategory_slug])
                 ];
-            $subsubcategory = Category::getCategory($subsubcategory_slug, ['category.name', 'category.content']);
             $this->view->params['breadcrumbs'][] = $subsubcategory['name'];
 
-            return $this->render('sub_category', ['category' => $subsubcategory, 'category_slug' => $category_slug]);
-        } else {
-            $subcategory = Category::getCategory($subcategory_slug, ['category.name', 'category.content']);
-            $this->view->params['breadcrumbs'][] = $subcategory['name'];
 
-            return $this->render('sub_category', ['category' => $subcategory, 'category_slug' => $category_slug]);
+
+            return $this->render('sub_category',
+                [
+
+                    'current_category' => $subsubcategory,
+                    'subcategory_slug' => $subcategory_slug,
+                    'subsubcategory_slug' => $subsubcategory_slug,
+                    'category_slug' => $category_slug,
+                    'products'=>$subsubcategory->products,
+
+                ]);
+
+
+        } else {
+
+            $subcategory = Category::findOne(['slug'=>$subcategory_slug]);
+
+            $this->view->params['breadcrumbs'][] = $subcategory->name;
+
+            //$products=Category::findAllProductsSubCategory($subcategory_slug);
+            $searchModel = new ProductsSearch();
+            $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+            return $this->render('sub_category', [
+                'current_category' => $subcategory,
+                'category_slug' => $category_slug,
+                'subcategory_slug' => $subcategory_slug,
+                'dataProvider' => $dataProvider,
+                'searchModel' => $searchModel,
+                ]);
         }
 
     }

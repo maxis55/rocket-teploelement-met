@@ -93,14 +93,13 @@ class Media extends ActiveRecord
     }
 
 
-    public function getImageOfSize($height = '', $width = '', $quality = 90)
+    public static function getImageOfSizeStatic($name ,$type, $height = '', $width = '', $quality = 90)
     {
 
-        $defaultPath = Yii::getAlias('@web/' . 'uploads/' . $this->type . '/' . $this->name);
-        $defaultPath2 = Yii::getAlias('@webroot/' . 'uploads/' . $this->type . '/' . $this->name);
-        $pathDimensions = Yii::getAlias('@web') . '/uploads/' . $this->type . '/' . $width . 'x' . $height . '/';
-        $pathDimensions2 = Yii::getAlias('@webroot') . '/uploads/' . $this->type . '/' . $width . 'x' . $height . '/';
-
+        $defaultPath = Yii::getAlias('@web/' . 'uploads/' . $type . '/' . $name);
+        $defaultPath2 = Yii::getAlias('@webroot/' . 'uploads/' . $type . '/' . $name);
+        $pathDimensions = Yii::getAlias('@web') . '/uploads/' . $type . '/' . $width . 'x' . $height . '/';
+        $pathDimensions2 = Yii::getAlias('@webroot') . '/uploads/' . $type . '/' . $width . 'x' . $height . '/';
 
 
         if ('' == $height || '' == $width) {
@@ -109,12 +108,11 @@ class Media extends ActiveRecord
 
         //if file is not image return original path
         if (!@is_array(getimagesize($defaultPath2))) {
-             return $defaultPath;
+            return $defaultPath;
         }
 
-
-        if (file_exists($pathDimensions2 . $this->name)) {
-            return $pathDimensions . $this->name;
+        if (file_exists($pathDimensions2 . $name)) {
+            return $pathDimensions . $name;
         }
 
         if (file_exists($defaultPath2)) {
@@ -125,11 +123,17 @@ class Media extends ActiveRecord
             Image::getImagine()
                 ->open($defaultPath2)
                 ->thumbnail(new Box($width, $height))
-                ->save($pathDimensions2 . $this->name, ['quality' => $quality]);
+                ->save($pathDimensions2 . $name, ['quality' => $quality]);
 
-            return $pathDimensions . $this->name;
+            return $pathDimensions . $name;
         }
         return null;
+    }
+
+    public function getImageOfSize($height = '', $width = '', $quality = 90)
+    {
+
+        return self::getImageOfSizeStatic($this->name,$this->type,$height,$width,$quality);
     }
 
     public static function getImagesLibrary($counter,$type='image')
@@ -171,7 +175,7 @@ class Media extends ActiveRecord
     {
         parent::afterDelete();
         //delete file physically
-        $defaultPath = Yii::$app->basePath . '/web' . '/uploads/' . $this->type . '/';
+        $defaultPath = Yii::getAlias('@webroot/' . 'uploads/' . $this->type . '/' );
 
         foreach (new DirectoryIterator($defaultPath) as $fileInfo) {
 

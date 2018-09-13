@@ -59,6 +59,7 @@ use yii\widgets\ActiveForm;
     <?php
     $characteristics = array();
     $parentCat = $model->category;
+
     while (null != $parentCat->parent0) {
         $parentCat = $parentCat->parent0;
     }

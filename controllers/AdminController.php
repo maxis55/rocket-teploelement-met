@@ -126,7 +126,6 @@ class AdminController extends Controller
         $parentCategories = Category::getCategoryByParent(null);
 
 
-
         return $this->render('categories/create', [
             'model' => $model,
             'parentCategories' => $parentCategories,
@@ -146,36 +145,39 @@ class AdminController extends Controller
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
 
-            $characteristicsPost=Yii::$app->request->post()["Category"]['characteristics'];
+            $characteristicsPost = Yii::$app->request->post()["Category"]['characteristics'];
 
 
             //get related characteristics, turn into array of IDs
-            $currCharacteristics=array_map(function($object) { return $object->id ;}, $model->characteristics );
+            if (!empty($characteristicsPost)) {
+                $currCharacteristics = array_map(function ($object) {
+                    return $object->id;
+                }, $model->characteristics);
 
-            //get deleted characteristics
-            $removedCharacteristics=array_diff($currCharacteristics,$characteristicsPost);
+                //get deleted characteristics
+                $removedCharacteristics = array_diff($currCharacteristics, $characteristicsPost);
 
-            //new characteristics to add
-            $newCharacteristics=array_diff($characteristicsPost,array_diff($currCharacteristics,$removedCharacteristics));
+                //new characteristics to add
+                $newCharacteristics = array_diff($characteristicsPost, array_diff($currCharacteristics, $removedCharacteristics));
 
-            foreach ($removedCharacteristics as $item){
-                $model->unlink('characteristics',Characteristics::findOne($item),true);
+                foreach ($removedCharacteristics as $item) {
+                    $model->unlink('characteristics', Characteristics::findOne($item), true);
+                }
+                foreach ($newCharacteristics as $item) {
+                    $model->link('characteristics', Characteristics::findOne($item));
+                }
             }
-            foreach ($newCharacteristics as $item){
-                $model->link('characteristics',Characteristics::findOne($item));
-            }
-
             return $this->redirect(['admin/category-view', 'id' => $model->id]);
         }
 
-        $allCharacteristics= Characteristics::getCharacteristicsByPar();
+        $allCharacteristics = Characteristics::getCharacteristicsByPar();
         $parentCategories = Category::getCategoryByParent(null);
 
 
         return $this->render('categories/update', [
             'model' => $model,
             'parentCategories' => $parentCategories,
-            'allCharacteristics'=>$allCharacteristics,
+            'allCharacteristics' => $allCharacteristics,
         ]);
     }
 
@@ -564,8 +566,6 @@ class AdminController extends Controller
     }
 
 
-
-
     /**
      * Lists all Products models.
      * @return mixed
@@ -625,14 +625,14 @@ class AdminController extends Controller
     {
         $model = $this->findProductsModel($id);
         $request = Yii::$app->request;
-        if ($request->isPost){
-            $tempPost=Yii::$app->request->post();
-            $postCharacteristics=$tempPost['Products']['characteristics'];
-            $tempPost['Products']['steel_type']=json_encode($tempPost['steel_type']);
+        if ($request->isPost) {
+            $tempPost = Yii::$app->request->post();
+            $postCharacteristics = $tempPost['Products']['characteristics'];
+            $tempPost['Products']['steel_type'] = json_encode($tempPost['steel_type']);
 
             if ($model->load($tempPost) && $model->save()) {
 
-                if(!empty($postCharacteristics)) {
+                if (!empty($postCharacteristics)) {
                     //no way to evaluate which characteristics are changed, need to delete all
                     ProductCharacteristics::deleteAll(['product_id' => $model->id]);
                     foreach ($postCharacteristics as $key => $characteristic) {
@@ -681,7 +681,6 @@ class AdminController extends Controller
 
         throw new NotFoundHttpException('The requested page does not exist.');
     }
-
 
 
     /**
@@ -779,11 +778,6 @@ class AdminController extends Controller
 
         throw new NotFoundHttpException('The requested page does not exist.');
     }
-
-
-
-
-
 
 
     /**

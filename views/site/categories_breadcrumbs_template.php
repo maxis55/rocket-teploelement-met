@@ -30,7 +30,7 @@ $all_categories = array_values($this->params['categories']); ?>
     <div class="container">
         <div class="container_inner">
 
-            <?php // var_dump($all_categories);?>
+
             <h2 class="title1"><span>Мы предлагаем</span></h2>
             <div class="header_offers">
                 <div class="header_supply_box">

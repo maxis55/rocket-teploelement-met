@@ -138,7 +138,7 @@ AppAsset::register($this);
     <!--FOOTER END-->
     <!--modal popup  -->
     <div class="modal" id="order"
-         style="background:url(images/bg_modal_order.jpg) 0 0 no-repeat;background-size: cover;">
+         style="background:url(/images/bg_modal_order.jpg) 0 0 no-repeat;background-size: cover;">
         <div class="modal_content">
             <div class="modal_content_inner">
                 <div class="modal_close"></div>
@@ -190,7 +190,7 @@ AppAsset::register($this);
         </div>
     </div>
     <div class="modal" id="basket"
-         style="background:url(images/bg_modal_basket.png) 0 0 no-repeat;background-size: cover;">
+         style="background:url(/images/bg_modal_basket.png) 0 0 no-repeat;background-size: cover;">
         <div class="modal_content_basket">
             <div class="modal_box_basket">
                 <div class="box_basket_top">
@@ -262,7 +262,7 @@ AppAsset::register($this);
         </div>
     </div>
     <div class="modal" id="thanks"
-         style="background:url(images/bg_modal_thanks.jpg) 0 0 no-repeat;background-size: cover;">
+         style="background:url(/images/bg_modal_thanks.jpg) 0 0 no-repeat;background-size: cover;">
         <div class="modal_content">
             <div class="modal_content_inner">
                 <div class="modal_close" onclick=""></div>

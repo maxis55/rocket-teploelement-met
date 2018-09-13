@@ -19,7 +19,7 @@ class m180912_075733_update_products_table extends Migration
                     'title' => "Товар" .$i. $j,
                     'slug' => "product" .$i. $j,
                     'content'=>'Контент'.$i. $j.'конец контента',
-                    'steel_type'=>json_encode(array('Марка1', 'Марка2','Марка3')),
+                    'steel_type'=>json_encode(array('Марка1'.$i. $j, 'Марка2'.$i. $j,'Марка3'.$i. $j)),
                     'category_id'=>$i,
                     'media_id'=>32
                 ]);
