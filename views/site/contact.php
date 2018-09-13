@@ -25,6 +25,7 @@
                   <div class="contacts_box">
                         <div class="contacts_info">
                             <div class="contacts_info_call">
+
                                 <div class="contacts_call_item">
                                     <span>По всем вопросам</span>
                                     <a href="tel:<?= preg_replace("/[^0-9]/", "", $page_content['phone1']); ?>" class="header_info_lk"><?= $page_content['phone1']?></a>

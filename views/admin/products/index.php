@@ -30,8 +30,16 @@ $this->params['breadcrumbs'][] = $this->title;
             'title',
             'content:ntext',
 //            'steel_type:ntext',
-            'category_id',
-            //'media_id',
+            [
+                'attribute' => 'category_id',
+                'format' => 'text',
+                'label' => 'Категория',
+                'value' => function ($data) {
+                    return $data->category->name;
+
+                },
+            ],
+
             [
                 'attribute' => 'media_id',
                 'format' => 'html',
@@ -39,7 +47,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'value' => function ($data) {
                     if ($data->media) {
                         return Html::img($data->media->getImageOfSize(), ['width' => '60px']);
-                    } else{
+                    } else {
                         return "Нет картинки";
                     }
 
@@ -57,7 +65,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     },
                     'update' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-pencil"></span>', $url, [
-                            'title' =>  'Редактировать',
+                            'title' => 'Редактировать',
                         ]);
                     },
                     'delete' => function ($url, $model) {

@@ -159,14 +159,10 @@ class Category extends ActiveRecord
     }
 
 
-    public static function findAllProductsSubCategory($subcategory_slug)
+    public static function findAllSubcategoryIds($parent_id)
     {
 
-        $currCategory=Category::findOne(['slug'=>$subcategory_slug]);
-        $products=$currCategory;
-        foreach ($currCategory->categories as $subsubcategory){
-
-        }
+        return Category::find()->select('id')->where(['parent'=>$parent_id])->asArray()->all();
     }
 
 

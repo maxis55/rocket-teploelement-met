@@ -43,11 +43,11 @@ use yii\widgets\ActiveForm;
                     <div class="form-group field-pages-<?= $item['key'] ?> field-pages-description">
                         <label class="control-label" for="pages-<?= $item['key'] ?>">Описание</label>
                         <textarea id="pages-<?= $item['key'] ?>" class="form-control tinymce" name="Pages[<?= $item['key'] ?>]"
-                                  rows="6"><?= $item['title'] ?></textarea>
+                                  rows="6"><?= $item['value'] ?></textarea>
                     </div>
                 <?php } ?>
 
-                <?php if ($item['type'] == 'media') { ?>
+                <?php if ($item['type'] == 'image') { ?>
 
                     <div class="box-item-inner">
                         <div class="box-img">

@@ -78,6 +78,20 @@ class Products extends \yii\db\ActiveRecord
         }
     }
 
+    public static function getCharacteristicsWvalues($slug)
+    {
+        return Products::find()
+            ->select(['product_characteristics.value', 'characteristics.title'])
+            ->where(['products.slug' => $slug])
+            ->leftJoin('product_characteristics', 'product_characteristics.product_id = products.id')
+            ->leftJoin('characteristics', 'product_characteristics.characteristics_id = characteristics.id')
+            ->andWhere(['not', ['product_characteristics.value' => null]])
+            ->andWhere(['not', ['characteristics.title' => null]])
+            ->asArray()
+            ->all();
+    }
+
+
     /**
      * @return \yii\db\ActiveQuery
      */

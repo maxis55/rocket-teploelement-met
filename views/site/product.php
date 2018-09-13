@@ -1,6 +1,7 @@
 <?php
 
 /** @var \app\models\Products $product */
+/** @var array $characteristicsWvalues */
 ?>
 
 <!-- MAIN CONTENT Start-->
@@ -18,18 +19,20 @@
 
                             <img src="<?= Yii::$app->request->baseUrl ?><?= $product->media->getImageOfSize(); ?>">
                         </div>
-                        <div class="product_info_char">
-                            <h4 class="title6">Характеристики</h4>
-                            <dl class="product_char_list">
-                                <?php foreach ($product->characteristics as $order => $characteristic) { ?>
-                                    <div class="product_char_item">
-                                        <dt>Характеристика</dt>
-                                        <dd><?= $characteristic['value'] ?></dd>
-                                    </div>
-                                <?php } ?>
-                            </dl>
-                        </div>
 
+                        <?php if (!empty($characteristicsWvalues)): ?>
+                            <div class="product_info_char">
+                                <h4 class="title6">Характеристики</h4>
+                                <dl class="product_char_list">
+                                    <?php foreach ($characteristicsWvalues as $characteristic) { ?>
+                                        <div class="product_char_item">
+                                            <dt><?= $characteristic['title'] ?></dt>
+                                            <dd><?= $characteristic['value'] ?></dd>
+                                        </div>
+                                    <?php } ?>
+                                </dl>
+                            </div>
+                        <?php endif; ?>
                         <div class="product_counter_box">
                             <div class="product_counter_item">
                                 <div class="counter_item_inner">
@@ -128,6 +131,9 @@
                     </div>
                 </div>
             </div>
+            <?= $this->render('products_in_grid_template.php',[
+                'dataProvider'=>$dataProvider
+            ]) ?>
             <div class="inner_offers">
                 <div class="inner_offers_carousel">
                     <button class="product_prev_btn"></button>

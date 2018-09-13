@@ -273,7 +273,7 @@ AppAsset::register($this);
             </div>
         </div>
     </div>
-    <div class="modal" id="call" style="background:url(images/bg_modal_call.jpg) 0 0 no-repeat;background-size: cover;">
+    <div class="modal" id="call" style="background:url(/images/bg_modal_call.jpg) 0 0 no-repeat;background-size: cover;">
         <div class="modal_content">
             <div class="modal_content_inner">
                 <div class="modal_close" onclick=""></div>

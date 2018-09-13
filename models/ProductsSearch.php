@@ -37,16 +37,25 @@ class ProductsSearch extends Products
      *
      * @param array $params
      *
+     * @param array $cat_ids
+     * @param int $pageSize
      * @return ActiveDataProvider
      */
-    public function search($params)
+    public function search($params,$cat_ids=array(),$pageSize=7)
     {
-        $query = Products::find();
+        if(!empty($cat_ids)){
+            $query = Products::find()->where(['in', 'category_id', $cat_ids]);
+        }else{
+            $query = Products::find();
+        }
+
 
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'pagination' => ['pageSize'=>$pageSize ],
+
         ]);
 
         $this->load($params);
@@ -60,7 +69,6 @@ class ProductsSearch extends Products
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'category_id' => $this->category_id,
             'media_id' => $this->media_id,
         ]);
 

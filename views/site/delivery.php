@@ -12,7 +12,7 @@
                 </div>
                 <div class="delivery_block">
                     <div class="delivery_block_img">
-                        <img src="images/delivery<?= $page_content['main_image']; ?>.jpg" alt="" class="lg">
+                        <img src="images/delivery1<?= $page_content['main_image']; ?>.jpg" alt="" class="lg">
                     </div>
                     <?= $page_content['text_block_1']?>
                 </div>

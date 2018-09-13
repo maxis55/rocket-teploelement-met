@@ -114,9 +114,20 @@ class SiteController extends Controller
     {
         $product = Products::findProductBySlug($product_slug);
 
+        $characteristicsWvalues = Products::getCharacteristicsWvalues($product_slug);
+        $searchModel = new ProductsSearch();
+        $filterParams=Yii::$app->request->queryParams;
+        $subcategoriesIdsArray=array_column(Category::findAllSubcategoryIds($product->category_id),'id');
+        $subcategoriesIdsArray[]=$product->category_id;
+
+        $dataProvider = $searchModel->search($filterParams,$subcategoriesIdsArray);
 
         return $this->render('product',
-            compact('product')
+            [
+                'dataProvider'=>$dataProvider,
+                'product' => $product,
+                'characteristicsWvalues' => $characteristicsWvalues
+            ]
         );
     }
 
@@ -126,8 +137,9 @@ class SiteController extends Controller
     public function actionContact()
     {
         $this->view->params['map'] = [55, 55];
-        $page_content = Pagesmeta::getFrontPageMeta('contacts');
+        $page_content = Pagesmeta::getFrontPageMeta('contact');
         $this->view->params['breadcrumbs'][] = 'Контакты';
+
         return $this->render('contact', compact('page_content'));
     }
 
@@ -151,7 +163,7 @@ class SiteController extends Controller
     public function actionCatalogCategory($category_slug)
     {
         $category = Category::getCategory($category_slug);
-        $subCategory = Category::getSubCategory($category['id'],['category.name','category.slug','category.shortdesc']);
+        $subCategory = Category::getSubCategory($category['id'], ['category.name', 'category.slug', 'category.shortdesc']);
 
         $this->view->params['breadcrumbs'][] = $category['name'];
 
@@ -176,22 +188,26 @@ class SiteController extends Controller
                 'label' => $first_category['name'],
                 'url' => Url::toRoute(['catalog-category', 'category_slug' => $category_slug])
             ];
-
+        $searchModel = new ProductsSearch();
+        $filterParams=Yii::$app->request->queryParams;
         // category & breadcrumbs data
         if (null != $subsubcategory_slug) {
 
-            $subcategory = Category::findOne(['slug'=>$subcategory_slug]);
-            $subsubcategory = Category::findOne(['slug'=>$subsubcategory_slug]);
+            $subcategory = Category::findOne(['slug' => $subcategory_slug]);
+            $subsubcategory = Category::findOne(['slug' => $subsubcategory_slug]);
 
 
             $this->view->params['breadcrumbs'][] =
-                [ 'label' => $subcategory->name,
+                ['label' => $subcategory->name,
                     'url' =>
                         Url::toRoute(['catalog-subcategory', 'category_slug' => $category_slug, 'subcategory_slug' => $subcategory_slug])
                 ];
+
             $this->view->params['breadcrumbs'][] = $subsubcategory['name'];
 
 
+
+            $dataProvider = $searchModel->search($filterParams,[$subsubcategory->id]);
 
             return $this->render('sub_category',
                 [
@@ -200,27 +216,29 @@ class SiteController extends Controller
                     'subcategory_slug' => $subcategory_slug,
                     'subsubcategory_slug' => $subsubcategory_slug,
                     'category_slug' => $category_slug,
-                    'products'=>$subsubcategory->products,
+                    'dataProvider' => $dataProvider,
 
                 ]);
 
 
         } else {
 
-            $subcategory = Category::findOne(['slug'=>$subcategory_slug]);
+            $subcategory = Category::findOne(['slug' => $subcategory_slug]);
 
             $this->view->params['breadcrumbs'][] = $subcategory->name;
 
-            //$products=Category::findAllProductsSubCategory($subcategory_slug);
-            $searchModel = new ProductsSearch();
-            $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+            $subcategoriesIdsArray=array_column(Category::findAllSubcategoryIds($subcategory->id),'id');
+            $subcategoriesIdsArray[]=$subcategory->id;
+
+            $dataProvider = $searchModel->search($filterParams,$subcategoriesIdsArray);
+
             return $this->render('sub_category', [
                 'current_category' => $subcategory,
                 'category_slug' => $category_slug,
                 'subcategory_slug' => $subcategory_slug,
                 'dataProvider' => $dataProvider,
-                'searchModel' => $searchModel,
-                ]);
+            ]);
         }
 
     }
