@@ -29,7 +29,19 @@ $this->params['breadcrumbs'][] = $this->title;
             'slug',
             'title',
             'content:ntext',
-//            'steel_type:ntext',
+            [
+                'attribute' => 'steel_type',
+                'format' => 'html',
+                'value' => function ($data) {
+                    $decidedSteelType=json_decode($data->steel_type);
+                    if (!empty($decidedSteelType)) {
+
+                        return Html::ul($decidedSteelType);
+                    } else{
+                        return "Не марок стали";
+                    }
+                },
+            ],
             [
                 'attribute' => 'category_id',
                 'format' => 'text',

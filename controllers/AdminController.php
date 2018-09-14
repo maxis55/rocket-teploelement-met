@@ -19,6 +19,8 @@ use app\models\Media;
 use app\models\MediaSearch;
 use app\models\News;
 use app\models\NewsSearch;
+use app\models\Orders;
+use app\models\OrdersSearch;
 use app\models\Pagesmeta;
 use app\models\ProductCharacteristics;
 use app\models\Products;
@@ -787,6 +789,71 @@ class AdminController extends Controller
 
         throw new NotFoundHttpException('The requested page does not exist.');
     }
+
+
+
+
+    /**
+     * Lists all Orders models.
+     * @return mixed
+     */
+    public function actionOrders()
+    {
+        $searchModel = new OrdersSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        return $this->render('orders/index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
+    /**
+     * Displays a single Orders model.
+     * @param integer $id
+     * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    public function actionOrdersView($id)
+    {
+        return $this->render('orders/view', [
+            'model' => $this->findOrdersModel($id),
+        ]);
+    }
+    /**
+     * Deletes an existing Orders model.
+     * If deletion is successful, the browser will be redirected to the 'index' page.
+     * @param integer $id
+     * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    public function actionOrdersDelete($id)
+    {
+        $this->findOrdersModel($id)->delete();
+
+        return $this->redirect(['admin/orders']);
+    }
+
+    /**
+     * Finds the Orders model based on its primary key value.
+     * If the model is not found, a 404 HTTP exception will be thrown.
+     * @param integer $id
+     * @return Orders the loaded model
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    protected function findOrdersModel($id)
+    {
+        if (($model = Orders::findOne($id)) !== null) {
+            return $model;
+        }
+
+        throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+
+
+
+
 
 
     /**

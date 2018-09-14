@@ -37,7 +37,6 @@ $this->params['breadcrumbs'][] = $this->title;
                 'format' => 'html',
                 'value' => function ($data) {
                     $decidedSteelType=json_decode($data->steel_type);
-                    $result='';
                     if (!empty($decidedSteelType)) {
 
                         return Html::ul($decidedSteelType);

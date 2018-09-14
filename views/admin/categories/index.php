@@ -18,7 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <p>
         <?= Html::a('Создать категорию', ['category-create'], ['class' => 'btn btn-success']) ?>
     </p>
-
+    <?php \yii\widgets\Pjax::begin();?>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
@@ -37,6 +37,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'buttons' => [
                     'view' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', $url, [
+                            'data-pjax' => 0,
                             'title' => 'Просмотреть',
                         ]);
                     },
@@ -64,4 +65,5 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         ],
     ]); ?>
+    <?php \yii\widgets\Pjax::end();?>
 </div>
