@@ -42,7 +42,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php
     if ($model->id <= 5) {
 
-        $data = Pagesmeta::getFrontPageMeta($model->slug, true);
+        $data = Pagesmeta::getPageMeta($model->slug, true);
 
         if (!empty($data)) { ?>
             <table id="w1" class="table table-striped table-bordered detail-view">

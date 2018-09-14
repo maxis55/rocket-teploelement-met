@@ -107,7 +107,7 @@ class m180904_122004_update_table_pagesmeta extends Migration
                 'page_id' => 1,
                 'key' => 'block_'.$r.'_image',
                 'title' => 'Изображение блока '.$r,
-                'value' => $r,
+                'value' => 39+$r,
                 'type' => 'image'
             ]);
         }
@@ -117,7 +117,7 @@ class m180904_122004_update_table_pagesmeta extends Migration
             'page_id' => 1,
             'key' => 'main_image',
             'title' => 'Изображение в начале страницы',
-            'value' => 1,
+            'value' => 6,
             'type' => 'image'
         ]);
 
@@ -224,7 +224,16 @@ class m180904_122004_update_table_pagesmeta extends Migration
             'page_id' => 3,
             'key' => 'image_1',
             'title' => 'Изображение',
-            'value' => 2,
+            'value' => 14,
+            'type' => 'image'
+        ]);
+
+        $this->insert('pagesmeta', [
+            'id' => ++$i,
+            'page_id' => 3,
+            'key' => 'image_2',
+            'title' => 'Изображение2',
+            'value' => 15,
             'type' => 'image'
         ]);
 
@@ -233,12 +242,12 @@ class m180904_122004_update_table_pagesmeta extends Migration
             'page_id' => 3,
             'key' => 'text_block_3',
             'title' => 'Текстовый блок 3',
-            'value' => '<p><span style="color: #00bdff">Условия доставки</span>является дополнительной частью нашего сотрудничества, и данный вопрос регулируется вспомогательными документами и регламентными положениями, которые заключаются между покупателем и производителем металлоконструкций. </p>
+            'value' => '<p><span style="color: #00bdff">Условия доставки</span> является дополнительной частью нашего сотрудничества, и данный вопрос регулируется вспомогательными документами и регламентными положениями, которые заключаются между покупателем и производителем металлоконструкций. </p>
 							<p>Ответственность нашей компании за товар сохраняется до момента погрузки на транспортное средство, дополнительную ответственность перевозки груза возлагают на себя транспортные компании, о чем указывается в договоре на доставку продукции.</p>
-							<img src="images/partners1.png" alt="">
-							<img src="images/partners2.png" alt="">
-							<img src="images/partners3.png" alt="">
-							<img src="images/partners4.png" alt="">',
+							<img src="../uploads/image/partners1.png" alt="">
+							<img src="../uploads/image/partners2.png" alt="">
+							<img src="../uploads/image/partners3.png" alt="">
+							<img src="../uploads/image/partners4.png" alt="">',
             'type' => 'tinyarea'
         ]);
 
@@ -269,7 +278,7 @@ class m180904_122004_update_table_pagesmeta extends Migration
             'page_id' => 5,
             'key' => 'image',
             'title' => 'Изображение',
-            'value' => 1,
+            'value' => 2,
             'type' => 'image'
         ]);
 

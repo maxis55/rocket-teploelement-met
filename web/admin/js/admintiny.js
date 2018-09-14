@@ -30,20 +30,6 @@ function initializeTinyMce(){
         toolbar1: "styleselect formatselect fontselect fontsizeselect | bold italic underline strikethrough | alignleft aligncenter alignright alignjustify  | table | subscript superscript",
         toolbar2: "cut copy paste | bullist numlist | outdent indent blockquote | undo redo | link unlink anchor | insertdatetime preview | forecolor backcolor | mybutton custom_media textfooter_btn",
         setup: function(editor) {
-            editor.addButton('mybutton', {
-                text: 'Текст с желтой полосой',
-                icon: false,
-                onclick: function () {
-                    editor.insertContent('<p class="aboutus__y-linebox d-flex align-items-center"></p>');
-                }
-            });
-            editor.addButton('textfooter_btn', {
-                text: 'Горизонтальная желтая полоса',
-                icon: false,
-                onclick: function () {
-                    editor.insertContent('<p class="y-line"></p>');
-                }
-            });
             editor.addButton('custom_media', {
                 text: 'Изображения',
                 icon: false,
@@ -57,7 +43,7 @@ function initializeTinyMce(){
                         $.ajax({
                             method:"POST",
                             url:HomeUrl + '/admin/media-library',
-                            data:{_csrf:MediaCsrf,counter:LoadMoreMedia.data('page')},
+                            data:{_csrf:MediaCsrf,counter:LoadMoreMedia.data('page'),type:'image'},
                             success:function(res){
                                 $('.inner-media').append(res[0]);
                                 if(!res[1]){

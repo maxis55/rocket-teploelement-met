@@ -1,11 +1,14 @@
-    <!-- MAIN CONTENT Start-->
-
+<?php
+use app\models\Media;
+/** @var array $media_arr */
+/** @var array $page_content */
+?>
+<!-- MAIN CONTENT Start-->
     <div id="content" class="type">
         <div class="container">
             <div class="container_inner">
-                <div class="errors_bl">
-                    <span>Страница не найдена</span>
-        
+                <div class="errors_bl" style="background-image: url('<?=  Media::getImageOfSizeStatic($media_arr[ $page_content['image'] ] ['name'],'image') ?>')">
+                    <span><?=$page_content['text_block'] ?></span>
                 </div>
             </div>
         </div>

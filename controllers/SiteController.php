@@ -3,10 +3,12 @@
 namespace app\controllers;
 
 use app\models\Category;
+use app\models\Media;
 use app\models\News;
 use app\models\Products;
 use app\models\ProductsSearch;
 use Yii;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
 use yii\web\Controller;
 use yii\widgets\Menu;
@@ -45,26 +47,39 @@ class SiteController extends Controller
             'submenuTemplate' => "\n<ul class='sub_menu'>\n{items}\n</ul>\n",
             'options' => ['class' => 'menu'],
         ]);
+        $arrayWithoutCategories=array('contact','news-page','news');
         //categories
-        $categories = Category::getCategoryByParent(null);
-        $this->view->params['categories'] = $categories;
+        if(!in_array(Yii::$app->controller->action->id,$arrayWithoutCategories)){
+            $categories = Category::getCategoryByParent(null);
+            $this->view->params['categories'] = $categories;
+        }
+
 
         return parent::beforeAction($action);
     }
 
 
-    /**
-     * External actions
-     */
-    public function actions()
-    {
-        return [
-            'error' => [
-                'class' => 'yii\web\ErrorAction',
-            ]
-        ];
-    }
 
+    public function actionError()
+    {
+        $exception = Yii::$app->errorHandler->exception;
+
+        if ($exception !== null) {
+            $page_content = Pagesmeta::getPageMeta('404',true);
+            $media_ids=array();
+            foreach ($page_content as $item){
+                if ('image'==$item['type']){
+                    $media_ids[]=$item['value'];
+                }
+            }
+            $mediaArr=Media::findInIdAsArray($media_ids);
+            return $this->render('error', [
+                'exception' => $exception,
+                'page_content' => ArrayHelper::map($page_content, 'key', 'value'),
+                'media_arr'=>$mediaArr
+            ]);
+        }
+    }
 
     /**
      * Displays homepage.
@@ -72,10 +87,24 @@ class SiteController extends Controller
     public function actionIndex()
     {
         $this->layout = 'index';
-        $news_slider = News::getFirstArchiveNews();
-        $page_content = Pagesmeta::getFrontPageMeta('index');
 
-        return $this->render('index', ['news_slider' => $news_slider, 'page_content' => $page_content]);
+        $page_content = Pagesmeta::getPageMeta('index',true);
+        $media_ids=array();
+        foreach ($page_content as $item){
+            if ('image'==$item['type']){
+                $media_ids[]=$item['value'];
+            }
+        }
+
+        $news_slider = News::getFirstArchiveNews($page_content['posts_per_page']['value']);
+
+        $mediaArr=Media::findInIdAsArray($media_ids);
+
+        return $this->render('index', [
+            'news_slider' => $news_slider,
+            'page_content' => ArrayHelper::map($page_content, 'key', 'value'),
+            'media_arr'=>$mediaArr
+        ]);
     }
 
     /**
@@ -136,11 +165,20 @@ class SiteController extends Controller
      */
     public function actionContact()
     {
-        $this->view->params['map'] = [55, 55];
-        $page_content = Pagesmeta::getFrontPageMeta('contact');
-        $this->view->params['breadcrumbs'][] = 'Контакты';
 
-        return $this->render('contact', compact('page_content'));
+        $page_content = Pagesmeta::getPageMeta('contact',true);
+        $media_ids=array();
+        foreach ($page_content as $item){
+            if ('image'==$item['type']){
+                $media_ids[]=$item['value'];
+            }
+        }
+        $mediaArr=Media::findInIdAsArray($media_ids);
+
+        return $this->render('contact', [
+            'page_content' => ArrayHelper::map($page_content, 'key', 'value'),
+            'media_arr'=>$mediaArr
+        ]);
     }
 
 
@@ -149,9 +187,21 @@ class SiteController extends Controller
      */
     public function actionDelivery()
     {
-        $page_content = Pagesmeta::getFrontPageMeta('delivery');
-        $this->view->params['breadcrumbs'][] = 'Доставка';
-        return $this->render('delivery', compact('page_content'));
+        $page_content = Pagesmeta::getPageMeta('delivery',true);
+        $media_ids=array();
+        foreach ($page_content as $item){
+            if ('image'==$item['type']){
+                $media_ids[]=$item['value'];
+            }
+        }
+
+
+        $mediaArr=Media::findInIdAsArray($media_ids);
+
+        return $this->render('delivery', [
+            'page_content' => ArrayHelper::map($page_content, 'key', 'value'),
+            'media_arr'=>$mediaArr
+        ]);
     }
 
 
@@ -193,7 +243,7 @@ class SiteController extends Controller
         // category & breadcrumbs data
         if (null != $subsubcategory_slug) {
 
-            $subcategory = Category::findOne(['slug' => $subcategory_slug]);
+            $subcategory = Category::getCategory(['slug' => $subcategory_slug],['category.name']);
             $subsubcategory = Category::findOne(['slug' => $subsubcategory_slug]);
 
 

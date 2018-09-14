@@ -22,7 +22,6 @@ use yii\widgets\Breadcrumbs;
                                 'class'=>'breadcrumbs_main'
                             ],
                             'activeItemTemplate' => "<li><span class='breadcrumbs_current'>{link}</span></li>\n",
-                            'class'=>'somey',
                             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
                         ])
                         ?>

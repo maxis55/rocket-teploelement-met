@@ -308,30 +308,7 @@ AppAsset::register($this);
     <?php $this->endBody() ?>
 
 
-    <?php
-        if (Yii::$app->controller->action->id == 'contact') {
-            $this->registerJs(
-                'ymaps.ready(initYaMap);
-                        function initYaMap() {
-                            var myMap = new ymaps.Map("ya_map", {
-                            center: [' . $this->params['map'][0] . ', ' . $this->params['map'][1] . '],
-                            zoom: 5
-                        }, {
-                            searchControlProvider: \'yandex#search\'
-                        }),
-                            myPlacemark = new ymaps.Placemark([' . $this->params['map'][0] . ', ' . $this->params['map'][1] . '], {
-                            }, {
-                                iconLayout: \'default#image\',
-                                iconImageHref: "' . Yii::$app->request->baseUrl . './images/icons/marker.png",
-                                iconImageSize: [40, 60],
-                                iconImageOffset: [-5, -38]
-                            });
-                    
-                        myMap.geoObjects.add(myPlacemark);
-                        }',
-                View::POS_END);
-        }
-        ?>
+
     </body>
 
     </html>

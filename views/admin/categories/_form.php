@@ -54,7 +54,16 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'shortdesc')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'content')->textarea(['rows' => 6]) ?>
+
+    <?php if('create'==$type||$model->parent!=null):?>
+        <?= $form->field($model, 'content_arr1')->textarea(['rows' => 6]) ?>
+        <?= $form->field($model, 'content_arr2')->textarea(['rows' => 6]) ?>
+        <?= $form->field($model, 'content_arr3')->textarea(['rows' => 6]) ?>
+    <?php else:?>
+        <?= $form->field($model, 'content')->textarea(['rows' => 6]) ?>
+    <?php endif;?>
+
+
 
     <div class="box-item-inner">
         <div class="box-img">

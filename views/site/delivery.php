@@ -1,4 +1,12 @@
+<?php
 
+use app\models\Media;
+
+$this->title='Доставка';
+$this->params['breadcrumbs'][] = $this->title;
+/** @var array $page_content */
+/** @var array $media_arr */
+?>
 	<!-- MAIN CONTENT Start-->
 
         <?= $this->render('categories_breadcrumbs_template.php') ?>
@@ -10,9 +18,10 @@
                 <div class="content_title">
                     <h2 class="title4"><span>Доставка</span></h2>
                 </div>
+
                 <div class="delivery_block">
                     <div class="delivery_block_img">
-                        <img src="images/delivery1<?= $page_content['main_image']; ?>.jpg" alt="" class="lg">
+                        <img src="<?= Media::getImageOfSizeStatic($media_arr[ $page_content['image_1'] ] ['name'],'image') ?>" alt="" class="lg">
                     </div>
                     <?= $page_content['text_block_1']?>
                 </div>
@@ -21,7 +30,7 @@
                         <?= $page_content['text_block_2']; ?>
                     </div>
                     <div class="delivery_content_img">
-                        <img src="images/delivery<?= $page_content['image_1']; ?>.jpg" alt="">
+                        <img src="<?= Media::getImageOfSizeStatic($media_arr[ $page_content['image_2'] ] ['name'],'image') ?>" alt="">
                     </div>
                 </div>
                 <div class="delivery_partners">

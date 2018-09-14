@@ -171,6 +171,23 @@ class Media extends ActiveRecord
         throw new NotFoundHttpException('The requested page does not exist.');
     }
 
+
+
+    public static function findInIdAsArray(array $ids)
+    {
+       return Media::find()->select(['id','name'])->where(['in', 'id', $ids])->asArray()->indexBy('id')->all();
+    }
+
+
+
+
+
+
+
+
+
+
+
     public function afterDelete()
     {
         parent::afterDelete();
@@ -195,5 +212,9 @@ class Media extends ActiveRecord
         unlink($defaultPath. $this->name);
 
     }
+
+
+
+
 
 }

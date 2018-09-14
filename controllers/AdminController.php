@@ -143,10 +143,11 @@ class AdminController extends Controller
     {
         $model = $this->findCategoryModel($id);
 
+
+
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
 
             $characteristicsPost = Yii::$app->request->post()["Category"]['characteristics'];
-
 
             //get related characteristics, turn into array of IDs
             if (!empty($characteristicsPost)) {
@@ -168,6 +169,13 @@ class AdminController extends Controller
                 }
             }
             return $this->redirect(['admin/category-view', 'id' => $model->id]);
+        }
+
+        if(null != $model->parent){
+            $temp=json_decode($model->content);
+            $model->content_arr1=$temp[0];
+            $model->content_arr2=$temp[1];
+            $model->content_arr3=$temp[2];
         }
 
         $allCharacteristics = Characteristics::getCharacteristicsByPar();
@@ -265,6 +273,7 @@ class AdminController extends Controller
         if (Yii::$app->request->isPost) {
             $post = Yii::$app->request->post('Pages');
             $meta = Pagesmeta::find()->where(['=', 'page_id', $id])->all();
+
             foreach ($meta as $single_meta) {
                 $single_meta->value = $post[$single_meta->key];
                 $single_meta->save();

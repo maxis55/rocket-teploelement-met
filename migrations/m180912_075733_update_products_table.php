@@ -12,7 +12,7 @@ class m180912_075733_update_products_table extends Migration
      */
     public function safeUp()
     {
-        for($i=1;$i<280;$i++){
+        for($i=1;$i<200;$i++){
             for ($j = 1; $j <= 10; ++$j) {
                 $this->insert('products', [
 //                    'id' => $i.$j,

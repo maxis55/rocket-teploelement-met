@@ -36,7 +36,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'parent',
                 'name',
                 'shortdesc',
-                'content:ntext',
+              //  'content:ntext',
                 [
                     'attribute' => 'media_id',
                     'format' => 'html',

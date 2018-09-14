@@ -35,7 +35,9 @@ class Category extends ActiveRecord
         return 'category';
     }
 
-
+    public $content_arr1;
+    public $content_arr2;
+    public $content_arr3;
 
     /**
      * @inheritdoc
@@ -43,15 +45,30 @@ class Category extends ActiveRecord
     public function rules()
     {
         return [
-            [['slug', 'name', 'shortdesc', 'content'], 'required'],
+            [['slug', 'name', 'shortdesc'], 'required'],
+            ['content', 'customValidator', 'params' => ['extraFields' => ['content_arr1','content_arr2','content_arr3','content_arr4']]],
             [['parent', 'media_id'], 'integer'],
-            [['content'], 'string'],
+            [['content','content_arr1','content_arr2','content_arr3','content_arr4'], 'string'],
             [['slug'], 'string', 'max' => 20],
             [['name', 'shortdesc'], 'string', 'max' => 255],
             [['slug'], 'unique'],
             [['parent'], 'exist', 'skipOnError' => true, 'targetClass' => Category::className(), 'targetAttribute' => ['parent' => 'id']],
             [['media_id'], 'exist', 'skipOnError' => true, 'targetClass' => Media::className(), 'targetAttribute' => ['media_id' => 'id']],
         ];
+    }
+
+    public function customValidator(){
+        if (empty($this->content_arr1) && empty($this->content) ) {
+
+            $this->addError('content', Yii::t('user', 'At least 1 of the field must be filled up properly'));
+            $this->addError('content_arr1', Yii::t('user', 'At least 1 of the field must be filled up properly'));
+            $this->addError('content_arr2', Yii::t('user', 'At least 1 of the field must be filled up properly'));
+            $this->addError('content_arr3', Yii::t('user', 'At least 1 of the field must be filled up properly'));
+
+            return false;
+        }
+
+        return true;
     }
 
     /**
@@ -67,6 +84,7 @@ class Category extends ActiveRecord
             'shortdesc' => 'Краткое описание',
             'content' => 'Контент',
             'media_id' => 'Изображение',
+            'content_arr'=>'Составной контент'
         ];
     }
 
@@ -163,6 +181,17 @@ class Category extends ActiveRecord
     {
 
         return Category::find()->select('id')->where(['parent'=>$parent_id])->asArray()->all();
+    }
+
+    public function beforeSave($insert)
+    {
+
+        if(!empty($this->content_arr1)&&!empty($this->content_arr2)&&!empty($this->content_arr3)){
+
+            $this->content=json_encode([$this->content_arr1,$this->content_arr2,$this->content_arr3]);
+        }
+
+        return parent::beforeSave($insert);
     }
 
 
