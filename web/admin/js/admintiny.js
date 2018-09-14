@@ -10,7 +10,7 @@ $(document).ready(function(){
 });
 function initializeTinyMce(){
     tinymce.init({
-        selector: ".field-pages-description textarea",
+        selector: ".field-pages-description textarea, .tinymce_forms textarea",
         language : 'ru',
         browser_spellcheck: true,
         branding: false,

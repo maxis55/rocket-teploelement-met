@@ -8,7 +8,7 @@ use yii\widgets\ActiveForm;
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="news-form">
+<div class="news-form tinymce_forms">
 
     <?php $form = ActiveForm::begin(); ?>
 

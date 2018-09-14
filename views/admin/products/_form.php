@@ -9,7 +9,7 @@ use yii\widgets\ActiveForm;
 /** @var app\models\Category $parentCategories */
 ?>
 
-<div class="products-form">
+<div class="products-form tinymce_forms">
 
     <?php $form = ActiveForm::begin(); ?>
 

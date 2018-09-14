@@ -13,7 +13,7 @@ use yii\widgets\ActiveForm;
 ?>
 <?php //var_dump($parentCategories);?>
 
-<div class="category-form">
+<div class="category-form tinymce_forms">
 
     <?php $form = ActiveForm::begin(); ?>
 

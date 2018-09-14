@@ -1,7 +1,10 @@
 <?php
+
+use app\models\Media;
 use yii\helpers\Url;
 use yii\widgets\Breadcrumbs;
-
+$this->title='Новости';
+$this->params['breadcrumbs'][] = $this->title;
 ?>
 
     <!-- MAIN CONTENT Start-->
@@ -49,12 +52,12 @@ use yii\widgets\Breadcrumbs;
                     <div class="news_flex">
 
                         <?php /** @var array $news */
+
                         foreach ($news as $single) { ?>
                             <div class="main_news_item">
                                 <figure>
                                     <a href="<?= Url::toRoute(['site/news-page', 'slug' => $single['slug']]) ?>" class="news_img">
-                                        <img src="<?= Yii::$app->request->baseUrl ?>/<?php //$news_image -> showLink ($single['image']); ?>">
-
+                                        <img src="<?= Media::getImageOfSizeStatic($single['media_name'],'image');?>">
                                     </a>
                                     <figcaption>
                                         <time datetime="2012-12">

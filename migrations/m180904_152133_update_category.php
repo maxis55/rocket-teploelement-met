@@ -60,7 +60,7 @@ class m180904_152133_update_category extends Migration
                             <li>Вариант исполнения 1- требования совпадают с регламентом DIN, рабочие диаметры от 21,3мм до 48,3мм.</li>
                             <li>Вариант исполнения 2- отечественные стандарты, диаметры от 32мм до 426мм.</li>
                         </ul>
-                            <img src="../uploads/image/chart1png" alt="">
+                            <img src="../uploads/image/chart1.png" alt="">
                             <img src="../uploads/image/chart2.png" alt="">
                             <img src="../uploads/image/chart3.png" alt="">
                             ';

@@ -115,7 +115,6 @@ class SiteController extends Controller
     public function actionNews()
     {
         $news = News::getFirstArchiveNews();
-        $this->view->params['breadcrumbs'][] = 'Новости';
         return $this->render('news', ['news' => $news]);
     }
 

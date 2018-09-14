@@ -84,7 +84,9 @@ class Category extends ActiveRecord
             'shortdesc' => 'Краткое описание',
             'content' => 'Контент',
             'media_id' => 'Изображение',
-            'content_arr'=>'Составной контент'
+            'content_arr1'=>'Составной контент',
+            'content_arr2'=>'Составной контент2',
+            'content_arr3'=>'Составной контент3',
         ];
     }
 
