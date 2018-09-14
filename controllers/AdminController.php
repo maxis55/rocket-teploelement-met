@@ -582,7 +582,7 @@ class AdminController extends Controller
     public function actionProducts()
     {
         $searchModel = new ProductsSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams,array(),10);
 
         return $this->render('products/index', [
             'searchModel' => $searchModel,
