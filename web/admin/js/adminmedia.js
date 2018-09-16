@@ -1,6 +1,10 @@
 'use strict';
 
 $(document).ready(function(){
+    //prevent target blank in media library div
+    // $('.media-content').on('click','.media-selected-file',function () {
+    //     return false;
+    // });
 
     $('#images_input').change(function(){
         var filelist = $(this)[0].files;
@@ -16,12 +20,27 @@ $(document).ready(function(){
     $.each( MediaBtnList, function(){
         $(this).on('click', function(){
             $(this).addClass('active-media');
+            if(LoadMoreMedia.data('media-type')!==$(this).data('media-type')){
+                if($(this).data('media-type')===''){
+                    LoadMoreMedia.data('media-type','image');
+                }else{
+                    LoadMoreMedia.data('media-type',$(this).data('media-type'));
+                }
+                $('.inner-media').empty();
+                LoadMoreMedia.data('page',0);
+                LoadMoreMedia.show();
+            }
+
             modal[0].style.display = 'block';
-            if(LoadMoreMedia.data('page') == 0) {
+            if(LoadMoreMedia.data('page') === 0) {
                 $.ajax({
                     method:"POST",
                     url:HomeUrl + '/admin/media-library',
-                    data:{_csrf:MediaCsrf,counter:LoadMoreMedia.data('page')},
+                    data:{
+                        _csrf:MediaCsrf,
+                        counter:LoadMoreMedia.data('page'),
+                        type:LoadMoreMedia.data('media-type')
+                    },
                     success:function(res){
                         $('.inner-media').append(res[0]);
                         if(!res[1]){
@@ -29,7 +48,9 @@ $(document).ready(function(){
                         }
                         LoadMoreMedia.data('page', res[2]);
                     },
-                    error:function(res){console.dir(res);}
+                    error:function(res){
+                        console.dir(res);
+                    }
                 })
             }
         })
@@ -39,7 +60,11 @@ $(document).ready(function(){
         $.ajax({
             method:"POST",
             url:HomeUrl + '/admin/media-library',
-            data:{_csrf:MediaCsrf,counter:LoadMoreMedia.data('page')},
+            data:{
+                _csrf:MediaCsrf,
+                counter:LoadMoreMedia.data('page'),
+                type:LoadMoreMedia.data('media-type')
+            },
             success:function(res){
                 $('.inner-media').append(res[0]);
                 if(!res[1]){
@@ -51,8 +76,8 @@ $(document).ready(function(){
         })
     });
 
-    modal.on('click', '.media-selected', function(){
-
+    modal.on('click', '.media-selected, .media-selected-file', function(e){
+        e.preventDefault();
         var CurrentMediaBtn = $('.active-media'),
             parent = CurrentMediaBtn.parent().parent(),
             modal = $("#MediaLibrary"),
@@ -60,10 +85,19 @@ $(document).ready(function(){
 
         if(modal.hasClass('tiny')){
 
-            tinymce.activeEditor.execCommand('mceInsertContent', false, '<img class="tiny-img" src="' + image_src + '"></img>');
+            tinymce.activeEditor.execCommand('mceInsertContent', false, '<img class="tiny-img" src="' + image_src + '">');
         }else{
-            $(parent).find("img").attr('src', $(this).attr('src'));
-            $(parent).find("input").val($(this).data('imageid'));
+            if(LoadMoreMedia.data('media-type')==='image'){
+                $(parent).find("img").attr('src', $(this).attr('src'));
+                $(parent).find("input").val($(this).data('imageid'));
+            }else{
+                if(LoadMoreMedia.data('media-type')==='file'){
+                    $(parent).find("a").attr('href', $(this).attr('href'));
+                    $(parent).find("a").html($(this).html());
+                    $(parent).find("input").val($(this).data('imageid'));
+                }
+            }
+
             CurrentMediaBtn.removeClass('active-media');
         }
         modal.removeClass('tiny');
@@ -72,7 +106,10 @@ $(document).ready(function(){
 
     var span = $(".close-media")[0];
     span.onclick = function() {
-        console.log(11);
+
+        $('.active-media').each(function (index) {
+           $(this).removeClass('active-media');
+        });
         modal.removeClass('tiny');
         modal[0].style.display = "none";
     };

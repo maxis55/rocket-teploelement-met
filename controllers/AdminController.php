@@ -12,12 +12,19 @@ namespace app\controllers;
 use app\models\Category;
 use app\models\CategorySearch;
 use app\assets\AdminAsset;
+use app\models\Characteristics;
+use app\models\CharacteristicsSearch;
 use app\models\LoginForm;
 use app\models\Media;
 use app\models\MediaSearch;
 use app\models\News;
 use app\models\NewsSearch;
+use app\models\Orders;
+use app\models\OrdersSearch;
 use app\models\Pagesmeta;
+use app\models\ProductCharacteristics;
+use app\models\Products;
+use app\models\ProductsSearch;
 use app\models\Settings;
 use Yii;
 use yii\filters\AccessControl;
@@ -53,6 +60,7 @@ class AdminController extends Controller
                 'class' => VerbFilter::className(),
                 'actions' => [
                     'logout' => ['post'],
+                    'settingsUpdate' => ['post', 'get'],
                 ],
             ],
         ];
@@ -111,8 +119,10 @@ class AdminController extends Controller
     {
         $model = new Category();
 
+
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+
+            return $this->redirect(['admin/category-view', 'id' => $model->id]);
         }
 
         $parentCategories = Category::getCategoryByParent(null);
@@ -135,14 +145,49 @@ class AdminController extends Controller
     {
         $model = $this->findCategoryModel($id);
 
+
+
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+
+            $characteristicsPost = Yii::$app->request->post()["Category"]['characteristics'];
+
+            //get related characteristics, turn into array of IDs
+            if (!empty($characteristicsPost)) {
+                $currCharacteristics = array_map(function ($object) {
+                    return $object->id;
+                }, $model->characteristics);
+
+                //get deleted characteristics
+                $removedCharacteristics = array_diff($currCharacteristics, $characteristicsPost);
+
+                //new characteristics to add
+                $newCharacteristics = array_diff($characteristicsPost, array_diff($currCharacteristics, $removedCharacteristics));
+
+                foreach ($removedCharacteristics as $item) {
+                    $model->unlink('characteristics', Characteristics::findOne($item), true);
+                }
+                foreach ($newCharacteristics as $item) {
+                    $model->link('characteristics', Characteristics::findOne($item));
+                }
+            }
             return $this->redirect(['admin/category-view', 'id' => $model->id]);
         }
+
+        if(null != $model->parent){
+            $temp=json_decode($model->content);
+            $model->content_arr1=$temp[0];
+            $model->content_arr2=$temp[1];
+            $model->content_arr3=$temp[2];
+        }
+
+        $allCharacteristics = Characteristics::getCharacteristicsByPar();
         $parentCategories = Category::getCategoryByParent(null);
+
 
         return $this->render('categories/update', [
             'model' => $model,
             'parentCategories' => $parentCategories,
+            'allCharacteristics' => $allCharacteristics,
         ]);
     }
 
@@ -230,6 +275,7 @@ class AdminController extends Controller
         if (Yii::$app->request->isPost) {
             $post = Yii::$app->request->post('Pages');
             $meta = Pagesmeta::find()->where(['=', 'page_id', $id])->all();
+
             foreach ($meta as $single_meta) {
                 $single_meta->value = $post[$single_meta->key];
                 $single_meta->save();
@@ -286,32 +332,7 @@ class AdminController extends Controller
 
             $files = UploadedFile::getInstances($model, 'images');
             foreach ($files as $obj) {
-
-                if (@is_array(getimagesize($obj->tempName))) {
-                    $type = 'image';
-                } else {
-                    $type = 'file';
-                }
-                $name = $obj->name;
-                $nameOccurences=0;
-                while (is_file(Yii::getAlias('@web') . 'uploads/' . $type . '/' . $name)) {
-                        $name=pathinfo($obj->name, PATHINFO_FILENAME).'-'.++$nameOccurences.'.'.pathinfo($obj->name, PATHINFO_EXTENSION);
-                }
-                if(0!=$nameOccurences){
-                    $name=pathinfo($obj->name, PATHINFO_FILENAME).'-'.$nameOccurences.'.'.pathinfo($obj->name, PATHINFO_EXTENSION);
-                }
-
-                if ($obj->saveAs(Yii::getAlias('@web') . 'uploads/' . $type . '/' . $name)) {
-
-                    $image = new Media();
-                    $image->name = $name;
-                    $image->title = $obj->name;
-                    $image->alt = '';
-                    $image->type = $type;
-
-                    $image->save();
-
-                }
+                Media::uploadImage($obj);
             }
         }
 
@@ -386,7 +407,8 @@ class AdminController extends Controller
     {
         $data = yii::$app->request->post();
         $counter = $data['counter'];
-        return Media::getImagesLibrary($counter);
+        $type = $data['type'];
+        return Media::getImagesLibrary($counter, $type);
     }
 
     /**
@@ -516,23 +538,322 @@ class AdminController extends Controller
     public function actionSettings()
     {
 
-
-        $data = Yii::$app->request->post();
-
-//		if ($data) {
-//			foreach ($fieldsArray as $field) {
-//				$tempModel = $this->findModel($field);
-//				if (null != $tempModel) {
-//					$tempModel->value = $data[$field];
-//					$tempModel->save();
-//				}
-//			}
-//		}
         $meta = Settings::getCrossPagesData(['key', 'value', 'type', 'title'], true);
         return $this->render('settings/view', [
             'meta' => $meta
         ]);
     }
+
+    public function actionSettingsUpdate()
+    {
+
+
+        if (Yii::$app->request->isPost) {
+
+            $json_settings = array('menu');
+            $settings = Settings::find()->indexBy('key')->all();
+
+            $post = Yii::$app->request->post();
+            foreach ($settings as $settings_key => $settings_item) {
+
+                if (in_array($settings_item->type, $json_settings)) {
+                    $settings[$settings_key]->value = json_encode($post[$settings_key]);
+                    $settings[$settings_key]->save();
+                } else {
+                    $settings[$settings_key]->value = $post[$settings_key];
+                    $settings[$settings_key]->save();
+                }
+
+            }
+            return $this->redirect('settings');
+        }
+        $meta = Settings::getCrossPagesData(['key', 'value', 'type', 'title'], true);
+        $pagesSlugs = Pages::getPages(['slug', 'title']);
+
+        return $this->render('settings/update', [
+            'meta' => $meta,
+            'pagesSlugs' => $pagesSlugs
+        ]);
+    }
+
+
+    /**
+     * Lists all Products models.
+     * @return mixed
+     */
+    public function actionProducts()
+    {
+        $searchModel = new ProductsSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams,array(),10);
+
+        return $this->render('products/index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
+    /**
+     * Displays a single Products model.
+     * @param integer $id
+     * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    public function actionProductsView($id)
+    {
+        return $this->render('products/view', [
+            'model' => $this->findProductsModel($id),
+        ]);
+    }
+
+    /**
+     * Creates a new Products model.
+     * If creation is successful, the browser will be redirected to the 'view' page.
+     * @return mixed
+     */
+    public function actionProductsCreate()
+    {
+        $model = new Products();
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['admin/products-view', 'id' => $model->id]);
+        }
+        $parentCategories = Category::getCategoryByParent(null);
+
+        return $this->render('products/create', [
+            'model' => $model,
+            'parentCategories' => $parentCategories,
+        ]);
+    }
+
+    /**
+     * Updates an existing Products model.
+     * If update is successful, the browser will be redirected to the 'view' page.
+     * @param integer $id
+     * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    public function actionProductsUpdate($id)
+    {
+        $model = $this->findProductsModel($id);
+        $request = Yii::$app->request;
+        if ($request->isPost) {
+            $tempPost = Yii::$app->request->post();
+            $postCharacteristics = $tempPost['Products']['characteristics'];
+            $tempPost['Products']['steel_type'] = json_encode($tempPost['steel_type']);
+
+            if ($model->load($tempPost) && $model->save()) {
+
+                if (!empty($postCharacteristics)) {
+                    //no way to evaluate which characteristics are changed, need to delete all
+                    ProductCharacteristics::deleteAll(['product_id' => $model->id]);
+                    foreach ($postCharacteristics as $key => $characteristic) {
+                        $model->link('characteristics', Characteristics::findOne($key), array('value' => $characteristic));
+                    }
+                }
+                return $this->redirect(['admin/products-view', 'id' => $model->id]);
+            }
+        }
+
+
+        $parentCategories = Category::getCategoryByParent(null);
+
+        return $this->render('products/update', [
+            'model' => $model,
+            'parentCategories' => $parentCategories,
+        ]);
+    }
+
+    /**
+     * Deletes an existing Products model.
+     * If deletion is successful, the browser will be redirected to the 'index' page.
+     * @param integer $id
+     * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    public function actionProductsDelete($id)
+    {
+        $this->findProductsModel($id)->delete();
+
+        return $this->redirect(['admin/products']);
+    }
+
+    /**
+     * Finds the Products model based on its primary key value.
+     * If the model is not found, a 404 HTTP exception will be thrown.
+     * @param integer $id
+     * @return Products the loaded model
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    protected function findProductsModel($id)
+    {
+        if (($model = Products::findOne($id)) !== null) {
+            return $model;
+        }
+
+        throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+
+    /**
+     * Lists all Characteristics models.
+     * @return mixed
+     */
+    public function actionCharacteristics()
+    {
+        $searchModel = new CharacteristicsSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        return $this->render('characteristics/index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
+    /**
+     * Displays a single Characteristics model.
+     * @param integer $id
+     * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    public function actionCharacteristicsView($id)
+    {
+        return $this->render('characteristics/view', [
+            'model' => $this->findCharacteristicsModel($id),
+        ]);
+    }
+
+    /**
+     * Creates a new Characteristics model.
+     * If creation is successful, the browser will be redirected to the 'view' page.
+     * @return mixed
+     */
+    public function actionCharacteristicsCreate()
+    {
+        $model = new Characteristics();
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['admin/characteristics-view', 'id' => $model->id]);
+        }
+
+        return $this->render('characteristics/create', [
+            'model' => $model,
+        ]);
+    }
+
+    /**
+     * Updates an existing Characteristics model.
+     * If update is successful, the browser will be redirected to the 'view' page.
+     * @param integer $id
+     * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    public function actionCharacteristicsUpdate($id)
+    {
+        $model = $this->findCharacteristicsModel($id);
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['admin/characteristics-view', 'id' => $model->id]);
+        }
+
+        return $this->render('characteristics/update', [
+            'model' => $model,
+        ]);
+    }
+
+    /**
+     * Deletes an existing Characteristics model.
+     * If deletion is successful, the browser will be redirected to the 'index' page.
+     * @param integer $id
+     * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    public function actionCharacteristicsDelete($id)
+    {
+        $this->findCharacteristicsModel($id)->delete();
+
+        return $this->redirect(['admin/characteristics']);
+    }
+
+    /**
+     * Finds the Characteristics model based on its primary key value.
+     * If the model is not found, a 404 HTTP exception will be thrown.
+     * @param integer $id
+     * @return Characteristics the loaded model
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    protected function findCharacteristicsModel($id)
+    {
+        if (($model = Characteristics::findOne($id)) !== null) {
+            return $model;
+        }
+
+        throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+
+
+
+    /**
+     * Lists all Orders models.
+     * @return mixed
+     */
+    public function actionOrders()
+    {
+        $searchModel = new OrdersSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        return $this->render('orders/index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
+    /**
+     * Displays a single Orders model.
+     * @param integer $id
+     * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    public function actionOrdersView($id)
+    {
+        return $this->render('orders/view', [
+            'model' => $this->findOrdersModel($id),
+        ]);
+    }
+    /**
+     * Deletes an existing Orders model.
+     * If deletion is successful, the browser will be redirected to the 'index' page.
+     * @param integer $id
+     * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    public function actionOrdersDelete($id)
+    {
+        $this->findOrdersModel($id)->delete();
+
+        return $this->redirect(['admin/orders']);
+    }
+
+    /**
+     * Finds the Orders model based on its primary key value.
+     * If the model is not found, a 404 HTTP exception will be thrown.
+     * @param integer $id
+     * @return Orders the loaded model
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    protected function findOrdersModel($id)
+    {
+        if (($model = Orders::findOne($id)) !== null) {
+            return $model;
+        }
+
+        throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+
+
+
+
 
 
     /**

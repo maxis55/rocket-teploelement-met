@@ -1,3 +1,18 @@
+
+.truncate {
+    max-width: 400px !important;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.truncate:hover{
+    overflow: visible;
+    white-space: normal;
+    width: auto;
+}
+
+
 hr {
     margin-top: 2rem;
     margin-bottom: 2rem;
@@ -112,7 +127,7 @@ hr {
 }
 
 .box-img img{
-    /*width: 350px;*/
+    width: 350px;
     height: auto;
 }
 

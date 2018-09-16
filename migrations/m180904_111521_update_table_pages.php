@@ -41,7 +41,7 @@ class m180904_111521_update_table_pages extends Migration
             'id' => ++$i,
             'title' => 'Контакты',
             'description' => "описание страницы контактов",
-            'slug' => 'contacts'
+            'slug' => 'contact'
         ]);
 
         $this->insert('pages', [

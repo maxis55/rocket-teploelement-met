@@ -1,5 +1,5 @@
 <?php
-
+use app\models\Media;
 ?>
 
 <section>
@@ -8,11 +8,13 @@
             <div class="main_contacts_box">
                 <div class="main_contacts_info">
                     <div class="main_contacts_img">
-                        <img src="<?= Yii::$app->request->baseUrl ?>/images/main_contats_pattern.png" alt="">
+                        <img src="<?=
+
+                        Yii::$app->request->baseUrl ?>/images/main_contats_pattern.png" alt="">
                     </div>
                     <div class="price_list_box">
                         <span>Полный прайс-лист на товары и услуги</span>
-                        <a href="price-list.txt" target="_blank">Скачать прайс-лист</a>
+                        <a href="<?=Media::findOne($this->params['cross_pages_data']['price_list'])->getImageOfSize();?>" target="_blank">Скачать прайс-лист</a>
                     </div>
                 </div>
                 <div class="main_contacts_form">

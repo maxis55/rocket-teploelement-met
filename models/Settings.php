@@ -8,7 +8,44 @@ use yii\helpers\ArrayHelper;
 class Settings extends ActiveRecord{
 
 
-	/**
+    /**
+     * @inheritdoc
+     */
+    public static function tableName()
+    {
+        return 'settings';
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function rules()
+    {
+        return [
+            [['key', 'value', 'type', 'title'], 'required'],
+            [['value'], 'string'],
+            [['key'], 'string', 'max' => 50],
+            [['type'], 'string', 'max' => 20],
+            [['title'], 'string', 'max' => 255],
+            [['key'], 'unique'],
+        ];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function attributeLabels()
+    {
+        return [
+            'id' => 'ID',
+            'key' => 'Key',
+            'value' => 'Value',
+            'type' => 'Type',
+            'title' => 'Title',
+        ];
+    }
+
+    /**
 	 * Cross pages data, header footer and others
 	 *
 	 * @param array $fields

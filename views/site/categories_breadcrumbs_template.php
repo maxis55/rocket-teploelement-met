@@ -30,7 +30,7 @@ $all_categories = array_values($this->params['categories']); ?>
     <div class="container">
         <div class="container_inner">
 
-            <?php // var_dump($all_categories);?>
+
             <h2 class="title1"><span>Мы предлагаем</span></h2>
             <div class="header_offers">
                 <div class="header_supply_box">
@@ -92,17 +92,17 @@ $all_categories = array_values($this->params['categories']); ?>
                                 <div class="header_details_img">
                                 </div>
                                 <?php if (null == $all_categories[$i]->categories): ?>
-                                    <a href="<?= Url::toRoute(['site/catalog-category', 'category' => $all_categories[$i]->slug]) ?>"
+                                    <a href="<?= Url::toRoute(['site/catalog-category', 'category_slug' => $all_categories[$i]->slug]) ?>"
                                        class="categories_name"><?= $all_categories[$i]->name; ?></a>
                                 <?php else: ?>
                                     <div class="categories_open">
-                                        <a href="<?= Url::toRoute(['site/catalog-category', 'category' => $all_categories[$i]->slug]) ?>"
+                                        <a href="<?= Url::toRoute(['site/catalog-category', 'category_slug' => $all_categories[$i]->slug]) ?>"
                                            class="categories_name"><?= $all_categories[$i]->name; ?></a>
                                         <div class="categories">
                                             <ul class="submenu">
                                                 <?php foreach ($all_categories[$i]->categories as $subcategory): ?>
                                                     <li>
-                                                        <a href="<?= Url::toRoute(['site/catalog-subcategory', 'category' => $all_categories[$i]->slug, 'subcategory' => $subcategory->slug]) ?>"
+                                                        <a href="<?= Url::toRoute(['site/catalog-subcategory', 'category_slug' => $all_categories[$i]->slug, 'subcategory_slug' => $subcategory->slug]) ?>"
                                                             <?= null != $subcategory->categories ? 'class="submenu_lk"' : ''; ?> >
                                                             <?= $subcategory->name; ?>
                                                         </a>
@@ -110,7 +110,7 @@ $all_categories = array_values($this->params['categories']); ?>
                                                             <ul class="submenu2">
                                                                 <?php foreach ($subcategory->categories as $subsubcategory): ?>
                                                                     <li>
-                                                                        <a href="<?= Url::toRoute(['site/catalog-subcategory', 'category' => $all_categories[$i]->slug, 'subcategory' => $subcategory->slug, 'subsubcategory' => $subsubcategory->slug]); ?>">
+                                                                        <a href="<?= Url::toRoute(['site/catalog-subcategory', 'category_slug' => $all_categories[$i]->slug, 'subcategory_slug' => $subcategory->slug, 'subsubcategory_slug' => $subsubcategory->slug]); ?>">
                                                                             <?=$subsubcategory->name;?>
                                                                         </a>
                                                                     </li>

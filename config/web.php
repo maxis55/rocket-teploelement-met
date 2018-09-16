@@ -12,6 +12,7 @@ $config = [
         '@bower' => '@vendor/bower-asset',
         '@npm'   => '@vendor/npm-asset',
     ],
+    'language' => 'ru',
     'components' => [
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
@@ -55,6 +56,7 @@ $config = [
                 'catalog/<category_slug>/<subcategory_slug>/<subsubcategory_slug>' => 'site/catalog-subcategory',
                 'catalog/<category_slug>/<subcategory_slug>' => 'site/catalog-subcategory',
                 'catalog/<category_slug>' => 'site/catalog-category',
+                'product/<product_slug>' => 'site/product',
                 'news/<slug>' => 'site/news-page',
                 '<action>' => 'site/<action>',
             ],

@@ -23,9 +23,9 @@ AppAsset::register($this);
         <link rel="shortcut icon" href="<?= Yii::$app->request->baseUrl ?>/images/favicon/logo.ico" type="image/x-icon">
         <?= Html::csrfMetaTags() ?>
         <?php
-        $this->registerJs(
-            '!function(){function e(e,t,n){e.addEventListener?e.addEventListener(t,n,!1):e.attachEvent&&e.attachEvent("on"+t,n)}function t(e){return window.localStorage&&localStorage.font_css_cache&&localStorage.font_css_cache_file===e}function n(){if(window.localStorage&&window.XMLHttpRequest)if(t(o))a(localStorage.font_css_cache);else{var n=new XMLHttpRequest;n.open("GET",o,!0),e(n,"load",function(){4===n.readyState&&(a(n.responseText),localStorage.font_css_cache=n.responseText,localStorage.font_css_cache_file=o)}),n.send()}else{var c=document.createElement("link");c.href=o,c.rel="stylesheet",c.type="text/css",document.getElementsByTagName("head")[0].appendChild(c),document.cookie="font_css_cache"}}function a(e){var t=document.createElement("style");t.innerHTML=e,document.getElementsByTagName("head")[0].appendChild(t)}var o="fonts.css";window.localStorage&&localStorage.font_css_cache||document.cookie.indexOf("font_css_cache")>-1?n():e(window,"load",n)}();',
-            View::POS_HEAD);
+        //$this->registerJs(
+        //    '!function(){function e(e,t,n){e.addEventListener?e.addEventListener(t,n,!1):e.attachEvent&&e.attachEvent("on"+t,n)}function t(e){return window.localStorage&&localStorage.font_css_cache&&localStorage.font_css_cache_file===e}function n(){if(window.localStorage&&window.XMLHttpRequest)if(t(o))a(localStorage.font_css_cache);else{var n=new XMLHttpRequest;n.open("GET",o,!0),e(n,"load",function(){4===n.readyState&&(a(n.responseText),localStorage.font_css_cache=n.responseText,localStorage.font_css_cache_file=o)}),n.send()}else{var c=document.createElement("link");c.href=o,c.rel="stylesheet",c.type="text/css",document.getElementsByTagName("head")[0].appendChild(c),document.cookie="font_css_cache"}}function a(e){var t=document.createElement("style");t.innerHTML=e,document.getElementsByTagName("head")[0].appendChild(t)}var o="fonts.css";window.localStorage&&localStorage.font_css_cache||document.cookie.indexOf("font_css_cache")>-1?n():e(window,"load",n)}();',
+         //   View::POS_HEAD);
         ?>
         <?php $this->head() ?>
     </head>
@@ -138,7 +138,7 @@ AppAsset::register($this);
     <!--FOOTER END-->
     <!--modal popup  -->
     <div class="modal" id="order"
-         style="background:url(images/bg_modal_order.jpg) 0 0 no-repeat;background-size: cover;">
+         style="background:url(/images/bg_modal_order.jpg) 0 0 no-repeat;background-size: cover;">
         <div class="modal_content">
             <div class="modal_content_inner">
                 <div class="modal_close"></div>
@@ -190,7 +190,7 @@ AppAsset::register($this);
         </div>
     </div>
     <div class="modal" id="basket"
-         style="background:url(images/bg_modal_basket.png) 0 0 no-repeat;background-size: cover;">
+         style="background:url(/images/bg_modal_basket.png) 0 0 no-repeat;background-size: cover;">
         <div class="modal_content_basket">
             <div class="modal_box_basket">
                 <div class="box_basket_top">
@@ -262,7 +262,7 @@ AppAsset::register($this);
         </div>
     </div>
     <div class="modal" id="thanks"
-         style="background:url(images/bg_modal_thanks.jpg) 0 0 no-repeat;background-size: cover;">
+         style="background:url(/images/bg_modal_thanks.jpg) 0 0 no-repeat;background-size: cover;">
         <div class="modal_content">
             <div class="modal_content_inner">
                 <div class="modal_close" onclick=""></div>
@@ -273,7 +273,7 @@ AppAsset::register($this);
             </div>
         </div>
     </div>
-    <div class="modal" id="call" style="background:url(images/bg_modal_call.jpg) 0 0 no-repeat;background-size: cover;">
+    <div class="modal" id="call" style="background:url(/images/bg_modal_call.jpg) 0 0 no-repeat;background-size: cover;">
         <div class="modal_content">
             <div class="modal_content_inner">
                 <div class="modal_close" onclick=""></div>
@@ -308,30 +308,7 @@ AppAsset::register($this);
     <?php $this->endBody() ?>
 
 
-    <?php
-        if (Yii::$app->controller->action->id == 'contact') {
-            $this->registerJs(
-                'ymaps.ready(initYaMap);
-                        function initYaMap() {
-                            var myMap = new ymaps.Map("ya_map", {
-                            center: [' . $this->params['map'][0] . ', ' . $this->params['map'][1] . '],
-                            zoom: 5
-                        }, {
-                            searchControlProvider: \'yandex#search\'
-                        }),
-                            myPlacemark = new ymaps.Placemark([' . $this->params['map'][0] . ', ' . $this->params['map'][1] . '], {
-                            }, {
-                                iconLayout: \'default#image\',
-                                iconImageHref: "' . Yii::$app->request->baseUrl . './images/icons/marker.png",
-                                iconImageSize: [40, 60],
-                                iconImageOffset: [-5, -38]
-                            });
-                    
-                        myMap.geoObjects.add(myPlacemark);
-                        }',
-                View::POS_END);
-        }
-        ?>
+
     </body>
 
     </html>

@@ -40,34 +40,10 @@
 		                ],
 	                ],
                     ['label' => 'Медиа', 'icon' => 'image', 'url' => ['/admin/media']],
-	                ['label' => 'Настройки', 'icon' => 'gear', 'url' => ['/admin/settings']],
-                    ['label' => 'Login', 'url' => ['/admin/login'], 'visible' => Yii::$app->user->isGuest],
-                    [
-                        'label' => 'Some tools',
-                        'icon' => 'share',
-                        'url' => '#',
-                        'items' => [
-                            ['label' => 'Gii', 'icon' => 'file-code-o', 'url' => ['/gii'],],
-                            ['label' => 'Debug', 'icon' => 'dashboard', 'url' => ['/debug'],],
-                            [
-                                'label' => 'Level One',
-                                'icon' => 'circle-o',
-                                'url' => '#',
-                                'items' => [
-                                    ['label' => 'Level Two', 'icon' => 'circle-o', 'url' => '#',],
-                                    [
-                                        'label' => 'Level Two',
-                                        'icon' => 'circle-o',
-                                        'url' => '#',
-                                        'items' => [
-                                            ['label' => 'Level Three', 'icon' => 'circle-o', 'url' => '#',],
-                                            ['label' => 'Level Three', 'icon' => 'circle-o', 'url' => '#',],
-                                        ],
-                                    ],
-                                ],
-                            ],
-                        ],
-                    ],
+	                ['label' => 'Продукты', 'icon' => 'gear', 'url' => ['/admin/products']],
+	                ['label' => 'Характеристики', 'icon' => 'gear', 'url' => ['/admin/characteristics']],
+	                ['label' => 'Заказы', 'icon' => 'gear', 'url' => ['/admin/orders']],
+                    ['label' => 'Настройки', 'icon' => 'gear', 'url' => ['/admin/settings']],
                 ],
             ]
         ) ?>

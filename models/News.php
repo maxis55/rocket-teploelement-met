@@ -42,13 +42,14 @@ class News extends ActiveRecord{
     /**
      * First group of news for news archive page
      * @param int $limit
+     * @param array $params
      * @return array|ActiveRecord[]
      */
-    public static function getFirstArchiveNews($limit=6){
+    public static function getFirstArchiveNews($limit=6,$params=['news.shortdesc','news.date','news.name','news.slug','news.name','media.name media_name']){
         return self::find()
-            ->select(['news.shortdesc','news.date','news.name','news.slug','news.name'])
-           // ->leftJoin('media', 'news.media = media.id')
-            ->limit( $limit ) //todo: add page meta for index to know amount of news to show
+            ->select($params)
+            ->leftJoin('media', 'news.media_id = media.id')
+            ->limit( $limit )
             ->orderBy(['date' => SORT_DESC])
             ->asArray()
             ->all();
@@ -70,5 +71,14 @@ class News extends ActiveRecord{
      */
     public static function getNewsForMain($limit=8){
         return self::find()->select(['shortdesc','date','name','slug'])->limit($limit)->asArray()->all();
+    }
+
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getMedia()
+    {
+        return $this->hasOne(Media::className(), ['id' => 'media_id']);
     }
 }

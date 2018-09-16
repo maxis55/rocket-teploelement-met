@@ -21,6 +21,7 @@ class AdminAsset extends AssetBundle
         'https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic',
     ];
     public $js = [
+        '//api-maps.yandex.ru/2.1/?lang=ru_RU',
         'js/admin.js',
         'js/tinymce/tinymce.min.js',
         'js/admintiny.js',

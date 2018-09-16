@@ -108,8 +108,8 @@ class m180819_070329_update_settings extends Migration
         $this->insert('settings', [
             'id' => ++$i,
             'key' => 'logo',
-            'value' => "logo.svg",
-            'type'=>'media',
+            'value' => "1",
+            'type'=>'image',
             'title' => "Логотип в шапке",
         ]);
         $this->insert('settings', [
@@ -140,7 +140,7 @@ class m180819_070329_update_settings extends Migration
         $this->insert('settings', [
             'id' => ++$i,
             'key' => 'price_list',
-            'value' => 'price_list.txt',
+            'value' => '53',
             'type'=>'file',
             'title' => "Прайс лист рядом с заявкой",
         ]);

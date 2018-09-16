@@ -15,29 +15,45 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Update', ['category-update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Редактировать', ['category-update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
         <?php if(null!=$model->parent):?>
-        <?= Html::a('Delete', ['category-delete', 'id' => $model->id], [
+        <?= Html::a('Удалить', ['category-delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
+                'confirm' => 'Вы уверены, что хотите удалить эту категорию?',
                 'method' => 'post',
             ],
         ]) ?>
         <?php endif; ?>
     </p>
 
-    <?= DetailView::widget([
-        'model' => $model,
-        'attributes' => [
-            'id',
-            'slug',
-            'parent',
-            'name',
-            'shortdesc',
-            'content:ntext',
-            'media',
-        ],
-    ]) ?>
+    <?php try {
+        echo DetailView::widget([
+            'model' => $model,
+            'attributes' => [
+//                'id',
+                'slug',
+                'parent',
+                'name',
+                'shortdesc',
+              //  'content:ntext',
+                [
+                    'attribute' => 'media_id',
+                    'format' => 'html',
+                    'label' => 'Фото',
+                    'value' => function ($data) {
+                        if ($data->media) {
+                            return Html::img($data->media->getImageOfSize(), ['width' => '60px']);
+                        } else{
+                            return "Нет картинки";
+                        }
+
+                    },
+                ],
+            ],
+        ]);
+    } catch (Exception $e) {
+        var_dump($e);
+    } ?>
 
 </div>

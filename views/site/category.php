@@ -3,7 +3,7 @@
 use yii\helpers\Url;
 
 /** @var \app\models\Category $category */
-/** @var \app\models\Category $subCategory */
+
 ?>
 
 <!-- MAIN CONTENT Start-->
@@ -14,28 +14,27 @@ use yii\helpers\Url;
         <div class="container_inner">
             <div class="catalog_inner_wrap">
                 <div class="catalog_inner">
-                    <h2 class="title8"><span><?=
-                            $category['name'] ?></span></h2>
+                    <h2 class="title8"><span><?= $category->name ?></span></h2>
 
                     <?php
-                    foreach ($subCategory as $sub) { ?>
+                    foreach ( $category->categories as $sub) { ?>
                         <div class="catalog_inner_item">
                             <span class="catalog_desc_pat"></span>
                             <span class="catalog_inner_pattern"></span>
                             <div class="catalog_item_img">
-                                <img src="<?= Yii::$app->request->baseUrl ?>/images/img1.jpg">
+                                <img src="<?= $sub->media->getImageOfSize() ?>">
                             </div>
                             <div class="catalog_item_content">
                                 <h4 class="title9"><a
-                                            href="<?= Url::toRoute(['site/catalog-subcategory', 'category_slug' => $category['slug'], 'subcategory_slug' => $sub['slug']]) ?>"><?= $sub['name'] ?></a>
+                                            href="<?= Url::toRoute(['site/catalog-subcategory', 'category_slug' => $category->slug, 'subcategory_slug' => $sub->slug]) ?>"><?= $sub->name ?></a>
                                 </h4>
-                                <p><?= $sub['shortdesc'] ?></p>
+                                <p><?= $sub->shortdesc ?></p>
                             </div>
                         </div>
                     <?php } ?>
                 </div>
                 <div class="catalog_description">
-                    <?= $category['content'] ?>
+                    <?= $category->content ?>
                 </div>
             </div>
         </div>

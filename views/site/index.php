@@ -1,17 +1,22 @@
-<?php use yii\helpers\Url; ?>
+<?php use app\models\Media;
+use yii\helpers\Url;
+/** @var array $page_content */
+/** @var array $media_arr */
+$this->title='Главная';
+?>
 <!-- MAIN CONTENT Start-->
     <div id="content">
         <div class="container">
             <section>
                 <div class="container_inner">
                   <div class="main_about_box">
-                    <h2 class="title1"><span><?= $page_content['about_title'];?></span></h2>
+                      <h2 class="title1"><span><?= $page_content['about_title'];?></span></h2>
                     <?= $page_content['about_content'];?>
                     <div class="main_about_info">
                         <a href="<?= $page_content['about_link'];?>" class="more_white_btn"><span>Подробнее</span></a>
                         <a href="#" class="add_btn modal_btn" data-modal="request">Получить цены</a>
                     </div>
-                    <div class="main_about_img"></div>
+                    <div class="main_about_img" style="background-image: url(<?= Media::getImageOfSizeStatic($media_arr[ $page_content['main_image'] ] ['name'],'image') ?>)" ></div>
                 </div>
              </div>
             </section>
@@ -34,11 +39,11 @@
                             </div>
                         </div>
                         <div class="main_services_img">
-                            <img src="images/services_img<?= $page_content['block_' . $i . '_image']; ?>.png" alt="">
+                            <img src="<?= Media::getImageOfSizeStatic($media_arr[ $page_content['block_' . $i . '_image'] ] ['name'],'image') ?>" alt="">
                         </div>
                     <?php } else { ?>
                         <div class="main_services_img">
-                            <img src="images/services_img<?= $page_content['block_' . $i . '_image']; ?>.png" alt="">
+                            <img src="<?= Media::getImageOfSizeStatic($media_arr[ $page_content['block_' . $i . '_image'] ] ['name'],'image') ?>" alt="">
                         </div>
                         <div class="main_services_info_right">
                             <h3 class="title2"><?= $page_content['block_' . $i . '_title_1']; ?><span><?= $page_content['block_' . $i . '_title_2']; ?></span></h3>

@@ -34,7 +34,19 @@ $this->params['breadcrumbs'][] = $this->title;
             'date',
             'shortdesc',
             'slug',
-            'media_id',
+            [
+                'attribute' => 'media_id',
+                'format' => 'html',
+                'label' => 'Фото',
+                'value' => function ($data) {
+                    if ($data->media) {
+                        return Html::img($data->media->getImageOfSize(), ['width' => '60px']);
+                    } else{
+                        return "Нет картинки";
+                    }
+
+                },
+            ],
         ],
     ]) ?>
 
