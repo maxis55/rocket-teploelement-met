@@ -23,9 +23,13 @@ AppAsset::register($this);
         <link rel="shortcut icon" href="<?= Yii::$app->request->baseUrl ?>/images/favicon/logo.ico" type="image/x-icon">
         <?= Html::csrfMetaTags() ?>
         <?php
+
+        $this->registerJs('
+        var mm_ajax_add_to_cart="' . Url::toRoute(['ajax/add-to-cart']) . '"', View::POS_END);
+
         //$this->registerJs(
         //    '!function(){function e(e,t,n){e.addEventListener?e.addEventListener(t,n,!1):e.attachEvent&&e.attachEvent("on"+t,n)}function t(e){return window.localStorage&&localStorage.font_css_cache&&localStorage.font_css_cache_file===e}function n(){if(window.localStorage&&window.XMLHttpRequest)if(t(o))a(localStorage.font_css_cache);else{var n=new XMLHttpRequest;n.open("GET",o,!0),e(n,"load",function(){4===n.readyState&&(a(n.responseText),localStorage.font_css_cache=n.responseText,localStorage.font_css_cache_file=o)}),n.send()}else{var c=document.createElement("link");c.href=o,c.rel="stylesheet",c.type="text/css",document.getElementsByTagName("head")[0].appendChild(c),document.cookie="font_css_cache"}}function a(e){var t=document.createElement("style");t.innerHTML=e,document.getElementsByTagName("head")[0].appendChild(t)}var o="fonts.css";window.localStorage&&localStorage.font_css_cache||document.cookie.indexOf("font_css_cache")>-1?n():e(window,"load",n)}();',
-         //   View::POS_HEAD);
+        //   View::POS_HEAD);
         ?>
         <?php $this->head() ?>
     </head>
@@ -180,7 +184,7 @@ AppAsset::register($this);
                                 обработку <a href="#" class="data_mes_lk"> персональных данных</a></label>
                         </div>
                         <div class="form_item al_center">
-                            <a href="index.html" class="white_btn">Вернуться</a>
+                            <a href="javascript:void(0);"  class="modal_close_type white_btn">Вернуться</a>
                             <button class="blue_btn sendBtn">Оформить заказ</button>
                         </div>
 
@@ -202,55 +206,7 @@ AppAsset::register($this);
                 <div class="box_basket">
                     <table class="basket_tb">
                         <tbody>
-                        <tr>
-                            <th class="cell1">Наименование</th>
-                            <th class="cell2">Количество</th>
-                            <th class="cell3"></th>
-                        </tr>
-                        <tr>
-                            <td class="cell1">Труба 15х15х1.5 ГОСТ 13663-86 cnfkm 2сп</td>
-                            <td class="cell2">
-                                <div class="counter-wrapper">
-                                    <div class="counter-box">
-                                        <button class="counter-minus"></button>
-                                        <input class="counter-qt" value="1">
-                                        <button class="counter-plus"></button>
-                                    </div>
-                                </div>
-                            </td>
-                            <td class="cell3"><span class="basket_close"></span></td>
-                        </tr>
-                        <tr>
-                            <td class="cell1">Труба 15х15х1.5 ГОСТ 13663-86 cnfkm 2сп</td>
-                            <td class="cell2">
-                                <div class="counter-wrapper">
-                                    <div class="counter-box">
-                                        <button class="counter-minus"></button>
-                                        <input class="counter-qt" value="1">
-                                        <button class="counter-plus"></button>
-                                    </div>
-                                </div>
-                            </td>
-                            <td class="cell3"><span class="basket_close"></span></td>
-                        </tr>
-                        <tr>
-                            <td colspan="3" class="basket_total">
-                                <table class="basket_inner_tb">
-                                    <tbody>
-                                    <tr>
-                                        <td class="cell1 basket_mes_td">
-                                            <span class="basket_count_mes">готово к показу</span>
-                                            <span class="basket_count">2</span> позиции
-                                        </td>
-                                        <td class="al_right">
-                                            <button class="white_btn">Очистить все</button>
-                                        </td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </td>
-
-                        </tr>
+                        <?=\app\components\OutputHelper::outputCart();?>
                         </tbody>
                     </table>
                 </div>
@@ -273,7 +229,8 @@ AppAsset::register($this);
             </div>
         </div>
     </div>
-    <div class="modal" id="call" style="background:url(/images/bg_modal_call.jpg) 0 0 no-repeat;background-size: cover;">
+    <div class="modal" id="call"
+         style="background:url(/images/bg_modal_call.jpg) 0 0 no-repeat;background-size: cover;">
         <div class="modal_content">
             <div class="modal_content_inner">
                 <div class="modal_close" onclick=""></div>
@@ -306,7 +263,6 @@ AppAsset::register($this);
     </div>
     <!--TMP END  -->
     <?php $this->endBody() ?>
-
 
 
     </body>

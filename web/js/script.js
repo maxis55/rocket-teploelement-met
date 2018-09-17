@@ -130,13 +130,37 @@ $(document).ready(function(){
 var modalOpen = function( self ){
     var template = "<div class='modal_container'></div>";
     var height = $(window).height();
+    var modal;
     if (!self) {
-      var modal = 'thanks';
+        modal = 'thanks';
     } else {
-      var modal = self.data('modal');
+        modal = self.data('modal');
     }
     console.log(modal);
-  modalClose();
+
+    if(modal==='basket'){
+        var form=$('.add_to_cart_form');
+        $.ajax({
+            url: mm_ajax_add_to_cart,
+            type: 'post',
+            dataType:'json',
+            data: form.serialize(),
+            success: function (response) {
+                $('table.basket_tb tbody').html( response['cart_html'] );
+                //console.log(response['cart_html']);
+                // if (response == 1) {
+                //     $("#reg_result").text("Такая почта уже зарегестрирована!");
+                // }
+                // console.dir(response);
+            }
+        });
+    }
+    if(modal==='order'){
+        $('.modal_box_order .order_count').html($('.modal_box_basket .basket_count').html());
+    }
+
+
+    modalClose();
   $(template).prependTo('body');
   $('#' + modal).prependTo('.modal_container').addClass('active');
   $('.modal_container').css('height', height);
@@ -149,12 +173,21 @@ var modalOpen = function( self ){
         return true;
       }
     });
-}
+};
  $(".modal_btn").on("click", function(){
     modalOpen($(this));
  });
 
- 
+
+$('.modal_box_basket').on('click','.basket_close',function () {
+    var elem=$(this);
+    elem.closest('tr').remove();
+
+    if($('.basket_close').length<1){
+        modalClose();
+    }
+});
+
 
 function modalClose() {
   if($("body").hasClass("show_modal")){
