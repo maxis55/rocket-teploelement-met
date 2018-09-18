@@ -10,6 +10,7 @@ namespace app\controllers;
 
 
 use app\components\OutputHelper;
+use app\models\Orders;
 use Yii;
 use yii\web\Controller;
 use yii\web\Response;
@@ -77,6 +78,39 @@ class AjaxController extends Controller
 
         $sizeofcart=sizeof($cart_content2);
         return $sizeofcart.' '.OutputHelper::true_wordform($sizeofcart,'позиция','позиции','позиций');
+        }
+    }
+
+
+    public function actionCreateOrder(){
+        if (\Yii::$app->request->isAjax) {
+            $post_content = Yii::$app->request->post();
+            $cookiesWrite = Yii::$app->response->cookies;
+            $cookiesRead = Yii::$app->request->cookies;
+
+            $cart_content=array();
+
+            if (($cookie = $cookiesRead->get('cart_content')) !== null) {
+                $cart_content = json_decode($cookie->value,true);
+            }
+            $customer_info=[
+                'name'=>$post_content['name'],
+                'phone'=>$post_content['phone'],
+                'email'=>$post_content['email'],
+                'message'=>$post_content['message'],
+            ];
+
+            $cookiesWrite->remove('cart_content');
+
+            if(!empty($cart_content)&&!empty($cart_content)){
+                $order=new Orders();
+                $order->products_information=json_encode($cart_content);
+                $order->customer_information=json_encode($customer_info);
+                $order->save();
+                return 'success';
+            }
+
+            return 'error';
         }
     }
 }

@@ -141,33 +141,7 @@ $(document).ready(function () {
             modal = self.data('modal');
         }
         //console.log(modal);
-        var csrf = $('#csrf-token');
 
-        if (modal === 'basket') {
-            var serializedForm = $('.add_to_cart_form').serializeArray(),
-            formData=new FormData();
-
-            formData.append(csrf.attr('name'), csrf.val());
-            serializedForm.forEach(function (element) {
-                formData.append(element.name, element.value);
-            });
-
-            $.ajax({
-                url: '/ajax/add-to-cart',
-                type: 'post',
-                processData: false,
-                contentType: false,
-                dataType: 'json',
-                data: formData,
-                success: function (response) {
-                    $('table.basket_tb tbody').html(response['cart_html']);
-
-                }
-            });
-        }
-        if (modal === 'order') {
-            $('.modal_box_order .order_count').html($('.modal_box_basket .basket_count').html());
-        }
 
 
         modalClose();
@@ -185,7 +159,38 @@ $(document).ready(function () {
         });
     };
     $(".modal_btn").on("click", function () {
-        modalOpen($(this));
+
+        var elem=$(this),
+            elem_modal=elem.data('modal'),
+            csrf = $('#csrf-token');
+        if (elem_modal === 'basket') {
+            var serializedForm = $('.add_to_cart_form').serializeArray(),
+                formData = new FormData();
+
+            formData.append(csrf.attr('name'), csrf.val());
+            serializedForm.forEach(function (element) {
+                formData.append(element.name, element.value);
+            });
+
+            $.ajax({
+                url: '/ajax/add-to-cart',
+                type: 'post',
+                processData: false,
+                contentType: false,
+                dataType: 'json',
+                data: formData,
+                success: function (response) {
+                    $('table.basket_tb tbody').html(response['cart_html']);
+                    modalOpen(elem);
+                }
+            });
+        }else{
+            if (elem_modal === 'order') {
+                $('.modal_box_order .order_count').html($('.modal_box_basket .basket_count').html());
+            }
+            modalOpen(elem);
+        }
+
     });
 
 
@@ -194,7 +199,7 @@ $(document).ready(function () {
 
         //get csrf from under table start
 
-        var formData=new FormData();
+        var formData = new FormData();
         var csrf = $('#csrf-token');
         formData.append(csrf.attr('name'), csrf.val());
         formData.append('prod_id', elem.data('prod_id'));
@@ -234,8 +239,8 @@ $(document).ready(function () {
         modalClose();
     });
 
-    $('.modal_box_order').on('click','.modal_return',function () {
-       modalOpen($(this));
+    $('.modal_box_order').on('click', '.modal_return', function () {
+        modalOpen($(this));
     });
 
     $(window).on('click', function (e) {
@@ -391,11 +396,31 @@ $(document).ready(function () {
                 messadge.parent().removeClass("invalid");
             }
         }
-        console.log(errors);
-        if (!errors) {
-            console.log('333');
-            modalOpen();
 
+        if (!errors) {
+            var csrf = $('#csrf-token'),
+                formData = new FormData(),
+                closestForm = $(this).closest('form');
+
+            formData.append(csrf.attr('name'), csrf.val());
+
+            closestForm.serializeArray().forEach(function (element) {
+                formData.append(element.name, element.value);
+            });
+
+            $.ajax({
+                url: '/ajax/create-order',
+                type: 'post',
+                dataType: 'json',
+                processData: false,
+                contentType: false,
+                data: formData,
+                success: function (response) {
+
+                }
+            });
+            modalOpen();
+            closestForm[0].reset();
         }
     });
     /*-------------main_news_box for 480------*/
