@@ -625,12 +625,24 @@ header {
 }
 
 .header_info_lk {
-  color: #fff;
+  font-size: 14.56px;
+  font-family: "Exo 2", sans-serif;
+  font-weight: 700;
+  color: #8d98a5;
+  margin-right: 5px;
+  vertical-align: top;
+  white-space: nowrap;
+  display: flex;
+  margin-bottom: 10px;
+}
+
+.header_info_lk span {
+   color: #fff;
   font-size: 25.32px;
+  margin-left: 5px;
   font-family: "Exo 2", sans-serif;
   font-weight: 700;
   display: block;
-  margin-bottom: 10px;
 }
 
 .menu_resp_close {
@@ -769,14 +781,7 @@ header {
   display: none;
 }
 
-.header_info_lk span {
-  font-size: 14.56px;
-  font-family: "Exo 2", sans-serif;
-  font-weight: 700;
-  color: #8d98a5;
-  margin-right: 5px;
-  vertical-align: top;
-}
+
 
 .logo {
   position: absolute;

@@ -51,6 +51,22 @@ if($(".owl-carousel").length){
  }
 
 $(document).ready(function(){
+
+//--- number fix ----
+
+var number = $(".header_info_lk");
+
+if(number.length>0) {
+
+  var a = number.html();
+  var pos = a.indexOf(')');
+  var res = a.slice(0,pos+1) + '<span>' + a.slice(pos+1) + '</span>';
+  number.html(res);
+
+}
+
+//--- number fix end ----
+
 //-------Arrow up-------
     function goUp(){
       var windowHeight = $(window).height(),
@@ -502,6 +518,8 @@ $(window).on('load resize', function() {
       $(window).data("oldwidth", newWidth);
     }
   });
+
+
 
 
 
