@@ -6739,3 +6739,101 @@ p {
 html, body, #map {
   width: 100%; height: 100%; padding: 0; margin: 0;
 }
+.contacts_form_inner #contactform-fil:focus {
+  user-select: none !important;
+  outline: none !important;
+}*/
+.contacts_form_inner #contactform-file:before{
+    position:absolute;
+    left:-10px;
+    content:"Загрузить файл";
+    text-transform: uppercase;
+    padding: 9px 5px;
+    text-align: center;
+    display: inline-block;
+    border: 2px solid #006cad;
+    color: #006cad;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-right: 5px;
+    font-size: 13.33px;
+    background: #fff;
+    font-weight: 700;
+}
+
+/*.contacts_form_inner #contactform-file:before:hover {
+    border: 2px solid #054c7a;
+}
+*/
+/*.contacts_form_inner p.help-block.help-block-error {
+  display: none !important;
+}
+*/
+/*.contacts_form_inner button.send_btn {
+    position: absolute;
+    bottom: 96px;
+    right: 61px;
+
+}
+*/
+
+.main_about_box:before {
+      top: 97px;
+    right: 17%;
+    z-index: 0;
+}
+
+
+@media (max-width: 1200px) {
+  .main_about_box:before {
+    top: 102px;
+    right: 5%;
+  }
+}
+
+@media (max-width: 991px) {
+  .main_about_box:before {
+    top: 110px;
+    right: 8%;
+  }
+}
+
+@media (max-width: 768px) {
+  .main_about_box:before {
+      top: 120px;
+      right: 8%;
+  }
+}
+
+@media (max-width: 480px) {
+  .main_about_box:before {
+      top: 125px;
+      right: 0%;
+  }
+
+
+/* popup form fix */
+
+#modalcall-permission .checkbox label {
+  color: #fff;
+}
+.help-block.help-block-error {
+  color: #fff;
+}
+
+.form_item.field-modalcall-name.required.has-error input.form-control {
+  background: url(../images/icons/icon.svg) no-repeat;
+    background-color: #fff;
+    background-size: 774px;
+    background-position: -590px -327px;
+}
+
+.form_item.field-modalcall-phone.required.has-error input.form-control {
+    background: url(../images/icons/icon.svg) no-repeat #fff;
+    background-size: 774px;
+    background-position: -590px -384px;
+}
+
+
+/* contact form fixed end*/
+

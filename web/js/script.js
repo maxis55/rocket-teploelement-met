@@ -150,9 +150,26 @@ var modalOpen = function( self ){
       }
     });
 }
- $(".modal_btn").on("click", function(){
+
+
+ $(".modal_btn").click(function(){
     modalOpen($(this));
  });
+
+  $(".main_map_info button").click(function() {
+
+      var val     = $(".main_map_info input").val();
+      var message = $(".main_map_info option").filter(function() {
+        return this.value == val;
+      }).data('message');
+
+      var output = message ? message : 'No Match';
+
+    $(".modal_box_city").text(output);
+
+  });
+
+ // ---------------------------------------------------------------------------------------------------------------------------------------------------------------
 
  
 
