@@ -35,6 +35,8 @@ AppAsset::register($this);
     </head>
     <body>
     <?php $this->beginBody() ?>
+    <input id="csrf-token" type="hidden" name="<?=Yii::$app->request->csrfParam?>"
+           value="<?=Yii::$app->request->csrfToken?>" autocomplete="off"/>
     <!--=============modal window overlay===============-->
     <div id="menu_overlay"></div>
     <!--HEADER START-->
@@ -184,7 +186,7 @@ AppAsset::register($this);
                                 обработку <a href="#" class="data_mes_lk"> персональных данных</a></label>
                         </div>
                         <div class="form_item al_center">
-                            <a href="javascript:void(0);"  class="modal_close_type white_btn">Вернуться</a>
+                            <a href="javascript:void(0);"  class="modal_return white_btn" data-modal="basket">Вернуться</a>
                             <button class="blue_btn sendBtn">Оформить заказ</button>
                         </div>
 
@@ -205,6 +207,8 @@ AppAsset::register($this);
                 </div>
                 <div class="box_basket">
                     <table class="basket_tb">
+
+
                         <tbody>
                         <?=\app\components\OutputHelper::outputCart();?>
                         </tbody>

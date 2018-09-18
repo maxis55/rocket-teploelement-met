@@ -85,8 +85,7 @@ $this->title=$product->title;
                 </div>
                 <div class="product_assets">
                     <form class="add_to_cart_form">
-                        <input id="form-token" type="hidden" name="<?=Yii::$app->request->csrfParam?>"
-                               value="<?=Yii::$app->request->csrfToken?>" autocomplete="off"/>
+
                         <input id="form-token" type="hidden" name="product_id"
                                value="<?=$product->id?>" autocomplete="off"/>
                         <input id="form-token" type="hidden" name="product_name"

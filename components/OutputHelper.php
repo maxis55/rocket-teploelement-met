@@ -39,7 +39,7 @@ class OutputHelper extends Component
                                     </div>
                                 </div>
                             </td>';
-                $result.='<td class="cell3"><span class="basket_close"></span></td>';
+                $result.='<td class="cell3"><span data-prod_id="'.$item['product_id'].'" class="basket_close"></span></td>';
                 $result.='</tr>';
 
                 $i++;
