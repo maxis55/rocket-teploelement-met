@@ -42,7 +42,7 @@ use yii\helpers\Html;
                 'value' => function ($data) {
                     $result = '<label for="mark" class="select">
                                                     <select id="mark">
-                                                        <option>Выбрать марку</option>';
+                                                        <option>марка1</option>';
                     $steel_types = json_decode($data->steel_type);
                     foreach ($steel_types as $steel_type) {
                         $result .= '<option>' . $steel_type . '</option>';
@@ -59,7 +59,7 @@ use yii\helpers\Html;
                     return '<div class="counter-wrapper">
                                                     <div class="counter-box">
                                                         <button class="counter-minus"></button>
-                                                        <input class="counter-qt" value="1">
+                                                        <input type="number" class="counter-qt" value="1">
                                                         <button class="counter-plus"></button>
                                                     </div>
                                                 </div>

@@ -53,7 +53,7 @@
                                     <div class="counter-wrapper">
                                         <div class="counter-box">
                                             <button class="counter-minus"></button>
-                                            <input class="counter-qt" value="1">
+                                            <input type="number" class="counter-qt" value="1">
                                             <button class="counter-plus"></button>
                                         </div>
                                     </div>
@@ -104,7 +104,7 @@
                                 <div class="counter-wrapper">
                                     <div class="counter-box">
                                         <button class="counter-minus"></button>
-                                        <input class="counter-qt" value="1">
+                                        <input type="number" class="counter-qt" value="1">
                                         <button class="counter-plus"></button>
                                     </div>
                                 </div>
@@ -134,6 +134,8 @@
             <?= $this->render('products_in_grid_template.php',[
                 'dataProvider'=>$dataProvider
             ]) ?>
+
+
             <div class="inner_offers">
                 <div class="inner_offers_carousel">
                     <button class="product_prev_btn"></button>
@@ -181,7 +183,7 @@
                                             <div class="counter-wrapper">
                                                 <div class="counter-box">
                                                     <button class="counter-minus"></button>
-                                                    <input class="counter-qt" value="1">
+                                                    <input type="number" class="counter-qt" value="1">
                                                     <button class="counter-plus"></button>
                                                 </div>
                                             </div>
@@ -223,7 +225,7 @@
                                             <div class="counter-wrapper">
                                                 <div class="counter-box">
                                                     <button class="counter-minus"></button>
-                                                    <input class="counter-qt" value="1">
+                                                    <input type="number" class="counter-qt" value="1">
                                                     <button class="counter-plus"></button>
                                                 </div>
                                             </div>
@@ -265,7 +267,7 @@
                                             <div class="counter-wrapper">
                                                 <div class="counter-box">
                                                     <button class="counter-minus"></button>
-                                                    <input class="counter-qt" value="1">
+                                                    <input type="number" class="counter-qt" value="1">
                                                     <button class="counter-plus"></button>
                                                 </div>
                                             </div>
@@ -307,7 +309,7 @@
                                             <div class="counter-wrapper">
                                                 <div class="counter-box">
                                                     <button class="counter-minus"></button>
-                                                    <input class="counter-qt" value="1">
+                                                    <input type="number" class="counter-qt" value="1">
                                                     <button class="counter-plus"></button>
                                                 </div>
                                             </div>
@@ -349,7 +351,7 @@
                                             <div class="counter-wrapper">
                                                 <div class="counter-box">
                                                     <button class="counter-minus"></button>
-                                                    <input class="counter-qt" value="1">
+                                                    <input type="number" class="counter-qt" value="1">
                                                     <button class="counter-plus"></button>
                                                 </div>
                                             </div>
@@ -391,7 +393,7 @@
                                             <div class="counter-wrapper">
                                                 <div class="counter-box">
                                                     <button class="counter-minus"></button>
-                                                    <input class="counter-qt" value="1">
+                                                    <input type="number" class="counter-qt" value="1">
                                                     <button class="counter-plus"></button>
                                                 </div>
                                             </div>
@@ -433,7 +435,7 @@
                                             <div class="counter-wrapper">
                                                 <div class="counter-box">
                                                     <button class="counter-minus"></button>
-                                                    <input class="counter-qt" value="1">
+                                                    <input type="number" class="counter-qt" value="1">
                                                     <button class="counter-plus"></button>
                                                 </div>
                                             </div>
@@ -468,6 +470,8 @@
                     <button class="pag_next_btn"></button>
                 </div>
             </div>
+
+            
         </div>
     </div>
 </div>

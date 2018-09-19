@@ -67,6 +67,31 @@ if(number.length>0) {
 
 //--- number fix end ----
 
+
+// catolog counter
+
+
+  
+$(".counter-plus").click(function() {
+
+  var value = $(".counter-qt").val();
+
+  $(".counter-qt").attr("value", parseInt(value, 10)+1);
+});
+
+$(".counter-minus").click(function() {
+
+ value = $(".counter-qt").val();
+
+  if (value=>2){
+    $(".counter-qt").attr("value", parseInt(value, 10)-1);
+  }
+
+
+});
+
+// catolog counter end
+
 //-------Arrow up-------
     function goUp(){
       var windowHeight = $(window).height(),
