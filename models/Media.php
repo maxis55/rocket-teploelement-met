@@ -57,6 +57,7 @@ class Media extends ActiveRecord
 
     /**
      * Single image upload method
+     * @param yii\web\UploadedFile $file
      */
     public static function uploadImage($file)
     {
@@ -71,9 +72,7 @@ class Media extends ActiveRecord
         while (is_file(Yii::getAlias('@webroot') . '/uploads/' . $type . '/' . $name)) {
             $name = pathinfo($file->name, PATHINFO_FILENAME) . '-' . ++$nameOccurences . '.' . pathinfo($file->name, PATHINFO_EXTENSION);
         }
-        if (0 != $nameOccurences) {
-            $name = pathinfo($file->name, PATHINFO_FILENAME) . '-' . $nameOccurences . '.' . pathinfo($file->name, PATHINFO_EXTENSION);
-        }
+
 
         if (!is_dir(Yii::getAlias('@webroot') . '/uploads/' . $type)) {
             mkdir(Yii::getAlias('@webroot') . '/uploads/' . $type, 0777, true);

@@ -58,10 +58,15 @@ class News extends ActiveRecord{
     /**
      * Content for news page
      * @param string $slug
+     * @param array $params
      * @return array|null|ActiveRecord
      */
-    public static function getSingleNews($slug){
-        return self::find()->select(['name','content'])->where(['slug' => $slug])->asArray()->one();
+    public static function getSingleNews($slug,$params=['id','name','content']){
+        return self::find()
+            ->select($params)
+            ->where(['slug' => $slug])
+            ->asArray()
+            ->one();
     }
 
     /**

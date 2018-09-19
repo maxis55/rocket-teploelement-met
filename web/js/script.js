@@ -113,8 +113,9 @@ $(document).ready(function () {
             $('.file_btn').removeClass('active');
             var file_name = inp.val().replace("C:\\fakepath\\", '');
             $('.file_select').text(file_name);
-        }).change(function () {
+
             $('.file_btn').text('Заменить файл').addClass('active');
+
         });
     }
     $(".submenu_lk").on("mouseenter", function (e) {
@@ -344,15 +345,18 @@ $(document).ready(function () {
             name = currentForm.find('input[name="name"]'),
             phone = currentForm.find('input[name="phone"]'),
             email = currentForm.find('input[name="email"]'),
-            messadge = currentForm.find('textarea[name="message"]');
+            messadge = currentForm.find('textarea[name="message"]'),
+            agreement=currentForm.find("input[name='agree']");
+        if(agreement.length){
+            if (agreement.prop('checked') == false) {
+                $("#agree").parent().addClass("invalid");
+                errors = true;
+            }
+            else {
+                $("#agree").parent().removeClass("invalid");
+            }
+        }
 
-        if ($("input[name='agree']").prop('checked') == false) {
-            $("#agree").parent().addClass("invalid");
-            errors = true;
-        }
-        else {
-            $("#agree").parent().removeClass("invalid");
-        }
         if (email.length) {
             if (!email.val().length) {
                 email.parent().addClass("invalid");
@@ -399,28 +403,57 @@ $(document).ready(function () {
 
         if (!errors) {
             var csrf = $('#csrf-token'),
-                formData = new FormData(),
-                closestForm = $(this).closest('form');
+                formData = new FormData();
+            if(currentForm.hasClass('form_order')){
+                formData.append(csrf.attr('name'), csrf.val());
 
-            formData.append(csrf.attr('name'), csrf.val());
+                currentForm.serializeArray().forEach(function (element) {
+                    formData.append(element.name, element.value);
+                });
 
-            closestForm.serializeArray().forEach(function (element) {
-                formData.append(element.name, element.value);
-            });
+                $.ajax({
+                    url: '/ajax/create-order',
+                    type: 'post',
+                    dataType: 'json',
+                    processData: false,
+                    contentType: false,
+                    data: formData,
+                    success: function (response) {
 
-            $.ajax({
-                url: '/ajax/create-order',
-                type: 'post',
-                dataType: 'json',
-                processData: false,
-                contentType: false,
-                data: formData,
-                success: function (response) {
+                    }
+                });
+            }
 
+            if(currentForm.hasClass('form_call')||currentForm.hasClass('contact_form_w_file')){
+                formData.append(csrf.attr('name'), csrf.val());
+
+                currentForm.serializeArray().forEach(function (element) {
+                    formData.append(element.name, element.value);
+                });
+                if(currentForm.hasClass('form_call')){
+                    formData.append('type','phone_request');
+                }else{
+                    formData.append('type','info_request');
                 }
-            });
+
+                if(currentForm.find('input[type="file"]').length && currentForm.find('input[type="file"]').val() !== ''){
+                    formData.append('file',currentForm.find('input[type="file"]')[0].files[0],currentForm.find('.file_select').html())
+                }
+
+                $.ajax({
+                    url: '/ajax/message-create',
+                    type: 'post',
+                    dataType: 'json',
+                    processData: false,
+                    contentType: false,
+                    data: formData,
+                    success: function (response) {
+                        console.log(response)
+                    }
+                });
+            }
             modalOpen();
-            closestForm[0].reset();
+            currentForm[0].reset();
         }
     });
     /*-------------main_news_box for 480------*/

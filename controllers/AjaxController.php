@@ -10,10 +10,13 @@ namespace app\controllers;
 
 
 use app\components\OutputHelper;
+use app\models\Media;
+use app\models\Messages;
 use app\models\Orders;
 use Yii;
 use yii\web\Controller;
 use yii\web\Response;
+use yii\web\UploadedFile;
 
 class AjaxController extends Controller
 {
@@ -42,7 +45,7 @@ class AjaxController extends Controller
                 'value' => json_encode(
                     $cart_content
                 ),
-                'expire' => time() + 60 * 60 * 24 * 2,
+                'expire' => time() + 60 * 60 * 24 * 2, //2 days
             ]));
 
         }
@@ -73,7 +76,7 @@ class AjaxController extends Controller
                 'value' => json_encode(
                     $cart_content2
                 ),
-                'expire' => time() + 60 * 60 * 24 * 2,
+                'expire' => time() + 60 * 60 * 24 * 2, //2 days
             ]));
 
         $sizeofcart=sizeof($cart_content2);
@@ -84,6 +87,7 @@ class AjaxController extends Controller
 
     public function actionCreateOrder(){
         if (\Yii::$app->request->isAjax) {
+            \Yii::$app->response->format = Response::FORMAT_JSON;
             $post_content = Yii::$app->request->post();
             $cookiesWrite = Yii::$app->response->cookies;
             $cookiesRead = Yii::$app->request->cookies;
@@ -113,4 +117,40 @@ class AjaxController extends Controller
             return 'error';
         }
     }
+
+
+    public function actionMessageCreate()
+    {
+        $model = new Messages();
+        \Yii::$app->response->format = Response::FORMAT_JSON;
+        $post_content=Yii::$app->request->post();
+        if (!empty($post_content)) {
+
+            $model->name=$post_content['name'];
+            $model->phone=$post_content['phone'];
+            $model->content=$post_content['message'];
+            $model->type=$post_content['type'];
+            $file = UploadedFile::getInstanceByName( 'file');
+
+            if(!empty($file)){
+                $fileName=Messages::saveFile($file);
+                if(false !== $fileName){
+                    $model->file=$fileName;
+                }
+            }
+
+            if($model->save()){
+                return ['success',$model->errors,print_r($file,true),print_r($_FILES,true)];
+
+            }else{
+                $model->validate();
+                return ['fail',$model->errors,print_r($file,true),print_r($_FILES,true)];
+            }
+
+        }
+        $model->load(Yii::$app->request->post());
+        $model->validate();
+        return ['fail',$model->errors];
+    }
+
 }

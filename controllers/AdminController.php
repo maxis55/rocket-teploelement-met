@@ -17,6 +17,8 @@ use app\models\CharacteristicsSearch;
 use app\models\LoginForm;
 use app\models\Media;
 use app\models\MediaSearch;
+use app\models\Messages;
+use app\models\MessagesSearch;
 use app\models\News;
 use app\models\NewsSearch;
 use app\models\Orders;
@@ -328,9 +330,9 @@ class AdminController extends Controller
     public function actionMedia()
     {
         if (yii::$app->request->isPost) {
-            $model = new Media();
 
-            $files = UploadedFile::getInstances($model, 'images');
+            $files = UploadedFile::getInstancesByName( 'images');
+
             foreach ($files as $obj) {
                 Media::uploadImage($obj);
             }
@@ -396,9 +398,9 @@ class AdminController extends Controller
      * @throws \Throwable
      * @throws \yii\db\StaleObjectException
      */
-    public function actionMediaDelete($id)
+    public function actionMediaDelete($id,$name)
     {
-        $this->findMediaModel($id)->delete();
+        $this->{'find'.$name.'Model'}($id)->delete();
 
         return $this->redirect(['admin/media']);
     }
@@ -502,6 +504,9 @@ class AdminController extends Controller
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
+     * @throws \Exception
+     * @throws \Throwable
+     * @throws \yii\db\StaleObjectException
      */
     public function actionNewsDelete($id)
     {
@@ -669,6 +674,9 @@ class AdminController extends Controller
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
+     * @throws \Exception
+     * @throws \Throwable
+     * @throws \yii\db\StaleObjectException
      */
     public function actionProductsDelete($id)
     {
@@ -766,6 +774,9 @@ class AdminController extends Controller
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
+     * @throws \Exception
+     * @throws \Throwable
+     * @throws \yii\db\StaleObjectException
      */
     public function actionCharacteristicsDelete($id)
     {
@@ -820,12 +831,16 @@ class AdminController extends Controller
             'model' => $this->findOrdersModel($id),
         ]);
     }
+
     /**
      * Deletes an existing Orders model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
+     * @throws \Exception
+     * @throws \Throwable
+     * @throws \yii\db\StaleObjectException
      */
     public function actionOrdersDelete($id)
     {
@@ -852,6 +867,63 @@ class AdminController extends Controller
 
 
 
+    public function actionMessages()
+    {
+        $searchModel = new MessagesSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        return $this->render('messages/index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
+    /**
+     * Displays a single Messages model.
+     * @param integer $id
+     * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    public function actionMessagesView($id)
+    {
+        return $this->render('messages/view', [
+            'model' => $this->findMessagesModel($id),
+        ]);
+    }
+
+
+    /**
+     * Deletes an existing Messages model.
+     * If deletion is successful, the browser will be redirected to the 'index' page.
+     * @param integer $id
+     * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
+     * @throws \Exception
+     * @throws \Throwable
+     * @throws \yii\db\StaleObjectException
+     */
+    public function actionMessagesDelete($id)
+    {
+        $this->findMessagesModel($id)->delete();
+
+        return $this->redirect(['admin/messages']);
+    }
+
+    /**
+     * Finds the Messages model based on its primary key value.
+     * If the model is not found, a 404 HTTP exception will be thrown.
+     * @param integer $id
+     * @return Messages the loaded model
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    protected function findMessagesModel($id)
+    {
+        if (($model = Messages::findOne($id)) !== null) {
+            return $model;
+        }
+
+        throw new NotFoundHttpException('The requested page does not exist.');
+    }
 
 
 
