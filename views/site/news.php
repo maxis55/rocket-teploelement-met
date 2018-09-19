@@ -60,7 +60,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                         <img src="<?= Media::getImageOfSizeStatic($single['media_name'],'image');?>">
                                     </a>
                                     <figcaption>
-                                        <time datetime="2012-12">
+                                        <time datetime="<?= date('Y-m', strtotime($single['date'])); ?>">
                                             <span><?= date('d', strtotime($single['date'])); ?></span>
                                             <?= date('m.y', strtotime($single['date'])); ?>
                                         </time>

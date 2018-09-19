@@ -114,7 +114,7 @@ class SiteController extends Controller
      */
     public function actionNews()
     {
-        $news = News::getFirstArchiveNews();
+        $news = News::getFirstArchiveNews(   $limit = 20,true);
         return $this->render('news', ['news' => $news]);
     }
 
@@ -134,22 +134,27 @@ class SiteController extends Controller
 
         $read_news=array();
         $curr_news_id=$news['id'];
-        if (($cookie = $cookiesRead->get('read_news')) !== null) {
-            $read_news = json_decode($cookie->value,true);
+        if(null != $curr_news_id && '' != $curr_news_id){
+
+            if (($cookie = $cookiesRead->get('read_news')) !== null) {
+                $read_news = json_decode($cookie->value,true);
+            }
+            if ( ! in_array($curr_news_id, $read_news) ) {
+                $read_news[]=$curr_news_id;
+            }else{
+                $read_news=array_diff( $read_news, [$curr_news_id] );
+                $read_news[]=$curr_news_id;
+            }
+            $cookiesWrite->add(new \yii\web\Cookie([
+                'name' => 'read_news',
+                'value' => json_encode(
+                    $read_news
+                ),
+                'expire' => time() + 60 * 60 * 24 * 4, //4 days
+            ]));
+
         }
-        if ( ! in_array($curr_news_id, $read_news)) {
-            $read_news[]=$curr_news_id;
-        }else{
-            $read_news=array_diff( $read_news, [$curr_news_id] );
-            $read_news[]=$curr_news_id;
-        }
-        $cookiesWrite->add(new \yii\web\Cookie([
-            'name' => 'read_news',
-            'value' => json_encode(
-                $read_news
-            ),
-            'expire' => time() + 60 * 60 * 24 * 4, //4 days
-        ]));
+
 
         return $this->render('news-page', ['news' => $news]);
     }

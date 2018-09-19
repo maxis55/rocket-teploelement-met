@@ -1,7 +1,13 @@
 <?php
+
 namespace app\models;
+
+use Yii;
 use yii\db\ActiveRecord;
-class News extends ActiveRecord{
+use yii\helpers\ArrayHelper;
+
+class News extends ActiveRecord
+{
 
     /**
      * @inheritdoc
@@ -10,6 +16,7 @@ class News extends ActiveRecord{
     {
         return 'news';
     }
+
     public function rules()
     {
         return [
@@ -42,17 +49,67 @@ class News extends ActiveRecord{
     /**
      * First group of news for news archive page
      * @param int $limit
-     * @param array $params
-     * @return array|ActiveRecord[]
+     * @param bool $viewed
+     * @return array
      */
-    public static function getFirstArchiveNews($limit=6,$params=['news.shortdesc','news.date','news.name','news.slug','news.name','media.name media_name']){
+    public static function getFirstArchiveNews($limit = 6,
+
+                                               $viewed = false)
+    {
+        if ($viewed) {
+            $cookiesRead = Yii::$app->request->cookies;
+            $read_news_ids = array();
+
+            if (($cookie = $cookiesRead->get('read_news')) !== null) {
+                $read_news_ids = json_decode($cookie->value, true);
+            }
+
+            $news_to_return = self::find()
+                ->select(['news.id','news.shortdesc', 'news.date', 'news.name', 'news.slug', 'news.name', 'media.name media_name'])
+                ->leftJoin('media', 'news.media_id = media.id')
+                ->where(['in', 'news.id', $read_news_ids])
+                ->limit($limit)
+                ->asArray()
+                ->all();
+
+            //all of this to keep order of keys
+            $read_news_ids = array_combine($read_news_ids, $read_news_ids);
+            $news_to_return=ArrayHelper::index($news_to_return, 'id');
+            $news_to_return=array_replace($read_news_ids, $news_to_return);
+            $news_to_return=array_reverse($news_to_return);
+
+            //if amount of news in cookie is less than amount per page
+            if (sizeof($news_to_return) < $limit) {
+                $second_news_arr = self::find()
+                    ->select(['news.id','news.shortdesc', 'news.date', 'news.name', 'news.slug', 'news.name', 'media.name media_name'])
+                    ->leftJoin('media', 'news.media_id = media.id')
+                    ->where(['not in', 'news.id', $read_news_ids])
+                    ->limit($limit - sizeof($news_to_return))
+                    ->orderBy([
+                        'date' => SORT_DESC,
+                        'news.id' => SORT_DESC
+                    ])
+                    ->asArray()
+                    ->all();
+                $news_to_return = array_merge($news_to_return, $second_news_arr);
+            } else {
+                $news_to_return = array_slice($news_to_return, 0, $limit, true);
+            }
+            return $news_to_return;
+
+        }
         return self::find()
-            ->select($params)
+            ->select(['news.id','news.shortdesc', 'news.date', 'news.name', 'news.slug', 'news.name', 'media.name media_name'])
             ->leftJoin('media', 'news.media_id = media.id')
-            ->limit( $limit )
-            ->orderBy(['date' => SORT_DESC])
+            ->limit($limit)
+            ->orderBy([
+                'date' => SORT_DESC,
+                'news.id' => SORT_DESC
+            ])
             ->asArray()
             ->all();
+
+
     }
 
     /**
@@ -61,7 +118,8 @@ class News extends ActiveRecord{
      * @param array $params
      * @return array|null|ActiveRecord
      */
-    public static function getSingleNews($slug,$params=['id','name','content']){
+    public static function getSingleNews($slug, $params = ['id', 'name', 'content'])
+    {
         return self::find()
             ->select($params)
             ->where(['slug' => $slug])
@@ -74,8 +132,9 @@ class News extends ActiveRecord{
      * @param int $limit
      * @return array|ActiveRecord[]
      */
-    public static function getNewsForMain($limit=8){
-        return self::find()->select(['shortdesc','date','name','slug'])->limit($limit)->asArray()->all();
+    public static function getNewsForMain($limit = 8)
+    {
+        return self::find()->select(['shortdesc', 'date', 'name', 'slug'])->limit($limit)->asArray()->all();
     }
 
 
