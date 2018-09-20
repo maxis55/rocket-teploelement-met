@@ -278,6 +278,13 @@ class AdminController extends Controller
             $post = Yii::$app->request->post('Pages');
             $meta = Pagesmeta::find()->where(['=', 'page_id', $id])->all();
 
+            $cities_name=Yii::$app->request->post('cities_names');
+            $cities_messages=Yii::$app->request->post('cities_messages');
+            if(!empty($cities_name)&&!empty($cities_messages)){
+                $cities=array_combine($cities_name,$cities_messages);
+                $post['map_cities']=json_encode($cities);
+            }
+
             foreach ($meta as $single_meta) {
                 $single_meta->value = $post[$single_meta->key];
                 $single_meta->save();

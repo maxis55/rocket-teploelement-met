@@ -188,6 +188,15 @@ $(document).ready(function () {
             if (elem_modal === 'order') {
                 $('.modal_box_order .order_count').html($('.modal_box_basket .basket_count').html());
             }
+            if (elem_modal === 'city') {
+                var something=$('#town option[value="'+$('#town_input').val()+'"]').data('message');
+                if(something!=undefined&&something!=null){
+                    $('#city').find('.modal_box_city span').html(something)
+                }else{
+                    $('#city').find('.modal_box_city span').html('Срок доставки в ваш город не указан!')
+                }
+
+            }
             modalOpen(elem);
         }
 
@@ -343,8 +352,8 @@ $(document).ready(function () {
                     responseHtml.forEach(function (element) {
                         news_block.append(element);
                     });
-                    elem.data('page',parseInt(elem.data('page'))+1);
-                    if(response['last']===true||news_block.find('.main_news_item').length===elem.data('max')){
+                    elem.data('page', parseInt(elem.data('page')) + 1);
+                    if (response['last'] === true || news_block.find('.main_news_item').length === elem.data('max')) {
                         elem.remove();
                     }
                 }
@@ -411,7 +420,7 @@ $(document).ready(function () {
             }
         }
         if (message.length) {
-            if (!message.val().length || messadge.val() == " ") {
+            if (!message.val().length || message.val() == " ") {
                 message.parent().addClass("invalid");
                 errors = true;
             }

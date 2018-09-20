@@ -54,7 +54,17 @@ $this->params['breadcrumbs'][] = $this->title;
                             if (($item['type'] == 'image') && ($item['value'] != '')) {
                                 echo Html::img(Media::findById($item['value'])->getImageOfSize(450, 450), ['alt' => 'img']);
                             } else {
-                                echo $item['value'];
+                                if($item['type']==='map_cities'){
+
+                                    echo '<ul>';
+                                    foreach ($item['value'] as $city=>$message){
+                                        echo '<li>'.$city.'=>'.$message.'</li>';
+                                    }
+                                    echo '</ul>';
+                                }else{
+                                    echo $item['value'];
+                                }
+
                             } ?></td>
                     </tr>
                 <?php } ?>

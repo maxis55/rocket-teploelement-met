@@ -29,7 +29,7 @@ class m180904_122004_update_table_pagesmeta extends Migration
     public function up()
     {
 
-        $i=0;
+        $i = 0;
 
         $this->insert('pagesmeta', [
             'id' => ++$i,
@@ -67,11 +67,11 @@ class m180904_122004_update_table_pagesmeta extends Migration
             'type' => 'input'
         ]);
 
-        for ($r=1;$r<=5;$r++){
+        for ($r = 1; $r <= 5; $r++) {
             $this->insert('pagesmeta', [
                 'id' => ++$i,
                 'page_id' => 1,
-                'key' => 'block_'.$r.'_title_1',
+                'key' => 'block_' . $r . '_title_1',
                 'title' => 'Заголовок черного цвета',
                 'value' => 'Текст 1',
                 'type' => 'input'
@@ -79,7 +79,7 @@ class m180904_122004_update_table_pagesmeta extends Migration
             $this->insert('pagesmeta', [
                 'id' => ++$i,
                 'page_id' => 1,
-                'key' => 'block_'.$r.'_title_2',
+                'key' => 'block_' . $r . '_title_2',
                 'title' => 'Заголовок синего цвета',
                 'value' => 'текст 2',
                 'type' => 'input'
@@ -87,27 +87,27 @@ class m180904_122004_update_table_pagesmeta extends Migration
             $this->insert('pagesmeta', [
                 'id' => ++$i,
                 'page_id' => 1,
-                'key' => 'block_'.$r.'_content',
+                'key' => 'block_' . $r . '_content',
                 'title' => 'Контент',
                 'value' => '
-                    <p>текстовый блок '.$r.' контентная часть</p>
+                    <p>текстовый блок ' . $r . ' контентная часть</p>
                 ',
                 'type' => 'tinyarea'
             ]);
             $this->insert('pagesmeta', [
                 'id' => ++$i,
                 'page_id' => 1,
-                'key' => 'block_'.$r.'_link',
-                'title' => 'Ссылка блока '.$r,
-                'value' => '#link'.$r,
+                'key' => 'block_' . $r . '_link',
+                'title' => 'Ссылка блока ' . $r,
+                'value' => '#link' . $r,
                 'type' => 'input'
             ]);
             $this->insert('pagesmeta', [
                 'id' => ++$i,
                 'page_id' => 1,
-                'key' => 'block_'.$r.'_image',
-                'title' => 'Изображение блока '.$r,
-                'value' => 39+$r,
+                'key' => 'block_' . $r . '_image',
+                'title' => 'Изображение блока ' . $r,
+                'value' => 39 + $r,
                 'type' => 'image'
             ]);
         }
@@ -129,6 +129,24 @@ class m180904_122004_update_table_pagesmeta extends Migration
             'value' => 5,
             'type' => 'input'
         ]);
+
+        $this->insert('pagesmeta', [
+            'id' => ++$i,
+            'page_id' => 1,
+            'key' => 'map_cities',
+            'title' => 'Города для карты',
+            'value' => json_encode(
+                [
+                    'Москва' => 'Доставка в ваш город осуществляется 7 рабочих дней.',
+                    'Казань' => 'Доставка в ваш город осуществляется 4 рабочих дней.',
+                    'Петербург' => 'Доставка в ваш город осуществляется 2 рабочих дней.',
+                    'Воронеж' => 'Доставка в ваш город осуществляется 3 рабочих дней.',
+                    'Хабаровск' => 'Доставка в ваш город осуществляется 5 рабочих дней.'
+                ]
+            ),
+            'type' => 'map_cities'
+        ]);
+
 
         $this->insert('pagesmeta', [
             'id' => ++$i,
@@ -187,6 +205,15 @@ class m180904_122004_update_table_pagesmeta extends Migration
             'title' => 'Метка на карте',
             'value' => '55, 55',
             'type' => 'input'
+        ]);
+
+        $this->insert('pagesmeta', [
+            'id' => ++$i,
+            'page_id' => 2,
+            'key' => 'file',
+            'title' => 'Файл под списком контактов',
+            'value' => 54,
+            'type' => 'file'
         ]);
 
         $this->insert('pagesmeta', [
