@@ -97,7 +97,7 @@ class SiteController extends Controller
 
         $news_slider = News::find()
             ->select(['name', 'date', 'shortdesc', 'slug'])
-            ->orderBy(['date' => SORT_DESC,])
+            ->orderBy(['date' => SORT_DESC,'id' => SORT_DESC])
             ->limit($page_content['posts_per_page']['value'])
             ->asArray()
             ->all();
