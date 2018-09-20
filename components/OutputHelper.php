@@ -4,8 +4,10 @@
 namespace app\components;
 
 
+use app\models\Media;
 use Yii;
 use yii\base\Component;
+use yii\helpers\Url;
 use yii\web\Response;
 
 class OutputHelper extends Component
@@ -65,8 +67,6 @@ class OutputHelper extends Component
 
 
         if (\Yii::$app->request->isAjax) {
-            \Yii::$app->response->format = Response::FORMAT_JSON;
-
             return ['cart_html' => $result];
         } else {
             return $result;
@@ -74,6 +74,33 @@ class OutputHelper extends Component
 //        die();
 
     }
+
+
+
+    public static function drawOneNewsElement($element){
+        return  ' <div class="main_news_item">
+                                <figure>
+                                    <a href="'. Url::toRoute(['site/news-page', 'slug' => $element['slug']]) .'" class="news_img">
+                                        <img src="'. Media::getImageOfSizeStatic($element['media_name'],'image').'">
+                                    </a>
+                                    <figcaption>
+                                        <time datetime="'.date('Y-m', strtotime($element['date'])).'">
+                                            <span>'.date('d', strtotime($element['date'])).'</span>'
+                                            .date('m.y', strtotime($element['date'])).'
+                                        </time>
+                                        <a href="'.Url::toRoute(['site/news-page', 'slug' => $element['slug']]).'" class="news_name">'. $element['name'].'</a>
+                                    </figcaption>
+                                    <span class="news_content">
+										'.$element['shortdesc']  .'
+                                        <a href="'. Url::toRoute(['site/news-page', 'slug' => $element['slug']]).'" class="news_content_lk"></a>
+									</span>
+                                </figure>
+                            </div>';
+
+    }
+
+
+
 
     public static function true_wordform($num, $form_for_1, $form_for_2, $form_for_5)
     {

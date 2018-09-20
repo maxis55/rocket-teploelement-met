@@ -144,7 +144,6 @@ $(document).ready(function () {
         //console.log(modal);
 
 
-
         modalClose();
         $(template).prependTo('body');
         $('#' + modal).prependTo('.modal_container').addClass('active');
@@ -161,8 +160,8 @@ $(document).ready(function () {
     };
     $(".modal_btn").on("click", function () {
 
-        var elem=$(this),
-            elem_modal=elem.data('modal'),
+        var elem = $(this),
+            elem_modal = elem.data('modal'),
             csrf = $('#csrf-token');
         if (elem_modal === 'basket') {
             var serializedForm = $('.add_to_cart_form').serializeArray(),
@@ -185,7 +184,7 @@ $(document).ready(function () {
                     modalOpen(elem);
                 }
             });
-        }else{
+        } else {
             if (elem_modal === 'order') {
                 $('.modal_box_order .order_count').html($('.modal_box_basket .basket_count').html());
             }
@@ -313,16 +312,6 @@ $(document).ready(function () {
         }
     }
 
-    function checkName(currInput) {
-        var pattern = /^[a-zA-Z][a-zA-Z0-9-_\.]{1,20}$/;
-        if (!pattern.exec($(currInput).val())) {
-            return false;
-        }
-        else {
-            return true;
-        }
-    }
-
     function checkPhone(currInput) {
         var pattern = /(\(?\d{3}\)?[\- ]?)?[\d\- ]{4,10}$/;
         if (!pattern.exec(currInput.val())) {
@@ -331,6 +320,36 @@ $(document).ready(function () {
         else {
             return true;
         }
+    }
+
+    if ($('.mm_ajax_more_news').length > 0) {
+        $('.mm_ajax_more_news').click(function (e) {
+            e.preventDefault();
+            var csrf = $('#csrf-token'),
+                elem = $(this);
+            $.ajax({
+                url: '/ajax/more-news',
+                type: 'get',
+                dataType: 'json',
+                data: {
+                    [csrf.attr('name')]: csrf.val(),
+                    page: elem.data('page'),
+                    per_page: elem.data('per_page'),
+                    sortBy: elem.data('sort'),
+                },
+                success: function (response) {
+                    var responseHtml = response['html'];
+                    var news_block = $('.news_flex');
+                    responseHtml.forEach(function (element) {
+                        news_block.append(element);
+                    });
+                    elem.data('page',parseInt(elem.data('page'))+1);
+                    if(response['last']===true||news_block.find('.main_news_item').length===elem.data('max')){
+                        elem.remove();
+                    }
+                }
+            });
+        })
     }
 
 
@@ -345,9 +364,9 @@ $(document).ready(function () {
             name = currentForm.find('input[name="name"]'),
             phone = currentForm.find('input[name="phone"]'),
             email = currentForm.find('input[name="email"]'),
-            messadge = currentForm.find('textarea[name="message"]'),
-            agreement=currentForm.find("input[name='agree']");
-        if(agreement.length){
+            message = currentForm.find('textarea[name="message"]'),
+            agreement = currentForm.find("input[name='agree']");
+        if (agreement.length) {
             if (agreement.prop('checked') == false) {
                 $("#agree").parent().addClass("invalid");
                 errors = true;
@@ -391,20 +410,20 @@ $(document).ready(function () {
                 name.parent().removeClass("invalid");
             }
         }
-        if (messadge.length) {
-            if (!messadge.val().length || messadge.val() == " ") {
-                messadge.parent().addClass("invalid");
+        if (message.length) {
+            if (!message.val().length || messadge.val() == " ") {
+                message.parent().addClass("invalid");
                 errors = true;
             }
             else {
-                messadge.parent().removeClass("invalid");
+                message.parent().removeClass("invalid");
             }
         }
 
         if (!errors) {
             var csrf = $('#csrf-token'),
                 formData = new FormData();
-            if(currentForm.hasClass('form_order')){
+            if (currentForm.hasClass('form_order')) {
                 formData.append(csrf.attr('name'), csrf.val());
 
                 currentForm.serializeArray().forEach(function (element) {
@@ -424,20 +443,20 @@ $(document).ready(function () {
                 });
             }
 
-            if(currentForm.hasClass('form_call')||currentForm.hasClass('contact_form_w_file')){
+            if (currentForm.hasClass('form_call') || currentForm.hasClass('contact_form_w_file')) {
                 formData.append(csrf.attr('name'), csrf.val());
 
                 currentForm.serializeArray().forEach(function (element) {
                     formData.append(element.name, element.value);
                 });
-                if(currentForm.hasClass('form_call')){
-                    formData.append('type','phone_request');
-                }else{
-                    formData.append('type','info_request');
+                if (currentForm.hasClass('form_call')) {
+                    formData.append('type', 'phone_request');
+                } else {
+                    formData.append('type', 'info_request');
                 }
 
-                if(currentForm.find('input[type="file"]').length && currentForm.find('input[type="file"]').val() !== ''){
-                    formData.append('file',currentForm.find('input[type="file"]')[0].files[0],currentForm.find('.file_select').html())
+                if (currentForm.find('input[type="file"]').length && currentForm.find('input[type="file"]').val() !== '') {
+                    formData.append('file', currentForm.find('input[type="file"]')[0].files[0], currentForm.find('.file_select').html())
                 }
 
                 $.ajax({

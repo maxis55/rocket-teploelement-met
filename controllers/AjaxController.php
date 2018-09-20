@@ -12,6 +12,7 @@ namespace app\controllers;
 use app\components\OutputHelper;
 use app\models\Media;
 use app\models\Messages;
+use app\models\News;
 use app\models\Orders;
 use Yii;
 use yii\web\Controller;
@@ -23,6 +24,7 @@ class AjaxController extends Controller
 
     public function actionAddToCart()
     {
+        $cart_content=array();
         if (\Yii::$app->request->isAjax) {
             $cookiesWrite = Yii::$app->response->cookies;
             $cookiesRead = Yii::$app->request->cookies;
@@ -49,7 +51,7 @@ class AjaxController extends Controller
             ]));
 
         }
-
+        \Yii::$app->response->format = Response::FORMAT_JSON;
         return OutputHelper::outputCart($cart_content);
     }
 
@@ -121,36 +123,57 @@ class AjaxController extends Controller
 
     public function actionMessageCreate()
     {
-        $model = new Messages();
         \Yii::$app->response->format = Response::FORMAT_JSON;
-        $post_content=Yii::$app->request->post();
-        if (!empty($post_content)) {
+        if (\Yii::$app->request->isAjax) {
+            $model = new Messages();
 
-            $model->name=$post_content['name'];
-            $model->phone=$post_content['phone'];
-            $model->content=$post_content['message'];
-            $model->type=$post_content['type'];
-            $file = UploadedFile::getInstanceByName( 'file');
+            $post_content = Yii::$app->request->post();
+            if (!empty($post_content)) {
 
-            if(!empty($file)){
-                $fileName=Messages::saveFile($file);
-                if(false !== $fileName){
-                    $model->file=$fileName;
+                $model->name = $post_content['name'];
+                $model->phone = $post_content['phone'];
+                $model->content = $post_content['message'];
+                $model->type = $post_content['type'];
+                $file = UploadedFile::getInstanceByName('file');
+
+                if (!empty($file)) {
+                    $fileName = Messages::saveFile($file);
+                    if (false !== $fileName) {
+                        $model->file = $fileName;
+                    }
                 }
-            }
 
-            if($model->save()){
-                return ['success',$model->errors,print_r($file,true),print_r($_FILES,true)];
+                if ($model->save()) {
+                    return ['success'];
 
-            }else{
+                }
+
                 $model->validate();
-                return ['fail',$model->errors,print_r($file,true),print_r($_FILES,true)];
+                return ['fail', $model->errors];
+
             }
 
         }
-        $model->load(Yii::$app->request->post());
-        $model->validate();
-        return ['fail',$model->errors];
+        return ['fail'];
+    }
+
+
+    public function actionMoreNews(){
+        \Yii::$app->response->format = Response::FORMAT_JSON;
+        if (\Yii::$app->request->isAjax) {
+            $get_content = Yii::$app->request->get();
+
+            $viewed = $get_content['sortBy']==='viewed';
+            $news = News::getArchiveNews( $get_content['per_page'], $viewed, $get_content['page']);
+//            var_dump($news);
+//            die();
+            $result=array();
+            foreach ($news as $element){
+                $result[]=OutputHelper::drawOneNewsElement($element);
+            }
+            return ['html'=>$result,'last'=>sizeof($result)<$get_content['per_page']];
+        }
+        return ['fail'];
     }
 
 }
