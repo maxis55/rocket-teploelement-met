@@ -30,11 +30,17 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
             //'id',
             [
-                'attribute'=>'name',
-                'label'=>'Изображение',
-                'format'=>'raw',
-                'value'=>function($data) {
-                    return '<img src="'.$data->getImageOfSize(450,450).'">';
+                'attribute' => 'name',
+                'label' => 'Изображение',
+                'format' => 'raw',
+                'value' => function ($data) {
+                    if ($data->type === 'image')
+                        return '<img src="' . $data->getImageOfSize(450, 450) . '">';
+                    else
+                        return Html::a(
+                            $data->title,
+                            $data->getImageOfSize(),
+                            ['target' => '_blank']);
                 }],
             'name',
             'title',

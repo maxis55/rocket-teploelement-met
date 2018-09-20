@@ -189,14 +189,6 @@ class m180904_122004_update_table_pagesmeta extends Migration
             'type' => 'tinyarea'
         ]);
 
-        $this->insert('pagesmeta', [
-            'id' => ++$i,
-            'page_id' => 2,
-            'key' => 'link',
-            'title' => 'Ссылка на карту предприятия',
-            'value' => '#link',
-            'type' => 'input'
-        ]);
 
         $this->insert('pagesmeta', [
             'id' => ++$i,

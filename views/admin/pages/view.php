@@ -62,7 +62,15 @@ $this->params['breadcrumbs'][] = $this->title;
                                     }
                                     echo '</ul>';
                                 }else{
-                                    echo $item['value'];
+                                    if($item['type']==='file'){
+                                        echo Html::a(
+                                            Media::findById($item['value'])->name,
+                                            Media::findById($item['value'])->getImageOfSize(),
+                                            ['target' => '_blank']);
+                                    }else{
+                                        echo $item['value'];
+                                    }
+
                                 }
 
                             } ?></td>
