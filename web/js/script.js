@@ -1,3 +1,5 @@
+// slick end
+
 $(function(){
 // IPad/IPhone
 	var viewportmeta = document.querySelector && document.querySelector('meta[name="viewport"]'),
@@ -72,19 +74,20 @@ if(number.length>0) {
 
 
   
-$(".counter-plus").click(function() {
+$("body").on("click", ".counter-plus", function() {
 
-  var value = $(".counter-qt").val();
+  var inp_value = parseInt( $(this).siblings(".counter-qt ").val(), 10);
 
-  $(".counter-qt").attr("value", parseInt(value, 10)+1);
+  $(this).siblings(".counter-qt").attr("value", inp_value+1);
 });
 
-$(".counter-minus").click(function() {
+$("body").on("click", ".counter-minus", function() {
 
- value = $(".counter-qt").val();
+ var inp_value = parseInt( $(this).siblings(".counter-qt ").val(), 10);
 
-  if (value=>2){
-    $(".counter-qt").attr("value", parseInt(value, 10)-1);
+  if (inp_value>1){
+
+     $(this).siblings(".counter-qt ").attr("value", inp_value-1);
   }
 
 
@@ -441,7 +444,13 @@ if($(window).width() < 760){
         });
       }
     }
+     
+
+    
+      
 });
+
+
 
 
 
@@ -544,7 +553,54 @@ $(window).on('load resize', function() {
     }
   });
 
+  function initialize_slider(activate=false) {
 
+    if($(".inner_offers").length){ 
+      if($(window).innerWidth() < 620){
 
+        if(!$(".inner_offers").hasClass("slider-active")||activate===true) {
+          var el =  $(".inner_offers table tbody tr").filter( ':first' );
+          el.addClass("active");
+        }
 
+        var i = $( ".inner_offers table tbody tr" ).index( $( ".inner_offers table tbody tr.active" ) );
 
+        $('.inner_offers_prev').on('click', function(){
+            var carousel_item = $('.inner_offers').find('table tbody tr');
+          $(carousel_item[i]).removeClass('active');
+          i--;
+          if(i < 0){
+            i = carousel_item.length - 1;
+          }
+          $(carousel_item[i]).addClass('active');
+        });
+
+        $('.inner_offers_next').on('click', function(){
+          var carousel_item = $('.inner_offers').find('table tbody tr');
+          $(carousel_item[i]).removeClass('active');
+          i++;
+          if(i >= carousel_item.length){
+            i = 0;
+          }
+          $(carousel_item[i]).addClass('active');
+        });
+        $(".inner_offers").addClass("slider-active");
+      }
+    }
+
+  }
+
+  $(document).ready(function() {
+
+    $(window).on("load resize", function() {
+
+      initialize_slider(false);
+
+    });
+
+  });
+  if($('.inner_offers').length>0){
+    $(document).on('pjax:success', function() {
+    initialize_slider(true);
+    });
+  }

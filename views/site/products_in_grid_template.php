@@ -1,6 +1,9 @@
 <?php use yii\grid\GridView;
 use yii\helpers\Html;
-
+?>
+<button class="inner_offers_prev"></button>
+<button class="inner_offers_next"></button>
+<?php
 \yii\widgets\Pjax::begin(); ?>
 <?php try {
     echo GridView::widget([
