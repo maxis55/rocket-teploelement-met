@@ -19,7 +19,7 @@ class PagesSearch extends Pages
     {
         return [
             [['id'], 'integer'],
-            [['title', 'description', 'keywords', 'slug'], 'safe'],
+            [['title', 'content', 'description', 'keywords', 'slug'], 'safe'],
         ];
     }
 
@@ -63,6 +63,7 @@ class PagesSearch extends Pages
         ]);
 
         $query->andFilterWhere(['like', 'title', $this->title])
+            ->andFilterWhere(['like', 'content', $this->content])
             ->andFilterWhere(['like', 'description', $this->description])
             ->andFilterWhere(['like', 'keywords', $this->keywords])
             ->andFilterWhere(['like', 'slug', $this->slug]);

@@ -53,7 +53,18 @@ $this->params['breadcrumbs'][] = $this->title;
                 },
             ],
             'content:ntext',
-            'media',
+            [
+                'attribute' => 'file',
+                'format' => 'raw',
+                'value' => function ($data) {
+                    if (!empty($data->file)) {
+                        return Html::a($data->file,Messages::getFilePathStatic($data->file),['data-pjax' => 0,'title' => 'Просмотреть','target'=>'_blank']);
+                    } else {
+                        return "(не задано)";
+                    }
+
+                },
+            ],
         ],
     ]) ?>
 

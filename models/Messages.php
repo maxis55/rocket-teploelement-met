@@ -82,7 +82,12 @@ class Messages extends \yii\db\ActiveRecord
 
         $nameOccurences = 0;
         while (is_file(Yii::getAlias('@webroot') . '/user_uploads/' . $fileName)) {
-            $fileName = pathinfo($fileName, PATHINFO_FILENAME) . '-' . ++$nameOccurences . '.' . pathinfo($fileName, PATHINFO_EXTENSION);
+            $fileName = pathinfo($file->name, PATHINFO_FILENAME) . '-' . ++$nameOccurences . '.' . pathinfo($file->name, PATHINFO_EXTENSION);
+        }
+        if (0 != $nameOccurences) {
+            $fileName = pathinfo($file->name, PATHINFO_FILENAME) . '-' . $nameOccurences . '.' . pathinfo($file->name, PATHINFO_EXTENSION);
+        }else{
+            $fileName = $file->name;
         }
 
         if ($file->saveAs(Yii::getAlias('@webroot') . '/user_uploads/' . $fileName)) {

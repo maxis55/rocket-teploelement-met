@@ -8,6 +8,7 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\web\View;
 use app\assets\AppAsset;
+use yii\widgets\Menu;
 
 AppAsset::register($this);
 ?>
@@ -55,7 +56,11 @@ AppAsset::register($this);
                             </div>
                             <button class="menu_resp"></button>
                             <div class="header_nav">
-                                <nav><?= $this->params['header_nav']; ?></nav>
+                                <nav><?= Menu::widget([
+                                        'items' => $this->params['cross_pages_data']['header_menu'],
+                                        'submenuTemplate' => "\n<ul class='sub_menu'>\n{items}\n</ul>\n",
+                                        'options' => ['class' => 'menu'],
+                                    ]); ?></nav>
                                 <div class="header_info_sub">
                                     <div class="header_info_sub_box">
                                         <span><?= $this->params['cross_pages_data']['header_text1']; ?></span>
@@ -101,7 +106,10 @@ AppAsset::register($this);
         <div class="container">
             <div class="footer_inner">
                 <div class="footer_nav">
-                    <nav><?= $this->params['footer_nav']; ?></nav>
+                    <nav><?= Menu::widget([
+                            'items' => $this->params['cross_pages_data']['footer_menu'],
+                            'options' => ['class' => 'menu'],
+                        ]);?></nav>
 
                     <div class="footer_info_sub">
                         <div class="footer_info_sub_box">
@@ -241,7 +249,7 @@ AppAsset::register($this);
                 <div class="modal_box_call">
                     <div class="modal_call_logo"></div>
                     <h2 class="title3">Обратный звонок</h2>
-                    <form class="formSend form_call">
+                    <form class="formSend form_call form_call_request">
                         <div class="form_item user">
                             <input type="text" placeholder="ФИО" name="name"
                                    onblur="if(this.placeholder==''){this.placeholder='ФИО';this.classList.remove('hide');}"

@@ -580,6 +580,7 @@ class AdminController extends Controller
             return $this->redirect('settings');
         }
         $meta = Settings::getCrossPagesData(['key', 'value', 'type', 'title'], true);
+
         $pagesSlugs = Pages::getPages(['slug', 'title']);
 
         return $this->render('settings/update', [

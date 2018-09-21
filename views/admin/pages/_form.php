@@ -6,21 +6,24 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
+/* @var $type string */
 /* @var $model app\models\Pages */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="pages-form">
+<div class="pages-form tinymce_forms">
 
     <?php $form = ActiveForm::begin(); ?>
 
     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'description')->textarea(['rows' => 6]) ?>
 
-    <? //= $form->field($model, 'keywords')->textInput(['maxlength' => true]) ?>
 
-    <? //= $form->field($model, 'slug')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'description')->textInput(['maxlength' => true]) ?>
+
+    <?php //= $form->field($model, 'keywords')->textInput(['maxlength' => true]) ?>
+
+    <?php // $form->field($model, 'slug')->textInput(['maxlength' => true]) ?>
 
     <?php
     if ($model->id <= 5) {
@@ -149,7 +152,7 @@ use yii\widgets\ActiveForm;
                                     <td><input type="text" class="form-control" name="cities_names[]"
                                                placeholder="Город ..." value="<?= $city ?>"></td>
                                     <td><input class="form-control" name="cities_messages[]"
-                                               placeholder="Сообщение ..." value="<?= $message ?>"  ></td>
+                                               placeholder="Сообщение ..." value="<?= $message ?>"></td>
                                     <th>
                                         <button type="button" class="btn btn-block btn-danger btn-xs"
                                                 onclick="$(this).parent().parent().remove();">Удалить
@@ -174,13 +177,14 @@ use yii\widgets\ActiveForm;
                                 ['target' => '_blank']);
                         } catch (\yii\web\NotFoundHttpException $e) {
                             echo 'Ошибка при загрузке файла';
-                        }?>
+                        } ?>
                         <div class="s-boxbtn">
                             <input type="hidden" id="settings-<?= $item['key'] ?>" class="form-control"
                                    name="Pages[<?= $item['key'] ?>]" value="<?= $item['value'] ?>" maxlength="50"
                                    aria-required="true">
                             <button type="button" class="btn btn-block btn-danger">Удалить</button>
-                            <button type="button" class="btn btn-block bg-purple media-open-button" data-media-type="<?=$item['type'];?>">
+                            <button type="button" class="btn btn-block bg-purple media-open-button"
+                                    data-media-type="<?= $item['type']; ?>">
                                 Выбрать/Изменить
                             </button>
                         </div>
@@ -190,7 +194,20 @@ use yii\widgets\ActiveForm;
             <?php } ?>
             <?php }
         }
+    } else {
+
+        echo $form->field($model, 'content')->textarea(['rows' => 6]);
+
+        echo $form->field($model, 'slug')->textInput(['maxlength' => true]);
+
     } ?>
+
+    <?php if($type==='create'){
+        echo $form->field($model, 'content')->textarea(['rows' => 6]);
+
+        echo $form->field($model, 'slug')->textInput(['maxlength' => true]);
+
+    }?>
     <div style="height: 50px;"></div>
 
     <div class="form-group">

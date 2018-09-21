@@ -577,14 +577,14 @@ $(document).ready(function () {
                     formData.append(element.name, element.value);
                 });
 
-                if (currentForm.hasClass('form_call')) {
+                if (currentForm.hasClass('form_call_request')) {
                     formData.append('type', 'phone_request');
                 } else {
                     formData.append('type', 'info_request');
                 }
 
                 if (currentForm.find('input[type="file"]').length && currentForm.find('input[type="file"]').val() !== '') {
-                    formData.append('file', currentForm.find('input[type="file"]')[0].files[0], currentForm.find('.file_select').html())
+                    formData.append('file', currentForm.find('input[type="file"]')[0].files[0])
                 }
 
                 $.ajax({

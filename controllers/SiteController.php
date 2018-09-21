@@ -34,26 +34,13 @@ class SiteController extends Controller
         $this->view->params['cross_pages_data'] = Settings::getCrossPagesData();
 
 
-        // footer navigation
-        $this->view->params['footer_nav'] = Menu::widget([
-            'items' => $this->view->params['cross_pages_data']['footer_menu'],
-            'options' => ['class' => 'menu'],
-        ]);
-
-
-        // header navigation
-        $this->view->params['header_nav'] = Menu::widget([
-            'items' => $this->view->params['cross_pages_data']['header_menu'],
-            'submenuTemplate' => "\n<ul class='sub_menu'>\n{items}\n</ul>\n",
-            'options' => ['class' => 'menu'],
-        ]);
         $arrayWithoutCategories = array('contact', 'news-page', 'news');
         //categories
         if (!in_array(Yii::$app->controller->action->id, $arrayWithoutCategories)) {
             $categories = Category::getCategoryByParent(null);
             $this->view->params['categories'] = $categories;
         }
-
+        $pagesSlugs = Pages::find()->select(['slug'])->where(['<','id','5'])->asArray()->all();
 
         return parent::beforeAction($action);
     }
@@ -172,6 +159,27 @@ class SiteController extends Controller
 
         return $this->render('news-page', ['news' => $news]);
     }
+
+
+    /**
+     * Displays single news page.
+     * @param string $slug
+     * @return string
+     * @throws \yii\web\NotFoundHttpException
+     */
+    public function actionSinglePage($slug)
+    {
+        $page = Pages::findOne(['slug'=>$slug]);
+        $this->view->params['breadcrumbs'][] = $page->title;
+
+        if(!empty($page))
+                return $this->render('single-page', ['page' => $page]);
+            else
+                throw new \yii\web\NotFoundHttpException();
+
+    }
+
+
 
 
     /**
