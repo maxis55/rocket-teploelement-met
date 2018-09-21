@@ -30,25 +30,28 @@ class AjaxController extends Controller
             $cookiesRead = Yii::$app->request->cookies;
             $cart_content=array();
 
-
-            if (($cookie = $cookiesRead->get('cart_content')) !== null) {
-                $cart_content = json_decode($cookie->value,true);
-            }
             $post_content = Yii::$app->request->post();
+            if(!empty($post_content['product_id'])&&!empty($post_content['product_name'])&&!empty($post_content['amount'])&&!empty($post_content['steel_type'])){
+                if (($cookie = $cookiesRead->get('cart_content')) !== null) {
+                    $cart_content = json_decode($cookie->value,true);
+                }
 
-            $cart_content[$post_content['product_id']]=[
-                'product_id' => $post_content['product_id'] ,
-                'product_name' => $post_content['product_name'],
-                'amount' => $post_content['amount'],
-                'steel_type' => $post_content['steel_type'],
-            ];
-            $cookiesWrite->add(new \yii\web\Cookie([
-                'name' => 'cart_content',
-                'value' => json_encode(
-                    $cart_content
-                ),
-                'expire' => time() + 60 * 60 * 24 * 2, //2 days
-            ]));
+
+                $cart_content[$post_content['product_id']]=[
+                    'product_id' => $post_content['product_id'] ,
+                    'product_name' => $post_content['product_name'],
+                    'amount' => $post_content['amount'],
+                    'steel_type' => $post_content['steel_type'],
+                ];
+                $cookiesWrite->add(new \yii\web\Cookie([
+                    'name' => 'cart_content',
+                    'value' => json_encode(
+                        $cart_content
+                    ),
+                    'expire' => time() + 60 * 60 * 24 * 2, //2 days
+                ]));
+            }
+
 
         }
         \Yii::$app->response->format = Response::FORMAT_JSON;
@@ -57,6 +60,7 @@ class AjaxController extends Controller
 
     public function actionDeleteFromCart()
     {
+        $sizeofcart=0;
         if (\Yii::$app->request->isAjax) {
             \Yii::$app->response->format = Response::FORMAT_JSON;
 
@@ -64,24 +68,32 @@ class AjaxController extends Controller
             $cookiesRead = Yii::$app->request->cookies;
             $cart_content=array();
 
+            $post_content=Yii::$app->request->post();
 
-            if (($cookie = $cookiesRead->get('cart_content')) !== null) {
-                $cart_content = json_decode($cookie->value,true);
+            if($post_content['type']==='single'){
+                if (($cookie = $cookiesRead->get('cart_content')) !== null) {
+                    $cart_content = json_decode($cookie->value,true);
+                }
+                $item_to_delete = $post_content['prod_id'];
+
+                $cart_content2=$cart_content;
+                unset($cart_content2[$item_to_delete]);
+
+                $cookiesWrite->add(new \yii\web\Cookie([
+                    'name' => 'cart_content',
+                    'value' => json_encode(
+                        $cart_content2
+                    ),
+                    'expire' => time() + 60 * 60 * 24 * 2, //2 days
+                ]));
+                $sizeofcart=sizeof($cart_content2);
+            }elseif($post_content['type']==='all'){
+                $cookiesWrite->remove('cart_content');
+                $sizeofcart=0;
             }
-            $item_to_delete = Yii::$app->request->post('prod_id');
 
-            $cart_content2=$cart_content;
-            unset($cart_content2[$item_to_delete]);
 
-            $cookiesWrite->add(new \yii\web\Cookie([
-                'name' => 'cart_content',
-                'value' => json_encode(
-                    $cart_content2
-                ),
-                'expire' => time() + 60 * 60 * 24 * 2, //2 days
-            ]));
 
-        $sizeofcart=sizeof($cart_content2);
         return $sizeofcart.' '.OutputHelper::true_wordform($sizeofcart,'позиция','позиции','позиций');
         }
     }
@@ -156,6 +168,37 @@ class AjaxController extends Controller
         }
         return ['fail'];
     }
+
+
+    function actionChangeCartAmount(){
+        \Yii::$app->response->format = Response::FORMAT_JSON;
+        if (\Yii::$app->request->isAjax) {
+            $cookiesWrite = Yii::$app->response->cookies;
+            $cookiesRead = Yii::$app->request->cookies;
+            $post_content = Yii::$app->request->post();
+            if(!empty($post_content)){
+                $cart_content=array();
+                if (($cookie = $cookiesRead->get('cart_content')) !== null) {
+                    $cart_content = json_decode($cookie->value,true);
+                }
+                $cart_content[$post_content['prod_id']]['amount']=$post_content['amount'];
+
+                $cookiesWrite->add(new \yii\web\Cookie([
+                    'name' => 'cart_content',
+                    'value' => json_encode(
+                        $cart_content
+                    ),
+                    'expire' => time() + 60 * 60 * 24 * 2, //2 days
+                ]));
+
+            }
+            return 'success';
+
+        }
+    }
+
+
+
 
 
     public function actionMoreNews(){

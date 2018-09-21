@@ -53,46 +53,7 @@ if ($(".owl-carousel").length) {
     include("js/owl.carousel.min.js");
 }
 
-$(document).ready(function() {
 
-//--- number fix ----
-
-    var number = $(".header_info_lk");
-
-    if (number.length > 0) {
-
-        var a = number.html();
-        var pos = a.indexOf(')');
-        var res = a.slice(0, pos + 1) + '<span>' + a.slice(pos + 1) + '</span>';
-        number.html(res);
-
-    }
-
-//--- number fix end ----
-
-
-// catolog counter
-
-
-    $("body").on("click", ".counter-plus", function () {
-
-        var inp_value = parseInt($(this).siblings(".counter-qt ").val(), 10);
-
-        $(this).siblings(".counter-qt").attr("value", inp_value + 1);
-    });
-
-    $("body").on("click", ".counter-minus", function () {
-
-        var inp_value = parseInt($(this).siblings(".counter-qt ").val(), 10);
-
-        if (inp_value > 1) {
-
-            $(this).siblings(".counter-qt ").attr("value", inp_value - 1);
-        }
-
-
-    });
-});
 // catolog counter end
 
 $(document).ready(function () {
@@ -206,13 +167,24 @@ $(document).ready(function () {
             elem_modal = elem.data('modal'),
             csrf = $('#csrf-token');
         if (elem_modal === 'basket') {
-            var serializedForm = $('.add_to_cart_form').serializeArray(),
-                formData = new FormData();
 
+            var formData = new FormData();
             formData.append(csrf.attr('name'), csrf.val());
-            serializedForm.forEach(function (element) {
-                formData.append(element.name, element.value);
-            });
+
+            if(elem.hasClass('grid_basket_btn')){
+                var parent_tr_inputs=elem.closest('tr').find('input,select');
+
+                $.each(parent_tr_inputs,function (key,element) {
+                    formData.append(element.name, element.value);
+                });
+
+            }else{
+                var serializedForm = $('.add_to_cart_form').serializeArray();
+                serializedForm.forEach(function (element) {
+                    formData.append(element.name, element.value);
+                });
+            }
+
 
             $.ajax({
                 url: '/ajax/add-to-cart',
@@ -248,13 +220,12 @@ $(document).ready(function () {
     $('.modal_box_basket').on('click', '.basket_close', function () {
         var elem = $(this);
 
-        //get csrf from under table start
 
         var formData = new FormData();
         var csrf = $('#csrf-token');
         formData.append(csrf.attr('name'), csrf.val());
         formData.append('prod_id', elem.data('prod_id'));
-
+        formData.append('type', 'single');
 
         $.ajax({
             url: '/ajax/delete-from-cart',
@@ -272,9 +243,106 @@ $(document).ready(function () {
             }
         });
 
+    });
+
+    $('.modal_box_basket').on('click', '.clear_all', function () {
+        var elem = $(this);
+
+
+        var formData = new FormData();
+        var csrf = $('#csrf-token');
+        formData.append(csrf.attr('name'), csrf.val());
+        formData.append('type', 'all');
+
+
+        $.ajax({
+            url: '/ajax/delete-from-cart',
+            type: 'post',
+            processData: false,
+            contentType: false,
+            dataType: 'json',
+            data: formData,
+            success: function (response) {
+                elem.closest('tbody').find('.basket_count').html(response);
+                modalClose();
+            }
+        });
 
     });
 
+    function ajaxChangeInputInCart(formData){
+        $.ajax({
+            url: '/ajax/change-cart-amount',
+            type: 'post',
+            processData: false,
+            contentType: false,
+            dataType: 'json',
+            data: formData,
+            success: function (response) {
+                console.log(response);
+            }
+        });
+    }
+
+
+    var number = $(".header_info_lk");
+
+    if (number.length > 0) {
+
+        var a = number.html();
+        var pos = a.indexOf(')');
+        var res = a.slice(0, pos + 1) + '<span>' + a.slice(pos + 1) + '</span>';
+        number.html(res);
+
+    }
+
+    $("body").on("click", ".counter-plus", function () {
+
+        var inp_value = parseInt($(this).siblings(".counter-qt ").val(), 10);
+
+        $(this).siblings(".counter-qt").attr("value", inp_value + 1);
+        if($(this).closest('.modal_box_basket').length>0){
+            var formData = new FormData(),
+                csrf = $('#csrf-token');
+            formData.append(csrf.attr('name'), csrf.val());
+            formData.append('prod_id', $(this).siblings(".counter-qt").data('prod_id'));
+            formData.append('amount', inp_value+1);
+            ajaxChangeInputInCart(formData);
+        }
+    });
+
+    $("body").on("click", ".counter-minus", function () {
+
+        var inp_value = parseInt($(this).siblings(".counter-qt ").val(), 10);
+
+        if (inp_value > 1) {
+
+            $(this).siblings(".counter-qt ").attr("value", inp_value - 1);
+            if($(this).closest('.modal_box_basket').length>0){
+                var formData = new FormData(),
+                    csrf = $('#csrf-token');
+                formData.append(csrf.attr('name'), csrf.val());
+                formData.append('prod_id', $(this).siblings(".counter-qt").data('prod_id'));
+                formData.append('amount', inp_value-1);
+                ajaxChangeInputInCart(formData);
+            }
+
+        }
+
+
+    });
+
+    $('.modal_box_basket').on('change', '.counter-qt', function () {
+        var elem = $(this),
+            formData = new FormData(),
+            csrf = $('#csrf-token');
+        formData.append(csrf.attr('name'), csrf.val());
+        formData.append('prod_id', elem.data('prod_id'));
+        formData.append('amount', elem.val());
+
+        ajaxChangeInputInCart(formData);
+
+    });
 
     function modalClose() {
         if ($("body").hasClass("show_modal")) {
@@ -527,7 +595,7 @@ $(document).ready(function () {
                     contentType: false,
                     data: formData,
                     success: function (response) {
-                        console.log(response)
+
                     }
                 });
             }

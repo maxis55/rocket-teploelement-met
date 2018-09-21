@@ -405,9 +405,9 @@ class AdminController extends Controller
      * @throws \Throwable
      * @throws \yii\db\StaleObjectException
      */
-    public function actionMediaDelete($id,$name)
+    public function actionMediaDelete($id)
     {
-        $this->{'find'.$name.'Model'}($id)->delete();
+        $this->findMediaModel($id)->delete();
 
         return $this->redirect(['admin/media']);
     }

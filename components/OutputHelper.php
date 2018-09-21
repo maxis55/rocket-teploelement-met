@@ -35,9 +35,9 @@ class OutputHelper extends Component
                 $result.='<td class="cell2">
                                 <div class="counter-wrapper">
                                     <div class="counter-box">
-                                        <button class="counter-minus"></button>
-                                        <input class="counter-qt" value="'.$item['amount'].'">
-                                        <button class="counter-plus"></button>
+                                        <button class="counter-minus" ></button>
+                                        <input type="number" class="counter-qt" data-prod_id="'.$item['product_id'].'" value="'.$item['amount'].'">
+                                        <button class="counter-plus" ></button>
                                     </div>
                                 </div>
                             </td>';
@@ -56,7 +56,7 @@ class OutputHelper extends Component
                                             <span class="basket_count">'.$i.' '.self::true_wordform($i,'позиция','позиции','позиций').'</span> 
                                         </td>
                                         <td class="al_right">
-                                            <button class="white_btn">Очистить все</button>
+                                            <button class="clear_all white_btn">Очистить все</button>
                                         </td>
                                     </tr>
                                     </tbody>
