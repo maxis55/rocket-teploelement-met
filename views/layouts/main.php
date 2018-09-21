@@ -241,6 +241,37 @@ AppAsset::register($this);
             </div>
         </div>
     </div>
+    <div class="modal" id="request" style="background:url(/images/bg_modal_thanks.jpg) 0 0 no-repeat;background-size: cover;">
+        <div class="modal_content">
+            <div class="modal_content_inner">
+                <div class="modal_close" onclick="modal_close(this)"></div>
+                <div class="modal_box_request">
+                    <h2 class="title3">Оставить заявку</h2>
+                    <span class="modal_request_mess">Заполните заявку, и в ближайшее время мы с вами свяжемся</span>
+                    <form class="formSend form_call">
+
+                        <div class="form_item user">
+                            <input type="text" placeholder="ФИО" name="name"  onblur="if(this.placeholder==''){this.placeholder='ФИО';this.classList.remove('hide');}" onfocus="if(this.placeholder =='ФИО'){this.placeholder='';this.classList.add('hide');}">
+                        </div>
+                        <div class="form_item phone">
+                            <input type="tel" placeholder="Телефон" name="phone" onblur="if(this.placeholder==''){this.placeholder='Телефон';this.classList.remove('hide');}" onfocus="if(this.placeholder =='Телефон' ){this.placeholder='';this.classList.add('hide');}">
+                        </div>
+                        <div class="form_item mes">
+                            <textarea placeholder="Сообщение" name="message" onblur="if(this.placeholder==''){this.placeholder='Сообщение';this.classList.remove('hide');}" onfocus="if(this.placeholder =='Сообщение' ){this.placeholder='';this.classList.add('hide');}"></textarea>
+                        </div>
+                        <div class="form_item modal_file">
+                            <label for="file1" class="label_select_file">
+                                <span class="file_btn">Прикрепить файл</span>
+                                <span class="file_select"></span>
+                                <input type="file" name="file" id="file1" class="file">
+                            </label>
+                            <button class="blue_btn sendBtn">Отправить</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="modal" id="call"
          style="background:url(/images/bg_modal_call.jpg) 0 0 no-repeat;background-size: cover;">
         <div class="modal_content">
