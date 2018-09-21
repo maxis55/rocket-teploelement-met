@@ -33,6 +33,23 @@ class SiteController extends Controller
         // cross pages data
         $this->view->params['cross_pages_data'] = Settings::getCrossPagesData();
 
+        $importantSlugs=Pages::find()->select(['slug'])->where(['<','id','5'])->asArray()->all();
+
+        $tempHeaderMenu=$this->view->params['cross_pages_data']['header_menu'];
+        $tempFooterMenu=$this->view->params['cross_pages_data']['footer_menu'];
+
+        foreach ($tempFooterMenu as $key=>$item){
+            if(!in_array($item['url'][0],$importantSlugs)){
+                $tempFooterMenu[$key]['url'][0]=Url::toRoute(['site/single-page', 'slug' => $item['url'][0]]);
+            }
+        }
+        foreach ($tempHeaderMenu as $key=>$item){
+            if(!in_array($item['url'][0],$importantSlugs)){
+                $tempHeaderMenu[$key]['url'][0]=Url::toRoute(['site/single-page', 'slug' => $item['url'][0]]);
+            }
+        }
+        $this->view->params['cross_pages_data']['header_menu']=$tempHeaderMenu;
+        $this->view->params['cross_pages_data']['footer_menu']=$tempFooterMenu;
 
         $arrayWithoutCategories = array('contact', 'news-page', 'news');
         //categories
@@ -40,7 +57,10 @@ class SiteController extends Controller
             $categories = Category::getCategoryByParent(null);
             $this->view->params['categories'] = $categories;
         }
-        $pagesSlugs = Pages::find()->select(['slug'])->where(['<','id','5'])->asArray()->all();
+
+
+
+
 
         return parent::beforeAction($action);
     }
