@@ -44,9 +44,9 @@ use yii\helpers\Html;
                 'label' => 'Выбор стали',
                 'value' => function ($data) {
                     $result = '<label for="mark" class="select">
-                                                    <select id="mark">
-                                                        <option>марка1</option>';
+                                                    <select id="mark">';
                     $steel_types = json_decode($data->steel_type);
+                    if(!empty($steel_types))
                     foreach ($steel_types as $steel_type) {
                         $result .= '<option>' . $steel_type . '</option>';
                     }

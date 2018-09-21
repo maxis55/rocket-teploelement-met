@@ -53,20 +53,20 @@ if ($(".owl-carousel").length) {
     include("js/owl.carousel.min.js");
 }
 
-$(document).ready(function(){
+$(document).ready(function() {
 
 //--- number fix ----
 
-var number = $(".header_info_lk");
+    var number = $(".header_info_lk");
 
-if(number.length>0) {
+    if (number.length > 0) {
 
-  var a = number.html();
-  var pos = a.indexOf(')');
-  var res = a.slice(0,pos+1) + '<span>' + a.slice(pos+1) + '</span>';
-  number.html(res);
+        var a = number.html();
+        var pos = a.indexOf(')');
+        var res = a.slice(0, pos + 1) + '<span>' + a.slice(pos + 1) + '</span>';
+        number.html(res);
 
-}
+    }
 
 //--- number fix end ----
 
@@ -74,26 +74,25 @@ if(number.length>0) {
 // catolog counter
 
 
+    $("body").on("click", ".counter-plus", function () {
 
-$("body").on("click", ".counter-plus", function() {
+        var inp_value = parseInt($(this).siblings(".counter-qt ").val(), 10);
 
-  var inp_value = parseInt( $(this).siblings(".counter-qt ").val(), 10);
+        $(this).siblings(".counter-qt").attr("value", inp_value + 1);
+    });
 
-  $(this).siblings(".counter-qt").attr("value", inp_value+1);
+    $("body").on("click", ".counter-minus", function () {
+
+        var inp_value = parseInt($(this).siblings(".counter-qt ").val(), 10);
+
+        if (inp_value > 1) {
+
+            $(this).siblings(".counter-qt ").attr("value", inp_value - 1);
+        }
+
+
+    });
 });
-
-$("body").on("click", ".counter-minus", function() {
-
- var inp_value = parseInt( $(this).siblings(".counter-qt ").val(), 10);
-
-  if (inp_value>1){
-
-     $(this).siblings(".counter-qt ").attr("value", inp_value-1);
-  }
-
-
-});
-
 // catolog counter end
 
 $(document).ready(function () {
@@ -504,11 +503,12 @@ $(document).ready(function () {
             }
 
             if (currentForm.hasClass('form_call') || currentForm.hasClass('contact_form_w_file')) {
-                formData.append(csrf.attr('name'), csrf.val());
 
+                formData.append(csrf.attr('name'), csrf.val());
                 currentForm.serializeArray().forEach(function (element) {
                     formData.append(element.name, element.value);
                 });
+
                 if (currentForm.hasClass('form_call')) {
                     formData.append('type', 'phone_request');
                 } else {
