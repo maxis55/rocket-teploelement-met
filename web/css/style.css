@@ -5896,7 +5896,7 @@ p {
   .footer_inner .footer_nav .menu {
     border-top: none;
     position: relative;
-    z-index: 2;
+    z-index: 1;
   }
   .footer_inner .footer_info {
     width: 100%;
@@ -7215,4 +7215,27 @@ html, body, #map {
   padding-left: 0;
 }
 
+}
+
+/*footer info numbers*/
+
+.footer_info .header_info_lk {
+      color: #8d98a5;
+}
+
+.footer_info .header_info_lk span{
+      color: #006cad;
+}
+
+@media (max-width: 760px) {
+  .footer_info .header_info_lk {
+    justify-content: center;
+     line-height: 21px;
+    -ms-align-items: center;
+    align-items: center;
+    font-size: 14px;
+  }
+  .footer_info .header_info_lk span{
+     font-size: 19px;
+}
 }
