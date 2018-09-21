@@ -36,11 +36,11 @@ $this->params['breadcrumbs'][] = $this->title;
                         $result = '';
                         foreach ($productsInformation as $information):
                             $result .= '<ul>';
-                            $result .= "<li>Название товара: ".\app\models\Products::findOne($information['id'])->title."</li>";
-                            $result .= "<li>Выбранный тип стали: {$information['type']}</li>";
+                            $result .= "<li>Название товара: ".$information['product_name']."</li>";
+                            $result .= "<li>Выбранный тип стали: {$information['steel_type']}</li>";
                             $result .= "<li>Количество: {$information['amount']}</li>";
                             $result .= "<li>Ссылка на товар: " . Html::a('<span class="glyphicon glyphicon-eye-open"></span>',
-                                    '/admin/products-view?id=' . $information['id'], [
+                                    '/admin/products-view?id=' . $information['product_id'], [
                                         'data-pjax' => 0,
                                         'title' => 'Просмотреть',
                                     ]) . "</li>";
@@ -52,6 +52,27 @@ $this->params['breadcrumbs'][] = $this->title;
                     }
                 },
             ],
+            [
+                'attribute' => 'customer_information',
+                'format' => 'raw',
+                'value' => function ($data) {
+                    $customer_information = json_decode($data->customer_information, true);
+
+                    if (!empty($customer_information)) {
+                            $result = '<ul>';
+                            $result .= '<li>ФИО: '.$customer_information['name'].'</li>';
+                            $result .= '<li>Телефон: '.$customer_information['phone'].'</li>';
+                            $result .= '<li>Почта: '.$customer_information['email'].'</li>';
+                            $result .= '<li>Сообщение: '.$customer_information['message'].'</li>';
+                            $result .= '</ul>';
+
+                        return $result;
+                    } else {
+                        return "Информация о пользователя не сохранилась!";
+                    }
+                },
+            ],
+
             ['class' => 'yii\grid\ActionColumn',
                 'template' => '{view}{delete}',
                 'urlCreator' => function ($action, $model, $key, $index) {

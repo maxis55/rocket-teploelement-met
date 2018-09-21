@@ -41,7 +41,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?php
     if ($model->id <= 5) {
-
+        echo Html::a('Ссылка на страницу', Url::toRoute(['site/'.$model->slug]),['class' => 'btn btn-success']);
         $data = Pagesmeta::getPageMeta($model->slug, true);
 
         if (!empty($data)) { ?>
@@ -54,13 +54,35 @@ $this->params['breadcrumbs'][] = $this->title;
                             if (($item['type'] == 'image') && ($item['value'] != '')) {
                                 echo Html::img(Media::findById($item['value'])->getImageOfSize(450, 450), ['alt' => 'img']);
                             } else {
-                                echo $item['value'];
+                                if($item['type']==='map_cities'){
+
+                                    echo '<ul>';
+                                    foreach ($item['value'] as $city=>$message){
+                                        echo '<li>'.$city.'=>'.$message.'</li>';
+                                    }
+                                    echo '</ul>';
+                                }else{
+                                    if($item['type']==='file'){
+                                        echo Html::a(
+                                            Media::findById($item['value'])->name,
+                                            Media::findById($item['value'])->getImageOfSize(),
+                                            ['target' => '_blank']);
+                                    }else{
+                                        echo $item['value'];
+                                    }
+
+                                }
+
                             } ?></td>
                     </tr>
                 <?php } ?>
                 </tbody>
             </table>
         <?php }
+
+    }else{
+        echo Html::a('Ссылка на страницу', Url::toRoute(['site/single-page', 'slug' => $model->slug]),['class' => 'btn btn-success']);
+
     } ?>
 
 </div>

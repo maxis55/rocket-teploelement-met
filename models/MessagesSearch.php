@@ -5,12 +5,12 @@ namespace app\models;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\Pages;
+use app\models\Messages;
 
 /**
- * PagesSearch represents the model behind the search form of `app\models\Pages`.
+ * MessagesSearch represents the model behind the search form of `app\models\Messages`.
  */
-class PagesSearch extends Pages
+class MessagesSearch extends Messages
 {
     /**
      * @inheritdoc
@@ -19,7 +19,7 @@ class PagesSearch extends Pages
     {
         return [
             [['id'], 'integer'],
-            [['title', 'content', 'description', 'keywords', 'slug'], 'safe'],
+            [['name', 'date', 'phone', 'type', 'content', 'file'], 'safe'],
         ];
     }
 
@@ -41,12 +41,13 @@ class PagesSearch extends Pages
      */
     public function search($params)
     {
-        $query = Pages::find();
+        $query = Messages::find();
 
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'sort'=> ['defaultOrder' => ['date' => SORT_DESC]]
         ]);
 
         $this->load($params);
@@ -60,13 +61,14 @@ class PagesSearch extends Pages
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
+            'date' => $this->date,
         ]);
 
-        $query->andFilterWhere(['like', 'title', $this->title])
+        $query->andFilterWhere(['like', 'name', $this->name])
+            ->andFilterWhere(['like', 'phone', $this->phone])
+            ->andFilterWhere(['like', 'type', $this->type])
             ->andFilterWhere(['like', 'content', $this->content])
-            ->andFilterWhere(['like', 'description', $this->description])
-            ->andFilterWhere(['like', 'keywords', $this->keywords])
-            ->andFilterWhere(['like', 'slug', $this->slug]);
+            ->andFilterWhere(['like', 'file', $this->file]);
 
         return $dataProvider;
     }

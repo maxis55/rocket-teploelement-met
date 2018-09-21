@@ -57,6 +57,7 @@ class Media extends ActiveRecord
 
     /**
      * Single image upload method
+     * @param yii\web\UploadedFile $file
      */
     public static function uploadImage($file)
     {

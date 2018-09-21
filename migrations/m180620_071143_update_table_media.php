@@ -386,7 +386,13 @@ class m180620_071143_update_table_media extends Migration
             'alt'=>'',
             'type'=>'file',
         ]);
-
+        $this->insert('media',[
+            'id'=>++$i,
+            'name'=>'document.pdf',
+            'title'=>'text',
+            'alt'=>'',
+            'type'=>'file',
+        ]);
         echo "Default images created\n";
 
         return true;

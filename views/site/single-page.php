@@ -2,7 +2,7 @@
 
 use yii\helpers\Url;
 use yii\widgets\Breadcrumbs;
-/** @var array $news */
+/** @var \app\models\Pages $page */
 ?>
 
     <!-- MAIN CONTENT Start-->
@@ -39,9 +39,9 @@ use yii\widgets\Breadcrumbs;
                 <div class="single_new_bl">
                     <div class="content_title">
                         <h2 class="title4"><span><?=
-                                $news['name'] ?></span></h2>
+                                $page->title ?></span></h2>
                     </div>
-                    <?= $news['content'] ?>
+                    <?= $page->content ?>
                 </div>
             </div>
         </div>

@@ -7,7 +7,7 @@ use yii\widgets\DetailView;
 /* @var $model app\models\Orders */
 
 $this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Заказы', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Orders', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="orders-view">
@@ -15,7 +15,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Удалить', ['delete', 'id' => $model->id], [
+        <?= Html::a('Delete', ['orders-delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
                 'confirm' => 'Вы уверены, что хотите удалить этот заказ?',
@@ -30,6 +30,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'id',
             'date',
             'products_information:ntext',
+            'customer_information:ntext',
         ],
     ]) ?>
 

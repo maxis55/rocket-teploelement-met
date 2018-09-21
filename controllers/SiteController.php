@@ -33,31 +33,37 @@ class SiteController extends Controller
         // cross pages data
         $this->view->params['cross_pages_data'] = Settings::getCrossPagesData();
 
+        $importantSlugs=array_column(Pages::find()->select(['slug'])->where(['<','id','5'])->asArray()->all(),'slug');
 
-        // footer navigation
-        $this->view->params['footer_nav'] = Menu::widget([
-            'items' => $this->view->params['cross_pages_data']['footer_menu'],
-            'options' => ['class' => 'menu'],
-        ]);
+        $tempHeaderMenu=$this->view->params['cross_pages_data']['header_menu'];
+        $tempFooterMenu=$this->view->params['cross_pages_data']['footer_menu'];
 
+        foreach ($tempFooterMenu as $key=>$item){
+            if(!in_array($item['url'][0],$importantSlugs)){
+                $tempFooterMenu[$key]['url'][0]=Url::toRoute(['site/single-page', 'slug' => $item['url'][0]]);
+            }
+        }
+        foreach ($tempHeaderMenu as $key=>$item){
+            if(!in_array($item['url'][0],$importantSlugs)){
+                $tempHeaderMenu[$key]['url'][0]=Url::toRoute(['site/single-page', 'slug' => $item['url'][0]]);
+            }
+        }
+        $this->view->params['cross_pages_data']['header_menu']=$tempHeaderMenu;
+        $this->view->params['cross_pages_data']['footer_menu']=$tempFooterMenu;
 
-        // header navigation
-        $this->view->params['header_nav'] = Menu::widget([
-            'items' => $this->view->params['cross_pages_data']['header_menu'],
-            'submenuTemplate' => "\n<ul class='sub_menu'>\n{items}\n</ul>\n",
-            'options' => ['class' => 'menu'],
-        ]);
-        $arrayWithoutCategories=array('contact','news-page','news');
+        $arrayWithoutCategories = array('contact', 'news-page', 'news');
         //categories
-        if(!in_array(Yii::$app->controller->action->id,$arrayWithoutCategories)){
+        if (!in_array(Yii::$app->controller->action->id, $arrayWithoutCategories)) {
             $categories = Category::getCategoryByParent(null);
             $this->view->params['categories'] = $categories;
         }
 
 
+
+
+
         return parent::beforeAction($action);
     }
-
 
 
     public function actionError()
@@ -65,18 +71,18 @@ class SiteController extends Controller
         $exception = Yii::$app->errorHandler->exception;
 
         if ($exception !== null) {
-            $page_content = Pagesmeta::getPageMeta('404',true);
-            $media_ids=array();
-            foreach ($page_content as $item){
-                if ('image'==$item['type']){
-                    $media_ids[]=$item['value'];
+            $page_content = Pagesmeta::getPageMeta('404', true);
+            $media_ids = array();
+            foreach ($page_content as $item) {
+                if ('image' == $item['type']) {
+                    $media_ids[] = $item['value'];
                 }
             }
-            $mediaArr=Media::findInIdAsArray($media_ids);
+            $mediaArr = Media::findInIdAsArray($media_ids);
             return $this->render('error', [
                 'exception' => $exception,
                 'page_content' => ArrayHelper::map($page_content, 'key', 'value'),
-                'media_arr'=>$mediaArr
+                'media_arr' => $mediaArr
             ]);
         }
     }
@@ -88,34 +94,49 @@ class SiteController extends Controller
     {
         $this->layout = 'index';
 
-        $page_content = Pagesmeta::getPageMeta('index',true);
-        $media_ids=array();
-        foreach ($page_content as $item){
-            if ('image'==$item['type']){
-                $media_ids[]=$item['value'];
+        $page_content = Pagesmeta::getPageMeta('index', true);
+        $media_ids = array();
+        foreach ($page_content as $item) {
+            if ('image' == $item['type']) {
+                $media_ids[] = $item['value'];
             }
         }
 
-        $news_slider = News::getFirstArchiveNews($page_content['posts_per_page']['value']);
+        $news_slider = News::find()
+            ->select(['name', 'date', 'shortdesc', 'slug'])
+            ->orderBy(['date' => SORT_DESC,'id' => SORT_DESC])
+            ->limit($page_content['posts_per_page']['value'])
+            ->asArray()
+            ->all();
 
-        $mediaArr=Media::findInIdAsArray($media_ids);
+        $mediaArr = Media::findInIdAsArray($media_ids);
 
         return $this->render('index', [
             'news_slider' => $news_slider,
             'page_content' => ArrayHelper::map($page_content, 'key', 'value'),
-            'media_arr'=>$mediaArr
+            'media_arr' => $mediaArr
         ]);
     }
 
     /**
      * Displays archive news page.
-     * @param $slug
      * @return string
      */
     public function actionNews()
     {
-        $news = News::getFirstArchiveNews();
-        return $this->render('news', ['news' => $news]);
+
+        $request = Yii::$app->request;
+        $viewed = $request->get('sortBy') === 'viewed';
+        $page_content = Pagesmeta::getPageMeta('news');
+        $news = News::getArchiveNews($page_content['posts_per_page'], $viewed);
+        $maxNews=(int)News::find()->count();
+        return $this->render('news',
+            [
+                'news' => $news,
+                'page_content' => $page_content,
+                'maxNews'=>$maxNews
+            ]
+        );
     }
 
     /**
@@ -128,8 +149,57 @@ class SiteController extends Controller
         $news = News::getSingleNews($slug);
         $this->view->params['breadcrumbs'][] = ['label' => 'Новости', 'url' => Url::toRoute(['site/news'])];
         $this->view->params['breadcrumbs'][] = $news['name'];
+
+        $cookiesWrite = Yii::$app->response->cookies;
+        $cookiesRead = Yii::$app->request->cookies;
+
+        $read_news = array();
+        $curr_news_id = $news['id'];
+        if (null != $curr_news_id && '' != $curr_news_id) {
+
+            if (($cookie = $cookiesRead->get('read_news')) !== null) {
+                $read_news = json_decode($cookie->value, true);
+            }
+            if (!in_array($curr_news_id, $read_news)) {
+                $read_news[] = $curr_news_id;
+            } else {
+                $read_news = array_diff($read_news, [$curr_news_id]);
+                $read_news[] = $curr_news_id;
+            }
+            $cookiesWrite->add(new \yii\web\Cookie([
+                'name' => 'read_news',
+                'value' => json_encode(
+                    $read_news
+                ),
+                'expire' => time() + 60 * 60 * 24 * 4, //4 days
+            ]));
+
+        }
+
+
         return $this->render('news-page', ['news' => $news]);
     }
+
+
+    /**
+     * Displays single news page.
+     * @param string $slug
+     * @return string
+     * @throws \yii\web\NotFoundHttpException
+     */
+    public function actionSinglePage($slug)
+    {
+        $page = Pages::findOne(['slug'=>$slug]);
+        $this->view->params['breadcrumbs'][] = $page->title;
+
+        if(!empty($page))
+                return $this->render('single-page', ['page' => $page]);
+            else
+                throw new \yii\web\NotFoundHttpException();
+
+    }
+
+
 
 
     /**
@@ -144,15 +214,15 @@ class SiteController extends Controller
 
         $characteristicsWvalues = Products::getCharacteristicsWvalues($product_slug);
         $searchModel = new ProductsSearch();
-        $filterParams=Yii::$app->request->queryParams;
-        $subcategoriesIdsArray=array_column(Category::findAllSubcategoryIds($product->category_id),'id');
-        $subcategoriesIdsArray[]=$product->category_id;
+        $filterParams = Yii::$app->request->queryParams;
+        $subcategoriesIdsArray = array_column(Category::findAllSubcategoryIds($product->category_id), 'id');
+        $subcategoriesIdsArray[] = $product->category_id;
 
-        $dataProvider = $searchModel->search($filterParams,$subcategoriesIdsArray);
+        $dataProvider = $searchModel->search($filterParams, $subcategoriesIdsArray);
 
         return $this->render('product',
             [
-                'dataProvider'=>$dataProvider,
+                'dataProvider' => $dataProvider,
                 'product' => $product,
                 'characteristicsWvalues' => $characteristicsWvalues
             ]
@@ -165,18 +235,18 @@ class SiteController extends Controller
     public function actionContact()
     {
 
-        $page_content = Pagesmeta::getPageMeta('contact',true);
-        $media_ids=array();
-        foreach ($page_content as $item){
-            if ('image'==$item['type']){
-                $media_ids[]=$item['value'];
+        $page_content = Pagesmeta::getPageMeta('contact', true);
+        $media_ids = array();
+        foreach ($page_content as $item) {
+            if ('image' == $item['type']) {
+                $media_ids[] = $item['value'];
             }
         }
-        $mediaArr=Media::findInIdAsArray($media_ids);
+        $mediaArr = Media::findInIdAsArray($media_ids);
 
         return $this->render('contact', [
             'page_content' => ArrayHelper::map($page_content, 'key', 'value'),
-            'media_arr'=>$mediaArr
+            'media_arr' => $mediaArr
         ]);
     }
 
@@ -186,20 +256,20 @@ class SiteController extends Controller
      */
     public function actionDelivery()
     {
-        $page_content = Pagesmeta::getPageMeta('delivery',true);
-        $media_ids=array();
-        foreach ($page_content as $item){
-            if ('image'==$item['type']){
-                $media_ids[]=$item['value'];
+        $page_content = Pagesmeta::getPageMeta('delivery', true);
+        $media_ids = array();
+        foreach ($page_content as $item) {
+            if ('image' == $item['type']) {
+                $media_ids[] = $item['value'];
             }
         }
 
 
-        $mediaArr=Media::findInIdAsArray($media_ids);
+        $mediaArr = Media::findInIdAsArray($media_ids);
 
         return $this->render('delivery', [
             'page_content' => ArrayHelper::map($page_content, 'key', 'value'),
-            'media_arr'=>$mediaArr
+            'media_arr' => $mediaArr
         ]);
     }
 
@@ -238,11 +308,11 @@ class SiteController extends Controller
                 'url' => Url::toRoute(['catalog-category', 'category_slug' => $category_slug])
             ];
         $searchModel = new ProductsSearch();
-        $filterParams=Yii::$app->request->queryParams;
+        $filterParams = Yii::$app->request->queryParams;
         // category & breadcrumbs data
         if (null != $subsubcategory_slug) {
 
-            $subcategory = Category::getCategory(['slug' => $subcategory_slug],['category.name']);
+            $subcategory = Category::getCategory(['slug' => $subcategory_slug], ['category.name']);
             $subsubcategory = Category::findOne(['slug' => $subsubcategory_slug]);
 
 
@@ -255,8 +325,7 @@ class SiteController extends Controller
             $this->view->params['breadcrumbs'][] = $subsubcategory['name'];
 
 
-
-            $dataProvider = $searchModel->search($filterParams,[$subsubcategory->id]);
+            $dataProvider = $searchModel->search($filterParams, [$subsubcategory->id]);
 
             return $this->render('sub_category',
                 [
@@ -277,10 +346,10 @@ class SiteController extends Controller
             $this->view->params['breadcrumbs'][] = $subcategory->name;
 
 
-            $subcategoriesIdsArray=array_column(Category::findAllSubcategoryIds($subcategory->id),'id');
-            $subcategoriesIdsArray[]=$subcategory->id;
+            $subcategoriesIdsArray = array_column(Category::findAllSubcategoryIds($subcategory->id), 'id');
+            $subcategoriesIdsArray[] = $subcategory->id;
 
-            $dataProvider = $searchModel->search($filterParams,$subcategoriesIdsArray);
+            $dataProvider = $searchModel->search($filterParams, $subcategoriesIdsArray);
 
             return $this->render('sub_category', [
                 'current_category' => $subcategory,

@@ -14,6 +14,12 @@ $config = [
     ],
     'language' => 'ru',
     'components' => [
+        'formatter' => [
+            'dateFormat' => 'dd.MM.yyyy',
+            'decimalSeparator' => ',',
+            'thousandSeparator' => ' ',
+            'currencyCode' => 'руб',
+        ],
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => 'jdnfojsfjosjfkosjkofsjkofjj3jojoiu',
@@ -57,6 +63,7 @@ $config = [
                 'catalog/<category_slug>/<subcategory_slug>' => 'site/catalog-subcategory',
                 'catalog/<category_slug>' => 'site/catalog-category',
                 'product/<product_slug>' => 'site/product',
+                'page/<slug>' => 'site/single-page',
                 'news/<slug>' => 'site/news-page',
                 '<action>' => 'site/<action>',
             ],
