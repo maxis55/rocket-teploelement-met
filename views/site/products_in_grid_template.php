@@ -1,6 +1,6 @@
 <?php use yii\grid\GridView;
 use yii\helpers\Html;
-
+if($dataProvider->totalCount>0):
 ?>
 <button class="inner_offers_prev"></button>
 <button class="inner_offers_next"></button>
@@ -92,3 +92,4 @@ use yii\helpers\Html;
 
 } ?>
 <?php \yii\widgets\Pjax::end(); ?>
+<?php endif;

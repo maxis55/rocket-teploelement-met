@@ -33,7 +33,7 @@ class SiteController extends Controller
         // cross pages data
         $this->view->params['cross_pages_data'] = Settings::getCrossPagesData();
 
-        $importantSlugs=Pages::find()->select(['slug'])->where(['<','id','5'])->asArray()->all();
+        $importantSlugs=array_column(Pages::find()->select(['slug'])->where(['<','id','5'])->asArray()->all(),'slug');
 
         $tempHeaderMenu=$this->view->params['cross_pages_data']['header_menu'];
         $tempFooterMenu=$this->view->params['cross_pages_data']['footer_menu'];
