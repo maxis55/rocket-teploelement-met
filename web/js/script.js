@@ -179,7 +179,7 @@ $(document).ready(function () {
                 });
 
             }else{
-                var serializedForm = $('.add_to_cart_form').serializeArray();
+                var serializedForm = elem.closest('.add_to_cart_form').serializeArray();
                 serializedForm.forEach(function (element) {
                     formData.append(element.name, element.value);
                 });

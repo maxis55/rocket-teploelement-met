@@ -13,7 +13,7 @@ use app\models\Media;
                         Yii::$app->request->baseUrl ?>/images/main_contats_pattern.png" alt="">
                     </div>
                     <div class="price_list_box">
-                        <span>Полный прайс-лист на товары и услуги</span>
+                        <span><?=$this->params['cross_pages_data']['price_list_text'];?></span>
                         <a href="<?=Media::findOne($this->params['cross_pages_data']['price_list'])->getImageOfSize();?>" target="_blank">Скачать прайс-лист</a>
                     </div>
                 </div>

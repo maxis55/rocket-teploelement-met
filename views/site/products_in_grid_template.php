@@ -16,7 +16,7 @@ use yii\helpers\Html;
                 'format' => 'raw',
                 'label' => 'Фото',
                 'value' => function ($data) {
-                    if ($data->media) {
+                    if (!empty($data->media)) {
                         $img = Html::img($data->media->getImageOfSize(66, 52));
                         return Html::a($img, [
                             'site/product',
@@ -47,10 +47,13 @@ use yii\helpers\Html;
                     $result = '
                     <label for="mark" class="select"><select name="steel_type" id="mark">';
                     $steel_types = json_decode($data->steel_type);
-                    if (!empty($steel_types))
+                    if (!empty($steel_types)) {
                         foreach ($steel_types as $steel_type) {
                             $result .= '<option>' . $steel_type . '</option>';
                         }
+                    } else {
+                        echo '<option>Нет указанных марок.</option>';
+                    }
                     $result .= '</select>
                                            </label>';
                     return $result;
