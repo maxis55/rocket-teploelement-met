@@ -666,6 +666,11 @@ $(window).on('load resize', function () {
     var widthMd = 1200;
     var widthSm = 992;
     var widthXs = 760;
+
+    if (newWidth > 1200) {
+      $(".breadcrumbs_box").appendTo(".breadcrumbs_bl");
+    }
+
     if (newWidth != oldWidth) {
         if (newWidth < widthMd && (!oldWidth || oldWidth >= widthMd)) {
             $('.breadcrumbs_box').prependTo('#content');
@@ -688,12 +693,11 @@ $(window).on('load resize', function () {
         else if (newWidth >= widthXs && (!oldWidth || oldWidth < widthXs)) {
             $('.footer_info_sub .info_sub_lk').insertAfter('.footer_info_sub_box');
             $('.header_nav').insertAfter('.header_top_inner .menu_resp');
-
-
         }
 
         $(window).data("oldwidth", newWidth);
     }
+
 });
 
   function initialize_slider(activate=false) {
@@ -706,27 +710,6 @@ $(window).on('load resize', function () {
           el.addClass("active");
         }
 
-        var i = $( ".inner_offers table tbody tr" ).index( $( ".inner_offers table tbody tr.active" ) );
-
-        $('.inner_offers_prev').on('click', function(){
-            var carousel_item = $('.inner_offers').find('table tbody tr');
-          $(carousel_item[i]).removeClass('active');
-          i--;
-          if(i < 0){
-            i = carousel_item.length - 1;
-          }
-          $(carousel_item[i]).addClass('active');
-        });
-
-        $('.inner_offers_next').on('click', function(){
-          var carousel_item = $('.inner_offers').find('table tbody tr');
-          $(carousel_item[i]).removeClass('active');
-          i++;
-          if(i >= carousel_item.length){
-            i = 0;
-          }
-          $(carousel_item[i]).addClass('active');
-        });
         $(".inner_offers").addClass("slider-active");
       }
     }
@@ -741,7 +724,33 @@ $(window).on('load resize', function () {
 
     });
 
+  if($(".inner_offers").length){
+
+        $('.inner_offers_prev').on('click', function(){
+           var i = $( ".inner_offers table tbody tr" ).index( $( ".inner_offers table tbody tr.active" ) );
+            var carousel_item = $('.inner_offers').find('table tbody tr');
+          $(carousel_item[i]).removeClass('active');
+          i--;
+          if(i < 0){
+            i = carousel_item.length - 1;
+          }
+          $(carousel_item[i]).addClass('active');
+        });
+
+        $('.inner_offers_next').on('click', function(){
+           var i = $( ".inner_offers table tbody tr" ).index( $( ".inner_offers table tbody tr.active" ) );
+          var carousel_item = $('.inner_offers').find('table tbody tr');
+          $(carousel_item[i]).removeClass('active');
+          i++;
+          if(i >= carousel_item.length){
+            i = 0;
+          }
+          $(carousel_item[i]).addClass('active');
+        });
+      }
+    
   });
+
   if($('.inner_offers').length>0){
     $(document).on('pjax:success', function() {
     initialize_slider(true);
