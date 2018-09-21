@@ -42,8 +42,8 @@
                     ['label' => 'Медиа', 'icon' => 'image', 'url' => ['/admin/media']],
 	                ['label' => 'Продукты', 'icon' => 'gear', 'url' => ['/admin/products']],
 	                ['label' => 'Характеристики', 'icon' => 'gear', 'url' => ['/admin/characteristics']],
-	                ['label' => 'Сообщения', 'icon' => 'gear', 'url' => ['/admin/messages']],
-	                ['label' => 'Заказы', 'icon' => 'gear', 'url' => ['/admin/orders']],
+	                ['label' => 'Сообщения', 'icon' => 'envelope', 'url' => ['/admin/messages']],
+	                ['label' => 'Заказы', 'icon' => 'object-group', 'url' => ['/admin/orders']],
                     ['label' => 'Настройки', 'icon' => 'gear', 'url' => ['/admin/settings']],
                 ],
             ]
