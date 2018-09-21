@@ -10,6 +10,7 @@ use Yii;
  * @property int $id
  * @property string $date
  * @property string $products_information
+ * @property string $customer_information
  */
 class Orders extends \yii\db\ActiveRecord
 {
@@ -28,7 +29,7 @@ class Orders extends \yii\db\ActiveRecord
     {
         return [
             [['date'], 'safe'],
-            [['products_information'], 'string'],
+            [['products_information', 'customer_information'], 'string'],
         ];
     }
 
@@ -41,6 +42,8 @@ class Orders extends \yii\db\ActiveRecord
             'id' => 'ID',
             'date' => 'Дата',
             'products_information' => 'Информация о продуктах',
+            'customer_information' => 'Информация от заказчика',
+
         ];
     }
 }

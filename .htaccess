@@ -10,6 +10,7 @@
         RewriteRule ^admin/js/(.*)$ web/admin/js/$1 [L]
         RewriteRule ^admin/uploads/(.*)$ web/uploads/$1 [L]
         RewriteRule ^uploads/(.*)$ web/uploads/$1 [L]
+        RewriteRule ^user_uploads/(.*)$ web/user_uploads/$1 [L]
     RewriteRule ^images/(.*)$ web/images/$1 [L]
     RewriteRule (.*) /web/$1
      

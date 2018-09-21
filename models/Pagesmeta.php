@@ -16,6 +16,7 @@ use yii\helpers\ArrayHelper;
  */
 class Pagesmeta extends \yii\db\ActiveRecord
 {
+
     /**
      * @inheritdoc
      */
@@ -56,7 +57,7 @@ class Pagesmeta extends \yii\db\ActiveRecord
         $page = Pages::findOne(['slug' => $slug]);
 
 
-        $json_settings=array('json');
+        $json_settings=array('json','map_cities');
         $global_settings=self::find()
             ->select(['key', 'value', 'title', 'type'])
             ->where(['=', 'page_id', $page->id])

@@ -1,7 +1,8 @@
 <?php
+
 use yii\helpers\Url;
 use yii\widgets\Breadcrumbs;
-
+/** @var array $news */
 ?>
 
     <!-- MAIN CONTENT Start-->
@@ -19,13 +20,14 @@ use yii\widgets\Breadcrumbs;
                         'homeLink' => [
                             'label' => Yii::t('yii', 'Главная'),
                             'url' => Yii::$app->homeUrl,
-                            'class'=>'breadcrumbs_main'
+                            'class' => 'breadcrumbs_main'
                         ],
                         'activeItemTemplate' => "<li><span class='breadcrumbs_current'>{link}</span></li>\n",
-                        'class'=>'somey',
+                        'class' => 'somey',
                         'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
                     ])
                     ?>
+
 
                 </div>
             </div>
@@ -36,7 +38,8 @@ use yii\widgets\Breadcrumbs;
             <div class="container_inner">
                 <div class="single_new_bl">
                     <div class="content_title">
-                        <h2 class="title4"><span><?= $news['name'] ?></span></h2>
+                        <h2 class="title4"><span><?=
+                                $news['name'] ?></span></h2>
                     </div>
                     <?= $news['content'] ?>
                 </div>

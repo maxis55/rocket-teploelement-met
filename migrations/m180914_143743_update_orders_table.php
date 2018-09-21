@@ -31,10 +31,19 @@ class m180914_143743_update_orders_table extends Migration
         for ($i = 1; $i <= 20; $i++) {
             $this->insert('orders', [
                 'products_information' => json_encode([
-                    ['type'=>'SteelType1'.$i,'amount'=>1,'id'=>12+$i],
-                    ['type'=>'SteelType2'.$i,'amount'=>2,'id'=>12+$i],
-                    ['type'=>'SteelType3'.$i,'amount'=>3,'id'=>12+$i],
+                    ['steel_type'=>'SteelType1'.$i,'product_name'=>'Продукт'.$i,'amount'=>1,'product_id'=>12+$i],
+                    ['steel_type'=>'SteelType2'.$i,'product_name'=>'Продукт'.$i,'amount'=>2,'product_id'=>12+$i],
+                    ['steel_type'=>'SteelType3'.$i,'product_name'=>'Продукт'.$i,'amount'=>3,'product_id'=>12+$i],
                 ]),
+                'customer_information'=>json_encode(
+                    [
+                        'name'=>'ФИО'.$i,
+                        'phone'=>'5345353',
+                        'email'=>'example'.$i.'@gmail.com',
+                        'message'=>'Информация от заказчика желающего купить продукт',
+
+                    ]
+                ),
             ]);
         }
         return true;

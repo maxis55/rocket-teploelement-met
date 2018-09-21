@@ -143,9 +143,9 @@ AppAsset::register($this);
 	<!--modal popup  -->
 	<div class="modal" id="city" style="background:url(images/bg_modal_thanks.jpg) 0 0 no-repeat;background-size: cover;">
 		 <div class="modal_content">
-		 	 <div class="modal_close" onclick="modal_close(this)"></div>
+		 	 <div class="modal_close" ></div>
 		 	  <div class="modal_box_city">
-		 	  	<span>Доставка в ваш город осуществляется <span class="delivery_time">7</span> рабочих дней.</span>
+		 	  	<span>Срок доставки в ваш город не указан!</span>
 		 	  </div>
 		 </div>
 	</div>

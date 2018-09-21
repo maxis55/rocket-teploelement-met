@@ -21,7 +21,7 @@ use app\models\Media;
                     <div class="contacts_form_inner">
                         <span class="contacts_form_title"><span>Оставить</span>заявку</span>
                         <span class="contacts_form_message">Заполните заявку и в ближайшее время мы с вами свяжемся</span>
-                        <form class="formSend">
+                        <form class="formSend contact_form_w_file">
                             <div class="form_item user">
                                 <input type="text" placeholder="ФИО" name="name"  onblur="if(this.placeholder==''){this.placeholder='ФИО';this.classList.remove('hide');}" onfocus="if(this.placeholder =='ФИО'){this.placeholder='';this.classList.add('hide');}">
                             </div>

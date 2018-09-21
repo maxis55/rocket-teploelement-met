@@ -31,11 +31,14 @@ $all_categories = array_values($this->params['categories']); ?>
         <div class="container_inner">
 
 
-            <h2 class="title1"><span>Мы предлагаем</span></h2>
+            <h2 class="title1"><span><?= $this->params['cross_pages_data']['before_cats_title']; ?></span></h2>
             <div class="header_offers">
                 <div class="header_supply_box">
 
-                    <div class="header_offers_title"><h3 class="title2">Поставки<span>металлопроката</span></h3></div>
+                    <div class="header_offers_title">
+                        <h3 class="title2">
+                            <?= $this->params['cross_pages_data']['before_cats_left_1']; ?>
+                            <span><?= $this->params['cross_pages_data']['before_cats_left_2']; ?></span></h3></div>
                     <span class="header_supply_open"></span>
                     <div class="header_supply">
                         <?php for ($i = 0; $i < 14; ++$i):
@@ -83,7 +86,9 @@ $all_categories = array_values($this->params['categories']); ?>
                     </div>
                 </div>
                 <div class="header_details_box">
-                    <div class="header_offers_title"><h3 class="title2">Детали <span>трубопровода</span></h3></div>
+                    <div class="header_offers_title"><h3 class="title2">
+                            <?= $this->params['cross_pages_data']['before_cats_right_1']; ?>
+                            <span><?= $this->params['cross_pages_data']['before_cats_right_2']; ?></span></h3></div>
                     <span class="header_supply_open"></span>
                     <div class="header_details">
                         <?php for ($i = 14; $i <= 21; ++$i):

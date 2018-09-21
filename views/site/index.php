@@ -112,13 +112,12 @@ $this->title='Главная';
                         
                                     <label>Узнайте, есть ли поставки в ваш город:</label>
                                     <div class="form_item search">
-                                            <input type="search" name="search" placeholder="Ваш город"  autocomplete="off" list="town">
+                                            <input id="town_input" type="search" name="search" placeholder="Ваш город"  autocomplete="off" list="town">
                                             <datalist id="town">
-                                              <option value="Москва">
-                                              <option value="Казань">
-                                              <option value="Петербург">
-                                              <option value="Воронеж">
-                                              <option value="Хабаровск">
+                                                <?php foreach ($page_content['map_cities'] as $city=>$message):?>
+                                              <option value="<?=$city;?>" data-message="<?=$message;?>">
+                                                <?php endforeach; ?>
+
                                             </datalist>
                                     </div>
 

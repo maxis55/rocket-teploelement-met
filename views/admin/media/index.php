@@ -24,7 +24,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
         <input type="hidden" name="_csrf" value="<?=Yii::$app->request->getCsrfToken()?>">
         <label for="images_input">Выбрать изображения</label>
-        <input id="images_input" type="file" name="Media[images][]" multiple="multiple" accept="image" style="display: none">
+        <input id="images_input" type="file" name="images[]" multiple="multiple" accept="image" style="display: none">
         <div id="img_list"><ul></ul></div>
         <input type="submit" value="Загрузить">
     </form>
