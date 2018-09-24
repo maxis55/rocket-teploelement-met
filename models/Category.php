@@ -179,6 +179,7 @@ class Category extends ActiveRecord
     }
 
     public static function getAllCategoriesIndexedByParent(){
+
         $all_categories=Category::find()->select(['slug','name','parent','id'])->asArray()->all();
         $grouped_categories=array();
 
@@ -191,6 +192,7 @@ class Category extends ActiveRecord
 
         ksort($grouped_categories, SORT_NUMERIC);
         return $grouped_categories;
+
     }
 
 

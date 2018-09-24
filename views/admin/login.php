@@ -10,7 +10,7 @@ use yii\helpers\Url;
 /* @var $form yii\bootstrap\ActiveForm */
 /* @var $model app\models\LoginForm */
 
-$this->title = 'Sign In';
+$this->title = 'Авторизация';
 
 $fieldOptions1 = [
     'options' => ['class' => 'form-group has-feedback'],
