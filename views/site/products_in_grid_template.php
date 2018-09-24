@@ -23,7 +23,7 @@ if($dataProvider->totalCount>0):
                             'product_slug' => $data->slug
                         ], ['data-pjax' => 0]);
                     } else {
-                        return "Нет картинки";
+                        return "Нет изображения.";
                     }
 
                 },

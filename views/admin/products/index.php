@@ -60,7 +60,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     if ($data->media) {
                         return Html::img($data->media->getImageOfSize(), ['width' => '60px']);
                     } else {
-                        return "Нет картинки";
+                        return "Нет изображения.";
                     }
 
                 },
