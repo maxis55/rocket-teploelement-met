@@ -20,8 +20,9 @@ $this->title = $product->title;
                         $product->title; ?></h2>
                     <div class="product_info_inner">
                         <div class="product_info_img">
-
-                            <img src="<?= Yii::$app->request->baseUrl ?><?= $product->media->getImageOfSize(); ?>">
+                            <?php if(null!=$product->media):?>
+                            <img src="<?= $product->media->getImageOfSize(); ?>">
+                            <?php endif;?>
                         </div>
 
                         <?php if (!empty($characteristicsWvalues)): ?>

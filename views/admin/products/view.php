@@ -31,7 +31,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'id',
             'slug',
             'title',
-            'content:ntext',
+            'content:html',
             [
                 'attribute' => 'steel_type',
                 'format' => 'html',

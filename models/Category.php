@@ -48,7 +48,7 @@ class Category extends ActiveRecord
             [['slug', 'name', 'shortdesc'], 'required'],
             ['content', 'customValidator', 'params' => ['extraFields' => ['content_arr1','content_arr2','content_arr3','content_arr4']]],
             [['parent', 'media_id'], 'integer'],
-            [['content','content_arr1','content_arr2','content_arr3','content_arr4'], 'string'],
+            [['content','content_arr1','content_arr2','content_arr3'], 'string'],
             [['slug'], 'string', 'max' => 20],
             [['name', 'shortdesc'], 'string', 'max' => 255],
             [['slug'], 'unique'],
