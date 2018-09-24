@@ -1,5 +1,6 @@
 <?php
 
+use app\models\Messages;
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 
