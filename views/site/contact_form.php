@@ -14,7 +14,11 @@ use app\models\Media;
                     </div>
                     <div class="price_list_box">
                         <span><?=$this->params['cross_pages_data']['price_list_text'];?></span>
-                        <a href="<?=Media::findOne($this->params['cross_pages_data']['price_list'])->getImageOfSize();?>" target="_blank">Скачать прайс-лист</a>
+                        <?php if(null!=$tempMedia=Media::findOne($this->params['cross_pages_data']['price_list'])){
+                            ?>
+                        <a href="<?=$tempMedia->getImageOfSize();?>" target="_blank">Скачать прайс-лист</a>
+                        <?php }?>
+
                     </div>
                 </div>
                 <div class="main_contacts_form">

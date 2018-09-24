@@ -420,11 +420,11 @@ class AdminController extends Controller
         return Media::getImagesLibrary($counter, $type);
     }
 
-    /**
-     * @param $id
-     * @return null|static
-     * @throws NotFoundHttpException
-     */
+	/**
+	 * @param $id
+	 *
+	 * @throws NotFoundHttpException
+	 */
     protected function findMediaModel($id)
     {
         if (($model = Media::findOne($id)) !== null) {
