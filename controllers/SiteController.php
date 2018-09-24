@@ -54,8 +54,8 @@ class SiteController extends Controller
         $arrayWithoutCategories = array('contact', 'news-page', 'news');
         //categories
         if (!in_array(Yii::$app->controller->action->id, $arrayWithoutCategories)) {
-            $categories = Category::getCategoryByParent(null);
-            $this->view->params['categories'] = $categories;
+
+            $this->view->params['categories'] = Category::getAllCategoriesIndexedByParent();
         }
 
 

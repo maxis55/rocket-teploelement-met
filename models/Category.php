@@ -178,6 +178,21 @@ class Category extends ActiveRecord
             ->all();
     }
 
+    public static function getAllCategoriesIndexedByParent(){
+        $all_categories=Category::find()->select(['slug','name','parent','id'])->asArray()->all();
+        $grouped_categories=array();
+
+        foreach($all_categories as $key => $item)
+        {
+            if($item['parent']=='')
+                $item['parent']='none';
+            $grouped_categories[$item['parent']][] = $item;
+        }
+
+        ksort($grouped_categories, SORT_NUMERIC);
+        return $grouped_categories;
+    }
+
 
     public static function findAllSubcategoryIds($parent_id)
     {

@@ -15,7 +15,7 @@ use yii\web\AssetBundle;
 class AdminAsset extends AssetBundle
 {
     public $basePath = '@webroot/admin';
-    public $baseUrl = '@web/admin';
+    public $baseUrl = '@web/web/admin';
     public $css = [
         'css/admin.css',
         'https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic',
