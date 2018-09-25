@@ -8,7 +8,7 @@ use yii\helpers\Url;
 
 <!-- MAIN CONTENT Start-->
 
- <?= $this->render('categories_breadcrumbs_template.php') ?>
+<?= $this->render('categories_breadcrumbs_template.php') ?>
 <div id="content">
     <div class="container">
         <div class="container_inner">
@@ -17,12 +17,14 @@ use yii\helpers\Url;
                     <h2 class="title8"><span><?= $category->name ?></span></h2>
 
                     <?php
-                    foreach ( $category->categories as $sub) { ?>
+                    foreach ($category->categories as $sub) { ?>
                         <div class="catalog_inner_item">
                             <span class="catalog_desc_pat"></span>
                             <span class="catalog_inner_pattern"></span>
                             <div class="catalog_item_img">
-                                <img src="<?= $sub->media->getImageOfSize() ?>">
+                                <?php if (null != $tempMedia = $sub->media->getImageOfSize()): ?>
+                                    <img src="<?= $tempMedia ?>">
+                                <?php endif; ?>
                             </div>
                             <div class="catalog_item_content">
                                 <h4 class="title9"><a
@@ -34,6 +36,7 @@ use yii\helpers\Url;
                     <?php } ?>
                 </div>
                 <div class="catalog_description">
+                    <span class="catalog_desc_pat"></span>
                     <?= $category->content ?>
                 </div>
             </div>

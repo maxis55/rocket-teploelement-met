@@ -24,10 +24,6 @@ AppAsset::register($this);
         <link rel="shortcut icon" href="<?= Yii::$app->request->baseUrl ?>/images/favicon/logo.ico" type="image/x-icon">
         <?= Html::csrfMetaTags() ?>
         <?php
-
-        $this->registerJs('
-        var mm_ajax_add_to_cart="' . Url::toRoute(['ajax/add-to-cart']) . '"', View::POS_END);
-
         //$this->registerJs(
         //    '!function(){function e(e,t,n){e.addEventListener?e.addEventListener(t,n,!1):e.attachEvent&&e.attachEvent("on"+t,n)}function t(e){return window.localStorage&&localStorage.font_css_cache&&localStorage.font_css_cache_file===e}function n(){if(window.localStorage&&window.XMLHttpRequest)if(t(o))a(localStorage.font_css_cache);else{var n=new XMLHttpRequest;n.open("GET",o,!0),e(n,"load",function(){4===n.readyState&&(a(n.responseText),localStorage.font_css_cache=n.responseText,localStorage.font_css_cache_file=o)}),n.send()}else{var c=document.createElement("link");c.href=o,c.rel="stylesheet",c.type="text/css",document.getElementsByTagName("head")[0].appendChild(c),document.cookie="font_css_cache"}}function a(e){var t=document.createElement("style");t.innerHTML=e,document.getElementsByTagName("head")[0].appendChild(t)}var o="fonts.css";window.localStorage&&localStorage.font_css_cache||document.cookie.indexOf("font_css_cache")>-1?n():e(window,"load",n)}();',
         //   View::POS_HEAD);
@@ -36,8 +32,7 @@ AppAsset::register($this);
     </head>
     <body>
     <?php $this->beginBody() ?>
-    <input id="csrf-token" type="hidden" name="<?=Yii::$app->request->csrfParam?>"
-           value="<?=Yii::$app->request->csrfToken?>" autocomplete="off"/>
+
     <!--=============modal window overlay===============-->
     <div id="menu_overlay"></div>
     <!--HEADER START-->
@@ -160,7 +155,7 @@ AppAsset::register($this);
                     <h2 class="title3">Оформить заказ</h2>
                     <div class="order_item_box">
                         <span class="order_mes">готово к показу</span>
-                        <span class="order_count"><span>2</span> позиции</span>
+                        <span class="order_count"><span>0</span> позиций</span>
                     </div>
                     <div class="order_item_trip">
                         <span>* - поля обязательные для заполнения</span>

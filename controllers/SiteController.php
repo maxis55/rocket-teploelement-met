@@ -52,10 +52,9 @@ class SiteController extends Controller
         $this->view->params['cross_pages_data']['header_menu']=$tempHeaderMenu;
         $this->view->params['cross_pages_data']['footer_menu']=$tempFooterMenu;
 
+        //pages with categories
         $arrayWithoutCategories = array('contact', 'news-page', 'news');
-        //categories
         if (!in_array(Yii::$app->controller->action->id, $arrayWithoutCategories)) {
-
             $this->view->params['categories'] = Category::getAllCategoriesIndexedByParent();
         }
 
