@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\assets\AppAsset;
 use app\models\Category;
 use app\models\Media;
 use app\models\News;
@@ -359,6 +360,44 @@ class SiteController extends Controller
             ]);
         }
 
+    }
+
+
+    public function actionCatalogHtml()
+    {
+        return $this->renderPartial('html/catalog.html');
+    }
+    public function actionContactsHtml()
+    {
+        return $this->renderPartial('html/contacts.html');
+    }
+    public function actionDeliveryHtml()
+    {
+        return $this->renderPartial('html/delivery.html');
+    }
+    public function actionErrorsHtml()
+    {
+        return $this->renderPartial('html/errors.html');
+    }
+    public function actionIndexHtml()
+    {
+        return $this->renderPartial('html/index.html');
+    }
+    public function actionInnerHtml()
+    {
+        return $this->renderPartial('html/inner.html');
+    }
+    public function actionNewsHtml()
+    {
+        return $this->renderPartial('html/news.html');
+    }
+    public function actionProductHtml()
+    {
+        return $this->renderPartial('html/product.html');
+    }
+    public function actionSingleHtml()
+    {
+        return $this->renderPartial('html/single_new.html');
     }
 
 
