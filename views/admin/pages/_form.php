@@ -213,7 +213,7 @@ use yii\widgets\ActiveForm;
         }
     } else {
 
-        echo $form->field($model, 'content')->textarea(['rows' => 6]);
+        echo $form->field($model, 'content')->textarea(['rows' => 6,'class'=>'tinymce']);
 
         echo $form->field($model, 'slug')->textInput(['maxlength' => true]);
 

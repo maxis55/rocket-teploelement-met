@@ -34,10 +34,13 @@ class m180904_141114_create_news extends Migration
             'id' => $this->primaryKey(),
             'name' => $this->string(255)->notNull(),
             'content' => $this->text()->notNull(),
+            'content_middle' => $this->text()->notNull(),
+            'content2' => $this->text()->notNull(),
             'date' => $this->timestamp()->notNull()->defaultExpression('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'),
             'shortdesc' => $this->string(255)->notNull(),
             'slug' => $this->string(20)->notNull()->unique(),
             'media_id' => $this->integer(),
+            'media_content' => $this->integer(),
         ]);
         $this->createIndex(
             'idx-news-slug',
@@ -60,7 +63,14 @@ class m180904_141114_create_news extends Migration
             'id',
             'SET NULL'
         );
-
+        $this->addForeignKey(
+            'FK_news_content_media',
+            'news',
+            'media_content',
+            'media',
+            'id',
+            'SET NULL'
+        );
         return true;
 
     }
