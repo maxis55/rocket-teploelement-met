@@ -7242,3 +7242,15 @@ html, body, #map {
      font-size: 19px;
 }
 }
+
+@media (max-width: 560px) {
+  .footer_info .header_info_lk {
+        margin-top: 5px;
+  }
+  .footer_info .header_info_lk span{
+     font-size: 35px;
+}
+  .footer_info_title{
+    text-align: center;
+  }
+}
