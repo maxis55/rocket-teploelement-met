@@ -5344,9 +5344,9 @@ p {
     display: block;
   }
 
-  .delivery_block .lg {
+  /*.delivery_block .lg {
     display: none;
-  }
+  }*/
 
   .single_new_bl .singl_new_flex {
     -ms-flex-wrap: wrap;
@@ -7258,4 +7258,13 @@ html, body, #map {
   .footer_info_title{
     text-align: center;
   }
+}
+
+
+@media (max-width: 992px) {
+
+.delivery_block_img img {
+  display: block;
+}
+
 }
