@@ -7243,6 +7243,11 @@ html, body, #map {
 }
 }
 
+.news_content_lk {
+  right: 10px;
+  bottom: 10px;
+}
+
 @media (max-width: 560px) {
   .footer_info .header_info_lk {
         margin-top: 5px;
