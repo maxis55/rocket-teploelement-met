@@ -7278,3 +7278,12 @@ html, body, #map {
   background: url(../images/icons/logo.svg) 0 0 no-repeat;
   background-size: 32px;
 }
+
+.contacts_call_item a {
+  font-size: 13.33px !important;
+      color: #ffc17f !important;
+}
+.contacts_call_item a span {
+  font-size: 25.32px !important;
+  color: #fff !important;
+}
