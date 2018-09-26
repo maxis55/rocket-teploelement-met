@@ -26,6 +26,11 @@ $this->params['breadcrumbs'][] = $this->title;
                 'method' => 'post',
             ],
         ]) ?>
+        <?php if($model->id<=5){
+            echo Html::a('Ссылка на страницу', Url::toRoute(['site/'.$model->slug]),['class' => 'btn btn-success']);
+        }else{
+            echo Html::a('Ссылка на страницу', Url::toRoute(['site/single-page', 'slug' => $model->slug]),['class' => 'btn btn-success']);
+        } ?>
     </p>
 
     <?= DetailView::widget([
@@ -41,7 +46,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?php
     if ($model->id <= 5) {
-        echo Html::a('Ссылка на страницу', Url::toRoute(['site/'.$model->slug]),['class' => 'btn btn-success']);
+
         $data = Pagesmeta::getPageMeta($model->slug, true);
 
         if (!empty($data)) { ?>
@@ -79,9 +84,6 @@ $this->params['breadcrumbs'][] = $this->title;
                 </tbody>
             </table>
         <?php }
-
-    }else{
-        echo Html::a('Ссылка на страницу', Url::toRoute(['site/single-page', 'slug' => $model->slug]),['class' => 'btn btn-success']);
 
     } ?>
 

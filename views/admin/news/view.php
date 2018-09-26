@@ -1,6 +1,7 @@
 <?php
 
 use yii\helpers\Html;
+use yii\helpers\Url;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
@@ -23,6 +24,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'method' => 'post',
             ],
         ]) ?>
+        <?= Html::a('На страницу новости', Url::toRoute(['site/news-page','slug'=>$model->slug]),['class' => 'btn btn-success']);?>
     </p>
 
     <?= DetailView::widget([
