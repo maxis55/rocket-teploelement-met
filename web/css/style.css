@@ -7287,3 +7287,36 @@ html, body, #map {
   font-size: 25.32px !important;
   color: #fff !important;
 }
+.inner_feature_flex h3 {
+    font-size: 26.67px;
+    line-height: 1.2;
+    font-weight: 700;
+    font-family: "Exo 2", sans-serif;
+    color: #006cad;
+    margin-bottom: 26px;
+}
+.inner_feature_flex ul {
+  padding: 0;
+}
+.inner_feature_flex li {
+  list-style: none;
+  margin-bottom: 5px;
+  display: block;
+  font-size: 16px;
+  color: #3a5072;
+  position: relative;
+  padding-left: 20px;
+}
+
+.inner_feature_flex li:before {
+    content: "";
+    display: block;
+    width: 0;
+    height: 0;
+    border: 4px solid transparent;
+    border-left: 8px solid #006cad;
+    position: absolute;
+    left: 3px;
+    top: 50%;
+    margin-top: -2px;
+}
