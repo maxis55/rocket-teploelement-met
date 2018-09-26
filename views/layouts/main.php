@@ -8,6 +8,7 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\web\View;
 use app\assets\AppAsset;
+use yii\widgets\Menu;
 
 AppAsset::register($this);
 ?>
@@ -23,10 +24,6 @@ AppAsset::register($this);
         <link rel="shortcut icon" href="<?= Yii::$app->request->baseUrl ?>/images/favicon/logo.ico" type="image/x-icon">
         <?= Html::csrfMetaTags() ?>
         <?php
-
-        $this->registerJs('
-        var mm_ajax_add_to_cart="' . Url::toRoute(['ajax/add-to-cart']) . '"', View::POS_END);
-
         //$this->registerJs(
         //    '!function(){function e(e,t,n){e.addEventListener?e.addEventListener(t,n,!1):e.attachEvent&&e.attachEvent("on"+t,n)}function t(e){return window.localStorage&&localStorage.font_css_cache&&localStorage.font_css_cache_file===e}function n(){if(window.localStorage&&window.XMLHttpRequest)if(t(o))a(localStorage.font_css_cache);else{var n=new XMLHttpRequest;n.open("GET",o,!0),e(n,"load",function(){4===n.readyState&&(a(n.responseText),localStorage.font_css_cache=n.responseText,localStorage.font_css_cache_file=o)}),n.send()}else{var c=document.createElement("link");c.href=o,c.rel="stylesheet",c.type="text/css",document.getElementsByTagName("head")[0].appendChild(c),document.cookie="font_css_cache"}}function a(e){var t=document.createElement("style");t.innerHTML=e,document.getElementsByTagName("head")[0].appendChild(t)}var o="fonts.css";window.localStorage&&localStorage.font_css_cache||document.cookie.indexOf("font_css_cache")>-1?n():e(window,"load",n)}();',
         //   View::POS_HEAD);
@@ -35,8 +32,7 @@ AppAsset::register($this);
     </head>
     <body>
     <?php $this->beginBody() ?>
-    <input id="csrf-token" type="hidden" name="<?=Yii::$app->request->csrfParam?>"
-           value="<?=Yii::$app->request->csrfToken?>" autocomplete="off"/>
+
     <!--=============modal window overlay===============-->
     <div id="menu_overlay"></div>
     <!--HEADER START-->
@@ -55,7 +51,11 @@ AppAsset::register($this);
                             </div>
                             <button class="menu_resp"></button>
                             <div class="header_nav">
-                                <nav><?= $this->params['header_nav']; ?></nav>
+                                <nav><?= Menu::widget([
+                                        'items' => $this->params['cross_pages_data']['header_menu'],
+                                        'submenuTemplate' => "\n<ul class='sub_menu'>\n{items}\n</ul>\n",
+                                        'options' => ['class' => 'menu'],
+                                    ]); ?></nav>
                                 <div class="header_info_sub">
                                     <div class="header_info_sub_box">
                                         <span><?= $this->params['cross_pages_data']['header_text1']; ?></span>
@@ -101,7 +101,10 @@ AppAsset::register($this);
         <div class="container">
             <div class="footer_inner">
                 <div class="footer_nav">
-                    <nav><?= $this->params['footer_nav']; ?></nav>
+                    <nav><?= Menu::widget([
+                            'items' => $this->params['cross_pages_data']['footer_menu'],
+                            'options' => ['class' => 'menu'],
+                        ]);?></nav>
 
                     <div class="footer_info_sub">
                         <div class="footer_info_sub_box">
@@ -127,7 +130,7 @@ AppAsset::register($this);
                         <div class="logo">
                             <a href="<?= Url::base(true) ?>" class="logo_lk">
 								<span class="logo_top">
-									<img src="images/icons/logo.svg" alt="">
+									<img src="<?= Url::base(true) ?>/images/icons/logo.svg" alt="">
 								</span>
                             </a>
                         </div>
@@ -152,7 +155,7 @@ AppAsset::register($this);
                     <h2 class="title3">Оформить заказ</h2>
                     <div class="order_item_box">
                         <span class="order_mes">готово к показу</span>
-                        <span class="order_count"><span>2</span> позиции</span>
+                        <span class="order_count"><span>0</span> позиций</span>
                     </div>
                     <div class="order_item_trip">
                         <span>* - поля обязательные для заполнения</span>
@@ -233,6 +236,37 @@ AppAsset::register($this);
             </div>
         </div>
     </div>
+    <div class="modal" id="request" style="background:url(/images/bg_modal_thanks.jpg) 0 0 no-repeat;background-size: cover;">
+        <div class="modal_content">
+            <div class="modal_content_inner">
+                <div class="modal_close" onclick="modal_close(this)"></div>
+                <div class="modal_box_request">
+                    <h2 class="title3">Оставить заявку</h2>
+                    <span class="modal_request_mess">Заполните заявку, и в ближайшее время мы с вами свяжемся</span>
+                    <form class="formSend form_call">
+
+                        <div class="form_item user">
+                            <input type="text" placeholder="ФИО" name="name"  onblur="if(this.placeholder==''){this.placeholder='ФИО';this.classList.remove('hide');}" onfocus="if(this.placeholder =='ФИО'){this.placeholder='';this.classList.add('hide');}">
+                        </div>
+                        <div class="form_item phone">
+                            <input type="tel" placeholder="Телефон" name="phone" onblur="if(this.placeholder==''){this.placeholder='Телефон';this.classList.remove('hide');}" onfocus="if(this.placeholder =='Телефон' ){this.placeholder='';this.classList.add('hide');}">
+                        </div>
+                        <div class="form_item mes">
+                            <textarea placeholder="Сообщение" name="message" onblur="if(this.placeholder==''){this.placeholder='Сообщение';this.classList.remove('hide');}" onfocus="if(this.placeholder =='Сообщение' ){this.placeholder='';this.classList.add('hide');}"></textarea>
+                        </div>
+                        <div class="form_item modal_file">
+                            <label for="file1" class="label_select_file">
+                                <span class="file_btn">Прикрепить файл</span>
+                                <span class="file_select"></span>
+                                <input type="file" name="file" id="file1" class="file">
+                            </label>
+                            <button class="blue_btn sendBtn">Отправить</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="modal" id="call"
          style="background:url(/images/bg_modal_call.jpg) 0 0 no-repeat;background-size: cover;">
         <div class="modal_content">
@@ -241,7 +275,7 @@ AppAsset::register($this);
                 <div class="modal_box_call">
                     <div class="modal_call_logo"></div>
                     <h2 class="title3">Обратный звонок</h2>
-                    <form class="formSend form_call">
+                    <form class="formSend form_call form_call_request">
                         <div class="form_item user">
                             <input type="text" placeholder="ФИО" name="name"
                                    onblur="if(this.placeholder==''){this.placeholder='ФИО';this.classList.remove('hide');}"

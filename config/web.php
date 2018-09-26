@@ -41,7 +41,7 @@ $config = [
             // send all mails to a file by default. You have to set
             // 'useFileTransport' to false and configure a transport
             // for the mailer to send real emails.
-            'useFileTransport' => true,
+            'useFileTransport' => false,
         ],
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
@@ -63,6 +63,7 @@ $config = [
                 'catalog/<category_slug>/<subcategory_slug>' => 'site/catalog-subcategory',
                 'catalog/<category_slug>' => 'site/catalog-category',
                 'product/<product_slug>' => 'site/product',
+                'page/<slug>' => 'site/single-page',
                 'news/<slug>' => 'site/news-page',
                 '<action>' => 'site/<action>',
             ],

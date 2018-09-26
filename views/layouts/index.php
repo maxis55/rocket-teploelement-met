@@ -31,6 +31,8 @@ AppAsset::register($this);
 </head>
 <body class="home">
 	<?php $this->beginBody() ?>
+    <input id="csrf-token" type="hidden" name="<?=Yii::$app->request->csrfParam?>"
+           value="<?=Yii::$app->request->csrfToken?>" autocomplete="off"/>
 <!--=============modal window overlay===============-->
 <div id="menu_overlay"></div>
 <!--HEADER START-->
@@ -49,7 +51,11 @@ AppAsset::register($this);
 								</div>
 								<button class="menu_resp"></button>
 						  		<div class="header_nav">
-						  			<nav><?php echo $this->params['header_nav']; ?></nav>
+						  			<nav><?= Menu::widget([
+                                            'items' => $this->params['cross_pages_data']['header_menu'],
+                                            'submenuTemplate' => "\n<ul class='sub_menu'>\n{items}\n</ul>\n",
+                                            'options' => ['class' => 'menu'],
+                                        ]); ?></nav>
 									<div class="header_info_sub">
 										<div class="header_info_sub_box">
                                             <span><?= $this->params['cross_pages_data']['header_text1']; ?></span>
@@ -101,7 +107,10 @@ AppAsset::register($this);
 			    </div>
 	 	  	</div>
 				<div class="footer_nav">
-					<nav><?php echo $this->params['footer_nav']; ?></nav>
+					<nav><?= Menu::widget([
+                            'items' => $this->params['cross_pages_data']['footer_menu'],
+                            'options' => ['class' => 'menu'],
+                        ]);?></nav>
 					<div class="footer_info_sub">
 						<div class="footer_info_sub_box">
 							<span>Минимальные сроки</span>
@@ -157,6 +166,7 @@ AppAsset::register($this);
         	<h2 class="title3">Оставить заявку</h2>
         	<span class="modal_request_mess">Заполните заявку, и в ближайшее время мы с вами свяжемся</span>
         	<form class="formSend form_call">
+
         		<div class="form_item user">
 							<input type="text" placeholder="ФИО" name="name"  onblur="if(this.placeholder==''){this.placeholder='ФИО';this.classList.remove('hide');}" onfocus="if(this.placeholder =='ФИО'){this.placeholder='';this.classList.add('hide');}">
 						</div>
@@ -197,7 +207,7 @@ AppAsset::register($this);
         <div class="modal_box_call">
         	<div class="modal_call_logo"></div>
         	<h2 class="title3">Обратный звонок</h2>
-    			<form class="formSend form_call">
+    			<form class="formSend form_call form_call_request">
 						<div class="form_item user">
 							<input type="text" placeholder="ФИО" name="name"  onblur="if(this.placeholder==''){this.placeholder='ФИО';this.classList.remove('hide');}" onfocus="if(this.placeholder =='ФИО'){this.placeholder='';this.classList.add('hide');}">
 						</div>
@@ -216,48 +226,7 @@ AppAsset::register($this);
 			</div>
     </div>
   </div>
- 	<div class="modal" id="order" style="background:url(images/bg_modal_order.jpg) 0 0 no-repeat;background-size: cover;">
-		<div class="modal_content">
-			<div class="modal_content_inner">
-				<div class="modal_close"></div>
-				<div class="modal_box_order">
-					<h2 class="title3">Оформить заказ</h2>
-			    <div class="order_item_box">
-						<span class="order_mes">готово к показу</span>
-						<span class="order_count"><span>2</span> позиции</span>
-					</div>
-					<div class="order_item_trip">
-						<span>* - поля обязательные для заполнения</span>
-					</div>
-					<form class="formSend form_order">
-							<div class="form_item user">
-								<input type="text" placeholder="ФИО" name="name"  onblur="if(this.placeholder=='') this.placeholder='ФИО'" onfocus="if(this.placeholder =='ФИО'){this.placeholder='';this.classList.add('hide');}">
-							</div>
-							<div class="form_item flex">
-								<div class="form_item_type phone">
-								  <input type="tel" placeholder="Телефон" name="phone" onblur="if(this.placeholder==''){this.placeholder='Телефон';this.classList.remove('hide');}" onfocus="if(this.placeholder =='Телефон' ){this.placeholder='';this.classList.add('hide');}">
-						    </div>
-						    <div class="form_item_type email">
-								  <input type="email" placeholder="E-mail" name="email" onblur="if(this.placeholder==''){this.placeholder='E-mail';this.classList.remove('hide');}" onfocus="if(this.placeholder =='E-mail' ){this.placeholder='';this.classList.add('hide');}">
-						    </div>
-							</div>
-							<div class="form_item mes">
-							<textarea placeholder="Сообщение" name="message" onblur="if(this.placeholder==''){this.placeholder='Сообщение';this.classList.remove('hide');}" onfocus="if(this.placeholder =='Сообщение' ){this.placeholder='';this.classList.add('hide');}"></textarea>
-						  </div>
-							<div class="form_item">
-						  	<input type="checkbox" name="agree" id="agree1">
-								<label for="agree1" class="data_mes_label">Нажимая на кнопку, Вы даете свое согласие на обработку <a href="#" class="data_mes_lk"> персональных данных</a></label>
-							</div>
-						  <div class="form_item al_center">
-						  	<a href="index.html" class="white_btn">Вернуться</a>
-						  	<button class="blue_btn sendBtn">Оформить заказ</button>
-						  </div>
 
-					</form>
-				</div>
-			</div>
-		</div>
-	</div>
 	<!--TMP END  -->
 	<?php $this->endBody() ?>
 	</body>

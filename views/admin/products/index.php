@@ -28,7 +28,7 @@ $this->params['breadcrumbs'][] = $this->title;
 //            'id',
             'slug',
             'title',
-            'content:ntext',
+            'content:html',
             [
                 'attribute' => 'steel_type',
                 'format' => 'html',
@@ -60,7 +60,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     if ($data->media) {
                         return Html::img($data->media->getImageOfSize(), ['width' => '60px']);
                     } else {
-                        return "Нет картинки";
+                        return "Нет изображения.";
                     }
 
                 },

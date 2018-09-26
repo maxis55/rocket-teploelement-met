@@ -90,7 +90,7 @@ class m180904_122004_update_table_pagesmeta extends Migration
                 'key' => 'block_' . $r . '_content',
                 'title' => 'Контент',
                 'value' => '
-                    <p>текстовый блок ' . $r . ' контентная часть</p>
+                    текстовый блок ' . $r . ' контентная часть
                 ',
                 'type' => 'tinyarea'
             ]);
@@ -196,7 +196,7 @@ class m180904_122004_update_table_pagesmeta extends Migration
             'key' => 'map',
             'title' => 'Метка на карте',
             'value' => '55, 55',
-            'type' => 'input'
+            'type' => 'map'
         ]);
 
         $this->insert('pagesmeta', [

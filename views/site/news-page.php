@@ -1,7 +1,9 @@
 <?php
 
+use app\models\Media;
 use yii\helpers\Url;
 use yii\widgets\Breadcrumbs;
+
 /** @var array $news */
 ?>
 
@@ -42,6 +44,28 @@ use yii\widgets\Breadcrumbs;
                                 $news['name'] ?></span></h2>
                     </div>
                     <?= $news['content'] ?>
+                    <?php if (!empty($news['content_middle'])): ?>
+                        <div class="single_new_content">
+                            <div class="singl_new_message logo">
+                                <a href="<?php echo Url::base(true); ?>" class="logo_lk">
+								<span class="logo_top">
+									<img src="/images/icons/logo.svg" alt="">
+								</span>
+                                </a>
+                                <div class="singl_new_message_blue">
+                                    <div class="singl_new_message_iiner">
+                                        <?= $news['content_middle'] ?>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <?php if (!empty($news['media_content'])): ?>
+                                <img src="<?= Media::findOne($news['media_content'])->getImageOfSize(); ?>" alt=""
+                                     class="singl_new_img">
+                            <?php endif; ?>
+                        </div>
+                    <?php endif; ?>
+                    <?= $news['content2'] ?>
                 </div>
             </div>
         </div>

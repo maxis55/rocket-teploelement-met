@@ -28,9 +28,13 @@ use app\models\ProductCharacteristics;
 use app\models\Products;
 use app\models\ProductsSearch;
 use app\models\Settings;
+use app\models\PasswordResetRequestForm;
+use app\models\ResetPasswordForm;
 use Yii;
+use yii\base\InvalidParamException;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
+use yii\web\BadRequestHttpException;
 use yii\web\Controller;
 use app\models\Pages;
 use app\models\PagesSearch;
@@ -50,7 +54,7 @@ class AdminController extends Controller
                 'rules' => [
                     [
                         'allow' => true,
-                        'actions' => ['login'],
+                        'actions' => ['login','reset-password','request-password-reset'],
                     ],
                     [
                         'allow' => true,
@@ -405,9 +409,9 @@ class AdminController extends Controller
      * @throws \Throwable
      * @throws \yii\db\StaleObjectException
      */
-    public function actionMediaDelete($id,$name)
+    public function actionMediaDelete($id)
     {
-        $this->{'find'.$name.'Model'}($id)->delete();
+        $this->findMediaModel($id)->delete();
 
         return $this->redirect(['admin/media']);
     }
@@ -420,11 +424,11 @@ class AdminController extends Controller
         return Media::getImagesLibrary($counter, $type);
     }
 
-    /**
-     * @param $id
-     * @return null|static
-     * @throws NotFoundHttpException
-     */
+	/**
+	 * @param $id
+	 *
+	 * @throws NotFoundHttpException
+	 */
     protected function findMediaModel($id)
     {
         if (($model = Media::findOne($id)) !== null) {
@@ -477,7 +481,7 @@ class AdminController extends Controller
         $model = new News();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['news-view', 'id' => $model->id]);
         }
 
         return $this->render('news/create', [
@@ -580,6 +584,7 @@ class AdminController extends Controller
             return $this->redirect('settings');
         }
         $meta = Settings::getCrossPagesData(['key', 'value', 'type', 'title'], true);
+
         $pagesSlugs = Pages::getPages(['slug', 'title']);
 
         return $this->render('settings/update', [
@@ -658,7 +663,7 @@ class AdminController extends Controller
                 if (!empty($postCharacteristics)) {
                     //no way to evaluate which characteristics are changed, need to delete all
                     ProductCharacteristics::deleteAll(['product_id' => $model->id]);
-                    foreach ($postCharacteristics as $key => $characteristic) {
+                    foreach ($postCharacteristics as $key => $characteristic) if(!empty($characteristic)) {
                         $model->link('characteristics', Characteristics::findOne($key), array('value' => $characteristic));
                     }
                 }
@@ -942,7 +947,7 @@ class AdminController extends Controller
      */
     public function actionLogin()
     {
-
+        $this->layout='admin/main-login';
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
             return $this->redirect('index');
@@ -967,5 +972,52 @@ class AdminController extends Controller
         return $this->goHome();
     }
 
+    /**
+     * Requests password reset.
+     *
+     * @return mixed
+     */
+    public function actionRequestPasswordReset()
+    {
+        $this->layout='admin/main-login';
+        $model = new PasswordResetRequestForm();
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            if ($model->sendEmail()) {
+                return $this->goHome();
+            }
+
+        }
+
+        return $this->render('requestPasswordResetToken', [
+            'model' => $model,
+        ]);
+    }
+
+    /**
+     * Resets password.
+     *
+     * @param string $token
+     * @return mixed
+     * @throws BadRequestHttpException
+     */
+    public function actionResetPassword($token)
+    {
+        $this->layout='admin/main-login';
+        try {
+            $model = new ResetPasswordForm($token);
+        } catch (InvalidParamException $e) {
+            throw new BadRequestHttpException($e->getMessage());
+        }
+
+        if ($model->load(Yii::$app->request->post()) && $model->validate() && $model->resetPassword()) {
+            Yii::$app->session->setFlash('success', 'Новый пароль сохранён.');
+
+            return $this->goHome();
+        }
+
+        return $this->render('resetPassword', [
+            'model' => $model,
+        ]);
+    }
 
 }

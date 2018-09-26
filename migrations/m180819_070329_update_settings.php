@@ -114,6 +114,29 @@ class m180819_070329_update_settings extends Migration
         ]);
         $this->insert('settings', [
             'id' => ++$i,
+            'key' => 'products_right_img',
+            'value' => "4",
+            'type'=>'image',
+            'title' => "Изображение на странице продуктов",
+        ]);
+
+        $this->insert('settings', [
+            'id' => ++$i,
+            'key' => 'products_right_text1',
+            'value' => "Чем больше покупка - тем выгоднее цена!",
+            'type'=>'input',
+            'title' => "Текст под количеством метров на странице товара",
+        ]);
+        $this->insert('settings', [
+            'id' => ++$i,
+            'key' => 'products_right_text2',
+            'value' => "Цена за тонну: узнавайте у менеджера",
+            'type'=>'input',
+            'title' => "Текст под кнопкой заказать на странице товара",
+        ]);
+
+        $this->insert('settings', [
+            'id' => ++$i,
             'key' => 'header_menu',
             'value' => json_encode([
                 ['label' => 'Продукция', 'url' => ['index']],
@@ -143,6 +166,14 @@ class m180819_070329_update_settings extends Migration
             'value' => '53',
             'type'=>'file',
             'title' => "Прайс лист рядом с заявкой",
+        ]);
+
+        $this->insert('settings', [
+            'id' => ++$i,
+            'key' => 'price_list_text',
+            'title' => 'Текст рядом с прайс листом',
+            'value' => 'Полный прайс-лист на товары и услуги',
+            'type' => 'input'
         ]);
 
         $this->insert('settings', [

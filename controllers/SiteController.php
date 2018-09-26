@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\assets\AppAsset;
 use app\models\Category;
 use app\models\Media;
 use app\models\News;
@@ -33,26 +34,32 @@ class SiteController extends Controller
         // cross pages data
         $this->view->params['cross_pages_data'] = Settings::getCrossPagesData();
 
+        $importantSlugs=array_column(Pages::find()->select(['slug'])->where(['<','id','5'])->asArray()->all(),'slug');
 
-        // footer navigation
-        $this->view->params['footer_nav'] = Menu::widget([
-            'items' => $this->view->params['cross_pages_data']['footer_menu'],
-            'options' => ['class' => 'menu'],
-        ]);
+        $tempHeaderMenu=$this->view->params['cross_pages_data']['header_menu'];
+        $tempFooterMenu=$this->view->params['cross_pages_data']['footer_menu'];
 
-
-        // header navigation
-        $this->view->params['header_nav'] = Menu::widget([
-            'items' => $this->view->params['cross_pages_data']['header_menu'],
-            'submenuTemplate' => "\n<ul class='sub_menu'>\n{items}\n</ul>\n",
-            'options' => ['class' => 'menu'],
-        ]);
-        $arrayWithoutCategories = array('contact', 'news-page', 'news');
-        //categories
-        if (!in_array(Yii::$app->controller->action->id, $arrayWithoutCategories)) {
-            $categories = Category::getCategoryByParent(null);
-            $this->view->params['categories'] = $categories;
+        foreach ($tempFooterMenu as $key=>$item){
+            if(!in_array($item['url'][0],$importantSlugs)){
+                $tempFooterMenu[$key]['url'][0]=Url::toRoute(['site/single-page', 'slug' => $item['url'][0]]);
+            }
         }
+        foreach ($tempHeaderMenu as $key=>$item){
+            if(!in_array($item['url'][0],$importantSlugs)){
+                $tempHeaderMenu[$key]['url'][0]=Url::toRoute(['site/single-page', 'slug' => $item['url'][0]]);
+            }
+        }
+        $this->view->params['cross_pages_data']['header_menu']=$tempHeaderMenu;
+        $this->view->params['cross_pages_data']['footer_menu']=$tempFooterMenu;
+
+        //pages with categories
+        $arrayWithoutCategories = array('contact', 'news-page', 'news');
+        if (!in_array(Yii::$app->controller->action->id, $arrayWithoutCategories)) {
+            $this->view->params['categories'] = Category::getAllCategoriesIndexedByParent();
+        }
+
+
+
 
 
         return parent::beforeAction($action);
@@ -172,6 +179,27 @@ class SiteController extends Controller
 
         return $this->render('news-page', ['news' => $news]);
     }
+
+
+    /**
+     * Displays single news page.
+     * @param string $slug
+     * @return string
+     * @throws \yii\web\NotFoundHttpException
+     */
+    public function actionSinglePage($slug)
+    {
+        $page = Pages::findOne(['slug'=>$slug]);
+        $this->view->params['breadcrumbs'][] = $page->title;
+
+        if(!empty($page))
+                return $this->render('single-page', ['page' => $page]);
+            else
+                throw new \yii\web\NotFoundHttpException();
+
+    }
+
+
 
 
     /**
@@ -331,6 +359,44 @@ class SiteController extends Controller
             ]);
         }
 
+    }
+
+
+    public function actionCatalogHtml()
+    {
+        return $this->renderPartial('html/catalog.html');
+    }
+    public function actionContactsHtml()
+    {
+        return $this->renderPartial('html/contacts.html');
+    }
+    public function actionDeliveryHtml()
+    {
+        return $this->renderPartial('html/delivery.html');
+    }
+    public function actionErrorsHtml()
+    {
+        return $this->renderPartial('html/errors.html');
+    }
+    public function actionIndexHtml()
+    {
+        return $this->renderPartial('html/index.html');
+    }
+    public function actionInnerHtml()
+    {
+        return $this->renderPartial('html/inner.html');
+    }
+    public function actionNewsHtml()
+    {
+        return $this->renderPartial('html/news.html');
+    }
+    public function actionProductHtml()
+    {
+        return $this->renderPartial('html/product.html');
+    }
+    public function actionSingleHtml()
+    {
+        return $this->renderPartial('html/single_new.html');
     }
 
 

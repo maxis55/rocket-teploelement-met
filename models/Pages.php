@@ -9,6 +9,7 @@ use Yii;
  *
  * @property int $id
  * @property string $title
+ * @property string $content
  * @property string $description
  * @property string $keywords
  * @property string $slug
@@ -29,10 +30,12 @@ class Pages extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['title'], 'required'],
-            [['description'], 'string'],
+            [['title', 'slug'], 'required'],
+            [['content'], 'string'],
             [['title', 'keywords', 'slug'], 'string', 'max' => 50],
+            [['description'], 'string', 'max' => 100],
             [['title'], 'unique'],
+            [['slug'], 'unique'],
         ];
     }
 
@@ -44,6 +47,7 @@ class Pages extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'title' => 'Название',
+            'content' => 'Контент',
             'description' => 'Описание',
             'keywords' => 'Ключевые слова',
             'slug' => 'Слаг',

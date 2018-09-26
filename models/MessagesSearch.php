@@ -47,6 +47,7 @@ class MessagesSearch extends Messages
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'sort'=> ['defaultOrder' => ['date' => SORT_DESC]]
         ]);
 
         $this->load($params);

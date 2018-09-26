@@ -1,5 +1,6 @@
 <?php use yii\grid\GridView;
 use yii\helpers\Html;
+if($dataProvider->totalCount>0):
 ?>
 <button class="inner_offers_prev"></button>
 <button class="inner_offers_next"></button>
@@ -14,15 +15,15 @@ use yii\helpers\Html;
             [
                 'format' => 'raw',
                 'label' => 'Фото',
-                'value' => function ($data)  {
-                    if ($data->media) {
-                        $img=Html::img($data->media->getImageOfSize(66,52));
+                'value' => function ($data) {
+                    if (!empty($data->media)) {
+                        $img = Html::img($data->media->getImageOfSize(66, 52));
                         return Html::a($img, [
                             'site/product',
                             'product_slug' => $data->slug
                         ], ['data-pjax' => 0]);
                     } else {
-                        return "Нет картинки";
+                        return "Нет изображения.";
                     }
 
                 },
@@ -31,11 +32,11 @@ use yii\helpers\Html;
             [
                 'attribute' => 'title',
                 'format' => 'raw',
-                'value' => function ($data)  {
+                'value' => function ($data) {
                     return Html::a($data->title, [
                         'site/product',
                         'product_slug' => $data->slug
-                    ], [ 'data-pjax' => 0]);
+                    ], ['data-pjax' => 0]);
                 }
             ],
 
@@ -43,12 +44,15 @@ use yii\helpers\Html;
                 'format' => 'raw',
                 'label' => 'Выбор стали',
                 'value' => function ($data) {
-                    $result = '<label for="mark" class="select">
-                                                    <select id="mark">';
+                    $result = '
+                    <label for="mark" class="select"><select name="steel_type" id="mark">';
                     $steel_types = json_decode($data->steel_type);
-                    if(!empty($steel_types))
-                    foreach ($steel_types as $steel_type) {
-                        $result .= '<option>' . $steel_type . '</option>';
+                    if (!empty($steel_types)) {
+                        foreach ($steel_types as $steel_type) {
+                            $result .= '<option>' . $steel_type . '</option>';
+                        }
+                    } else {
+                        echo '<option>Нет указанных марок.</option>';
                     }
                     $result .= '</select>
                                            </label>';
@@ -59,10 +63,11 @@ use yii\helpers\Html;
                 'format' => 'raw',
                 'label' => 'Количество',
                 'value' => function ($data) {
-                    return '<div class="counter-wrapper">
+                    return '
+                                                <div class="counter-wrapper">
                                                     <div class="counter-box">
                                                         <button class="counter-minus"></button>
-                                                        <input type="number" class="counter-qt" value="1">
+                                                        <input name="amount" type="number" class="counter-qt" value="1">
                                                         <button class="counter-plus"></button>
                                                     </div>
                                                 </div>
@@ -72,8 +77,12 @@ use yii\helpers\Html;
             [
                 'format' => 'raw',
                 'label' => '',
-                'value' => function () {
-                    return '<button class="add_btn modal_btn" data-modal="basket">Добавить в заявку</button>';
+                'value' => function ($data) {
+                    return '
+                    <input name="product_id" value="' . $data->id . '" autocomplete="off" type="hidden">
+                    <input name="product_name" value="' . $data->title . '" autocomplete="off" type="hidden">
+                    <button class="add_btn modal_btn grid_basket_btn" onclick="event.preventDefault();" data-modal="basket">Добавить в заявку</button>
+                ';
                 }
             ],
 
@@ -83,3 +92,4 @@ use yii\helpers\Html;
 
 } ?>
 <?php \yii\widgets\Pjax::end(); ?>
+<?php endif;

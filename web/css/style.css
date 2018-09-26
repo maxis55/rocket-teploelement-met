@@ -6757,7 +6757,7 @@ html, body, #map {
 .contacts_form_inner #contactform-fil:focus {
   user-select: none !important;
   outline: none !important;
-}*/
+}
 .contacts_form_inner #contactform-file:before{
     position:absolute;
     left:-10px;

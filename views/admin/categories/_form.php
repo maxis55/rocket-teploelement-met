@@ -56,11 +56,11 @@ use yii\widgets\ActiveForm;
 
 
     <?php if('create'==$type||$model->parent!=null):?>
-        <?= $form->field($model, 'content_arr1')->textarea(['rows' => 6]) ?>
-        <?= $form->field($model, 'content_arr2')->textarea(['rows' => 6]) ?>
-        <?= $form->field($model, 'content_arr3')->textarea(['rows' => 6]) ?>
+        <?= $form->field($model, 'content_arr1')->textarea(['rows' => 6,'class'=>'tinymce']) ?>
+        <?= $form->field($model, 'content_arr2')->textarea(['rows' => 6,'class'=>'tinymce']) ?>
+        <?= $form->field($model, 'content_arr3')->textarea(['rows' => 6,'class'=>'tinymce']) ?>
     <?php else:?>
-        <?= $form->field($model, 'content')->textarea(['rows' => 6]) ?>
+        <?= $form->field($model, 'content')->textarea(['rows' => 6,'class'=>'tinymce']) ?>
     <?php endif;?>
 
 

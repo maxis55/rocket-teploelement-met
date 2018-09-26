@@ -48,7 +48,7 @@ class Category extends ActiveRecord
             [['slug', 'name', 'shortdesc'], 'required'],
             ['content', 'customValidator', 'params' => ['extraFields' => ['content_arr1','content_arr2','content_arr3','content_arr4']]],
             [['parent', 'media_id'], 'integer'],
-            [['content','content_arr1','content_arr2','content_arr3','content_arr4'], 'string'],
+            [['content','content_arr1','content_arr2','content_arr3'], 'string'],
             [['slug'], 'string', 'max' => 20],
             [['name', 'shortdesc'], 'string', 'max' => 255],
             [['slug'], 'unique'],
@@ -176,6 +176,23 @@ class Category extends ActiveRecord
             ->where(['parent' => $parent])
             ->indexBy('id')
             ->all();
+    }
+
+    public static function getAllCategoriesIndexedByParent(){
+
+        $all_categories=Category::find()->select(['slug','name','parent','id'])->asArray()->all();
+        $grouped_categories=array();
+
+        foreach($all_categories as $key => $item)
+        {
+            if($item['parent']=='')
+                $item['parent']='none';
+            $grouped_categories[$item['parent']][] = $item;
+        }
+
+        ksort($grouped_categories, SORT_NUMERIC);
+        return $grouped_categories;
+
     }
 
 
