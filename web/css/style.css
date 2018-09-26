@@ -7320,3 +7320,39 @@ html, body, #map {
     top: 50%;
     margin-top: -2px;
 }
+.catalog_description h5 {
+  font-size: 18px;
+    line-height: 1.2;
+    font-weight: 900;
+    text-transform: inherit;
+    color: #006cad;
+    margin-bottom: 30px;
+}
+
+.catalog_description ul {
+  padding: 0;
+}
+.catalog_description li {
+  list-style: none;
+}
+.catalog_description li ul li {
+  list-style: none;
+  position: relative;
+  padding-left: 20px;
+  margin-bottom: 10px;
+}
+.catalog_description li ul li:before {
+    content: "";
+    display: block;
+    width: 0;
+    height: 0;
+    border: 5px solid transparent;
+    border-left: 8px solid #00bfff;
+    position: absolute;
+    top: 50%;
+    margin-top: -5px;
+    left: 0;
+}
+.catalog_description li ul {
+  margin-top: 20px;
+}
