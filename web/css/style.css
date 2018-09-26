@@ -5347,9 +5347,9 @@ p {
     display: block;
   }
 
-  .delivery_block .lg {
+  /*.delivery_block .lg {
     display: none;
-  }
+  }*/
 
   .single_new_bl .singl_new_flex {
     -ms-flex-wrap: wrap;
@@ -7244,4 +7244,118 @@ html, body, #map {
   .footer_info .header_info_lk span{
      font-size: 19px;
 }
+}
+
+.news_content_lk {
+  right: 10px;
+  bottom: 10px;
+}
+
+@media (max-width: 560px) {
+  .footer_info .header_info_lk {
+        margin-top: 5px;
+  }
+  .footer_info .header_info_lk span{
+     font-size: 35px;
+}
+  .footer_info_title{
+    text-align: center;
+  }
+}
+
+
+@media (max-width: 992px) {
+
+.delivery_block_img img {
+  display: block;
+}
+
+}
+
+
+.delivery_content_inner li {
+  list-style: none;
+  margin-bottom: 10px;
+  font-size: 16px;
+  padding-left: 30px;
+  background: url(../images/icons/logo.svg) 0 0 no-repeat;
+  background-size: 32px;
+}
+
+.contacts_call_item a {
+  font-size: 13.33px !important;
+      color: #ffc17f !important;
+}
+.contacts_call_item a span {
+  font-size: 25.32px !important;
+  color: #fff !important;
+}
+.inner_feature_flex h3 {
+    font-size: 26.67px;
+    line-height: 1.2;
+    font-weight: 700;
+    font-family: "Exo 2", sans-serif;
+    color: #006cad;
+    margin-bottom: 26px;
+}
+.inner_feature_flex ul {
+  padding: 0;
+}
+.inner_feature_flex li {
+  list-style: none;
+  margin-bottom: 5px;
+  display: block;
+  font-size: 16px;
+  color: #3a5072;
+  position: relative;
+  padding-left: 20px;
+}
+
+.inner_feature_flex li:before {
+    content: "";
+    display: block;
+    width: 0;
+    height: 0;
+    border: 4px solid transparent;
+    border-left: 8px solid #006cad;
+    position: absolute;
+    left: 3px;
+    top: 50%;
+    margin-top: -2px;
+}
+.catalog_description h5 {
+  font-size: 18px;
+    line-height: 1.2;
+    font-weight: 900;
+    text-transform: inherit;
+    color: #006cad;
+    margin-bottom: 30px;
+}
+
+.catalog_description ul {
+  padding: 0;
+}
+.catalog_description li {
+  list-style: none;
+}
+.catalog_description li ul li {
+  list-style: none;
+  position: relative;
+  padding-left: 20px;
+  margin-bottom: 10px;
+}
+.catalog_description li ul li:before {
+    content: "";
+    display: block;
+    width: 0;
+    height: 0;
+    border: 5px solid transparent;
+    border-left: 8px solid #00bfff;
+    position: absolute;
+    top: 50%;
+    margin-top: -5px;
+    left: 0;
+}
+.catalog_description li ul {
+  margin-top: 20px;
 }
