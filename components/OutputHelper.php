@@ -91,7 +91,7 @@ class OutputHelper extends Component
                                         <a href="'.Url::toRoute(['site/news-page', 'slug' => $element['slug']]).'" class="news_name">'. $element['name'].'</a>
                                     </figcaption>
                                     <span class="news_content">
-										'.$element['shortdesc']  .'
+										'.strlen($element['shortdesc']>163)?mb_substr($element['shortdesc'],0,163).'...':$element['shortdesc']  .'
                                         <a href="'. Url::toRoute(['site/news-page', 'slug' => $element['slug']]).'" class="news_content_lk"></a>
 									</span>
                                 </figure>
