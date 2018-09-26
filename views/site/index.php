@@ -26,6 +26,9 @@ $this->title = 'Главная';
             <div class="main_services_box">
 
                 <?php for ($i = 1; $i <= 5; $i++) { ?>
+                    <?php
+                    $tempContent=$page_content['block_' . $i . '_content'];
+                    ?>
                     <div class="main_services_item">
                         <?php if ($i % 2 != 0) { ?>
                             <div class="main_services_info_left">
@@ -36,7 +39,8 @@ $this->title = 'Главная';
                                 <?php } ?>
                                 <h3 class="title2"><?= $page_content['block_' . $i . '_title_1']; ?>
                                     <span><?= $page_content['block_' . $i . '_title_2']; ?></span></h3>
-                                <?= $page_content['block_' . $i . '_content']; ?>
+
+                                <p><?= $tempContent; ?></p>
                                 <div class="main_services_forbtn">
                                     <a href="<?= $page_content['block_' . $i . '_link']; ?>"
                                        class="add_btn">Подробнее</a>
@@ -54,7 +58,7 @@ $this->title = 'Главная';
                             <div class="main_services_info_right">
                                 <h3 class="title2"><?= $page_content['block_' . $i . '_title_1']; ?>
                                     <span><?= $page_content['block_' . $i . '_title_2']; ?></span></h3>
-                                <?= $page_content['block_' . $i . '_content']; ?>
+                                <p><?= $tempContent; ?></p>
                                 <div class="main_services_forbtn">
                                     <a href="<?= $page_content['block_' . $i . '_link']; ?>"
                                        class="add_btn">Подробнее</a>

@@ -29,7 +29,7 @@ use yii\widgets\ActiveForm;
     if ($model->id <= 5) {
 
         $data = Pagesmeta::getPageMeta($model->slug, true);
-
+        $array_of_favors = ['block_1_content', 'block_2_content', 'block_3_content', 'block_4_content', 'block_5_content'];
         if (!empty($data)) {
             foreach ($data as $item) { ?>
 
@@ -43,13 +43,30 @@ use yii\widgets\ActiveForm;
             <?php } ?>
 
             <?php if ($item['type'] == 'tinyarea') { ?>
+                <?php if (in_array($item['key'], $array_of_favors)): ?>
                 <div class="form-group field-pages-<?= $item['key'] ?> field-pages-description">
                     <label class="control-label" for="pages-<?= $item['key'] ?>">Описание</label>
-                    <textarea id="pages-<?= $item['key'] ?>" class="form-control tinymce"
-                              name="Pages[<?= $item['key'] ?>]"
-                              rows="6"><?= $item['value'] ?></textarea>
+                    <textarea
+                            id="pages-<?= $item['key'] ?>"
+                            class="form-control"
+                            name="Pages[<?= $item['key'] ?>]"
+                            rows="6"
+                            maxlength="192">
+                        <?= $item['value'] ?>
+                    </textarea>
                 </div>
+                <?php else: ?>
+                <div class="form-group field-pages-<?= $item['key'] ?> field-pages-description">
+                    <label class="control-label" for="pages-<?= $item['key'] ?>">Описание</label>
+                    <textarea
+                            id="pages-<?= $item['key'] ?>"
+                            class="form-control tinymce"
+                            name="Pages[<?= $item['key'] ?>]"
+                            rows="6"><?= $item['value'] ?></textarea>
+                </div>
+                <?php endif; ?>
             <?php } ?>
+
 
             <?php if ($item['type'] == 'image') { ?>
 
@@ -202,12 +219,12 @@ use yii\widgets\ActiveForm;
 
     } ?>
 
-    <?php if($type==='create'){
-        echo $form->field($model, 'content')->textarea(['rows' => 6]);
+    <?php if ($type === 'create') {
+        echo $form->field($model, 'content')->textarea(['rows' => 6,'class'=>'tinymce']);
 
         echo $form->field($model, 'slug')->textInput(['maxlength' => true]);
 
-    }?>
+    } ?>
     <div style="height: 50px;"></div>
 
     <div class="form-group">

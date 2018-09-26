@@ -90,7 +90,7 @@ class m180904_122004_update_table_pagesmeta extends Migration
                 'key' => 'block_' . $r . '_content',
                 'title' => 'Контент',
                 'value' => '
-                    <p>текстовый блок ' . $r . ' контентная часть</p>
+                    текстовый блок ' . $r . ' контентная часть
                 ',
                 'type' => 'tinyarea'
             ]);
