@@ -7268,3 +7268,13 @@ html, body, #map {
 }
 
 }
+
+
+.delivery_content_inner li {
+  list-style: none;
+  margin-bottom: 10px;
+  font-size: 16px;
+  padding-left: 30px;
+  background: url(../images/icons/logo.svg) 0 0 no-repeat;
+  background-size: 32px;
+}
