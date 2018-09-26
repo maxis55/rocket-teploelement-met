@@ -31,7 +31,7 @@ class OutputHelper extends Component
             $i=0;
             foreach ($cart_content as $item){
                 $result.='<tr>'.
-                    ' <td class="cell1">'.$item['product_name'].'</td>';
+                    ' <td class="cell1">'.$item['product_name'].'<br><span class="steel_type">Марка стали: '.$item['steel_type'].'</span></td>';
                 $result.='<td class="cell2">
                                 <div class="counter-wrapper">
                                     <div class="counter-box">
