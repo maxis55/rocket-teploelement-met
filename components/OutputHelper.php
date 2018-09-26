@@ -78,7 +78,7 @@ class OutputHelper extends Component
 
 
     public static function drawOneNewsElement($element){
-        return  ' <div class="main_news_item">
+        $result=' <div class="main_news_item">
                                 <figure>
                                     <a href="'. Url::toRoute(['site/news-page', 'slug' => $element['slug']]) .'" class="news_img">
                                         <img src="'. Media::getImageOfSizeStatic($element['media_name'],'image').'">
@@ -86,16 +86,23 @@ class OutputHelper extends Component
                                     <figcaption>
                                         <time datetime="'.date('Y-m', strtotime($element['date'])).'">
                                             <span>'.date('d', strtotime($element['date'])).'</span>'
-                                            .date('m.y', strtotime($element['date'])).'
+                                        .date('m.y', strtotime($element['date'])).'
                                         </time>
-                                        <a href="'.Url::toRoute(['site/news-page', 'slug' => $element['slug']]).'" class="news_name">'. $element['name'].'</a>
+                                        <a href="'.Url::toRoute(['site/news-page', 'slug' => $element['slug']]).'" class="news_name">';
+        $result.=(strlen($element['name'])>100)?mb_substr($element['name'],0,100).'...':$element['name'];
+        $result.='</a>
                                     </figcaption>
                                     <span class="news_content">
-										'.strlen($element['shortdesc']>163)?mb_substr($element['shortdesc'],0,163).'...':$element['shortdesc']  .'
+										';
+        $result.=(strlen($element['shortdesc'])>74)?mb_substr($element['shortdesc'],0,74).'...':$element['shortdesc'];
+        $result.='
                                         <a href="'. Url::toRoute(['site/news-page', 'slug' => $element['slug']]).'" class="news_content_lk"></a>
 									</span>
                                 </figure>
                             </div>';
+        return $result;
+
+
 
     }
 
