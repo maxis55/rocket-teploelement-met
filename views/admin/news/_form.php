@@ -22,7 +22,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'content2')->textarea(['rows' => 6,'class'=>'tinymce']) ?>
 
-    <?= $form->field($model, 'date')->textInput() ?>
+<!--    --><?//= $form->field($model, 'date')->textInput() ?>
 
     <?= $form->field($model, 'shortdesc')->textInput(['maxlength' => true]) ?>
 

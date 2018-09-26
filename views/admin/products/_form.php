@@ -82,7 +82,7 @@ use yii\widgets\ActiveForm;
     foreach ($characteristics as $characteristic): ?>
         <div class="form-group field-products-characteristics required">
             <label class="control-label" for="products-title"><?= $characteristic->title; ?></label>
-            <input required id="products-title" class="form-control"
+            <input id="products-title" class="form-control"
                    name="Products[characteristics][<?= $characteristic->id; ?>]"
                    value="<?php echo $currproductCharacteristics[$characteristic->id]; ?>"
                    maxlength="60" aria-required="true" aria-invalid="false" type="text">

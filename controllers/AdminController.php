@@ -481,7 +481,7 @@ class AdminController extends Controller
         $model = new News();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['news-view', 'id' => $model->id]);
         }
 
         return $this->render('news/create', [
@@ -663,7 +663,7 @@ class AdminController extends Controller
                 if (!empty($postCharacteristics)) {
                     //no way to evaluate which characteristics are changed, need to delete all
                     ProductCharacteristics::deleteAll(['product_id' => $model->id]);
-                    foreach ($postCharacteristics as $key => $characteristic) {
+                    foreach ($postCharacteristics as $key => $characteristic) if(!empty($characteristic)) {
                         $model->link('characteristics', Characteristics::findOne($key), array('value' => $characteristic));
                     }
                 }

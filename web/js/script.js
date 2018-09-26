@@ -168,7 +168,7 @@ $(document).ready(function () {
         });
     };
 
-    $(".modal_btn").on("click", function () {
+    $("body").on("click",".modal_btn", function () {
 
         var elem = $(this),
             elem_modal = elem.data('modal');
