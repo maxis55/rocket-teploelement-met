@@ -7442,3 +7442,14 @@ html, body, #map {
 .main_news_item .news_content{
   height: 96px;
 }
+
+@media (min-width: 992px) and (max-width: 1200px) {
+
+.inner_feature_flex pre {
+  white-space: nowrap;
+}
+.inner_feature_flex pre img {
+  max-width: 32%;
+}
+
+}
