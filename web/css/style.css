@@ -7359,3 +7359,23 @@ html, body, #map {
 .catalog_description li ul {
   margin-top: 20px;
 }
+
+
+
+.delivery_partners_mes pre {
+    display: flex;
+    white-space: nowrap;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.delivery_partners_mes pre img {
+  max-width: 25%;
+}
+
+
+
+@media (max-width: 1200px) {
+
+  
+}
