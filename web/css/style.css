@@ -7383,3 +7383,31 @@ html, body, #map {
 }
 
 }
+
+@media (min-width: 991px) and (max-width: 1200px) {
+
+.news_bl .news_flex {
+  justify-content: flex-start;
+}
+.news_bl .news_flex .main_news_item {
+  /*width: 31%;*/
+  margin: 0 16px;
+}
+
+}
+
+.inner_description_app h3{
+    margin-left: 435px;
+    font-size: 26.67px;
+    line-height: 1.2;
+    font-weight: 700;
+    font-family: "Exo 2", sans-serif;
+    margin-bottom: 26px;
+    color: #006cad;
+}
+
+@media only screen and (max-width: 1200px) {
+  .inner_description_app h3{
+      margin-left: 0;
+  }
+}
