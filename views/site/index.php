@@ -101,7 +101,9 @@ $this->title = 'Главная';
                                                     <?= date('m.y', strtotime($single['date'])); ?>
                                                 </time>
                                                 <a href="<?= Url::toRoute(['site/news-page', 'slug' => $single['slug']]) ?>"
-                                                   class="news_name"><?= $single['name'] ?></a>
+                                                   class="news_name">
+                                <?= strlen($single['name'])>70?mb_substr($single['name'],0,70).'...':$single['name']; ?>
+                                                </a>
                                             </figcaption>
                                             <span class="news_content">
                                                         <?= strlen($single['shortdesc'])>74?mb_substr($single['shortdesc'],0,74).'...':$single['shortdesc']; ?>

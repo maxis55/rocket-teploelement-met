@@ -7411,3 +7411,34 @@ html, body, #map {
       margin-left: 0;
   }
 }
+
+.delivery_partners_mes pre {
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flex;
+  display: -o-flex;
+  display: flex;
+  justify-content: space-between;
+  -ms-align-items: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.delivery_partners_mes pre img {
+  margin-bottom: 10px;
+}
+
+
+@media (max-width: 400px) {
+  .delivery_partners_mes pre {
+    max-width: 300px;
+    margin: auto;
+    justify-content: center;
+  }
+}
+
+.main_news_item figcaption {
+  height: 100px;
+}
+.main_news_item .news_content{
+  height: 96px;
+}
