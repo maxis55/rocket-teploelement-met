@@ -1,14 +1,38 @@
 <?php
 
 use yii\helpers\Html;
-use yii\widgets\ActiveForm;
+use yii\web\View;use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Products */
 /* @var $form yii\widgets\ActiveForm */
 /** @var app\models\Category $parentCategories */
 ?>
+<?php
+$this->registerJs(<<<EOT
 
+$(document).ready(function(){
+    var csrfName=$('meta[name="csrf-param"]').attr('content');
+    var csrfToken=$('meta[name="csrf-token"]').attr('content');
+    $("#products-category_id").on("change",function(){
+
+        $.ajax({
+            url: '/ajax/get-characteristics',
+            type: 'get',
+            dataType: 'json',
+            data: {
+                [csrfName]:csrfToken,
+                'prod_id':{$model->id},
+                'cat_id':$('#products-category_id').val()
+            },
+            success: function (response) {
+                $('#characteristics').html(response['html']);
+            }
+        });
+    });
+});
+EOT
+,View::POS_END); ?>
 <div class="products-form tinymce_forms">
 
     <?php $form = ActiveForm::begin(); ?>
@@ -55,42 +79,9 @@ use yii\widgets\ActiveForm;
         </tbody>
     </table>
 
-
-    <?php
-    $characteristics = array();
-    $parentCat = $model->category;
-
-    while (null != $parentCat->parent0) {
-        $parentCat = $parentCat->parent0;
-    }
-    //get characteristics of category highest in hierarchy
-    $characteristics = $parentCat->characteristics;
-
-
-    $currproductCharacteristics = array_map(
-        function ($object) {
-            return array('id' => $object->characteristics_id, 'value' => $object->value);
-        }, $model->productCharacteristics);
-    $currproductCharacteristics = array_column($currproductCharacteristics, 'value', 'id');
-
-
-    ?>
-
-
-    <?php
-    if(!empty($characteristics))
-    foreach ($characteristics as $characteristic): ?>
-        <div class="form-group field-products-characteristics required">
-            <label class="control-label" for="products-title"><?= $characteristic->title; ?></label>
-            <input id="products-title" class="form-control"
-                   name="Products[characteristics][<?= $characteristic->id; ?>]"
-                   value="<?php echo $currproductCharacteristics[$characteristic->id]; ?>"
-                   maxlength="60" aria-required="true" aria-invalid="false" type="text">
-            <div class="help-block"></div>
-        </div>
-
-    <?php endforeach; ?>
-
+    <div id="characteristics">
+        <?= \app\components\OutputHelper::outputCharacteristicsFormProduct($model->category_id,$model->id);?>
+    </div>
 
 
     <?php $selectOptions = array(); ?>

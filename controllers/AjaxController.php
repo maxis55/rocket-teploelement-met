@@ -219,4 +219,12 @@ class AjaxController extends Controller
         return ['fail'];
     }
 
+    public function actionGetCharacteristics(){
+        \Yii::$app->response->format = Response::FORMAT_JSON;
+        if(\Yii::$app->request->isAjax){
+            $get_content = Yii::$app->request->get();
+            return ['html'=>OutputHelper::outputCharacteristicsFormProduct($get_content['cat_id'],$get_content['prod_id'])];
+        }
+    }
+
 }

@@ -1308,6 +1308,9 @@ header {
   right: -3px;
 }
 
+.basket_tb .cell1 .steel_type{
+  font-size: 12px;
+}
 .more_white_btn span {
   display: block;
 }

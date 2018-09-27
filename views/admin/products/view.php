@@ -1,6 +1,7 @@
 <?php
 
 use yii\helpers\Html;
+use yii\helpers\Url;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
@@ -15,15 +16,17 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Update', ['products-update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['products-delete', 'id' => $model->id], [
+        <?= Html::a('Редактировать', ['products-update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Удалить', ['products-delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
                 'confirm' => 'Вы уверены, что хотите удалить этот продукт?',
                 'method' => 'post',
             ],
         ]) ?>
+        <?= Html::a('На страницу продукта', Url::toRoute(['site/product','product_slug'=>$model->slug]),['class' => 'btn btn-success']);?>
     </p>
+
 
     <?= DetailView::widget([
         'model' => $model,

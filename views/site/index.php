@@ -104,7 +104,7 @@ $this->title = 'Главная';
                                                    class="news_name"><?= $single['name'] ?></a>
                                             </figcaption>
                                             <span class="news_content">
-                                                        <?= $single['shortdesc'] ?>
+                                                        <?= strlen($single['shortdesc'])>74?mb_substr($single['shortdesc'],0,74).'...':$single['shortdesc']; ?>
                                                 <a href="<?= Url::toRoute(['site/news-page', 'slug' => $single['slug']]) ?>"
                                                    class="news_content_lk"></a>
                                                     </span>
