@@ -7443,13 +7443,23 @@ html, body, #map {
   height: 96px;
 }
 
-@media (min-width: 992px) and (max-width: 1200px) {
+@media (max-width: 1200px) {
 
 .inner_feature_flex pre {
   white-space: nowrap;
 }
 .inner_feature_flex pre img {
   max-width: 32%;
+}
+
+}
+
+@media (max-width: 991px) {
+
+.inner_feature_flex pre {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 }
