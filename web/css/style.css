@@ -40,6 +40,14 @@ input[type=number]::-webkit-outer-spin-button {
     margin: 0; 
 }
 
+select::-ms-expand {
+    display: none;
+}
+
+html, body {
+  overflow-x: hidden;
+}
+
 article, aside, audio, canvas, command, datalist, details, embed, figcaption, figure, footer, header, hgroup, keygen, meter, nav, output, progress, section, source, video {
   display: block;
 }
@@ -7366,4 +7374,12 @@ html, body, #map {
 }
 .catalog_description li ul {
   margin-top: 20px;
+}
+
+@media (max-width: 500px) {
+
+.news_bl .news_flex .main_news_item {
+  margin: 0 auto;
+}
+
 }
