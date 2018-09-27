@@ -7485,3 +7485,39 @@ html, body, #map {
 }
 
 }
+
+
+.product_advantages ul {
+  list-style: none;
+}
+.product_advantages ul li {
+    position: relative;
+    margin-bottom: 10px;
+    font-size: 16px;
+    padding-left: 30px;
+    background: url(../images/icons/logo.svg) 0 0 no-repeat;
+    background-size: 32px;
+}
+
+.product_advantages h3 {
+    font-size: 22.67px;
+    line-height: 1.2;
+    font-weight: 400;
+    font-family: "Exo 2", sans-serif;
+    margin: 0;
+    padding: 0;
+    color: #006cad;
+    margin-bottom: 10px;
+}
+
+@media (max-width: 1200px) {
+
+  .product_assets .add_to_cart_form {
+    display: -webkit-flex;
+    display: -moz-flex;
+    display: -ms-flex;
+    display: -o-flex;
+    display: flex;
+  }
+
+}
