@@ -98,7 +98,9 @@ $this->title = $product->title;
                         <h3 class="title4">Описание</h3>
                         <?= $product->content ?>
                     </div>
-
+                    <div class="product_advantages">
+                        <?= $product->content2 ?>
+                    </div>
                 </div>
                 <div class="product_assets">
                     <form class="add_to_cart_form">

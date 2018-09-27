@@ -41,7 +41,9 @@ EOT
 
     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'content')->textarea(['rows' => 6]) ?>
+    <?= $form->field($model, 'content')->textarea(['rows' => 6,'class'=>'tinymce']) ?>
+
+    <?= $form->field($model, 'content2')->textarea(['rows' => 6,'class'=>'tinymce']) ?>
 
     <?php $steel_types = array(); ?>
     <?php $steel_types = json_decode($model->steel_type); ?>

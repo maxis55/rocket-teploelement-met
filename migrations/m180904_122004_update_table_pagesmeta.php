@@ -263,10 +263,10 @@ class m180904_122004_update_table_pagesmeta extends Migration
             'title' => 'Текстовый блок 3',
             'value' => '<p><span style="color: #00bdff">Условия доставки</span> является дополнительной частью нашего сотрудничества, и данный вопрос регулируется вспомогательными документами и регламентными положениями, которые заключаются между покупателем и производителем металлоконструкций. </p>
 							<p>Ответственность нашей компании за товар сохраняется до момента погрузки на транспортное средство, дополнительную ответственность перевозки груза возлагают на себя транспортные компании, о чем указывается в договоре на доставку продукции.</p>
-							<img src="../uploads/image/partners1.png" alt="">
+							<pre><img src="../uploads/image/partners1.png" alt="">
 							<img src="../uploads/image/partners2.png" alt="">
 							<img src="../uploads/image/partners3.png" alt="">
-							<img src="../uploads/image/partners4.png" alt="">',
+							<img src="../uploads/image/partners4.png" alt=""></pre>',
             'type' => 'tinyarea'
         ]);
 
