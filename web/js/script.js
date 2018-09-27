@@ -460,17 +460,22 @@ $(document).ready(function () {
     if ($('.mm_ajax_more_news').length > 0) {
         $('.mm_ajax_more_news').click(function (e) {
             e.preventDefault();
-            var elem = $(this);
+            var elem = $(this),
+            formData=new FormData();
+
+            formData.append(csrfName, csrfToken);
+            formData.append('page', elem.data('page'));
+            formData.append('per_page', elem.data('per_page'));
+            formData.append('sortBy', elem.data('sort'));
+
+
             $.ajax({
                 url: '/ajax/more-news',
                 type: 'get',
                 dataType: 'json',
-                data: {
-                    [csrfName]: csrfToken,
-                    page: elem.data('page'),
-                    per_page: elem.data('per_page'),
-                    sortBy: elem.data('sort'),
-                },
+                processData: false,
+                contentType: false,
+                data: formData,
                 success: function (response) {
                     var responseHtml = response['html'];
                     var news_block = $('.news_flex');
@@ -774,7 +779,7 @@ $(window).on('load resize', function () {
 
 });
 
-  function initialize_slider(activate=false) {
+  function initialize_slider(activate) {
 
     if($(".inner_offers").length){
       if($(window).innerWidth() < 620){
