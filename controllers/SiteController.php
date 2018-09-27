@@ -143,10 +143,14 @@ class SiteController extends Controller
      * Displays single news page.
      * @param string $slug
      * @return string
+     * @throws \yii\web\NotFoundHttpException
      */
     public function actionNewsPage($slug)
     {
         $news = News::getSingleNews($slug);
+        if(empty($news)){
+            throw new \yii\web\NotFoundHttpException();
+        }
         $this->view->params['breadcrumbs'][] = ['label' => 'Новости', 'url' => Url::toRoute(['site/news'])];
         $this->view->params['breadcrumbs'][] = $news['name'];
 
@@ -190,12 +194,17 @@ class SiteController extends Controller
     public function actionSinglePage($slug)
     {
         $page = Pages::findOne(['slug'=>$slug]);
+
+        if(empty($page)){
+            throw new \yii\web\NotFoundHttpException();
+        }
         $this->view->params['breadcrumbs'][] = $page->title;
 
-        if(!empty($page))
-                return $this->render('single-page', ['page' => $page]);
-            else
-                throw new \yii\web\NotFoundHttpException();
+
+        return $this->render('single-page', ['page' => $page]);
+
+
+
 
     }
 
@@ -211,7 +220,9 @@ class SiteController extends Controller
     public function actionProduct($product_slug)
     {
         $product = Products::findProductBySlug($product_slug);
-
+        if(empty($product)){
+            throw new \yii\web\NotFoundHttpException();
+        }
         $characteristicsWvalues = Products::getCharacteristicsWvalues($product_slug);
         $searchModel = new ProductsSearch();
         $filterParams = Yii::$app->request->queryParams;
@@ -278,10 +289,14 @@ class SiteController extends Controller
      * Displays catalog category page.
      * @param $category_slug
      * @return string
+     * @throws \yii\web\NotFoundHttpException
      */
     public function actionCatalogCategory($category_slug)
     {
         $category = Category::getCategory($category_slug);
+        if(empty($category)){
+            throw new \yii\web\NotFoundHttpException();
+        }
         $subCategory = Category::getSubCategory($category['id'], ['category.name', 'category.slug', 'category.shortdesc']);
 
         $this->view->params['breadcrumbs'][] = $category['name'];
@@ -296,11 +311,16 @@ class SiteController extends Controller
      * @param $subcategory_slug
      * @param null $subsubcategory_slug
      * @return string
+     * @throws \yii\web\NotFoundHttpException
      */
     public function actionCatalogSubcategory($category_slug, $subcategory_slug, $subsubcategory_slug = null)
     {
 
         $first_category = Category::getCategory($category_slug, ['category.name']);
+
+        if(empty($first_category)){
+            throw new \yii\web\NotFoundHttpException();
+        }
 
         $this->view->params['breadcrumbs'][] =
             [
@@ -315,6 +335,9 @@ class SiteController extends Controller
             $subcategory = Category::getCategory(['slug' => $subcategory_slug], ['category.name']);
             $subsubcategory = Category::findOne(['slug' => $subsubcategory_slug]);
 
+            if(empty($subcategory)||empty($subsubcategory)){
+                throw new \yii\web\NotFoundHttpException();
+            }
 
             $this->view->params['breadcrumbs'][] =
                 ['label' => $subcategory->name,
@@ -342,7 +365,9 @@ class SiteController extends Controller
         } else {
 
             $subcategory = Category::findOne(['slug' => $subcategory_slug]);
-
+            if(empty($subcategory)){
+                throw new \yii\web\NotFoundHttpException();
+            }
             $this->view->params['breadcrumbs'][] = $subcategory->name;
 
 

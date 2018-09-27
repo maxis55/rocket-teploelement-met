@@ -12,6 +12,7 @@ use yii\web\NotFoundHttpException;
  * @property string $slug
  * @property string $title
  * @property string $content
+ * @property string $content2
  * @property string $steel_type
  * @property int $category_id
  * @property int $media_id
@@ -37,8 +38,8 @@ class Products extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['slug', 'title', 'content', 'steel_type'], 'required'],
-            [['content', 'steel_type'], 'string'],
+            [['slug', 'title', 'content', 'content2'], 'required'],
+            [['content', 'content2', 'steel_type'], 'string'],
             [['category_id', 'media_id'], 'integer'],
             [['slug'], 'string', 'max' => 50],
             [['title'], 'string', 'max' => 255],
@@ -58,6 +59,7 @@ class Products extends \yii\db\ActiveRecord
             'slug' => 'Slug',
             'title' => 'Наименование',
             'content' => 'Контент',
+            'content2' => 'Контент2',
             'steel_type' => 'Тип стали',
             'category_id' => 'Категория',
             'media_id' => 'Изображение',
