@@ -4,7 +4,7 @@ $(document).ready(function(){
         // console.dir(this);
         var image_src = $(this).attr('src'),
             modal = $("#MediaLibrary");
-        tinymce.activeEditor.execCommand('mceInsertContent', false, '<img class="tiny-img" src="' + image_src + '"></img>');
+        tinymce.activeEditor.execCommand('mceInsertContent', false, '<img class="tiny-img" src="' + image_src + '">');
         modal[0].style.display = "none";
     });
 });
@@ -13,6 +13,7 @@ function initializeTinyMce(){
         selector: ".tinymce_forms .tinymce",
         language : 'ru',
         browser_spellcheck: true,
+        relative_urls: false,
         branding: false,
         statusbar: false,
         extended_valid_elements : "i",
