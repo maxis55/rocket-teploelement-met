@@ -835,3 +835,13 @@ $(window).on('load resize', function () {
     initialize_slider(true);
     });
   }
+
+
+$(window).on("resize load", function() {
+    if($(window).width() <=991) {
+      $(".inner_offers").find(".add_btn").text("в корзину");
+    }
+    else {
+        $(".inner_offers").find(".add_btn").text("Добавить в заявку");
+    }
+});
