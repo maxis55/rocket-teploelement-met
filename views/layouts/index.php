@@ -31,8 +31,7 @@ AppAsset::register($this);
 </head>
 <body class="home">
 	<?php $this->beginBody() ?>
-    <input id="csrf-token" type="hidden" name="<?=Yii::$app->request->csrfParam?>"
-           value="<?=Yii::$app->request->csrfToken?>" autocomplete="off"/>
+
 <!--=============modal window overlay===============-->
 <div id="menu_overlay"></div>
 <!--HEADER START-->
