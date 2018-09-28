@@ -190,6 +190,7 @@ AppAsset::register($this);
                         </div>
                         <div class="form_item al_center">
                             <a href="javascript:void(0);"  class="modal_return white_btn" data-modal="basket">Вернуться</a>
+                            <input name="captcha" autocomplete="off" type="hidden" >
                             <button class="blue_btn sendBtn">Оформить заказ</button>
                         </div>
 
@@ -210,8 +211,6 @@ AppAsset::register($this);
                 </div>
                 <div class="box_basket">
                     <table class="basket_tb">
-
-
                         <tbody>
                         <?=\app\components\OutputHelper::outputCart();?>
                         </tbody>
@@ -260,6 +259,7 @@ AppAsset::register($this);
                                 <span class="file_select"></span>
                                 <input type="file" name="file" id="file1" class="file">
                             </label>
+                            <input name="captcha" autocomplete="off" type="hidden" >
                             <button class="blue_btn sendBtn">Отправить</button>
                         </div>
                     </form>
@@ -292,6 +292,7 @@ AppAsset::register($this);
                                 обработку<a href="#" class="data_mes_lk">персональных данных</a></label>
                         </div>
                         <div class="form_item al_center">
+                            <input name="captcha" autocomplete="off" type="hidden" >
                             <button class="blue_btn sendBtn" type="submit">Заказать звонок</button>
                         </div>
                     </form>

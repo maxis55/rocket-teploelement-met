@@ -182,6 +182,7 @@ AppAsset::register($this);
 								<span class="file_select"></span>
 								<input type="file" name="file" id="file1" class="file">
 							</label>
+                            <input name="captcha" autocomplete="off" type="hidden" >
 							<button class="blue_btn sendBtn">Отправить</button>
 						</div>
         	</form>
@@ -219,6 +220,7 @@ AppAsset::register($this);
 							<label for="agree" class="data_mes_label">Нажимая на кнопку, Вы даете свое согласие на обработку<a href="#" class="data_mes_lk">персональных данных</a></label>
 						</div>
 						<div class="form_item al_center">
+                            <input name="captcha" autocomplete="off" type="hidden" >
 							<button class="blue_btn sendBtn" type="submit">Заказать звонок</button>
 						</div>
 					</form>

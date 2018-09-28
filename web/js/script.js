@@ -1,4 +1,4 @@
-$(function(){
+$(function () {
 // IPad/IPhone
     var viewportmeta = document.querySelector && document.querySelector('meta[name="viewport"]'),
         ua = navigator.userAgent,
@@ -60,8 +60,8 @@ $(document).ready(function () {
 
 
     //ajax important parameters
-    var csrfName=$('meta[name="csrf-param"]').attr('content');
-    var csrfToken=$('meta[name="csrf-token"]').attr('content');
+    var csrfName = $('meta[name="csrf-param"]').attr('content');
+    var csrfToken = $('meta[name="csrf-token"]').attr('content');
 
 //-------Arrow up-------
     function goUp() {
@@ -168,7 +168,7 @@ $(document).ready(function () {
         });
     };
 
-    $("body").on("click",".modal_btn", function () {
+    $("body").on("click", ".modal_btn", function () {
 
         var elem = $(this),
             elem_modal = elem.data('modal');
@@ -178,14 +178,14 @@ $(document).ready(function () {
             var formData = new FormData();
             formData.append(csrfName, csrfToken);
 
-            if(elem.hasClass('grid_basket_btn')){
-                var parent_tr_inputs=elem.closest('tr').find('input,select');
+            if (elem.hasClass('grid_basket_btn')) {
+                var parent_tr_inputs = elem.closest('tr').find('input,select');
 
-                $.each(parent_tr_inputs,function (key,element) {
+                $.each(parent_tr_inputs, function (key, element) {
                     formData.append(element.name, element.value);
                 });
 
-            }else{
+            } else {
                 var serializedForm = elem.closest('.add_to_cart_form').serializeArray();
                 serializedForm.forEach(function (element) {
                     formData.append(element.name, element.value);
@@ -210,10 +210,10 @@ $(document).ready(function () {
                 $('.modal_box_order .order_count').html($('.modal_box_basket .basket_count').html());
             }
             if (elem_modal === 'city') {
-                var modal_message=$('#town option[value="'+$('#town_input').val()+'"]').data('message');
-                if(modal_message!=undefined&&modal_message!=null){
+                var modal_message = $('#town option[value="' + $('#town_input').val() + '"]').data('message');
+                if (modal_message != undefined && modal_message != null) {
                     $('#city').find('.modal_box_city span').html(modal_message)
-                }else{
+                } else {
                     $('#city').find('.modal_box_city span').html('Срок доставки в ваш город не указан!')
                 }
 
@@ -276,7 +276,7 @@ $(document).ready(function () {
 
     });
 
-    function ajaxChangeInputInCart(formData){
+    function ajaxChangeInputInCart(formData) {
         $.ajax({
             url: '/ajax/change-cart-amount',
             type: 'post',
@@ -307,12 +307,12 @@ $(document).ready(function () {
         var inp_value = parseInt($(this).siblings(".counter-qt ").val(), 10);
 
         $(this).siblings(".counter-qt").attr("value", inp_value + 1);
-        if($(this).closest('.modal_box_basket').length>0){
+        if ($(this).closest('.modal_box_basket').length > 0) {
 
             var formData = new FormData();
             formData.append(csrfName, csrfToken);
             formData.append('prod_id', $(this).siblings(".counter-qt").data('prod_id'));
-            formData.append('amount', inp_value+1);
+            formData.append('amount', inp_value + 1);
 
             ajaxChangeInputInCart(formData);
         }
@@ -325,12 +325,12 @@ $(document).ready(function () {
         if (inp_value > 1) {
 
             $(this).siblings(".counter-qt ").attr("value", inp_value - 1);
-            if($(this).closest('.modal_box_basket').length>0){
+            if ($(this).closest('.modal_box_basket').length > 0) {
 
                 var formData = new FormData();
                 formData.append(csrfName, csrfToken);
                 formData.append('prod_id', $(this).siblings(".counter-qt").data('prod_id'));
-                formData.append('amount', inp_value-1);
+                formData.append('amount', inp_value - 1);
 
                 ajaxChangeInputInCart(formData);
             }
@@ -437,31 +437,33 @@ $(document).ready(function () {
         else {
             return true;
         }
-      }
-  function checkName(currInput){
-    var pattern=/^[a-zA-Z][a-zA-Z0-9-_\.]{1,20}$/;
-    if(!pattern.exec($(currInput).val())){
-      return false;
     }
-    else{
-      return true;
+
+    function checkName(currInput) {
+        var pattern = /^[a-zA-Z][a-zA-Z0-9-_\.]{1,20}$/;
+        if (!pattern.exec($(currInput).val())) {
+            return false;
+        }
+        else {
+            return true;
+        }
     }
-  }
-  function checkPhone (currInput) {
-    var pattern = /(\(?\d{3}\)?[\- ]?)?[\d\- ]{4,10}$/;
-    if(!pattern.exec(currInput.val())){
-      return false;
+
+    function checkPhone(currInput) {
+        var pattern = /(\(?\d{3}\)?[\- ]?)?[\d\- ]{4,10}$/;
+        if (!pattern.exec(currInput.val())) {
+            return false;
+        }
+        else {
+            return true;
+        }
     }
-    else{
-      return true;
-    }
-  }
 
     if ($('.mm_ajax_more_news').length > 0) {
         $('.mm_ajax_more_news').click(function (e) {
             e.preventDefault();
             var elem = $(this),
-            formData=new FormData();
+                formData = new FormData();
 
             formData.append(csrfName, csrfToken);
             formData.append('page', elem.data('page'));
@@ -504,7 +506,16 @@ $(document).ready(function () {
             phone = currentForm.find('input[name="phone"]'),
             email = currentForm.find('input[name="email"]'),
             message = currentForm.find('textarea[name="message"]'),
-            agreement = currentForm.find("input[name='agree']");
+            agreement = currentForm.find("input[name='agree']"),
+            captcha = currentForm.find('input[name="captcha"]');
+
+        //check for bots, if they filled hidden input captcha, they are bots
+        if (captcha.length) {
+            if ('' !== captcha.val()) {
+                errors = true;
+            }
+        }
+
         if (agreement.length) {
             if (agreement.prop('checked') == false) {
                 $("#agree").parent().addClass("invalid");
@@ -747,7 +758,7 @@ $(window).on('load resize', function () {
     var widthXs = 760;
 
     if (newWidth > 1200) {
-      $(".breadcrumbs_box").appendTo(".breadcrumbs_bl");
+        $(".breadcrumbs_box").appendTo(".breadcrumbs_bl");
     }
 
     if (newWidth != oldWidth) {
@@ -779,59 +790,59 @@ $(window).on('load resize', function () {
 
 });
 
-  function initialize_slider(activate) {
+function initialize_slider(activate) {
 
-    if($(".inner_offers").length){
-      if($(window).innerWidth() < 620){
+    if ($(".inner_offers").length) {
+        if ($(window).innerWidth() < 620) {
 
-        if(!$(".inner_offers").hasClass("slider-active")||activate===true) {
-          var el =  $(".inner_offers table tbody tr").filter( ':first' );
-          el.addClass("active");
+            if (!$(".inner_offers").hasClass("slider-active") || activate === true) {
+                var el = $(".inner_offers table tbody tr").filter(':first');
+                el.addClass("active");
+            }
+
+            $(".inner_offers").addClass("slider-active");
         }
-
-        $(".inner_offers").addClass("slider-active");
-      }
     }
 
-  }
+}
 
-  $(document).ready(function() {
+$(document).ready(function () {
 
-    $(window).on("load resize", function() {
+    $(window).on("load resize", function () {
 
-      initialize_slider(false);
+        initialize_slider(false);
 
     });
 
-  if($(".inner_offers").length){
+    if ($(".inner_offers").length) {
 
-        $('.inner_offers_prev').on('click', function(){
-           var i = $( ".inner_offers table tbody tr" ).index( $( ".inner_offers table tbody tr.active" ) );
+        $('.inner_offers_prev').on('click', function () {
+            var i = $(".inner_offers table tbody tr").index($(".inner_offers table tbody tr.active"));
             var carousel_item = $('.inner_offers').find('table tbody tr');
-          $(carousel_item[i]).removeClass('active');
-          i--;
-          if(i < 0){
-            i = carousel_item.length - 1;
-          }
-          $(carousel_item[i]).addClass('active');
+            $(carousel_item[i]).removeClass('active');
+            i--;
+            if (i < 0) {
+                i = carousel_item.length - 1;
+            }
+            $(carousel_item[i]).addClass('active');
         });
 
-        $('.inner_offers_next').on('click', function(){
-           var i = $( ".inner_offers table tbody tr" ).index( $( ".inner_offers table tbody tr.active" ) );
-          var carousel_item = $('.inner_offers').find('table tbody tr');
-          $(carousel_item[i]).removeClass('active');
-          i++;
-          if(i >= carousel_item.length){
-            i = 0;
-          }
-          $(carousel_item[i]).addClass('active');
+        $('.inner_offers_next').on('click', function () {
+            var i = $(".inner_offers table tbody tr").index($(".inner_offers table tbody tr.active"));
+            var carousel_item = $('.inner_offers').find('table tbody tr');
+            $(carousel_item[i]).removeClass('active');
+            i++;
+            if (i >= carousel_item.length) {
+                i = 0;
+            }
+            $(carousel_item[i]).addClass('active');
         });
-      }
-    
-  });
+    }
 
-  if($('.inner_offers').length>0){
-    $(document).on('pjax:success', function() {
-    initialize_slider(true);
+});
+
+if ($('.inner_offers').length > 0) {
+    $(document).on('pjax:success', function () {
+        initialize_slider(true);
     });
-  }
+}
