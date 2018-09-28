@@ -32,6 +32,22 @@ input[type='number'] {
     -moz-appearance: textfield;
 }
 
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    margin: 0; 
+}
+
+select::-ms-expand {
+    display: none;
+}
+
+html, body {
+  overflow-x: hidden;
+}
+
 article, aside, audio, canvas, command, datalist, details, embed, figcaption, figure, footer, header, hgroup, keygen, meter, nav, output, progress, section, source, video {
   display: block;
 }
@@ -7360,6 +7376,93 @@ html, body, #map {
   margin-top: 20px;
 }
 
+@media (max-width: 500px) {
+
+.news_bl .news_flex .main_news_item {
+  margin: 0 auto;
+}
+
+}
+
+@media (min-width: 991px) and (max-width: 1200px) {
+
+.news_bl .news_flex {
+  justify-content: flex-start;
+}
+.news_bl .news_flex .main_news_item {
+  /*width: 31%;*/
+  margin: 0 16px;
+}
+
+}
+
+.inner_description_app h3{
+    margin-left: 435px;
+    font-size: 26.67px;
+    line-height: 1.2;
+    font-weight: 700;
+    font-family: "Exo 2", sans-serif;
+    margin-bottom: 26px;
+    color: #006cad;
+}
+
+@media only screen and (max-width: 1200px) {
+  .inner_description_app h3{
+      margin-left: 0;
+  }
+}
+
+.delivery_partners_mes pre {
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flex;
+  display: -o-flex;
+  display: flex;
+  justify-content: space-between;
+  -ms-align-items: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.delivery_partners_mes pre img {
+  margin-bottom: 10px;
+}
+
+
+@media (max-width: 400px) {
+  .delivery_partners_mes pre {
+    max-width: 300px;
+    margin: auto;
+    justify-content: center;
+  }
+}
+
+.main_news_item figcaption {
+  height: 100px;
+}
+.main_news_item .news_content{
+  height: 96px;
+}
+
+
+
+.inner_feature_flex pre {
+  white-space: nowrap;
+}
+.inner_feature_flex pre img {
+  max-width: 32%;
+}
+
+
+@media (max-width: 991px) {
+
+.inner_feature_flex pre {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+}
+
 
 
 .delivery_partners_mes pre {
@@ -7375,7 +7478,46 @@ html, body, #map {
 
 
 
+@media (max-width: 570px) {
+
+.delivery_partners_mes pre img {
+    max-width: 22%;
+}
+
+}
+
+
+.product_advantages ul {
+  list-style: none;
+}
+.product_advantages ul li {
+    position: relative;
+    margin-bottom: 10px;
+    font-size: 16px;
+    padding-left: 30px;
+    background: url(../images/icons/logo.svg) 0 0 no-repeat;
+    background-size: 32px;
+}
+
+.product_advantages h3 {
+    font-size: 22.67px;
+    line-height: 1.2;
+    font-weight: 400;
+    font-family: "Exo 2", sans-serif;
+    margin: 0;
+    padding: 0;
+    color: #006cad;
+    margin-bottom: 10px;
+}
+
 @media (max-width: 1200px) {
 
-  
+  .product_assets .add_to_cart_form {
+    display: -webkit-flex;
+    display: -moz-flex;
+    display: -ms-flex;
+    display: -o-flex;
+    display: flex;
+  }
+
 }

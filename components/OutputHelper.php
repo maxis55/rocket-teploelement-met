@@ -91,7 +91,7 @@ class OutputHelper extends Component
             . date('m.y', strtotime($element['date'])) . '
                                         </time>
                                         <a href="' . Url::toRoute(['site/news-page', 'slug' => $element['slug']]) . '" class="news_name">';
-        $result .= (strlen($element['name']) > 100) ? mb_substr($element['name'], 0, 100) . '...' : $element['name'];
+        $result .= (strlen($element['name']) > 70) ? mb_substr($element['name'], 0, 70) . '...' : $element['name'];
         $result .= '</a>
                                     </figcaption>
                                     <span class="news_content">
