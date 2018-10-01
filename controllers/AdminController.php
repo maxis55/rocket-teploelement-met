@@ -211,7 +211,7 @@ class AdminController extends Controller
     {
         $this->findCategoryModel($id)->delete();
 
-        return $this->redirect(['categories/index']);
+        return $this->redirect(['admin/categories/']);
     }
 
     /**

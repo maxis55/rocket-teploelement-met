@@ -55,7 +55,7 @@ class m180904_152125_create_category extends Migration
             'parent',
             'category',
             'id',
-            'SET NULL'
+            'DELETE'
         );
 
         $this->createIndex(
