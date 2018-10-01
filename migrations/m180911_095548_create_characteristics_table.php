@@ -15,7 +15,7 @@ class m180911_095548_create_characteristics_table extends Migration
         $this->createTable('characteristics', [
             'id' => $this->primaryKey(),
             'title' => $this->string(50)->unique(),
-        ]);
+        ], 'ENGINE InnoDB');
     }
 
     /**

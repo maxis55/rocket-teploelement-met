@@ -20,7 +20,7 @@ class m180919_082544_create_messages_table extends Migration
             'type' => $this->string(20),
             'content' => $this->text()->defaultValue(null),
             'file'=>$this->string(255)->defaultValue(null)
-        ]);
+        ], 'ENGINE InnoDB');
     }
 
     /**

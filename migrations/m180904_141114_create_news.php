@@ -41,7 +41,7 @@ class m180904_141114_create_news extends Migration
             'slug' => $this->string(20)->notNull()->unique(),
             'media_id' => $this->integer(),
             'media_content' => $this->integer(),
-        ]);
+        ], 'ENGINE InnoDB');
         $this->createIndex(
             'idx-news-slug',
             'news',

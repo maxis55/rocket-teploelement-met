@@ -17,7 +17,7 @@ class m180914_143515_create_orders_table extends Migration
             'date' => $this->timestamp()->notNull()->defaultExpression('CURRENT_TIMESTAMP'),
             'products_information' => $this->text(),
             'customer_information' => $this->text(),
-        ]);
+        ], 'ENGINE InnoDB');
     }
 
     /**

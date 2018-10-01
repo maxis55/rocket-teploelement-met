@@ -19,7 +19,7 @@ class m180911_110238_create_category_characteristics_table extends Migration
         $this->createTable('category_characteristics', [
             'category_id' => $this->integer()->notNull(),
             'characteristics_id' => $this->integer()->notNull(),
-        ]);
+        ], 'ENGINE InnoDB');
 
         // creates index for column `category_id`
         $this->createIndex(

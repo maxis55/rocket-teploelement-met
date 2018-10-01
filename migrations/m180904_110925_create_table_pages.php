@@ -38,7 +38,7 @@ class m180904_110925_create_table_pages extends Migration
                 'description' => $this->string(100),
                 'keywords' => $this->string(50),
                 'slug' => $this->string(50)->unique()->notNull()
-            ]);
+            ], 'ENGINE InnoDB');
         }
         return true;
 

@@ -38,7 +38,7 @@ class m180904_113600_create_table_pagesmeta extends Migration
                 'title' => $this->string(80),
                 'type' => $this->string(20),
                 'value' => $this->text(),
-            ]);
+            ], 'ENGINE InnoDB');
         }
         return true;
 

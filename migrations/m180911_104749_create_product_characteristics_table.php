@@ -20,7 +20,7 @@ class m180911_104749_create_product_characteristics_table extends Migration
             'product_id' => $this->integer()->notNull(),
             'characteristics_id' => $this->integer()->notNull(),
             'value'=>$this->string(60)->notNull()
-        ]);
+        ], 'ENGINE InnoDB');
 
         // creates index for column `product_id`
         $this->createIndex(

@@ -37,7 +37,7 @@ class m180904_152125_create_category extends Migration
             'shortdesc' => $this->string(255)->notNull(),
             'content' => $this->text()->notNull(),
             'media_id' => $this->integer(),
-        ]);
+        ], 'ENGINE InnoDB');
         $this->createIndex(
             'idx-category-slug',
             'category',
@@ -55,7 +55,7 @@ class m180904_152125_create_category extends Migration
             'parent',
             'category',
             'id',
-            'DELETE'
+            'CASCADE'
         );
 
         $this->createIndex(

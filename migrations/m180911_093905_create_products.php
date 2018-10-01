@@ -38,7 +38,7 @@ class m180911_093905_create_products extends Migration
             'steel_type' => $this->text(),
             'category_id' => $this->integer(),
             'media_id' => $this->integer(),
-        ]);
+        ], 'ENGINE InnoDB');
 
         $this->createIndex(
             'idx-products-slug',

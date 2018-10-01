@@ -34,7 +34,7 @@ class m180620_071135_create_table_media extends Migration
             'title' => $this->string(60),
             'alt' => $this->string(125),
             'type' => $this->string(20),
-        ]);
+        ], 'ENGINE InnoDB');
 
         echo "Table 'media' created\n";
 

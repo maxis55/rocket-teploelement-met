@@ -37,7 +37,7 @@ class m180819_070308_create_settings extends Migration
                 'value' => $this->text()->notNull(),
                 'type'=>$this->string(20)->notNull(),
                 'title'=>$this->string(255)->notNull(),
-            ]);
+            ], 'ENGINE InnoDB');
         }
 
         return true;
