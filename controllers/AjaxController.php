@@ -124,8 +124,11 @@ class AjaxController extends Controller
                 $order=new Orders();
                 $order->products_information=json_encode($cart_content);
                 $order->customer_information=json_encode($customer_info);
-                $order->save();
-                return 'success';
+                if($order->save()){
+	                $order->sendMail();
+	                return 'success';
+                }
+
             }
 
             return 'error';
@@ -156,6 +159,7 @@ class AjaxController extends Controller
                 }
 
                 if ($model->save()) {
+                	$model->sendMail();
                     return ['success'];
 
                 }

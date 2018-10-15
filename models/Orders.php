@@ -46,4 +46,16 @@ class Orders extends \yii\db\ActiveRecord
 
         ];
     }
+
+
+    public function sendMail(){
+    	$admin_email=Settings::findOne(['key'=>'admin_email']);
+    	$customerInfo=json_decode($this->customer_information,true);
+	    \Yii::$app->mailer->compose()
+	                    ->setFrom([\Yii::$app->params['adminEmail'] => 'Teploelement'])
+	                    ->setTo($admin_email->value )
+		                ->setTextBody('Новый заказ от '.$customerInfo['name'].' '.$customerInfo['email'])
+	                    ->setSubject('Новый заказ' )
+	                    ->send();
+    }
 }

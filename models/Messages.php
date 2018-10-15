@@ -56,6 +56,28 @@ class Messages extends \yii\db\ActiveRecord
     }
 
 
+
+	public function sendMail(){
+		$admin_email=Settings::findOne(['key'=>'admin_email']);
+		if($this->type=='phone_request'){
+			\Yii::$app->mailer->compose()
+			                ->setFrom([\Yii::$app->params['adminEmail'] => 'Teploelement'])
+			                ->setTo($admin_email->value)
+			                ->setTextBody('Новый запрос звонка от '.$this->name.' по телефону '.$this->phone)
+			                ->setSubject('Новый запрос звонка' )
+			                ->send();
+		}else{
+			\Yii::$app->mailer->compose()
+			                ->setFrom([\Yii::$app->params['adminEmail'] => 'Teploelement'])
+			                ->setTo($admin_email->value)
+			                ->setTextBody('Новое сообщение:"'.$this->content.'" от '.$this->name.' по телефону '.$this->phone)
+			                ->setSubject('Новое сообщение' )
+			                ->send();
+		}
+
+	}
+
+
     public static function getFilePathStatic($name)
     {
         $defaultPath = Yii::getAlias('@web' . '/user_uploads/' . $name);

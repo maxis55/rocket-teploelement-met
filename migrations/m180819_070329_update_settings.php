@@ -212,6 +212,14 @@ class m180819_070329_update_settings extends Migration
             'type' => 'input'
         ]);
 
+	    $this->insert('settings', [
+		    'id' => ++$i,
+		    'key' => 'admin_email',
+		    'value' => "rocketnottester@gmail.com",
+		    'type' => "input_email",
+		    'title' => "Email Администратора для уведомлений",
+	    ]);
+
         return true;
     }
 
