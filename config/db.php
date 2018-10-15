@@ -2,9 +2,9 @@
 
 return [
     'class' => 'yii\db\Connection',
-    'dsn' => 'mysql:host=rocket01.mysql.tools;dbname=rocket01_teploel',
-    'username' => 'rocket01_teploel',
-    'password' => 'b8jdbet3',
+    'dsn' => 'mysql:host=localhost;dbname=teploel',
+    'username' => 'root',
+    'password' => '123456',
     'charset' => 'utf8',
 
     // Schema cache options (for production environment)
